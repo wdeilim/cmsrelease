@@ -23,7 +23,7 @@
         .topmenu div{display:none;border:1px solid #09c;border-top:3px solid #09c;background-color:#fff;position:absolute;top:36px;left:0;z-index:9999}
         .topmenu div a{float:none;margin:0}
         .topmenu div a.active,.topmenu div a:hover{-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
-        .tabmenu{display:none}
+        .tabmenu{display:none;min-height:308px;}
         select.form-control{width:465px;padding:8px 5px}
         thead th{background-color:#DDD;padding:10px}
         table.table-setting tbody tr td:first-child{vertical-align:top;padding-top:22px}
@@ -299,6 +299,12 @@
                                             <td style="color:#ff0000">* 需要的时候可以暂时关闭，不建议长期关闭SQL防注入功能！</td>
                                         </tr>
                                         <tr>
+                                            <td class="al-right"><span>验证管理员密码</span></td>
+                                            <td>
+                                                <input class="form-control" type="text" name="OFF_SQL_PASS" placeholder="请输入管理员密码确认">
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <td></td>
                                             <td>
                                                 <input class="button button-primary button-rounded" type="submit" value="保存本页">
@@ -553,7 +559,11 @@
                     if (data != null && data.success != null && data.success) {
                         $.showModal('保存成功。', '{#get_link('index')#}&index='+$("#topmenu").find("a.active").attr("data-index"));
                     } else {
-                        $.showModal('保存失败。');
+                        if (data != null && data.message != null && data.message) {
+                            $.showModal(data.message);
+                        }else{
+                            $.showModal('保存失败。');
+                        }
                     }
                 },
                 error : function () {

@@ -18,7 +18,7 @@ class ES_Library extends CI_Model {
         $func = $this->user->functions();
 
         $page = value($parent, 1, 'int');
-        $keyval = $this->input->get('keyval');
+        $keyval = db_escape_str($this->input->get('keyval'));
         $pageurl = urlencode($this->base->url[2]);
         $wheresql = " `alid`=".$func['al']['id'];
         //搜索
@@ -366,7 +366,7 @@ class ES_Library extends CI_Model {
 		//
 		$id = $this->input->get('id');
 		$page = $this->input->get('page');
-		$keyval = $this->input->get('keyval');
+		$keyval = db_escape_str($this->input->get('keyval'));
 		$pageurl = urlencode($this->base->url[2]);
 		$wheresql = " `alid`=".$func['al']['id'];
 		//搜索

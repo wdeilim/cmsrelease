@@ -2,7 +2,6 @@
 function smarty_function_ddb_pc($params, &$smarty)
 {
     $CI =& get_instance();
-    $db = $CI->ddb;
     $params['set'] = str_replace("\,", "\u002c", $params['set']);
     $arr=explode(',',$params['set']);
     foreach($arr as $str)
@@ -57,18 +56,18 @@ function smarty_function_ddb_pc($params, &$smarty)
         }
     }
     if (isset($aset) && is_array($aset)) $aset=array_map("get_smarty_request",$aset);
-    $aset['listname']=isset($aset['listname'])?$aset['listname']:"list";
-    $aset['row']=isset($aset['row'])?intval($aset['row']):10;
-    $aset['start']=isset($aset['start'])?intval($aset['start']):0;
-    $aset['titlelen']=isset($aset['titlelen'])?intval($aset['titlelen']):15;
-    $aset['pagename']=isset($aset['pagename'])?$aset['pagename']:'page';
-    $aset['page_url']=isset($aset['page_url'])?$aset['page_url']:'(?)';
-    $aset['page_html']=isset($aset['page_html'])?$aset['page_html']:'html';
-    $aset['page_now']=isset($aset['page_now'])?$aset['page_now']:1;
-    $aset['listid']=isset($aset['listid'])?$aset['listid']:"id";
-    $aset['listname_id']=isset($aset['listname_id'])?$aset['listname_id']:"";
-    $aset['order']=isset($aset['order'])?$aset['order']:"";
-    $params['where']=isset($params['where'])?$params['where']:"";
+    $aset['listname']       = isset($aset['listname'])?$aset['listname']:"list";
+    $aset['row']            = isset($aset['row'])?intval($aset['row']):10;
+    $aset['start']          = isset($aset['start'])?intval($aset['start']):0;
+    $aset['titlelen']       = isset($aset['titlelen'])?intval($aset['titlelen']):15;
+    $aset['pagename']       = isset($aset['pagename'])?$aset['pagename']:'page';
+    $aset['page_url']       = isset($aset['page_url'])?$aset['page_url']:'(?)';
+    $aset['page_html']      = isset($aset['page_html'])?$aset['page_html']:'html';
+    $aset['page_now']       = isset($aset['page_now'])?$aset['page_now']:1;
+    $aset['listid']         = isset($aset['listid'])?$aset['listid']:"id";
+    $aset['listname_id']    = isset($aset['listname_id'])?$aset['listname_id']:"";
+    $aset['order']          = isset($aset['order'])?$aset['order']:"";
+    $params['where']        = isset($params['where'])?$params['where']:"";
     $tablefun = isset($aset['usertable'])?'tableal':'table';
     //
     if ($aset['page_now'] < 1) $aset['page_now'] = 1;
@@ -76,6 +75,10 @@ function smarty_function_ddb_pc($params, &$smarty)
     $orderbysql = $aset['order']?' ORDER BY '.str_replace(">", ",", $aset['order']):'';
     $wheresql = "";
     if ($params['where']) {
+        preg_match_all('/LIKE\s*[\'|\"]%+([^>]*?)%[\'|\"]/is', $params['where'], $matchew);
+        foreach($matchew[1] AS $key=>$item) {
+            $params['where'] = str_replace($matchew[0][$key], "LIKE '%".db_escape_str($item)."%'", $params['where']);
+        }
         $wheresql.= " AND ".$params['where'];
     }
     if (!empty($wheresql)) {
@@ -83,8 +86,8 @@ function smarty_function_ddb_pc($params, &$smarty)
     }
     if (isset($aset['paged']))
     {
-        $total_sql="SELECT COUNT(*) AS num FROM ".$tablefun($aset['tabledb']).$wheresql;
-        $total_count=$db->get_total($total_sql);
+        $total_sql = "SELECT COUNT(*) AS num FROM ".$tablefun($aset['tabledb']).$wheresql;
+        $total_count = db_total($total_sql);
         $page_now = ceil($total_count / $aset['row']);
         $aset['page_now'] = ($aset['page_now']>$page_now)?$page_now:$aset['page_now'];
         $params = array(
@@ -104,9 +107,9 @@ function smarty_function_ddb_pc($params, &$smarty)
     $limit = ($aset['row'] == -1)?"":" LIMIT ".abs($aset['start']).','.$aset['row'];
     if (!empty($aset['fieldname'])){
         $aset['fieldname'] = str_replace("|", ",", $aset['fieldname']);
-        $result = $db->query("SELECT {$aset['fieldname']} FROM ".$tablefun($aset['tabledb'])." ".$wheresql.$orderbysql.$limit);
+        $result = db_query("SELECT {$aset['fieldname']} FROM ".$tablefun($aset['tabledb'])." ".$wheresql.$orderbysql.$limit);
     }else{
-        $result = $db->query("SELECT * FROM ".$tablefun($aset['tabledb'])." ".$wheresql.$orderbysql.$limit);
+        $result = db_query("SELECT * FROM ".$tablefun($aset['tabledb'])." ".$wheresql.$orderbysql.$limit);
     }
     $list= array();
     $__n= 1;$_timearrid = '';

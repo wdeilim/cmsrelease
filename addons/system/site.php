@@ -287,7 +287,7 @@ class ES_System extends CI_Model {
 		$pageurl = urlencode($this->base->url[2]);
 		//
 		$wheresql = ($user['admin'])?"1":"`userid`=".$user['userid'];
-		$key = value($_GPC, 'key');
+		$key = db_escape_str(value($_GPC, 'key'));
 		if ($key){
 			$wheresql.= " AND (`al_name` LIKE '%".$key."%' OR `wx_name` LIKE '%".$key."%')";
 		}
@@ -576,6 +576,7 @@ class ES_System extends CI_Model {
 	 */
 	public function S_settings()
 	{
+		global $_A;
         $this->load->helper('tpl');
         $setting = db_getone("SELECT * FROM ".table('setting'), array('title'=>'setting'));
         if (empty($setting)) {
@@ -651,6 +652,16 @@ class ES_System extends CI_Model {
 				$arr['success'] = 1;
 				echo json_encode($arr); exit();
 			}elseif ($fost['_type'] == '_sqlset') {
+				if (empty($fost['OFF_SQL_PASS'])) {
+					$arr['success'] = 0;
+					$arr['message'] = "请输入管理员密码！";
+					echo json_encode($arr); exit();
+				}
+				if (md52($fost['OFF_SQL_PASS'], $_A['u']['encrypt']) != $_A['u']['userpass']){
+					$arr['success'] = 0;
+					$arr['message'] = "管理员密码错误！";
+					echo json_encode($arr); exit();
+				}
 				$text = "";
 				$text.= "define('OFF_SQL_TEMP', '".intval($fost['OFF_SQL_TEMP'])."');\r\n";
 				$this->writesetting($text, 'sqlset');
@@ -1004,28 +1015,28 @@ class ES_System extends CI_Model {
 		$pageurl = urlencode($this->base->url[4]);
 		//
 		$wheresql = "";
-		if ($this->input->get('t') == "month"){
+		if ($_GPC['t'] == "month"){
 			$wheresql.= "`indate`>=".mktime(0,0,0,date('m'),1,date('Y'))." AND ";
 		}else{
-            if ($this->input->get('companyname')){
-                $wheresql.= "`companyname` LIKE '%".$this->input->get('companyname')."%' AND ";
+            if ($_GPC['companyname']){
+                $wheresql.= "`companyname` LIKE '%".db_escape_str($_GPC['companyname'])."%' AND ";
             }
-            if ($this->input->get('username')){
-                $wheresql.= "`username` LIKE '%".$this->input->get('username')."%' AND ";
+            if ($_GPC['username']){
+                $wheresql.= "`username` LIKE '%".db_escape_str($_GPC['username'])."%' AND ";
             }
-			if ($this->input->get('phone')){
-				$wheresql.= "`phone` LIKE '%".$this->input->get('phone')."%' AND ";
+			if ($_GPC['phone']){
+				$wheresql.= "`phone` LIKE '%".db_escape_str($_GPC['phone'])."%' AND ";
 			}
-			if ($this->input->get('tel')){
-				$wheresql.= "`tel` LIKE '%".$this->input->get('tel')."%' AND ";
+			if ($_GPC['tel']){
+				$wheresql.= "`tel` LIKE '%".db_escape_str($_GPC['tel'])."%' AND ";
 			}
-			if ($this->input->get('fullname')){
-				$wheresql.= "`fullname` LIKE '%".$this->input->get('fullname')."%' AND ";
+			if ($_GPC['fullname']){
+				$wheresql.= "`fullname` LIKE '%".db_escape_str($_GPC['fullname'])."%' AND ";
 			}
 		}
 		$orderby = " `indate` DESC ";
-		if ($this->input->get('openfunc')){
-			$orderby = " (CASE WHEN `userid`=".intval($this->input->get('openfunc'))." THEN 0 ELSE 1 END),`indate` DESC ";
+		if ($_GPC['openfunc']){
+			$orderby = " (CASE WHEN `userid`=".intval($_GPC['openfunc'])." THEN 0 ELSE 1 END),`indate` DESC ";
 		}
 		tpl('users', get_defined_vars());
 	}

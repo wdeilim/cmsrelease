@@ -21,18 +21,98 @@ class _Sys_Safe_Stop {
 	public function __construct()
 	{
 		static $safeinitrun;
-		if ($safeinitrun === true) { return true; }
-		$safeinitrun = true;
 		//
-		include('cache.sqlset.php');
-		if (defined('OFF_SQL_TEMP') && !OFF_SQL_TEMP)
-		{
-			$this->init();
+		if ($safeinitrun !== true) {
+			$safeinitrun = true;
+			include('cache.sqlset.php');
+			if (defined('OFF_SQL_TEMP') && !OFF_SQL_TEMP) {
+				$this->init();
+			}
 		}
-		return true;
 	}
 
-	private function scanpape()
+	static function stripslashes_(&$array = array())
+	{
+		if (!empty($array)) {
+			$array = _Sys_Safe_Stop::stripslashes_deep($array);
+		}
+	}
+
+	static function stripslashes_deep($value)
+	{
+		if (empty($value)) {
+			return $value;
+		} else {
+			if (!get_magic_quotes_gpc()) {
+				$value=is_array($value) ? array_map("_Sys_Safe_Stop::stripslashes_deep", $value) : stripslashes($value);
+			}
+			return $value;
+		}
+	}
+
+	static function addslashes_(&$array = array())
+	{
+		if (!empty($array)) {
+			$array = _Sys_Safe_Stop::addslashes_deep($array);
+		}
+	}
+
+	static function addslashes_deep($value)
+	{
+		if (empty($value)) {
+			return $value;
+		} else {
+			if (!get_magic_quotes_gpc()) {
+				$value=is_array($value) ? array_map("_Sys_Safe_Stop::addslashes_deep", $value) : _Sys_Safe_Stop::mystrip_tags(addslashes($value));
+			} else {
+				$value=is_array($value) ? array_map("_Sys_Safe_Stop::addslashes_deep", $value) : _Sys_Safe_Stop::mystrip_tags($value);
+			}
+			return $value;
+		}
+	}
+
+	static function remove_xss($string) {
+		$string = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]+/S', '', $string);
+
+		$parm1 = Array('javascript', 'union','vbscript', 'expression', 'applet', 'xml', 'blink', 'link', 'script', 'embed', 'object', 'iframe', 'frame', 'frameset', 'ilayer', 'layer', 'bgsound', 'base');
+
+		$parm2 = Array('onabort', 'onactivate', 'onafterprint', 'onafterupdate', 'onbeforeactivate', 'onbeforecopy', 'onbeforecut', 'onbeforedeactivate', 'onbeforeeditfocus', 'onbeforepaste', 'onbeforeprint', 'onbeforeunload', 'onbeforeupdate', 'onblur', 'onbounce', 'oncellchange', 'onchange', 'onclick', 'oncontextmenu', 'oncontrolselect', 'oncopy', 'oncut', 'ondataavailable', 'ondatasetchanged', 'ondatasetcomplete', 'ondblclick', 'ondeactivate', 'ondrag', 'ondragend', 'ondragenter', 'ondragleave', 'ondragover', 'ondragstart', 'ondrop', 'onerror', 'onerrorupdate', 'onfilterchange', 'onfinish', 'onfocus', 'onfocusin', 'onfocusout', 'onhelp', 'onkeydown', 'onkeypress', 'onkeyup', 'onlayoutcomplete', 'onload', 'onlosecapture', 'onmousedown', 'onmouseenter', 'onmouseleave', 'onmousemove', 'onmouseout', 'onmouseover', 'onmouseup', 'onmousewheel', 'onmove', 'onmoveend', 'onmovestart', 'onpaste', 'onpropertychange', 'onreadystatechange', 'onreset', 'onresize', 'onresizeend', 'onresizestart', 'onrowenter', 'onrowexit', 'onrowsdelete', 'onrowsinserted', 'onscroll', 'onselect', 'onselectionchange', 'onselectstart', 'onstart', 'onstop', 'onsubmit', 'onunload','href','action','location','background','src','poster');
+
+		$parm3 = Array('alert','sleep','load_file','confirm','prompt','benchmark','select','update','insert','delete','alter','drop','truncate','script','eval','outfile','dumpfile');
+
+		$parm = array_merge($parm1, $parm2, $parm3);
+
+		for ($i = 0; $i < sizeof($parm); $i++) {
+			$pattern = '/';
+			for ($j = 0; $j < strlen($parm[$i]); $j++) {
+				if ($j > 0) {
+					$pattern .= '(';
+					$pattern .= '(&#[x|X]0([9][a][b]);?)?';
+					$pattern .= '|(&#0([9][10][13]);?)?';
+					$pattern .= ')?';
+				}
+				$pattern .= $parm[$i][$j];
+			}
+			$pattern .= '/i';
+			$string = preg_replace($pattern, '****', $string);
+		}
+		return $string;
+	}
+
+	static function mystrip_tags($string)
+	{
+		$string =  _Sys_Safe_Stop::new_html_special_chars($string);
+		$string =  _Sys_Safe_Stop::remove_xss($string);
+		return $string;
+	}
+
+	static function new_html_special_chars($string)
+	{
+		$string = str_replace(array('&amp;', '&quot;', '&lt;', '&gt;'), array('&', '"', '<', '>'), $string);
+		return $string;
+	}
+
+	static function scanpape()
 	{
 		global $__proself;
 		$base_url = isset($_SERVER['SERVER_PORT'])&&$_SERVER['SERVER_PORT']=='443'?'https://':'http://'.$_SERVER['HTTP_HOST'];
@@ -49,46 +129,101 @@ class _Sys_Safe_Stop {
 			<meta charset="utf-8" />
 			<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 			<style>
-			body, h1, h2, p,dl,dd,dt{margin: 0;padding: 0;font: 15px/1.5 微软雅黑,tahoma,arial;}
-			body{background:#efefef;}
-			h1, h2, h3, h4, h5, h6 {font-size: 100%;cursor:default;}
-			ul, ol {list-style: none outside none;}
-			a {text-decoration: none;color:#447BC4}
-			a:hover {text-decoration: underline;}
-			.ip-attack{max-width:560px; margin:200px auto 0;}
-			.ip-attack dl{ background:#fff; border-radius:10px;border: 1px solid #CDCDCD;-webkit-box-shadow: 0 0 8px #CDCDCD;-moz-box-shadow: 0 0 8px #cdcdcd;box-shadow: 0 0 8px #CDCDCD; margin: 30px; padding: 30px;}
-			.ip-attack dt{text-align:center;}
-			.ip-attack dt.tit{font-size:18px;margin:20px 0}
-			.ip-attack dt a.sys{padding-left:80px;}
-			.ip-attack dd{font-size:16px; color:#333; text-align:center;}
-			.tips{text-align:center; font-size:14px; line-height:50px; color:#999;}
+			body,dd,dl,dt,h1,h2,p{margin:0;padding:0;font:15px/1.5 微软雅黑,tahoma,arial}
+			body{background:#efefef}
+			h1,h2,h3,h4,h5,h6{font-size:100%;cursor:default}
+			ol,ul{list-style:none outside none}
+			a{text-decoration:none !important;;color:#447BC4 !important;}
+			a:hover{text-decoration:underline !important;}
+			.safe_stop_warn{position:fixed;width:100%;height:100%;top:0;left:0;background:#efefef;z-index:99999;}
+			.safe_stop_warn .ip-attack{max-width:560px;margin:200px auto 0}
+			.safe_stop_warn .ip-attack dl{background:#fff;border-radius:10px;border:1px solid #CDCDCD;-webkit-box-shadow:0 0 8px #CDCDCD;-moz-box-shadow:0 0 8px #cdcdcd;box-shadow:0 0 8px #CDCDCD;margin:30px;padding:30px}
+			.safe_stop_warn .ip-attack dt{text-align:center}
+			.safe_stop_warn .ip-attack dt.tit{font-size:18px;margin:20px 0}
+			.safe_stop_warn .ip-attack dt a.sys{padding-left:80px}
+			.safe_stop_warn .ip-attack dd{font-size:16px;color:#333;text-align:center}
 			</style>
 			</head>
-			<body>
-			<div class="ip-attack">
-				<dl>
-				 <dt class="tit">输入内容存在危险字符，安全起见，已被本站拦截</dt>
-				 <dt>
-					<a href="javascript:history.go(-1)">返回上一页</a>
-					<a href="'.$ipageurl.'web/system/settings/?index=safe" target="_blank" class="sys">我是管理员</a>
-				 </dt>
-				</dl>
-				</div>
-			   </body>
+				<body>
+					<div class="safe_stop_warn">
+						<div class="ip-attack">
+							<dl>
+							 <dt class="tit">输入内容存在危险字符，安全起见，已被本站拦截</dt>
+							 <dt>
+								<a href="javascript:history.go(-1)">返回上一页</a>
+								<a href="'.$ipageurl.'web/system/settings/?index=safe" target="_blank" class="sys">我是管理员</a>
+							 </dt>
+							</dl>
+						</div>
+					</div>
+			    </body>
 			</html>
 		';
 		return $webscanpape;
 	}
 
-	private function StopAttack($StrFiltKey,$StrFiltValue,$ArrFiltReq)
+	public function init()
+	{
+		foreach($_GET as $key=>$value){
+			$this->StopAttack($key, $value, $this->getfilter, "GET");
+		}
+		foreach($_POST as $key=>$value){
+			$this->StopAttack($key, $value, $this->postfilter, "POST");
+		}
+		foreach($_COOKIE as $key=>$value){
+			$this->StopAttack($key, $value, $this->cookiefilter, "COOKIE");
+		}
+		$referer = empty($_SERVER['HTTP_REFERER']) ? array() : array($_SERVER['HTTP_REFERER']);
+		foreach($referer as $key=>$value){
+			$this->StopAttack($key, $value, $this->getfilter, "REFERRER");
+		}
+	}
+
+	public function safe($StrValue)
+	{
+		if (defined('OFF_SQL_TEMP') && !OFF_SQL_TEMP)
+		{
+			if (is_array($StrValue)) {
+				foreach($StrValue AS $key=>$val) {
+					$this->safe($key);
+					$this->safe($val);
+				}
+			}else{
+				if (preg_match("/".$this->getfilter."/is", $StrValue) == 1){
+					echo _Sys_Safe_Stop::scanpape(); exit();
+				}
+				if (preg_match("/".$this->postfilter."/is", $StrValue) == 1){
+					echo _Sys_Safe_Stop::scanpape(); exit();
+				}
+			}
+		}
+	}
+
+	private function StopAttack($StrFiltKey,$StrFiltValue,$ArrFiltReq,$method)
 	{
 		$StrFiltValue = $this->arr_foreach($StrFiltValue);
 		if (preg_match("/".$ArrFiltReq."/is",$StrFiltValue) == 1){
-			echo $this->scanpape(); exit();
+			$this->webscan_slog($method, $StrFiltValue);
+			echo _Sys_Safe_Stop::scanpape(); exit();
 		}
 		if (preg_match("/".$ArrFiltReq."/is",$StrFiltKey) == 1){
-			echo $this->scanpape(); exit();
+			$this->webscan_slog($method, $StrFiltKey);
+			echo _Sys_Safe_Stop::scanpape(); exit();
 		}
+	}
+
+	private function webscan_slog($rdata, $method)
+	{
+		$log_file = dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'caches/log/safe_'.date('Ymd').'.php';
+		fputs(fopen($log_file,'a+'),"<?PHP exit();?>".$_SERVER["REMOTE_ADDR"]."||".date('Y-m-d H:i:s')."<br>".$this->webscan_url()."<br>".$rdata."<br>".$method."<br>===========<br>\r\n");
+	}
+
+	private function webscan_url() {
+		$sys_protocal = isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == '443' ? 'https://' : 'http://';
+		$php_self = $_SERVER['PHP_SELF'] ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME'];
+		$path_info = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '';
+		$relate_url = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : $php_self.(isset($_SERVER['QUERY_STRING']) ? '?'.$_SERVER['QUERY_STRING'] : $path_info);
+		return $sys_protocal.(isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '').$relate_url;
 	}
 
 	private function arr_foreach($arr)
@@ -107,43 +242,6 @@ class _Sys_Safe_Stop {
 			}
 		}
 		return implode($str);
-	}
-
-	public function init()
-	{
-		foreach($_GET as $key=>$value){
-			$this->StopAttack($key, $value, $this->getfilter);
-		}
-		foreach($_POST as $key=>$value){
-			$this->StopAttack($key, $value, $this->postfilter);
-		}
-		foreach($_COOKIE as $key=>$value){
-			$this->StopAttack($key, $value, $this->cookiefilter);
-		}
-		$referer = empty($_SERVER['HTTP_REFERER']) ? array() : array($_SERVER['HTTP_REFERER']);
-		foreach($referer as $key=>$value){
-			$this->StopAttack($key, $value, $this->getfilter);
-		}
-	}
-
-	public function safe($StrValue)
-	{
-		if (defined('OFF_SQL_TEMP') && !OFF_SQL_TEMP)
-		{
-			if (is_array($StrValue)) {
-				foreach($StrValue AS $key=>$val) {
-					$this->safe($key);
-					$this->safe($val);
-				}
-			}else{
-				if (preg_match("/".$this->getfilter."/is", $StrValue) == 1){
-					echo $this->scanpape(); exit();
-				}
-				if (preg_match("/".$this->postfilter."/is", $StrValue) == 1){
-					echo $this->scanpape(); exit();
-				}
-			}
-		}
 	}
 }
 new _Sys_Safe_Stop();

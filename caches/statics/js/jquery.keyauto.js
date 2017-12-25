@@ -25,6 +25,8 @@ $.fn.keyauto = function(trigger, classname) {
                 'padding': 0,
                 'margin': tthis.css("margin"),
                 'display': tthis.css("display"),
+                'overflow': 'hidden',
+                'vertical-align': 'middle',
                 '-webkit-box-sizing': 'content-box',
                 '-moz-box-sizing': 'content-box',
                 'box-sizing': 'content-box'

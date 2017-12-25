@@ -135,18 +135,24 @@ class ES_Processor_Vip extends CI_Model {
 
 		//签到
 		if ($M['msgtype'] == "text" || $M['msgtype'] == "click") {
-			$signreply = db_getone(table('vip_setting'), array('alid'=>$fans['alid'], 'title'=>'signkey'));
+			$signreply = db_getone(table('vip_setting'), array('title'=>'signkey_'.$fans['alid']));
 			if (!empty($signreply)) {
 				$signsetting = string2array($signreply['content']);
 				if (strexists(",".$signsetting['keys'].",", ",".$M['text'].",")) {
-					$oktis = $signsetting['oktis']?$signsetting['oktis']:'签到成功啦！你已获得#签到积分#积分。';
-					$notis = $signsetting['notis']?$signsetting['notis']:'您今天已经签到过了！明天再来吧！';
-					$signs = $this->sign();
-					if ($signs === false) {
-						$this->base->respText($notis, $apitype);
+					$get_appid = $_A['al']['setting']['other']['get_appid'];
+					$get_appoint = value($_A, 'al|setting|other|get_appoint', true);
+					if ($get_appid && (empty($get_appoint) || in_array('vip', $get_appoint))) {
+						$this->base->respText('<a href="'.appurl('vip/sign').'">点击这里签到！</a>', $apitype);
 					}else{
-						$oktis = str_replace("#签到积分#", $signs, $oktis);
-						$this->base->respText($oktis, $apitype);
+						$oktis = $signsetting['oktis']?$signsetting['oktis']:'签到成功啦！你已获得#签到积分#积分。';
+						$notis = $signsetting['notis']?$signsetting['notis']:'您今天已经签到过了！明天再来吧！';
+						$signs = $this->sign();
+						if ($signs === false) {
+							$this->base->respText($notis, $apitype);
+						}else{
+							$oktis = str_replace("#签到积分#", $signs, $oktis);
+							$this->base->respText($oktis, $apitype);
+						}
 					}
 				}
 			}

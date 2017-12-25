@@ -89,7 +89,7 @@
                     <table class="table table-primary" id="menu-table" style="margin: 20px 0;">
                         <thead>
                         <tr>
-                            <th colspan="3" align="left">积分关键词</th>
+                            <th colspan="3" align="left">签到关键词</th>
                         </tr>
                         </thead>
                         <tbody class="integral">

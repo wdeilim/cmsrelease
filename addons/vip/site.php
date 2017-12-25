@@ -412,22 +412,23 @@ class ES_Vip extends CI_Model {
         }
         $jfcl = $userdata['jfcl'];
 		//关键词签到部分
+        $signkeyname = 'signkey_'.$_A['al']['id'];
 		if ($_GPC['keys']) {
-			$signreply = db_getone(table('vip_setting'), array('alid'=>$_A['al']['id'], 'title'=>'signkey'));
+			$signreply = db_getone(table('vip_setting'), array('alid'=>$_A['al']['id'], 'title'=>$signkeyname));
 			if ($signreply) {
 				db_update(table('vip_setting'),
 					array('content'=>array2string(array('keys'=>$_GPC['keys'], 'oktis'=>$_GPC['oktis'], 'notis'=>$_GPC['notis']))),
-					array('alid'=>$_A['al']['id'], 'title'=>'signkey'));
+					array('alid'=>$_A['al']['id'], 'title'=>$signkeyname));
 			}else{
 				db_insert(table('vip_setting'),
 					array(
 						'alid'=>$_A['al']['id'],
-						'title'=>'signkey',
+						'title'=>$signkeyname,
 						'content'=>array2string(array('keys'=>$_GPC['keys'], 'oktis'=>$_GPC['oktis'], 'notis'=>$_GPC['notis']))
 					));
 			}
 		}else{
-			db_delete(table("vip_setting"), array('alid'=>$_A['al']['id'], 'title'=>'signkey'));
+			db_delete(table("vip_setting"), array('alid'=>$_A['al']['id'], 'title'=>$signkeyname));
 		}
         //
         $this->cs->show(get_defined_vars());
@@ -567,7 +568,7 @@ class ES_Vip extends CI_Model {
         $keyarr = array('fullname','card','sn','operator','contentid','contenttitle');
         foreach($keyarr as $itme){
             if ($this->input->get($itme)){
-                $keyn = $itme; $keyv = $this->input->get($itme);
+                $keyn = db_escape_str($itme); $keyv = db_escape_str($this->input->get($itme));
                 $wheresql.= ($keyn=='contentid')?" AND `{$keyn}` = '{$keyv}'":" AND `{$keyn}` LIKE '%{$keyv}%'";
             }
         }
@@ -575,7 +576,7 @@ class ES_Vip extends CI_Model {
             if ($this->input->post("type") == 'export'){
                 //导出
                 if ($this->input->post('y_id')){
-                    $y_id = $this->input->post("y_id");
+                    $y_id = db_escape_str($this->input->post("y_id"));
                     $wheresql.= " AND `id` IN (".implode(',',$y_id).")";
                     $row = $this->ddb->getall("SELECT * FROM ".table("vip_content_notes")." WHERE {$wheresql} ORDER BY `indate` DESC");
                 }elseif ($this->input->post('n1')){
@@ -790,7 +791,7 @@ class ES_Vip extends CI_Model {
         $keyarr = array('fullname','card','sn','operator','contentid','contenttitle');
         foreach($keyarr as $itme){
             if ($this->input->get($itme)){
-                $keyn = $itme; $keyv = $this->input->get($itme);
+                $keyn = db_escape_str($itme); $keyv = db_escape_str($this->input->get($itme));
                 $wheresql.= ($keyn=='contentid')?" AND `{$keyn}` = '{$keyv}'":" AND `{$keyn}` LIKE '%{$keyv}%'";
             }
         }
@@ -1020,7 +1021,7 @@ class ES_Vip extends CI_Model {
         $keyarr = array('fullname','card','sn','operator','contentid','contenttitle');
         foreach($keyarr as $itme){
             if ($this->input->get($itme)){
-                $keyn = $itme; $keyv = $this->input->get($itme);
+                $keyn = db_escape_str($itme); $keyv = db_escape_str($this->input->get($itme));
                 $wheresql.= ($keyn=='contentid')?" AND `{$keyn}` = '{$keyv}'":" AND `{$keyn}` LIKE '%{$keyv}%'";
             }
         }
@@ -1278,9 +1279,12 @@ class ES_Vip extends CI_Model {
         
         $pageurl = urlencode($this->base->url[3]);
 
-        $keyval = $this->input->get('keyval');
-        $keytype = $this->input->get('keytype');
-        $usertype = $this->input->get('usertype');
+        $keyval = db_escape_str($this->input->get('keyval'));
+        $keytype = db_escape_str($this->input->get('keytype'));
+        $usertype = db_escape_str($this->input->get('usertype'));
+        if (!in_array($keytype, array('fullname','card','phone','address','id'))) {
+            $keytype = 'fullname';
+        }
 
         //会员组
         $userlevel = array();
@@ -1304,10 +1308,10 @@ class ES_Vip extends CI_Model {
             if (isset($userlevel[$usertype])){
                 $templevel = $userlevel[$usertype];
                 if ($templevel['lev_a'] > 0){
-                    $wheresql.= " AND `pluspoint`>=".$templevel['lev_a'];
+                    $wheresql.= " AND `pluspoint`>=".intval($templevel['lev_a']);
                 }
                 if ($templevel['lev_b'] > 0){
-                    $wheresql.= " AND `pluspoint`<=".$templevel['lev_b'];
+                    $wheresql.= " AND `pluspoint`<=".intval($templevel['lev_b']);
                 }
             }
         }
@@ -1462,7 +1466,7 @@ class ES_Vip extends CI_Model {
         }elseif ($this->input->post("dosubmit") == "excel"){
             //导出会员
             if ($this->input->post('y_id')){
-                $y_id = $this->input->post("y_id");
+                $y_id = db_escape_str($this->input->post("y_id"));
                 $wheresql.= " AND `id` IN (".implode(',',$y_id).")";
                 $row = $this->ddb->getall("SELECT * FROM ".table("vip_users")." WHERE {$wheresql} ORDER BY `indate` DESC");
             }elseif ($this->input->post('n1')){
@@ -1566,7 +1570,7 @@ class ES_Vip extends CI_Model {
 		}elseif ($this->input->post("dosubmit") == "updatewx"){
 			//同步粉丝信息(微信)
 			if ($this->input->post('y_id')){
-				$y_id = $this->input->post("y_id");
+				$y_id = db_escape_str($this->input->post("y_id"));
 				$wheresql.= " AND `id` IN (".implode(',',$y_id).")";
 				$row = $this->ddb->getall("SELECT * FROM ".table("vip_users")." WHERE {$wheresql} ORDER BY `indate` DESC");
 			}else{
@@ -1590,7 +1594,7 @@ class ES_Vip extends CI_Model {
 		}elseif ($this->input->post("dosubmit") == "delete"){
 			//删除粉丝会员信息
 			if ($this->input->post('y_id')){
-				$y_id = $this->input->post("y_id");
+				$y_id = db_escape_str($this->input->post("y_id"));
 				$wheresql.= " AND `id` IN (".implode(',',$y_id).")";
 				$row = $this->ddb->getall("SELECT * FROM ".table("vip_users")." WHERE {$wheresql} ORDER BY `indate` DESC");
 			}else{
@@ -1776,8 +1780,8 @@ class ES_Vip extends CI_Model {
         global $_GPC;
         $page = intval($_GPC['param'][1]);
 
-        $card = $this->input->get('card');
-        $date = $this->input->get('date');
+        $card = db_escape_str($this->input->get('card'));
+        $date = db_escape_str($this->input->get('date'));
         if ($card <= 0) exit("No userid");
         if (empty($date)) $date = date("Y-m",time());
         $row = $this->ddb->getone("SELECT * FROM ".table('vip_users'), $this->merge(array('card'=>$card)));
@@ -1857,7 +1861,7 @@ class ES_Vip extends CI_Model {
                 }
                 //检测密码重复
                 $wheresql = " WHERE ".$this->merge(0);
-                $wheresql.= " AND `userpass`='".$_arr['userpass']."'";
+                $wheresql.= " AND `userpass`='".db_escape_str($_arr['userpass'])."'";
                 $wheresql.= ($id > 0)?' AND `id`!='.$id:'';
                 $row = $this->ddb->getone("SELECT * FROM ".table('vip_shop_users').$wheresql);
                 if (!empty($row)){

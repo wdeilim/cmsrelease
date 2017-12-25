@@ -52,3 +52,13 @@
 修复已知bug。
 ```
 
+## 2.0_20160312
+
+> Release Time: 2016-03-12
+>
+> Download Link: http://www.vwins.cn/index.php?act=download&id=58
+
+```
+【重要】修复系统漏洞
+```
+

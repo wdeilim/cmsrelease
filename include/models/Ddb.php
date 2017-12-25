@@ -6,13 +6,92 @@ class Ddb extends CI_Model {
 		$this->load->database();
 	}
 
-    function trans_start() {
-        $this->db->trans_start();
+    function query($sql, $wherearr = array()){
+        $sql.= $this->where_preg($wherearr);
+        $sql = $this->checksql($sql);
+        return $this->db->query($sql);
     }
 
-    function trans_complete() {
-        $this->db->trans_complete();
+    function query_simple($sql, $wherearr = array()){
+        $sql.= $this->where_preg($wherearr);
+        $sql = $this->checksql($sql);
+        return $this->db->simple_query($sql);
     }
+
+	function getone($sql, $wherearr = array(), $ordersql = ''){
+        if (!$this->leftexists($sql,'select', true)) {
+            $sql = "SELECT * FROM  ".$sql;
+        }
+        $sql.= $this->where_preg($wherearr);
+        if ($ordersql){
+            $sql.= " ORDER BY ".$ordersql;
+        }
+		$query = $this->query($sql);
+		return $query->row_array(0);
+	}
+
+	function getall($sql, $wherearr = array(), $ordersql = ''){
+        if (!$this->leftexists($sql,'select', true)) {
+            $sql = "SELECT * FROM  ".$sql;
+        }
+        $sql.= $this->where_preg($wherearr);
+        if ($ordersql){
+            $sql.= " ORDER BY ".$ordersql;
+        }
+		$query = $this->query($sql);
+		return $query->result_array();
+	}
+
+    function get_total($sql, $wherearr = array()){
+        $row = $this->getall($sql, $wherearr);
+        $v = 0;
+        if (!empty($row) && is_array($row)){
+            foreach($row as $n){
+                $v=$v+$n['num'];
+            }
+        }
+        return $v;
+    }
+
+    function get_count($sql, $wherearr = array()){
+        if (!$this->leftexists($sql,'select', true)) {
+            $sql = "SELECT count(*) AS num FROM  ".$sql;
+        }
+        return $this->get_total($sql, $wherearr);
+    }
+
+	function insert($table, $data = array(), $retid = false){
+		$_ret = $this->db->insert($table, $data);
+		if ($_ret && $retid){
+			$_ret = $this->db->insert_id();
+		}
+		return $_ret;
+	}
+
+	function replace($table, $data = array(), $retid = false){
+		$_ret = $this->db->replace($table, $data);
+		if ($_ret && $retid){
+			$_ret = $this->db->insert_id();
+		}
+		return $_ret;
+	}
+
+	function update($table, $data = array(), $where = array()){
+		$newdate = $this->data_preg($data);
+		if ($newdate) {
+			return $this->query("UPDATE `". $table."` SET ".implode(',', $newdate), $where);
+		}else{
+			return $this->db->update($table, $data, $where);
+		}
+	}
+
+	function delete($table, $where = array(), $glue = 'AND'){
+		if (strtolower($glue) == "or") {
+			return $this->db->delete($table, $this->db->or_where($where));
+		}else{
+			return $this->db->delete($table, $where);
+		}
+	}
 
     function run($sql, $stuff = 'es_', $simple = false) {
         if(!isset($sql) || empty($sql)) return;
@@ -46,71 +125,15 @@ class Ddb extends CI_Model {
         $this->run($sql, $stuff, true);
     }
 
-    function query($sql, $wherearr = array()){
-        $sql.= $this->where_preg($wherearr);
-        return $this->db->query($sql);
-    }
-
-    function query_simple($sql, $wherearr = array()){
-        $sql.= $this->where_preg($wherearr);
-        return $this->db->simple_query($sql);
-    }
-
-	function getone($sql, $wherearr = array(), $ordersql = ''){
-        if (!$this->leftexists($sql,'select', true)) {
-            $sql = "SELECT * FROM  ".$sql;
-        }
-        $sql.= $this->where_preg($wherearr);
-        if ($ordersql){
-            $sql.= " ORDER BY ".$ordersql;
-        }
-		$query = $this->db->query($sql);
-		return $query->row_array(0);
-	}
-
-	function getall($sql, $wherearr = array(), $ordersql = ''){
-        if (!$this->leftexists($sql,'select', true)) {
-            $sql = "SELECT * FROM  ".$sql;
-        }
-        $sql.= $this->where_preg($wherearr);
-        if ($ordersql){
-            $sql.= " ORDER BY ".$ordersql;
-        }
-		$query = $this->db->query($sql);
-		return $query->result_array();
-	}
-
-    function get_count($sql, $wherearr = array()){
-        if (!$this->leftexists($sql,'select', true)) {
-            $sql = "SELECT count(*) AS num FROM  ".$sql;
-        }
-        return $this->get_total($sql, $wherearr);
-    }
-
-    function get_total($sql, $wherearr = array()){
-        if (!$this->leftexists($sql,'select', true)) {
-            $sql = "SELECT * FROM  ".$sql;
-        }
-        $sql.= $this->where_preg($wherearr);
-        $row = $this->getall($sql);
-        $v=0;
-        if (!empty($row) && is_array($row)){
-            foreach($row as $n){
-                $v=$v+$n['num'];
-            }
-        }
-        return $v;
-    }
-
 	function fieldexists($tablename, $fieldname) {
-		$isexists = $this->db->query("DESCRIBE " . $tablename . " `{$fieldname}`");
+		$isexists = $this->query("DESCRIBE " . $tablename . " `{$fieldname}`");
 		$isexists = $isexists->row_array(0);
 		return !empty($isexists) ? true : false;
 	}
 
 	function indexexists($tablename, $indexname) {
 		if (!empty($indexname)) {
-			$indexs = $this->db->query("SHOW INDEX FROM " . $tablename);
+			$indexs = $this->query("SHOW INDEX FROM " . $tablename);
 			$indexs = $indexs->result_array();
 			if (!empty($indexs) && is_array($indexs)) {
 				foreach ($indexs as $row) {
@@ -125,7 +148,7 @@ class Ddb extends CI_Model {
 
 	function tableexists($table) {
 		if(!empty($table)) {
-			$data = $this->db->query("SHOW TABLES LIKE '".$table."'");
+			$data = $this->query("SHOW TABLES LIKE '".$table."'");
 			$data = $data->row_array(0);
 			if(!empty($data)) {
 				$data = array_values($data);
@@ -142,22 +165,6 @@ class Ddb extends CI_Model {
 			return false;
 		}
 	}
-
-    function escape($str) {
-        return $this->db->escape($str);
-    }
-
-    function escape_str($str) {
-        return $this->db->escape_str($str);
-    }
-
-    function escape_like_str($str) {
-        return $this->db->escape_like_str($str);
-    }
-
-    function escape_identifiers($str) {
-        return $this->db->escape_identifiers($str);
-    }
 
     /**
      * 获取分页列表
@@ -184,7 +191,7 @@ class Ddb extends CI_Model {
                 $where = " WHERE ".$where;
             }
         }
-        $total_sql="SELECT COUNT(*) AS num FROM ".$table." ".$where;
+        $total_sql = "SELECT COUNT(*) AS num FROM ".$table." ".$where;
 		$total_count = $this->get_total($total_sql);
 		$totalpage = $total_count / $row;
 		$totalpage = ($totalpage > intval($totalpage))?intval($totalpage+1):intval($totalpage);
@@ -199,7 +206,7 @@ class Ddb extends CI_Model {
 		$start = ($page-1)*$row;
 		$limit=" LIMIT ".abs($start).','.$row;
 		$sql="SELECT ".$field." FROM ".$table." ".$where." ".$order." ".$limit;
-		$query = $this->db->query($sql);
+		$query = $this->query($sql);
 		$list= array();
 		$__n= 1;
 		foreach ($query->result_array() as $rows){
@@ -211,30 +218,29 @@ class Ddb extends CI_Model {
 		return $pagearr;
 	}
 
-	function insert($table, $data = array(), $retid = false){
-		$_ret = $this->db->insert($table, $data);
-		if ($_ret && $retid){
-			$_ret = $this->db->insert_id();
-		}
-		return $_ret;
-	}
+    function trans_start() {
+        $this->db->trans_start();
+    }
 
-	function update($table, $data = array(), $where = array()){
-        $newdate = $this->data_preg($data);
-        if ($newdate) {
-            return $this->query("UPDATE `". $table."` SET ".implode(',', $newdate), $where);
-        }else{
-            return $this->db->update($table, $data, $where);
-        }
-	}
+    function trans_complete() {
+        $this->db->trans_complete();
+    }
 
-	function delete($table, $where = array(), $glue = 'AND'){
-		if (strtolower($glue) == "or") {
-			return $this->db->delete($table, $this->db->or_where($where));
-		}else{
-			return $this->db->delete($table, $where);
-		}
-	}
+    function escape($str) {
+        return $this->db->escape($str);
+    }
+
+    function escape_str($str) {
+        return $this->db->escape_str($str);
+    }
+
+    function escape_like_str($str) {
+        return $this->db->escape_like_str($str);
+    }
+
+    function escape_identifiers($str) {
+        return $this->db->escape_identifiers($str);
+    }
 
     private function leftexists($string, $find, $lower = false) {
         if ($lower) {
@@ -278,7 +284,7 @@ class Ddb extends CI_Model {
                         if ("i".$value == "i".intval($value)) {
                             $fields[] = $column . ' = ' . $value;
                         }else{
-                            $fields[] = $column . " = '" . $value . "'";
+                            $fields[] = $column . " = '" . $this->escape_str($value) . "'";
                         }
                         break;
                 }
@@ -313,7 +319,7 @@ class Ddb extends CI_Model {
                     }
                 }
                 if (!is_null($v) && $v !== intval($v)) {
-                    $v = "'".$v."'";
+                    $v = "'".$this->escape_str($v)."'";
                 }
                 $wheresql.= " AND ".$k.$v." ";
             }
@@ -325,6 +331,79 @@ class Ddb extends CI_Model {
             }
         }
         return $wheresql;
+    }
+
+    static function checksql($db_string, $querytype = 'select')
+    {
+        $db_string_bak = $db_string;
+        if (defined('OFF_SQL_TEMP') && !OFF_SQL_TEMP) {
+            $clean = '';
+            $error = '';
+            $old_pos = 0;
+            $pos = -1;
+            $log_file = BASE_PATH.'caches/log/sql_'.date('Ymd').'.php';
+            $userIP = ONLINE_IP;
+            $getUrl = get_url();
+            $time = date('Y-m-d H:i:s');
+            if ($querytype =='select'){
+                $notallow1 = "[^0-9a-z@\._-]{1,}(sleep|benchmark|load_file|outfile)[^0-9a-z@\.-]{1,}";
+                if(preg_match("/".$notallow1."/i", $db_string)){
+                    fputs(fopen($log_file,'a+'),"<?PHP exit();?>$userIP||$time<br>$getUrl<br>$db_string<br>SelectBreak<br>===========<br>\r\n");
+                    echo _Sys_Safe_Stop::scanpape(); exit();
+                }
+            }
+
+            while (TRUE){
+                $pos = strpos($db_string, '\'', $pos + 1);
+                if ($pos === FALSE){
+                    break;
+                }
+                $clean .= substr($db_string, $old_pos, $pos - $old_pos);
+                while (TRUE){
+                    $pos1 = strpos($db_string, '\'', $pos + 1);
+                    $pos2 = strpos($db_string, '\\', $pos + 1);
+                    if ($pos1 === FALSE){
+                        break;
+                    }elseif ($pos2 == FALSE || $pos2 > $pos1){
+                        $pos = $pos1;
+                        break;
+                    }
+                    $pos = $pos2 + 1;
+                }
+                $clean .= '$s$';
+                $old_pos = $pos + 1;
+            }
+            $clean .= substr($db_string, $old_pos);
+            $clean = trim(strtolower(preg_replace(array('~\s+~s' ), array(' '), $clean)));
+            if (strpos($clean, '@') !== FALSE  OR strpos($clean,'char(')!== FALSE OR strpos($clean,'"')!== FALSE
+                OR strpos($clean,'$s$$s$')!== FALSE){
+                $fail = TRUE;
+                if(preg_match("#^create table#i",$clean)) $fail = FALSE;
+                $error = "unusual character";
+            }elseif (strpos($clean, '/*') > 2 || strpos($clean, '--') !== FALSE || strpos($clean, '#') !== FALSE){
+                $fail = TRUE;
+                $error = "comment detect";
+            }elseif (strpos($clean, 'sleep') !== FALSE && preg_match('~(^|[^a-z])sleep($|[^[a-z])~is', $clean) != 0){
+                $fail = TRUE;
+                $error = "slown down detect";
+            }elseif (strpos($clean, 'benchmark') !== FALSE && preg_match('~(^|[^a-z])benchmark($|[^[a-z])~is', $clean) != 0){
+                $fail = TRUE;
+                $error = "slown down detect";
+            }elseif (strpos($clean, 'load_file') !== FALSE && preg_match('~(^|[^a-z])load_file($|[^[a-z])~is', $clean) != 0){
+                $fail = TRUE;
+                $error = "file fun detect";
+            }elseif (strpos($clean, 'into outfile') !== FALSE && preg_match('~(^|[^a-z])into\s+outfile($|[^[a-z])~is', $clean) != 0){
+                $fail = TRUE;
+                $error = "file fun detect";
+            }
+            if (!empty($fail)){
+                fputs(fopen($log_file,'a+'),"<?PHP exit();?>$userIP||$time<br>$getUrl<br>$db_string<br>$error<br>===========<br>\r\n");
+                echo _Sys_Safe_Stop::scanpape(); exit();
+            }else{
+                return $db_string_bak;
+            }
+        }
+        return $db_string_bak;
     }
 }
 ?>

@@ -20,8 +20,8 @@ class ES_Message extends CI_Model {
         $func = $this->user->functions();
 
         $page = value($parent, 1, 'int');
-        $keyval = $this->input->get('keyval');
-        $msgtype = $this->input->get('msgtype');
+        $keyval = db_escape_str($this->input->get('keyval'));
+        $msgtype = db_escape_str($this->input->get('msgtype'));
         $pageurl = urlencode($this->base->url[2]);
         $wheresql = " `alid`='".$func['al']['id']."'";
         $wheresqlstar = $wheresql." AND `star`=1";
@@ -48,7 +48,7 @@ class ES_Message extends CI_Model {
         $this->user->getuser();
         $func = $this->user->functions();
         $reconfirm = $this->input->get('reconfirm');
-        $msgtype = $this->input->get('msgtype');
+        $msgtype = db_escape_str($this->input->get('msgtype'));
         $mtitle = $this->input->get('mtitle');
         $wheresql = " `alid`='".$func['al']['id']."'";
         if ($msgtype && in_array($msgtype, array('text','click','view','image','voice','video'))){
@@ -230,7 +230,7 @@ class ES_Message extends CI_Model {
             if ($_GPC['m_name'] == 'other') {
                 $wheresql.= " AND `msgtype` IN ('location','link','scan','location_event','enter_agent','scancode_push','scancode_waitmsg')";
             }else{
-                $wheresql.= " AND `msgtype`='".$_GPC['m_name']."'";
+                $wheresql.= " AND `msgtype`='".db_escape_str($_GPC['m_name'])."'";
             }
             $wheresql.= " AND `indate`>".strtotime(date("Y-m-d 00:00:00", $start))." AND `indate`<".strtotime(date("Y-m-d 23:59:59", $end));
             $wheresql.= ' AND `tobe`='.intval($_GPC['m_tobe']);

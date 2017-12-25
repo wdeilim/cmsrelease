@@ -119,7 +119,7 @@ class CI_Controller extends my_models
  * @property CI_Driver_Library $driver            CodeIgniter Driver Library Class
  * @property CI_Cache $cache                      CodeIgniter Caching Class
  */
-class CI_Model extends my_models
+class CI_Model
 {
   public function __construct() {} //This default return construct as set
 }

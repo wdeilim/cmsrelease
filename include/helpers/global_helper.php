@@ -1374,6 +1374,9 @@ function db_escape_like_str($str) {
 function db_escape_identifiers($str) {
     return get_instance()->ddb->escape_identifiers($str);
 }
+function db_checksql($str) {
+    return get_instance()->ddb->checksql($str);
+}
 
 /**
  * 分页

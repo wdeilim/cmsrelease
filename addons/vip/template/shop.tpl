@@ -18,7 +18,7 @@
     <script type="text/javascript" src="{#$JS_PATH#}ueditor/ueditor.all.min.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}artdialog/artDialog.js?skin=default"></script>
     <script type="text/javascript" src="{#$JS_PATH#}map.js"></script>
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.1&key=KMAaKTqxQPZ6bDpp8NeKK7uu&services=true"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=eDsGxG65jw27rKR2hGfhRIBp"></script>
 </head>
 <body>
 {#template("header")#}

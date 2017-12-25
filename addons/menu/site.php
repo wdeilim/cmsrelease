@@ -446,7 +446,7 @@ class ES_Menu extends CI_Model {
 		$func = $this->user->functions();
 		//
 		$page = $this->input->get('page');
-		$keyval = $this->input->get('keyval');
+		$keyval = db_escape_str($this->input->get('keyval'));
 		$wheresql = " `module`!='reply' AND `status`='启用' AND `alid`=".$func['al']['id'];
 		//搜索
 		if ($keyval){
