@@ -178,7 +178,11 @@
             }]
         });
         if ($('.hide-install-upcontent[id="' + en + '"]').html()) {
-            $("#_upcontent").html($('.hide-install-upcontent[id="' + en + '"]').html());
+            $intemp = $('<div>'+$('.hide-install-upcontent[id="' + en + '"]').html()+'</div>');
+            $("#_upcontent").html($intemp);
+            $intemp.find("img").load(function(){
+                dialog.position("50%","50%");
+            });
             dialog.position("50%","50%");
         }else{
             if ($('.hide-install[id="' + en + '"]').find("a").attr("data-source") == 'local') {
@@ -187,12 +191,15 @@
             }else{
                 $.post('{#$urlarr.now#}', {method: 'upgrade_upcontent', module: en, version: $("tr[data-en='"+en+"']").attr("data-version")},function(dat){
                     try {
-                        $("#_upcontent").html(dat);
+                        $intemp = $('<div>'+dat+'</div>');
+                        $("#_upcontent").html($intemp);
+                        $intemp.find("img").load(function(){
+                            dialog.position("50%","50%");
+                        });
                         $('.hide-install-upcontent[id="' + en + '"]').html(dat);
                     } catch(err) {
                         $("#_upcontent").html("加载失败！");
                     }
-                    dialog.position("50%","50%");
                 });
             }
         }

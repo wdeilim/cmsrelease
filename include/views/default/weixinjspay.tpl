@@ -36,9 +36,13 @@
                         if(res.errMsg == 'chooseWXPay:ok') {
                             location.search += '&done=1';
                         } else {
-                            //alert('启动微信支付失败, 请检查你的支付参数. 详细错误为: ' + res.err_msg);
+                            //alert('启动微信支付失败, 请检查你的支付参数. 详细错误为: ' + res.errMsg);
                             history.go(-1);
                         }
+                    },
+                    fail:function (res) {
+                        alert('启动微信支付失败，详细错误为: ' + res.errMsg);
+                        history.go(-1);
                     }
                 });
             });

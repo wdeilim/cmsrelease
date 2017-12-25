@@ -13,9 +13,10 @@ class ES_Apprun_Vip extends CI_Model {
         global $_A;
         //获取会员信息
         $fans = $_A['fans'];
-        $_A['vip'] = db_getone("SELECT * FROM ".table('vip_users'),
+        $_A['vip'] = db_getone(table('vip_users'),
 			array('alid'=>$fans['alid'], 'type'=>$fans['type'], 'openid'=>$fans['openid']));
-		$this->get_content($_A['vip']['card']);
+		$newapp = new ES_Apprun_Vip();
+		$newapp->get_content($_A['vip']['card']);
     }
 
 	/**
@@ -25,7 +26,8 @@ class ES_Apprun_Vip extends CI_Model {
 	 * @return array
 	 */
 	public function edit_phone($card = 0, $phone = '', $covering = false) {
-		return $this->edit_mobile($card, $phone, $covering);
+		$newapp = new ES_Apprun_Vip();
+		return $newapp->edit_mobile($card, $phone, $covering);
 	}
 
 	/**
@@ -178,7 +180,7 @@ class ES_Apprun_Vip extends CI_Model {
 		if (isset($_A['vip']['card']) && $_A['vip']['card'] == $warr['card']) {
 			$row = $_A['vip'];
 		}else{
-			$row = db_getone("SELECT * FROM ".table("vip_users"), $warr);
+			$row = db_getone(table("vip_users"), $warr);
 		}
         if (empty($row)) {
             return array('success'=>0, 'message'=>'用户不存在');
@@ -190,7 +192,7 @@ class ES_Apprun_Vip extends CI_Model {
             if ($row['point'] < $num) {
                 return array('success'=>0, 'message'=>'用户积分不足');
             }
-            $resql = "`point`=`point`-{$num}";
+            $resql = "`point`=`point`-".abs($num);
         }
         if (db_query("UPDATE ".table('vip_users')." SET ".$resql." WHERE `id`=".$row['id'])){
             //添加记录
@@ -241,7 +243,7 @@ class ES_Apprun_Vip extends CI_Model {
 		if (isset($_A['vip']['card']) && $_A['vip']['card'] == $warr['card']) {
 			$row = $_A['vip'];
 		}else{
-			$row = db_getone("SELECT * FROM ".table("vip_users"), $warr);
+			$row = db_getone(table("vip_users"), $warr);
 		}
         if (empty($row)) {
             return array('success'=>0, 'message'=>'用户不存在');
@@ -264,7 +266,8 @@ class ES_Apprun_Vip extends CI_Model {
             db_insert(table('vip_point_notes'), $poiarr);
 			if ($num < 0 && $_point) {
 				//消费增加到积分
-				$this->money_point($card, abs($num));
+				$newapp = new ES_Apprun_Vip();
+				$newapp->money_point($card, abs($num));
 			}
             //
             return array('success'=>1, 'users'=>$row);
@@ -301,7 +304,7 @@ class ES_Apprun_Vip extends CI_Model {
 		if (isset($_A['vip']['card']) && $_A['vip']['card'] == $warr['card']) {
 			$row = $_A['vip'];
 		}else{
-			$row = db_getone("SELECT * FROM ".table("vip_users"), $warr);
+			$row = db_getone(table("vip_users"), $warr);
 		}
 		if (empty($row)) {
 			return array('success'=>0, 'message'=>'用户不存在');
@@ -317,15 +320,39 @@ class ES_Apprun_Vip extends CI_Model {
 			array('fid'=>intval($f['id']), 'alid'=>intval($al['id']), 'userid'=>intval($al['userid'])));
 		$vip_data = string2array($uf['userdata']);
 		$jfcl = $vip_data['jfcl'];
-		$xiaofei = $jfcl['xiaofei'];
-		$jiangli = $jfcl['jiangli'];
+		$newapp = new ES_Apprun_Vip();
+		//单笔消费 奖励
+		$xiaofei = intval($jfcl['xiaofei']);
+		$jiangli = intval($jfcl['jiangli']);
 		$tpoint = 0;
-		if ($xiaofei > 0 && $jiangli > 0){
-			$tpoint = intval(($num/$xiaofei)*$jiangli);
+		$contis = '单笔满';
+		if ($num >= $xiaofei && $xiaofei > 0 && $jiangli > 0){
+			if ($jfcl['jiangnotdie']) {
+				$tpoint = $jiangli;
+			}else{
+				$tpoint = intval($num/$xiaofei)*$jiangli;
+				$contis = '单笔每满';
+			}
 		}
+		//累计消费 奖励
+		$lnum = $row['suppoint'] + $num;
+		$lxiaofei = intval($jfcl['xiaofei_l']);
+		$ljiangli = intval($jfcl['jiangli_l']);
+		$ltpoint = 0;
+		if ($lnum >= $lxiaofei && $lxiaofei > 0 && $ljiangli){
+			$ltpoint = intval($lnum/$lxiaofei)*$ljiangli;
+			$lnum = $lnum - intval($lnum/$lxiaofei)*$lxiaofei;
+		}
+		if ($ltpoint > 0) {
+			$newapp->point(array("id"=>$row['id']), $ltpoint, '消费奖励(累计每满'.$lxiaofei.'元,奖'.$ljiangli.'分)');
+		}
+		if ($lnum != $row['suppoint']) {
+			db_update(table("vip_users"), array('suppoint'=>$lnum), array('id'=>$row['id']));
+		}
+		//
 		if ($tpoint > 0) {
-			$content = $content?$content:'消费奖励(每消费'.$xiaofei.'元,获'.$jiangli.'分)';
-			return $this->point(array("id"=>$row['id']), $tpoint, $content);
+			$content = $content?$content:'消费奖励('.$contis.$xiaofei.'元,奖'.$jiangli.'分)';
+			return $newapp->point(array("id"=>$row['id']), $tpoint, $content);
 		}else{
 			return array('success'=>0, 'message'=>'消费未达指定数没有奖励');
 		}
@@ -352,7 +379,7 @@ class ES_Apprun_Vip extends CI_Model {
 		if (isset($_A['vip']['card']) && $_A['vip']['card'] == $warr['card']) {
 			$row = $_A['vip'];
 		}else{
-			$row = db_getone("SELECT * FROM ".table("vip_users"), $warr);
+			$row = db_getone(table("vip_users"), $warr);
 		}
 		if (empty($row)) return false;
 		//会员类型

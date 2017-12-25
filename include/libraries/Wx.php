@@ -1219,10 +1219,16 @@ class Wx {
             $function = $this->data['alifunction'];
         }else{
             $row = db_getone("SELECT function FROM ".table('users_al'), array('id'=>intval($_A['al']['id'])));
-            $function = $row['function'];
+            $function = string2array($row['function']);
             $this->data['alifunction'] = $function;
         }
         if ($function) {
+            $tempmodule = $_A['module'];
+            $inorder = array();
+            foreach ($function as $key => $val) {
+                $inorder[$key] = array($val['default'], ($tempmodule==$val['title_en'])?1:0);
+            }
+            array_multisort($inorder, SORT_DESC, $function);
             foreach($function AS $item) {
                 $a = $item['title_en'];
                 $_A['module'] = $a;
@@ -1244,7 +1250,7 @@ class Wx {
                     }
                 }
             }
-            $_A['module'] = get_instance()->uri->segment(2);
+            $_A['module'] = $tempmodule;
         }
     }
 
@@ -1895,11 +1901,11 @@ class Wx {
             $row = $_A['al'];
             if (isset($GLOBALS['al_function']) && $GLOBALS['al_function']) {
                 $row['function'] = $GLOBALS['al_function'];
-                $this->data['alifunction'] = $row['function'];
+                $this->data['alifunction'] = string2array($row['function']);
                 unset($row['function']);
             }
         }else{
-            $row = db_getone("SELECT * FROM ".table('users_al'), array('id'=>intval($this->data['id'])));
+            $row = db_getone(table('users_al'), array('id'=>intval($this->data['id'])));
             if ($row) {
                 $this->data['alifunction'] = string2array($row['function']);
                 unset($row['function']);
@@ -1921,7 +1927,7 @@ class Wx {
             if (isset($_A['u']['userid']) && $_A['u']['userid'] == $row['userid']) {
                 $_user = $_A['u'];
             }else{
-                $_user = db_getone("SELECT * FROM ".table('users'), array('userid'=>$row['userid']));
+                $_user = db_getone(table('users'), array('userid'=>$row['userid']));
             }
             if ($_user) {
                 $_A['u'] = $_user;

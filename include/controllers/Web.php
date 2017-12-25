@@ -92,6 +92,7 @@ class Web extends CI_Controller {
                     $submit = '修改';
                     $reply['content'] = string2array($reply['content']);
                     $reply['setting'] = string2array($reply['setting']);
+					$this->cs->assign('menu', value(string2array($_A['f']['setting']), 'bindings|menu'));
                 }
             }
             if ($_GPC['dosubmit']) {

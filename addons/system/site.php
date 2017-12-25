@@ -1683,7 +1683,7 @@ class ES_System extends CI_Model {
         $this->set_bindings($modulename, $module);
         $this->set_category($modulename, $module);
 		cloud_upgrade($module['title_en'], $module['version']);
-        message(null, '功能模块更新成功！', weburl('system/settings/functions'));
+        message(null, '功能模块更新成功！', weburl('system/settings/functions/?winopen=1'));
     }
 
     /**
@@ -1708,7 +1708,7 @@ class ES_System extends CI_Model {
             if(is_error($r)) {
                 message(null, $r['message'], weburl('system/settings/cloud'));
             }
-            $manifest = cloud_ext_module_manifest($module['title_en']);
+            $manifest = cloud_ext_module_manifest($module['title_en'], '', $module['version']);
             if(is_error($manifest)) {
                 message(null, $manifest['message']);
             }
@@ -2296,6 +2296,14 @@ class ES_System extends CI_Model {
             $arr = $_arr = array();
             $arr['success'] = 0;
             //
+			if (md52($fost['olduserpass'], $user['encrypt']) != $user['userpass']) {
+				$arr['message'] = '旧密码不正确';
+				echo json_encode($arr); exit();
+			}
+			if (md52($fost['userpass'], $user['encrypt']) == $user['userpass']) {
+				$arr['message'] = '新密码不能与旧密码相同';
+				echo json_encode($arr); exit();
+			}
             if (strlen($fost['userpass']) < 6){
                 $arr['message'] = '密码不能小于6位数';
                 echo json_encode($arr); exit();
@@ -2307,6 +2315,7 @@ class ES_System extends CI_Model {
             if ($this->ddb->update(table('users'), $_arr, array('userid'=>$user['userid']))){
                 $arr['success'] = 1;
                 $arr['message'] = '修改成功';
+				$this->session->unset_userdata('username');
             }else{
                 $arr['message'] = '修改失败';
             }
@@ -2456,8 +2465,8 @@ class ES_System extends CI_Model {
             echo json_encode($arr); exit();
         }
 		//
-		$lwhere = array('userid'=>$_A['userid']);
-		if ($user['admin']) $lwhere = array();
+		$lwhere = array('`wx_level`!='=>7);
+		if (!$user['admin']) $lwhere['`wx_level`!='] = 7;
 		$wxlist = db_getall(table("users_al"), $lwhere, 'id DESC');
 		foreach($wxlist AS $k=>$v) {
 			if ($_id == $v['id'] || empty($v['wx_name']) || empty($v['wx_appid'])) {

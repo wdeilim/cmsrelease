@@ -53,7 +53,7 @@
                         <th>{#$type_cn#}</th>
                         <th>备注</th>
                     </tr>
-                    {#ddb_pc set="数据表:vip_point_notes,列表名:lists,显示数目:10,分页显示:1,分页名:pagelist,当前页:{#$page#},分页地址:{#$pageurl#}(?)/{#get_get()#},排序:indate desc" where="{#$wheresql#}"#}
+                    {#ddb_pc set="数据表:vip_point_notes,列表名:lists,显示数目:10,分页显示:1,分页名:pagelist,当前页:{#$page#},分页地址:{#$pageurl#}(?)/{#get_get()#},排序:indate desc>id desc" where="{#$wheresql#}"#}
 
                     {#foreach from=$lists item=list#}
                     <tr>
@@ -109,8 +109,8 @@
         <div>
             <span>选择方式</span>
             <select id="cha_type">
-                <option value="alipay">支付宝在线充值</option>
                 <option value="weixin">微信在线充值</option>
+                <option value="alipay">支付宝在线充值</option>
             </select>
         </div>
         <div class="c-btn-oran-big" onclick="submit();">下一步</div>
@@ -129,7 +129,7 @@
             $.alert("单笔充值金额不得小于￥0.01")
             return;
         }
-        window.location.href = "{#$urlarr.2#}charge/?type="+$('#cha_type').val()+"&cha_num="+num;
+        window.location.href = "{#appurl('vip/charge')#}&type="+$('#cha_type').val()+"&cha_num="+num;
     }
 </script>
 </body>

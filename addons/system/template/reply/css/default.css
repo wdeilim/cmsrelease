@@ -239,7 +239,7 @@ table.table-primary tbody tr td, table.table-primary thead tr th {
     height: 32px;
     color: #09c;
     padding: 0 12px;
-    max-width: 95px;
+    max-width: 108px;
     overflow: hidden;
     white-space:nowrap;
     text-overflow:ellipsis;
@@ -261,4 +261,23 @@ table.table-primary tbody tr td, table.table-primary thead tr th {
     height: 20px;
     cursor: pointer;
     background-image: url('data:image/gif;base64,R0lGODlhFAAUAJEAAAAAADMzM////wAAACH5BAUUAAIALAAAAAAUABQAAAImlI+py+0PU5gRBRDM3DxbWoXis42X13USOLauUIqnlsaH/eY6UwAAOw==');
+}
+.mod_a_menu {
+    text-align:right;
+}
+.mod_a_menu span {
+    color: #6b6b6b;
+    padding: 6px 0 6px 6px;
+    cursor: default;
+}
+.mod_a_menu span:hover {
+    color: #6b6b6b;
+    text-decoration: none;
+}
+.mod_a_menu a.btn  {
+    max-width: 90px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    padding: 6px 0 6px 6px;
 }

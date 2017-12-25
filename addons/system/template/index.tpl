@@ -98,6 +98,9 @@
                                         {#foreachelse#}
                                         无
                                     {#/foreach#}
+                                    <label class="button-input">
+                                        <input type="text" name="fun-search" placeholder="输入名称搜索"><em></em>
+                                    </label>
                                 </div>
                             </td>
                             <td class="al-center" width="195">
@@ -205,6 +208,17 @@
             }else{
                 window.location.href = "{#$urlarr.2#}";
             }
+        });
+        $("label.button-input").find("input").keyup(function(){
+            var thisv = $(this).val();
+            var thisg = $(this).parents(".button-groups");
+            thisg.find("a").each(function(){
+                var thisa = $(this).text();
+                if (thisv) {
+                    thisa = thisa.replace(thisv, '<font color="red">'+thisv+'</font>');
+                }
+                $(this).html(thisa);
+            });
         });
         $("#key").keydown(function(e){
             if(e.keyCode == 13){ $(".search_btn").click(); }

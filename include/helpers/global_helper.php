@@ -647,6 +647,9 @@ function authcode($string, $operation = 'DECODE', $key = '', $expiry = 0) {
  * @return string
  */
 function get_url() {
+    global $_A;
+    return $_A['url']['now'].get_get();
+    /*
     $sys_protocal = isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == '443' ? 'https://' : 'http://';
     $php_self = $_SERVER['PHP_SELF'] ? safe_replace($_SERVER['PHP_SELF']) : safe_replace($_SERVER['SCRIPT_NAME']);
     $path_info = isset($_SERVER['PATH_INFO']) ? safe_replace($_SERVER['PATH_INFO']) : '';
@@ -655,6 +658,7 @@ function get_url() {
     $ipageurl = BASE_URI;
     $ipageurl.= BASE_IPAGE?ltrim(BASE_IPAGE,'/').'/':BASE_IPAGE;
     return str_replace(BASE_URI.'index.php/', $ipageurl, $_get_url);
+    */
 }
 
 /**
@@ -1121,7 +1125,7 @@ function leftexists($string, $find, $lower = false) {
         $string = strtolower($string);
         $find = strtolower($find);
     }
-    return preg_match("/^".$find."/i", $string);
+    return (substr($string, 0, strlen($find)) == $find);
 }
 
 /**
@@ -1136,7 +1140,7 @@ function rightexists($string, $find, $lower = false) {
         $string = strtolower($string);
         $find = strtolower($find);
     }
-    return preg_match("/".$find."$/i", $string);
+    return (substr($string, strlen($find)*-1) == $find);
 }
 
 /**

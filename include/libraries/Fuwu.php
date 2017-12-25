@@ -760,10 +760,16 @@ class Fuwu {
             $function = $this->data['alifunction'];
         }else{
             $row = db_getone("SELECT function FROM ".table('users_al'), array('id'=>intval($_A['al']['id'])));
-            $function = $row['function'];
+			$function = string2array($row['function']);
 			$this->data['alifunction'] = $function;
         }
         if ($function) {
+			$tempmodule = $_A['module'];
+			$inorder = array();
+			foreach ($function as $key => $val) {
+				$inorder[$key] = array($val['default'], ($tempmodule==$val['title_en'])?1:0);
+			}
+			array_multisort($inorder, SORT_DESC, $function);
             foreach($function AS $item) {
                 $a = $item['title_en'];
 				$_A['module'] = $a;
@@ -785,7 +791,7 @@ class Fuwu {
                     }
                 }
             }
-			$_A['module'] = get_instance()->uri->segment(2);
+			$_A['module'] = $tempmodule;
         }
     }
 

@@ -23,7 +23,7 @@ body{background-color:#fff;}
 .vip-slogan{text-align:center;font-size:14px;margin-bottom:10px;}
 .vip-tips{text-align:center;font-size:14px;color:#fc1e00;}
 
-.vip-icon{display:inline-block;font-size::0;}
+.vip-icon{display:inline-block;font-size:0;}
 .icon-tips{
 	width:10px;height:14px;vertical-align:-2px;margin-right:5px;
 	background:url(../images/icon_phone.png) no-repeat;

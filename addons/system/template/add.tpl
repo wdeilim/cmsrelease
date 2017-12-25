@@ -153,6 +153,28 @@
                                             <span class="help-block">由于微信支付接口调整，需要根据申请时间来区分支付接口</span>
                                         </td>
                                     </tr>
+                                    {#$payappid = value($edit,'payment|weixin|appid')#}
+                                    <tr>
+                                        <td class="al-right" valign="top"><span>身份标识<br/>(AppID)</span></td>
+                                        <td>
+                                            <input class="form-control" type="text" name="payment[weixin][appid]" id="weixinappid"{#if $payappid#} value="{#$payappid#}"{#else#} value="{#value($edit,'wx_appid')#}" disabled="disabled"{#/if#}/><br/>
+                                            <span class="help-block">
+                                                公众号身份标识，
+                                                {#if $payappid#}
+                                                    <a href="javascript:void(0)" id="payedita" onclick="_payeditappid()">点击这里设为默认</a>
+                                                    {#else#}
+                                                    <a href="javascript:void(0)" id="payedita" onclick="_payeditappid()">点击这里修改</a>
+                                                {#/if#}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="al-right" valign="top"><span>身份密钥<br/>(AppSecret)</span></td>
+                                        <td>
+                                            <input class="form-control" type="text" name="payment[weixin][secret]" id="weixinsecret"{#if $payappid#} value="{#value($edit,'payment|weixin|secret')#}"{#else#} value="{#value($edit,'wx_secret')#}" disabled="disabled"{#/if#}/><br/>
+                                            <span class="help-block">公众平台API(参考文档API 接口部分)的权限获取所需密钥Key</span>
+                                        </td>
+                                    </tr>
                                     <tr class="s" style="display:none">
                                         <td class="al-right" valign="top"><span>商户身份<br/>(partnerId)</span></td>
                                         <td>
@@ -238,9 +260,9 @@
                                                 {#foreach from=$_func item=fitem#}
                                                     {#if !$fitem.default#}
                                                         <label title="{#$fitem.title#}"><input type="checkbox" name="other[get_appoint][]" value="{#$fitem.title_en#}"{#if in_array($fitem.title_en, value($edit,'setting|other|get_appoint'))#} checked{#/if#}>{#$fitem.title#}</label>
-                                                        {#else#}
+                                                    {#else#}
                                                         <label class="label_del" title="系统预设模块,不需要身份登录"><input type="checkbox" disabled>{#$fitem.title#}</label>
-                                                        {#/if#}
+                                                    {#/if#}
                                                     {#foreachelse#}
                                                     <label title="会员卡"><input type="checkbox" name="other[get_appoint][]" value="vip">会员卡</label>
                                                 {#/foreach#}
@@ -623,6 +645,16 @@
             tc.find(".gappid").val($(this).val()).keyup();
             tc.find(".gsecret").val($(this).find("option:selected").attr("data-secret"));
         });
+        $("#wx_appid").keyup(function(){
+            if ($("#payedita").text() == '点击这里修改') {
+                $("#weixinappid").val($(this).val());
+            }
+        });
+        $("#wx_secret").keyup(function(){
+            if ($("#payedita").text() == '点击这里修改') {
+                $("#weixinsecret").val($(this).val());
+            }
+        });
         {#if !value($edit,'wx_name') && value($edit,'al_name')#}
         $('a[d-index="1"]').click();
         {#/if#}
@@ -651,6 +683,20 @@
         }else{
             $('#'+t).show();
             tthis.text("点击隐藏设置");
+        }
+    }
+    function _payeditappid() {
+        var tthis = $("#payedita");
+        var appid = $("#weixinappid");
+        var secret = $("#weixinsecret");
+        if (tthis.text() == '点击这里修改') {
+            appid.prop("disabled", false);
+            secret.prop("disabled", false);
+            tthis.text('点击这里设为默认');
+        }else{
+            appid.prop("disabled", true).val($("#wx_appid").val());
+            secret.prop("disabled", true).val($("#wx_secret").val());
+            tthis.text('点击这里修改');
         }
     }
     linkage("linkaddr","{#$urlarr.index#}web/system/linkage/",0,0);

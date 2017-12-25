@@ -13,17 +13,10 @@ class Base extends CI_Model {
         $this->load->library('cs');
 
 		$this->load->model('ddb');
+		$this->load->model('send');
+		$this->load->model('reply');
         $this->load->helper('global');
         $this->load->helper('cookie');
-
-        //升级原因暂时做判断，下个版本判断
-        $_temppath = dirname(__FILE__).DIRECTORY_SEPARATOR;
-        if (file_exists($_temppath.'Send.php')) {
-            $this->load->model('send');
-        }
-        if (file_exists($_temppath.'Reply.php')) {
-            $this->load->model('reply');
-        }
 
         //判断加载函数
         $_temppath = dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR;
@@ -37,13 +30,7 @@ class Base extends CI_Model {
         }
 
         //基本参数赋值
-        $this->url[0] = $this->__url();
-        $this->url[1] = $this->__url(1);
-        $this->url[2] = $this->__url(2);
-        $this->url[3] = $this->__url(3);
-		$this->url[4] = $this->__url(4);
-        $this->url['now'] = $this->__url('now');
-        $this->url['index'] = $this->__url('index');
+		$this->__urlinit();
 		$_A['url'] = $this->url;
         //
         $this->url['get'] = $this->input->get();
@@ -77,39 +64,20 @@ class Base extends CI_Model {
 		$_A['JS_PATH'] = JS_PATH;
 		$_A['CSS_PATH'] = CSS_PATH;
 		$_A['IMG_PATH'] = IMG_PATH;
-
 	}
 
-
-    private function __url($param = null)
-    {
-        switch ($param){
-            case "1":
-                $text = $this->uri->segment(1);
-                break;
-            case "2":
-                $text = $this->uri->slash_segment(1).$this->uri->segment(2);
-                break;
-			case "3":
-				$text = $this->uri->slash_segment(1).$this->uri->slash_segment(2).$this->uri->segment(3);
-				break;
-			case "4":
-				$text = $this->uri->slash_segment(1).$this->uri->slash_segment(2).$this->uri->slash_segment(3).$this->uri->segment(4);
-				break;
-            case "now":
-                $text = $this->uri->uri_string();
-                break;
-            case "index":
-                return rtrim($this->config->site_url(), '/').'/';
-                break;
-            default:
-                $text = '';
-                break;
-        }
-        $text = $this->config->site_url($text);
-        $text = rtrim($text, '/').'/';
-        return $text;
-    }
+	private function __urlinit()
+	{
+		$segs = $this->uri->segment_array();
+		$text = '';
+		$this->url[0] = rtrim($this->config->site_url(), '/').'/';
+		foreach ($segs as $key=>$segment) {
+			$text.= $segment.'/';
+			$this->url[$key] = rtrim($this->config->site_url($text), '/').'/';
+		}
+		$this->url['now'] = $this->url[count($segs)];
+		$this->url['index'] = $this->url[0];
+	}
 
     /**
      * 加载类文件函数

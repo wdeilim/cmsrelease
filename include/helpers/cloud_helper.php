@@ -121,13 +121,14 @@ function cloud_cloudkey($name = '', $pass = '') {
     return json_decode($dat['content'], true);
 }
 
-function cloud_ext_module_manifest($name, $oldversion = '') {
+function cloud_ext_module_manifest($name, $oldversion = '', $nowversion = '') {
     $pars = cloud_get_cloud_array();
     if (is_error($pars)) { return $pars; }
     $pars['baseuri'] = BASE_URI;
     $pars['method'] = 'module_manifest';
     $pars['module'] = $name;
     $pars['version'] = $oldversion;
+    $pars['nowversion'] = $nowversion;
     $dat = ihttp_post(CLOUD_GATEWAY, $pars);
     if (is_error($dat)) {
         return $dat;

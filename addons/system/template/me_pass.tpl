@@ -40,7 +40,11 @@
                     <table class="table table-form" style="margin: 60px;">
                         <tbody>
                         <tr>
-                            <td class="al-right"><span>密码</span></td>
+                            <td class="al-right"><span style="color:#f00">*旧密码</span></td>
+                            <td><input class="form-control" type="password" name="olduserpass" id="olduserpass" value=""></td>
+                        </tr>
+                        <tr>
+                            <td class="al-right"><span>新密码</span></td>
                             <td><input class="form-control" type="password" name="userpass" id="userpass" value=""></td>
                         </tr>
                         <tr>
@@ -68,6 +72,7 @@
     $(document).ready(function() {
         $('#editform').submit(function() {
             var retu = true;
+            retu = $('#olduserpass').inTips("旧密码不能为空", -1, retu);
             retu = $('#userpass').inTips("密码最少6个字符", 6, retu);
             retu = $('#reuserpass').inTips("两次密码输入不一致", $('#userpass'), retu);
             if (!retu) return false;

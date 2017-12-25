@@ -34,33 +34,49 @@
                 <div class="clearfix"></div>
 
                 <form action="{#weburl()#}"  method="post" id="saveform" class="form-services">
+
                     <div class="form-uetext"  style="margin: 20px 0">
+                        <div style="margin-bottom:5px;font-weight:bold;">会员积分规则说明</div>
                         <script id="shuoming" name="shuoming" type="text/plain" style="height: 380px; width: 100%;">{#value($jfcl,'shuoming')#}</script>
                     </div>
 
                     <table class="table table-primary" id="menu-table" style="margin: 20px 0;">
                         <thead>
                             <tr>
-                                <th>策略名称</th>
-                                <th>奖励积分</th>
-                                <th>备注</th>
+                                <th align="left" width="230">策略名称</th>
+                                <th align="left" width="270">奖励积分</th>
+                                <th align="left">备注</th>
                             </tr>
                         </thead>
                         <tbody class="integral">
                             <tr>
                                 <td><span>每日签到奖励</span></td>
-                                <td class="align-center"><input type="text" name="meiri" value="{#value($jfcl,'meiri')#}"/></td>
+                                <td class="align-center"><input type="text" name="meiri" style="width:120px;" value="{#value($jfcl,'meiri')|intval#}"/> 积分</td>
                                 <td><span>一天只能签到一次</span></td>
                             </tr>
                             <tr>
-                                <td><span>连续</span><input style="width: 50px; margin: 0 10px;" type="text" name="lianxu" value="{#value($jfcl,'lianxu')#}"/><span>天签到额外奖励</span></td>
-                                <td class="align-center"><input type="text" name="lianxuval" value="{#value($jfcl,'lianxuval')#}"/></td>
+                                <td><span>连续</span><input style="width: 50px; margin: 0 10px;" type="text" name="lianxu" value="{#value($jfcl,'lianxu')|intval#}"/><span>天签到额外奖励</span></td>
+                                <td class="align-center"><input type="text" name="lianxuval" style="width:120px;" value="{#value($jfcl,'lianxuval')|intval#}"/> 积分</td>
                                 <td><span>今日如不连续签到，则重新计算</span></td>
                             </tr>
                             <tr>
-                                <td><span>消费</span><input style="width: 50px; margin: 0 10px;" type="text" name="xiaofei" value="{#value($jfcl,'xiaofei')#}"/><span>元奖励</span>
+                                <td><span>单笔消费满</span><input style="width: 50px; margin: 0 10px;" type="text" name="xiaofei" value="{#value($jfcl,'xiaofei')|intval#}"/><span>元奖励</span>
                                 </td>
-                                <td class="align-center"><input type="text" name="jiangli" value="{#value($jfcl,'jiangli')#}"/></td>
+                                <td class="align-center">
+                                    <input type="text" name="jiangli" style="width:120px;" value="{#value($jfcl,'jiangli')|intval#}"/> 积分，
+                                    <select name="jiangnotdie" style="height:30px;">
+                                        <option value="0">叠加奖励</option>
+                                        <option value="1"{#if value($jfcl,'jiangnotdie')#} selected{#/if#}>不叠加</option>
+                                    </select>
+                                </td>
+                                <td>叠加奖励 = 取整数(单笔消费总额 ÷ 单笔消费满) × 奖励积分</td>
+                            </tr>
+                            <tr>
+                                <td><span>累计消费每满</span><input style="width: 50px; margin: 0 10px;" type="text" name="xiaofei_l" value="{#value($jfcl,'xiaofei_l')|intval#}"/><span>元奖励</span>
+                                </td>
+                                <td class="align-center">
+                                    <input type="text" name="jiangli_l" style="width:120px;" value="{#value($jfcl,'jiangli_l')|intval#}"/> 积分
+                                </td>
                                 <td></td>
                             </tr>
                         </tbody>
@@ -69,7 +85,7 @@
                     <table class="table table-primary" id="menu-table" style="margin: 20px 0;">
                         <thead>
                         <tr>
-                            <th colspan="3">积分关键词</th>
+                            <th colspan="3" align="left">积分关键词</th>
                         </tr>
                         </thead>
                         <tbody class="integral">

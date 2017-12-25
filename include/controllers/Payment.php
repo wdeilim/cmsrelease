@@ -160,8 +160,8 @@ class Payment extends CI_Controller {
 			$alrow['payment'] = string2array($alrow['payment']);
 			$wechat = $alrow['payment']['weixin'];
 			if(empty($wechat)) message(null,"没有设定微信支付参数。");
-			$wechat['appid'] = $alrow['wx_appid'];
-			$wechat['secret'] = $alrow['wx_secret'];
+			$wechat['appid'] = $wechat['appid']?$wechat['appid']:$alrow['wx_appid'];
+			$wechat['secret'] = $wechat['secret']?$wechat['secret']:$alrow['wx_secret'];
 			$wOpt = $this->wechat_build($ps, $wechat);
 			if ($this->is_error($wOpt)) {
 				if ($wOpt['message'] == 'invalid out_trade_no') {
@@ -222,7 +222,37 @@ class Payment extends CI_Controller {
 	 * @return array
 	 */
 	function wechat_build($params, $wechat) {
-		global $_A;
+		global $_A,$_GPC;
+		$wechat_openid = $_A['fans']['openid'];
+		$get_appid = $_A['al']['setting']['other']['get_appid'];
+		$wx_appid = $get_appid?$get_appid:$_A['al']['wx_appid'];
+		if ($wechat['appid'] != $wx_appid) {
+			//支付微信号与授权不同时将重新授权openid
+			$sessionname = 'openid_'.md5($wx_appid.$_A['fans']['openid']);
+			$wechat_openid = $this->session->userdata($sessionname);
+			if (empty($wechat_openid) || strlen($wechat_openid) < 15) {
+				if (isset($_GPC['weixin_oauth2'])) {
+					if (!isset($_GPC['code'])) {
+						message(null, "WXpay OAuth 2.0授权失败！");
+					}
+					$this->load->library('communication');
+					$url  = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid='.$wechat['appid'];
+					$url.= '&secret='.$wechat['secret'].'&code='.$_GPC['code'].'&grant_type=authorization_code';
+					$content = $this->communication->ihttp_request($url);
+					$_content = isset($content['content'])?json_decode($content['content'], true):'';
+					$wechat_openid = value($_content,'openid');
+					if (empty($wechat_openid)) {
+						message(null, "WXpay OAuth 2.0授权失败 - wx - get - openid！");
+					}
+					$this->session->set_userdata($sessionname, $wechat_openid);
+				}else{
+					$_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$wechat['appid'];
+					$_url.= '&redirect_uri='.urlencode(get_link('weixin_oauth2')."&weixin_oauth2=1");
+					$_url.= '&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect';
+					gourl($_url);
+				}
+			}
+		}
 		if (empty($wechat['version']) && !empty($wechat['signkey'])) {
 			$wechat['version'] = 1;
 		}
@@ -290,7 +320,7 @@ class Payment extends CI_Controller {
 			$package['time_expire'] = date('YmdHis', SYS_TIME + 600);
 			$package['notify_url'] = $this->config->site_url('payment/weixin/notify');
 			$package['trade_type'] = 'JSAPI';
-			$package['openid'] = $_A['fans']['openid'];
+			$package['openid'] = $wechat_openid;
 			ksort($package, SORT_STRING);
 			$string1 = '';
 			foreach($package as $key => $v) {

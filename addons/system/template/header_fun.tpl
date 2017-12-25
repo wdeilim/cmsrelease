@@ -9,7 +9,7 @@
                     {#$fl = string2array($list.function)#}
                     {#foreach from=$fl item=fls#}
                         <li{#if ($fls.ida==$_A.uf.id)#} class="active"{#/if#}>
-                            <a class="nav-item-link" href="{#$urlarr.1#}{#$fls.title_en#}/?al={#$fls.alid#}&uf={#$fls.ida#}" title="{#$fls.title#}"><span class="nav-item-img"><img src="{#$smarty.const.BASE_URI#}addons/{#$fls.title_en#}/icon.png" onerror="this.src='{#$IMG_PATH#}app.png'"></span>{#$fls.title#}</a>
+                            <a class="nav-item-link" href="{#$urlarr.1#}{#$fls.title_en#}/?al={#$fls.alid#}&uf={#$fls.ida#}" title="{#$fls.title#}"><span class="nav-item-img"><img src="{#$smarty.const.BASE_URI#}addons/{#$fls.title_en#}/icon.png" onerror="this.src='{#$IMG_PATH#}app.png'"></span><span class="nav-item-title">{#$fls.title#}</span></a>
                         </li>
                     {#/foreach#}
                 {#/foreach#}
@@ -89,6 +89,23 @@
             nav_item_more.before("<li class='"+cln+"'>"+nav_item_eve.html()+"</li>");
             nav_item_eve.remove();
         }
+        var nav_search = $("<li class='fun-search'><label><input type='text' placeholder='输入名称搜索'></label></li>");
+        nav_search.find("input").keyup(function(){
+            var thisv = $(this).val();
+            var thisg = $(this).parents("ol");
+            thisg.find(".nav-item-title").each(function(){
+                var thisa = $(this).text();
+                if (thisv) {
+                    thisa = thisa.replace(thisv, '<font color="red"><b>'+thisv+'</b></font>');
+                }
+                $(this).html(thisa);
+            });
+            thisg.find(".nav-item-title").css("background-color", "transparent");
+            thisg.find(".nav-item-title").find("font").each(function(){
+                $(this).parent().css("background-color", "#ffff00");
+            });
+        });
+        moremenuobj.prepend(nav_search);
         var emuobj = head_nav_menu.find(".nav-item-link[title='模拟测试']");
         if (!emuobj.parent().hasClass("active")) {
             emuobj.attr("target", "_blank");

@@ -34,10 +34,13 @@ table.payment a{color:#257ad0}
 .isfunc{display:none}
 .gappid{width:330px!important;float:left!important}
 .gselect{width:120px!important;margin-left:-1px!important;padding:7px 5px!important;}
+.ifunlist .button-input{display:none;float:left;position:relative;margin-bottom:10px;margin-right:8px;padding:0;height:28px;width:125px;}.ifunlist .button-input input{position:absolute;left:0;top:0;border:1px solid #ababab;color:#6a6a6a;height:28px;width:90px;margin:0;padding:0 5px 0 28px;line-height:26px;font-size:14px;}.ifunlist .button-input em{position:absolute;display:block;background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaBAMAAABbZFH9AAAAA3NCSVQICAjb4U/gAAAALVBMVEX///+IiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIixak6rAAAAD3RSTlMAESIzRFVmd4iZqszd7v8z/eE5AAAACXBIWXMAAAsSAAALEgHS3X78AAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAALtJREFUGJVjYGBgyNz3ehoDDMS8A4KjUA7nuxshrr3vJkB4814KMDAwznsJ5rC+SwBRbO8CQBTPS6iSAyAy7yKEJ/sMLNbgAOZxgNXsC1gI0f8aRL5zeArmsbyD8F4i8fYF3DNAqJzXMO8gwpS8i7pvHeA28Lxkvve6xQBqO9BlGvtOGkBdBnP1u3IFJB+9e3cZybd1796CbYKERB1MEgx038EkQYD5Hoqk7bt3bxhQJBmQJV8g8ZjPNQAAFZ5b+9Pz3GcAAAAASUVORK5CYII=");width:18px;height:18px;top:6px;left:5px;background-size:18px 18px;}
 .ifunlist .button-groups{top:0;left:0;right:0;padding:10px 20px 0}
 .ifunlist .ifunall{position:absolute;z-index:999}
 .ifunall-showbg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:998;background-color:#000;opacity:0}
 .ifunlist .ifunallb{border:0;padding:10px 20px 0!important;background-color:#fff;box-shadow:2px 2px 5px #818181;-webkit-box-shadow:2px 2px 5px #818181;-moz-box-shadow:2px 2px 5px #818181;-o-box-shadow:2px 2px 5px #818181}
+.relative{position:relative}
+.ifunlist .ifunallb .button-input {display:block;}
 .relative{position:relative}
 .filteral {position:absolute;top:0;right:27px}
 .filteral select{padding:8px;width:160px;border:1px solid #dadada;color:#6a6a6a}

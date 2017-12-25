@@ -7,9 +7,10 @@
 .vip-card-box{
 	width:300px;margin:0 auto;position:relative;margin-bottom:10px;
 }
-.vip-pic{width:300px;vertical-align:top;border-radius:5px;}
+.vip-pic{width:300px;height:180px;vertical-align:top;border-radius:5px;}
 .vip-name{
-	position:absolute;top:10px;right:15px;font-size:18px;font-weight:normal;letter-spacing:2px;color:#fff;
+	position:absolute;top:10px;right:15px;font-size:18px;
+	letter-spacing:2px;color:#fff;
 	font-weight:bold;
 }
 .vip-num{
@@ -17,7 +18,7 @@
 	font-weight:bold;
 }
 .vip-num span{display:block;font-size:14px;}
-.vip-logo{position:absolute;top:50px;left:20px;max-width:180px;}
+.vip-logo{position:absolute;top:50px;left:20px;max-width:180px;max-height:80px}
 
 .vip-slogan{text-align:center;font-size:14px;margin-bottom:10px;}
 .vip-tips{text-align:center;font-size:14px;color:#fc1e00;}
