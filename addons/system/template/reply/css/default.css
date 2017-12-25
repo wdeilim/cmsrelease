@@ -211,3 +211,54 @@ table.table-primary tbody tr td, table.table-primary thead tr th {
     border-width: 0 5px 5px 5px;
     border-bottom-color: #000;
 }
+.custom-menu {
+    position: relative;
+}
+.mod_tab_btn {
+    position: absolute;
+    right: 22px;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    background-image: url('data:image/gif;base64,R0lGODlhFAAUAJEAADMzMwAAAP///wAAACH5BAEHAAIALAAAAAAUABQAAAIxlI+py+0MoolgSgVCFXn3RVne9ZSms01Iiq0u9KrwwbJJHbd0fue2zwPuZrLi6WgqAAA7');
+}
+.mod_tab_menu {
+    display: none;
+    width: auto;
+    height: 32px;
+    margin: 25px 10px -10px;
+    padding: 0 15px;
+    overflow: hidden;
+    border-bottom: 3px solid #57AABD;
+}
+.mod_tab_menu a {
+    display: block;
+    float: left;
+    line-height: 32px;
+    height: 32px;
+    color: #09c;
+    padding: 0 12px;
+    max-width: 95px;
+    overflow: hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+.mod_tab_menu a:hover {
+    color: #ffa450;
+    text-decoration: none;
+}
+.mod_tab_menu a.active {
+    border-radius: 3px 3px 0 0;
+    color: #fff;
+    font-weight: 700;
+    background-color: #57AABD;
+}
+.mod_tab_menu span {
+    display: block;
+    float: right;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    background-image: url('data:image/gif;base64,R0lGODlhFAAUAJEAAAAAADMzM////wAAACH5BAUUAAIALAAAAAAUABQAAAImlI+py+0PU5gRBRDM3DxbWoXis42X13USOLauUIqnlsaH/eY6UwAAOw==');
+}

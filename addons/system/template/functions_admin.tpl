@@ -52,7 +52,7 @@
                         <div class="control-group-left">
                             <a class="button button-primary button-hover" href="{#$urlarr.3#}functions/">功能列表</a>&nbsp;
                             <a class="button button-primary" href="{#$urlarr.3#}functionsadd/">新安装功能</a>&nbsp;
-                            <a class="button button-primary" href="{#$smarty.const.CLOUD_URL#}store" target="_blank">查找更多功能</a>
+                            <a class="button button-primary" href="{#$urlarr.3#}functionstore/">查找更多功能</a>
                         </div>
                     </div>
                 </div>
@@ -206,7 +206,13 @@
             }
         });
         if (enlists) {
+            {#if $_GPC['winopen']#}
+            $.alert("获取更新信息中....", 0);
+            {#/if#}
             $.post('{#$urlarr.now#}', {method: 'upgrade_lists',funs: enlists},function(dat){
+                {#if $_GPC['winopen']#}
+                $.alert(0);
+                {#/if#}
                 try {
                     var ret = $.parseJSON(dat);
                     var havenew = false;

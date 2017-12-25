@@ -2,6 +2,7 @@
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 define('CLOUD_URL', 'http://cloud.vwins.cn/');
 define('CLOUD_GATEWAY', CLOUD_URL.'gateway.php');
+define('CLOUD_BBS_URL', 'http://bbs.vwins.cn/');
 
 function cloud_m_prepare($name) {
     $pars = cloud_get_cloud_array();
@@ -103,6 +104,21 @@ function cloud_namepass($name = '', $pass = '') {
         return error('-1', '账号或密码错误');
     }
     return true;
+}
+
+function cloud_cloudkey($name = '', $pass = '') {
+    $pars = cloud_get_cloud_array();
+    if (is_error($pars)) { return $pars; }
+    $pars['baseuri'] = BASE_URI;
+    $pars['method'] = 'get_cloudkey';
+    $dat = ihttp_post(CLOUD_GATEWAY, $pars);
+    if (is_error($dat)) {
+        return $dat;
+    }
+    if (_cloud_error($dat['content'])) {
+        return error('-1', _cloud_errmsg($dat['content']));
+    }
+    return json_decode($dat['content'], true);
 }
 
 function cloud_ext_module_manifest($name, $oldversion = '') {

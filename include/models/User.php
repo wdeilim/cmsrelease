@@ -25,6 +25,18 @@ class User extends CI_Model {
 		return $val;
 	}
 
+	/**
+	 * 是否登录 （客户端） 身份验证
+	 */
+	public function oauth()
+	{
+		global $_A;
+		if (empty($_A['fans']['openid'])) {
+			$this->session->set_userdata('auth:fromurl', get_url());
+			$this->auth_login();
+		}
+	}
+
     /**
      * 获取用户信息 （客户端）
      * @param string $segments

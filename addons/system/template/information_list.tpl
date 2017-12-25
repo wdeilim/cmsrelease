@@ -30,7 +30,9 @@
     <div class="main bulletin-list">
         <div class="hd">
             <h1 class="title">公告列表</h1>
-            
+            <div class="control">
+                <a href="{#$urlarr.2#}" class="button button-primary button-rounded button-small">返回首页</a>
+            </div>
         </div>
         <div class="bd">
             <ul>

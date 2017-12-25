@@ -368,7 +368,7 @@ class ES_System extends CI_Model {
 				}
                 $arr['isinurl'] = 1;
                 $arr['success'] = 1;
-                $arr['manifest'] = $manifest;
+                $arr['manifest'] = 1;
                 $arr['cloudfiles'] = $cloudfiles;
 				echo json_encode($arr); exit();
 			}elseif ($_GPC['step'] == "step2") {
@@ -382,7 +382,11 @@ class ES_System extends CI_Model {
 				}
 				echo json_encode($arr); exit();
 			}elseif ($_GPC['step'] == "step3") {
-				$manifest = $_GPC['manifest'];
+				$manifest = cloud_ext_module_manifest($modulename);
+				if(is_error($manifest)) {
+					$arr['message'] = $manifest['message'];
+					echo json_encode($arr); exit();
+				}
 				$manifest_check = $this->manifest_check($modulename, $manifest, true);
 				if ($manifest_check) {
 					$arr['message'] = $manifest_check;
@@ -602,10 +606,23 @@ class ES_System extends CI_Model {
                         $text.= "define('DIY_".substr($k,4)."', '{$v}');\r\n";
                     }
                 }
+				$text.= "define('DIY_BASE_PROTOCOL', '".((defined('DIY_BASE_PROTOCOL'))?DIY_BASE_PROTOCOL:'REQUEST_URI')."');\r\n";
                 $this->writesetting($text, 'config');
                 $arr['success'] = 1;
                 echo json_encode($arr); exit();
             }
+		}
+		$temphtml = ihttp_request(BASE_URI.'index.php/index/test/');
+		if (strpos($temphtml['responseline'], "404") !== false) {
+			$nomoren = 1;
+		}
+		$temphtml = ihttp_request(BASE_URI.'index/test/');
+		if (strpos($temphtml['responseline'], "404") !== false) {
+			$noweijingtai = 1;
+		}
+		if (!isset($_SERVER['REQUEST_URI'], $_SERVER['SCRIPT_NAME'])) {
+			$nomoren = 1;
+			$noweijingtai = 1;
 		}
         //
 		tpl('settings', get_defined_vars());
@@ -1404,7 +1421,7 @@ class ES_System extends CI_Model {
 		}
         if (isset($_GPC['dosubmit'])) {
             $contentset['cloudname'] = $_GPC['cloudname'];
-            $contentset['cloudpass'] = $_GPC['cloudpass'];
+            $contentset['cloudpass'] = ($_GPC['cloudpass']==md52($contentset['cloudpass']))?$contentset['cloudpass']:$_GPC['cloudpass'];
             $r = cloud_namepass($contentset['cloudname'], $contentset['cloudpass']);
             if(is_error($r)) {
                 $contentset['cloudok'] = 0;
@@ -1500,6 +1517,39 @@ class ES_System extends CI_Model {
         $prepare_module_title = json_encode($localUninstallModules_title);
         tpl('functions_add', get_defined_vars());
     }
+
+	/**
+	 * 安装新功能 云商城
+	 */
+	public function S_functionstore()
+	{
+		global $_GPC;
+		$this->load->helper("cloud");
+		//
+		$row = db_getone("SELECT * FROM ".table('setting'), array('title'=>'cloud'));
+		$contentset = array();
+		if (!empty($row)) {
+			$contentset = string2array($row['content']);
+		}
+		$key = md52($contentset['cloudname'].$contentset['cloudpass']);
+		if ($_GPC['cloudkey']) {
+			$arr = array();
+			$arr['success'] = 0;
+			$arr['message'] = '';
+			//
+			if ($contentset['cloudok']) {
+				$r = cloud_cloudkey($contentset['cloudname'], $contentset['cloudpass']);
+				if(!is_error($r) && $r['message'] == $key) {
+					$arr['success'] = 1;
+					$arr['message'] = $r['message'];
+					$this->session->set_userdata('cloud:key:'.$key, $r['message']);
+				}
+			}
+			echo json_encode($arr); exit();
+		}
+		$cloudkey = $this->session->userdata('cloud:key:'.$key);
+		tpl('functions_store', get_defined_vars());
+	}
 
     /**
     * 安装新功能 列表
@@ -2948,14 +2998,19 @@ class ES_System extends CI_Model {
 	public function doMobileShowmedia()
 	{
 		global $_GPC;
+		$value = $_GPC['value'];
+		$stlen = strlen(BASE_PATH);
+		if (substr($value, 0, $stlen) == BASE_PATH) {
+			$value = substr($value, $stlen);
+		}
 		if ($_GPC['type'] == 'image') {
-			$html = '<img src="'.fillurl($_GPC['value']).'">';
+			$html = '<img src="'.fillurl($value).'" style="max-width:100%;display:block;margin:0 auto;">';
 			message("查看图片", $html);
 		}elseif ($_GPC['type'] == 'voice') {
-			$html = '<audio src="'.fillurl($_GPC['value']).'" controls="controls" style="width: 100%;">您的浏览器不支持 audio 标签。</audio>';
+			$html = '<audio src="'.fillurl($value).'" controls="controls" style="width:100%;">您的浏览器不支持 audio 标签。</audio>';
 			message("查看语音", $html);
 		}elseif ($_GPC['type'] == 'video') {
-			$html = '<video src="'.fillurl($_GPC['value']).'" controls="controls" style="width: 100%;">您的浏览器不支持 video 标签。</video>';
+			$html = '<video src="'.fillurl($value).'" controls="controls" style="width:100%;">您的浏览器不支持 video 标签。</video>';
 			message("查看视频", $html);
 		}else{
 			message(null, "参数错误！");

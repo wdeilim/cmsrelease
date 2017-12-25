@@ -109,6 +109,10 @@ switch($step)
 		if (strpos($html['responseline'], "404") !== false) {
 			$noweijingtai = 1;
 		}
+		if (!isset($_SERVER['REQUEST_URI'], $_SERVER['SCRIPT_NAME'])) {
+			$nomoren = 1;
+			$noweijingtai = 1;
+		}
 		include BASE_PATH."install/step/step".$step.".tpl.php";
 		break;
 	case '5': //安装详细过程
@@ -130,6 +134,7 @@ switch($step)
 			$_ipage = $ipage;
 			$_ipage = str_replace('hide', '', $_ipage);
 			$_ipage = str_replace('pathinfo', 'index.php?', $_ipage);
+			$_protocol = (!isset($_SERVER['REQUEST_URI'], $_SERVER['SCRIPT_NAME']))?'QUERY_STRING':'REQUEST_URI';
 			$db_config = "<?php
 				define('DIY_BASE_NAME', '');
 				define('DIY_BRAND_NAME', '');
@@ -137,6 +142,7 @@ switch($step)
 				define('DIY_LINKQQ_PATH', '342210020');
 				define('DIY_BOTTOM_INFO', '');
 				define('DIY_BASE_IPAGE', '".$_ipage."');
+				define('DIY_BASE_PROTOCOL', '".$_protocol."');
 			?>";
 			$cache_file_path =BASE_PATH. "caches/cache.config.php";
 			write_static_cache_install($cache_file_path, $db_config, 1);

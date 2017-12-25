@@ -12,16 +12,26 @@ class Base extends CI_Model {
 		$this->load->library('session');
         $this->load->library('cs');
 
-        $this->load->model('ddb');
+		$this->load->model('ddb');
         $this->load->helper('global');
         $this->load->helper('cookie');
 
+        //升级原因暂时做判断，下个版本判断
+        $_temppath = dirname(__FILE__).DIRECTORY_SEPARATOR;
+        if (file_exists($_temppath.'Send.php')) {
+            $this->load->model('send');
+        }
+        if (file_exists($_temppath.'Reply.php')) {
+            $this->load->model('reply');
+        }
+
         //判断加载函数
-        $BAST_HELPER = FCPATH.APPPATH.'helpers/'.$this->uri->segment(1).'_helper.php';
+        $_temppath = dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR;
+        $BAST_HELPER = $_temppath.'helpers/'.$this->uri->segment(1).'_helper.php';
         if (file_exists($BAST_HELPER)) {
             include_once($BAST_HELPER);
         }
-        $BAST_HELPER = FCPATH.APPPATH.'helpers/'.$this->uri->segment(1).'_'.$this->uri->segment(2).'_helper.php';
+        $BAST_HELPER = $_temppath.'helpers/'.$this->uri->segment(1).'_'.$this->uri->segment(2).'_helper.php';
         if (file_exists($BAST_HELPER)) {
             include_once($BAST_HELPER);
         }

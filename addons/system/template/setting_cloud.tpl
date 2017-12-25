@@ -51,7 +51,7 @@
                                        href="javascript:void(0)" onclick="checkmoney();">查询剩余交易币</a>
                                 </div>
                             </div>
-                            <form action="{#get_url()#}" method="post" id="settingform" style="margin-top:30px">
+                            <form action="{#get_url()#}" method="post" id="settingform" style="width:680px;margin:50px auto 0;">
                                 <table class="table-setting">
                                     <tbody>
                                     <tr>
@@ -61,23 +61,25 @@
                                     <tr>
                                         <td class="al-right"><span>云中心账号</span></td>
                                         <td><input class="form-control" type="text" id="cloudname" name="cloudname"
-                                                   value="{#value($contentset,'cloudname')#}"></td>
+                                                   value="{#value($contentset,'cloudname')#}" disabled="disabled"></td>
                                     </tr>
                                     <tr>
                                         <td class="al-right"><span>云中心密码</span></td>
                                         <td><input class="form-control" type="password" id="cloudpass" name="cloudpass"
-                                                   value="{#value($contentset,'cloudpass')#}"></td>
+                                                   value="{#if $contentset['cloudok'] && $contentset['cloudpass']#}{#md52($contentset['cloudpass'])#}{#/if#}" disabled="disabled"></td>
                                     </tr>
                                     <tr>
                                         <td></td>
-                                        <td>
-                                            <input class="button button-primary button-rounded" type="submit" value="绑定">
-                                            <input type="hidden" name="dosubmit" value="1">
+                                        <td style="padding-top:20px;">
                                             {#if value($contentset,'cloudok')#}
-                                                <span style="color:#009e5f">已绑定</span>
+                                                <input class="button button-primary button-rounded" type="submit" value="提交修改" style="display:none;">
+                                                <a style="color:#0198cd;" id="editbind" href="javascript:void(0)">已绑定，点击这里可修改绑定。</a>
                                             {#else#}
-                                                <span style="color:#9e9e9e">未绑定</span>
+                                                <input class="button button-primary button-rounded" type="submit" value="提交绑定">
+                                                <span style="color:#9e9e9e">&nbsp;未绑定，绑定后继续享受更多服务！</span>
+                                                <a style="color:#0198cd;" href="{#$smarty.const.CLOUD_BBS_URL#}member.php?mod=register" target="_blank">没有账号？立即注册</a>
                                             {#/if#}
+                                            <input type="hidden" name="dosubmit" value="1">
                                         </td>
                                     </tr>
                                     </tbody>
@@ -101,7 +103,25 @@
                 return false;
             }
         });
+        {#if value($contentset,'cloudok')#}
+        $("#editbind").click(function(){
+            $(this).prev("input").show();
+            $(this).html("&nbsp;请输入要绑定的账号密码后点击提交修改！").unbind("click").css({
+                color: '#73A4FF',
+                cursor: 'default',
+                textDecoration: 'none'
+            });
+            $("#cloudname").attr("disabled", false).val("");
+            $("#cloudpass").attr("disabled", false).val("");
+        });
+        {#else#}
+        $("#cloudname").attr("disabled", false);
+        $("#cloudpass").attr("disabled", false);
+        {#/if#}
     });
+    function editbind() {
+
+    }
     function checkmoney() {
         art.dialog({
             title: '查询剩余交易币',

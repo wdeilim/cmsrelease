@@ -29,7 +29,7 @@ $config['base_url']	= BASE_URI;
 | variable so that it is blank.
 |
 */
-$config['index_page'] = BASE_IPAGE;
+$config['index_page'] = (defined('DIY_BASE_PROTOCOL')&&DIY_BASE_PROTOCOL=='QUERY_STRING')?'index.php?':BASE_IPAGE;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,7 +46,7 @@ $config['index_page'] = BASE_IPAGE;
 |
 | WARNING: If you set this to 'PATH_INFO', URIs will always be URL-decoded!
 */
-$config['uri_protocol']	= 'REQUEST_URI';
+$config['uri_protocol']	= (defined('DIY_BASE_PROTOCOL')&&DIY_BASE_PROTOCOL)?DIY_BASE_PROTOCOL:'REQUEST_URI';
 
 /*
 |--------------------------------------------------------------------------

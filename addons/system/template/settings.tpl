@@ -14,7 +14,6 @@
     <script type="text/javascript" src="{#$JS_PATH#}placeholder.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}ueditor/ueditor.config.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}ueditor/ueditor.all.min.js"></script>
-
     <style type="text/css">
         textarea.form-control {width:450px;height:100px;padding-top:5px;}
         .tis{color:#989898;padding-left:5px;}
@@ -92,9 +91,23 @@
                                         </tr>
                                         <tr>
                                             <td class="al-right"><span>首页文件</span></td>
-                                            <td><input class="form-control" type="text" id="BASE_IPAGE" name="SET_BASE_IPAGE"
-                                                       value="{#$smarty.const.BASE_IPAGE#}" placeholder="{#$smarty.const.BASE_IPAGE#}">
-                                                <span class="tis">没有开启伪静态时请填写“index.php”</span>
+                                            <td><select class="form-control" id="BASE_IPAGE" name="SET_BASE_IPAGE">
+                                                    {#if !$noweijingtai#}
+                                                    <option value="">隐藏文件 (如果你的服务器支持伪静态)</option>
+                                                    {#/if#}
+                                                    {#if !$nomoren#}
+                                                    <option value="index.php">index.php (默认的一种形式)</option>
+                                                    {#/if#}
+                                                    <option value="index.php?">index.php? (可能是你的服务器不支持PATH_INFO)</option>
+                                                </select>
+                                                {#if $smarty.const.BASE_IPAGE#}
+                                                <script>
+                                                    if ($("#BASE_IPAGE").find("option[value='{#$smarty.const.BASE_IPAGE#}']").length > 0) {
+                                                        $("#BASE_IPAGE").val('{#$smarty.const.BASE_IPAGE#}');
+                                                    }
+                                                </script>
+                                                {#/if#}
+                                                <span class="tis">没有开启伪静态时请选择“index.php”</span>
                                             </td>
                                         </tr>
                                         <tr>

@@ -44,7 +44,7 @@
                         <div class="control-group-left">
                             <a class="button button-primary" href="{#$urlarr.3#}functions/">功能列表</a>&nbsp;
                             <a class="button button-primary button-hover" href="{#$urlarr.3#}functionsadd/">新安装功能</a>&nbsp;
-                            <a class="button button-primary" href="{#$smarty.const.CLOUD_URL#}store" target="_blank">查找更多功能</a>
+                            <a class="button button-primary" href="{#$urlarr.3#}functionstore/">查找更多功能</a>
                         </div>
                     </div>
                 </div>

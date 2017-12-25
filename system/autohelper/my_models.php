@@ -31,6 +31,8 @@
  * @property del                $del
  * @property tree               $tree
  * @property sms                $sms
+ * @property reply              $reply
+ * @property send               $send
  *
  *
  *

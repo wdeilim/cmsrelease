@@ -33,7 +33,7 @@
         <div class="hd">
             <h1 class="title">{#$info.title#}<span class="sp">{#$info.indate|date_format:"%Y-%m-%d"#}</span></h1>
             <div class="control">
-                <a href="{#$urlarr.3#}" class="button button-primary button-rounded button-small">返回</a>
+                <a href="{#$urlarr.3#}" class="button button-primary button-rounded button-small">返回列表</a>
             </div>
         </div>
         <div class="bd">

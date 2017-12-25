@@ -236,10 +236,10 @@
                                         <td>
                                             <div class="other_label">
                                                 {#foreach from=$_func item=fitem#}
-                                                    {#if $fitem.oauth#}
+                                                    {#if !$fitem.default#}
                                                         <label title="{#$fitem.title#}"><input type="checkbox" name="other[get_appoint][]" value="{#$fitem.title_en#}"{#if in_array($fitem.title_en, value($edit,'setting|other|get_appoint'))#} checked{#/if#}>{#$fitem.title#}</label>
                                                         {#else#}
-                                                        <label class="label_del" title="{#$fitem.title#},不需要身份登录"><input type="checkbox" disabled>{#$fitem.title#}</label>
+                                                        <label class="label_del" title="系统预设模块,不需要身份登录"><input type="checkbox" disabled>{#$fitem.title#}</label>
                                                         {#/if#}
                                                     {#foreachelse#}
                                                     <label title="会员卡"><input type="checkbox" name="other[get_appoint][]" value="vip">会员卡</label>
@@ -302,7 +302,9 @@
                                         <td>
                                             <div class="other_label">
                                                 {#foreach from=$_func item=fitem#}
+                                                    {#if !in_array($fitem.title_en, array('menu','reply','message','emulator'))#}
                                                     <label><input type="checkbox" name="other[getjs_appoint][]" value="{#$fitem.title_en#}"{#if in_array($fitem.title_en, value($edit,'setting|other|getjs_appoint'))#} checked{#/if#}>{#$fitem.title#}</label>
+                                                    {#/if#}
                                                 {#/foreach#}
                                             </div>
                                             <div style="clear:both;"></div>

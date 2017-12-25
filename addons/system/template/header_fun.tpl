@@ -9,7 +9,7 @@
                     {#$fl = string2array($list.function)#}
                     {#foreach from=$fl item=fls#}
                         <li{#if ($fls.ida==$_A.uf.id)#} class="active"{#/if#}>
-                            <a class="nav-item-link" href="{#$urlarr.1#}{#$fls.title_en#}/?al={#$fls.alid#}&uf={#$fls.ida#}" title="{#$fls.title#}">{#$fls.title#}</a>
+                            <a class="nav-item-link" href="{#$urlarr.1#}{#$fls.title_en#}/?al={#$fls.alid#}&uf={#$fls.ida#}" title="{#$fls.title#}"><span class="nav-item-img"><img src="{#$smarty.const.BASE_URI#}addons/{#$fls.title_en#}/icon.png" onerror="this.src='{#$IMG_PATH#}app.png'"></span>{#$fls.title#}</a>
                         </li>
                     {#/foreach#}
                 {#/foreach#}
@@ -35,51 +35,61 @@
     }
     $(document).ready(function() {
         h2_al_name(0,1);
+        var head_nav_menu = $("#head-nav-menu");
+        var moremenuobj = $("#moremenu");
+        var moreeveobj = moremenuobj.find("li");
         var morenum = 5;
-        var moreeve = $("#moremenu li");
-        moreeve.each(function(index) {
-            if (moreeve.length > morenum){
+        var cln;
+        moreeveobj.each(function(index) {
+            if (moreeveobj.length > morenum){
                 if (index < morenum - 1) {
                     var cln = $(this).attr('class') ? $(this).attr('class') : '';
-                    $("#moremenu").before("<li class='"+cln+"'>"+$(this).html()+"</li>");
+                    moremenuobj.before("<li class='"+cln+"'>"+$(this).html()+"</li>");
                     $(this).remove();
                 }else if (index == 4) {
                     var $imitate = $('<li id="nav-item-more"><a class="nav-item-link" href="javascript:;">更多...</a></li>');
-                    $("#moremenu").before($imitate);
+                    moremenuobj.before($imitate);
                     $imitate.mousemove(function () {
-                        $("#moremenu").show();
-                        if (moreeve.length > 12) {
-                            $("#moremenu").css({"max-width":400,"width":400})
-                        }else{
-                            if ($("#moremenu").width() > 300) $("#moremenu").width(300);
+                        moremenuobj.show();head_nav_menu.addClass("moremouse");
+                        if (moreeveobj.length >= 50) {
+                            moremenuobj.addClass("olnbox5");
+                        }else if (moreeveobj.length >= 40) {
+                            moremenuobj.addClass("olnbox4");
+                        }else if (moreeveobj.length >= 30) {
+                            moremenuobj.addClass("olnbox3");
+                        }else if (moreeveobj.length >= 20) {
+                            moremenuobj.addClass("olnbox2");
+                        }else if (moreeveobj.length >= 2) {
+                            moremenuobj.addClass("olnbox1");
                         }
                     }).mouseout(function () {
-                        $("#moremenu").hide();
+                        moremenuobj.hide();head_nav_menu.removeClass("moremouse");
                     });
-                    $("#moremenu").mousemove(function () {
-                        $("#moremenu").show();
+                    moremenuobj.mousemove(function () {
+                        moremenuobj.show();head_nav_menu.addClass("moremouse");
                     }).mouseout(function () {
-                        $("#moremenu").hide();
+                        moremenuobj.hide();head_nav_menu.removeClass("moremouse");
                     })
                 }
             }else{
-                var cln = $(this).attr('class') ? $(this).attr('class') : '';
-                $("#moremenu").before("<li class='"+cln+"'>"+$(this).html()+"</li>");
+                cln = $(this).attr('class') ? $(this).attr('class') : '';
+                moremenuobj.before("<li class='"+cln+"'>"+$(this).html()+"</li>");
                 $(this).remove();
             }
         });
-        var nav_item_eve = $("#moremenu li.active");
+        var nav_item_more = $("#nav-item-more");
+        var nav_item_eve = moremenuobj.find("li.active");
         if (nav_item_eve.length > 0) {
-            var _item_eve = $("#nav-item-more").prev();
-            var cln = _item_eve.attr('class') ? _item_eve.attr('class') : '';
-            $("#moremenu").append("<li class='"+cln+"'>"+_item_eve.html()+"</li>");
+            var _item_eve = nav_item_more.prev();
+            cln = _item_eve.attr('class') ? _item_eve.attr('class') : '';
+            moremenuobj.prepend("<li class='"+cln+"'>"+_item_eve.html()+"</li>");
             _item_eve.remove();
             //
-            var cln = nav_item_eve.attr('class') ? nav_item_eve.attr('class') : '';
-            $("#nav-item-more").before("<li class='"+cln+"'>"+nav_item_eve.html()+"</li>");
+            cln = nav_item_eve.attr('class') ? nav_item_eve.attr('class') : '';
+            nav_item_more.before("<li class='"+cln+"'>"+nav_item_eve.html()+"</li>");
             nav_item_eve.remove();
         }
-        var emuobj = $("#head-nav-menu").find(".nav-item-link[title='模拟测试']");
+        var emuobj = head_nav_menu.find(".nav-item-link[title='模拟测试']");
         if (!emuobj.parent().hasClass("active")) {
             emuobj.attr("target", "_blank");
         }

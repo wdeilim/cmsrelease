@@ -755,7 +755,7 @@ class Wx {
             }
             //无合适内容时回复
             if (empty($reply)) {
-                if ($row['setting']['nonekey']['status'] != '启用') {
+                if ($row['setting']['nonekey']['status'] != '启用' || defined('_ISSENDCUSTOMNOTICE')) {
                     return false;
                 }
                 $content['type'] = $row['setting']['nonekey']['content']['type'];
@@ -1082,39 +1082,6 @@ class Wx {
     }
 
     /**
-     * 从模块发送图文信息
-     * @param array $arr
-     * @param bool $isret
-     * @return string
-     */
-    public function respNews($arr = array(), $isret = false)
-    {
-        global $_A;
-        if (empty($arr)) return 'Invaild value';
-        //
-        if (!defined('_ISPROCESSOR'))define('_ISPROCESSOR', true);
-        $_A['M']['text'] = array2string($arr);
-        $_A['M']['msgtype'] = 'imagetext';
-        $this->savemessage($_A['M'], 1);
-        //
-        $send = array();
-        $send['touser'] = trim($_A['M']['openid']);
-        $send['msgtype'] = 'news';
-        $send['news']['articles'][] = $this->encode(array(
-            'title'=>$arr['title'],
-            'description'=>$arr['desc'],
-            'url'=>$arr['url'],
-            'picurl'=>$arr['img']
-        ));
-        $Request = $this->sendCustomNotice($send);
-        if ($isret) {
-            return $Request;
-        }else{
-            exit();
-        }
-    }
-
-    /**
      * 从模块发送文本信息
      * @param string $content
      * @param bool $isret
@@ -1124,13 +1091,12 @@ class Wx {
     {
         global $_A;
         if (empty($content)) return 'Invaild value';
-        if (!defined('_ISPROCESSOR'))define('_ISPROCESSOR', true);
+        if (!defined('_ISPROCESSOR')) define('_ISPROCESSOR', true);
         $_A['M']['text'] = $content;
         $_A['M']['msgtype'] = 'text';
         $this->savemessage($_A['M'], 1);
         //
         $content = str_replace("\r\n", "\n", $content);
-
         $send = array();
         $send['touser'] = trim($_A['M']['openid']);
         $send['msgtype'] = 'text';
@@ -1141,6 +1107,105 @@ class Wx {
         }else{
             exit();
         }
+    }
+
+    /**
+     * 从模块发送(图片、语音、视频)信息
+     * @param string $content   资源地址
+     * @param string $type      类型 （image）、语音（voice）、视频（video）
+     * @param string $tis       上传素材提示语
+     * @param bool $isret
+     * @return array|mixed|string
+     */
+    public function respMedia($content = '', $type = '',  $tis = '', $isret = false)
+    {
+        global $_A;
+        if (empty($content)) return 'Invaild value';
+        if (!defined('_ISPROCESSOR')) define('_ISPROCESSOR', true);
+        if (!in_array($type, array('image', 'voice', 'video'))) return 'Err value';
+        $_A['M']['text'] = $content;
+        $_A['M']['msgtype'] = $type;
+        $this->savemessage($_A['M'], 1);
+        //
+        $media_id = $this->media_upload($content, $type, trim($_A['M']['openid']), $tis);
+        if (empty($media_id)) {
+            $send = array();
+            $send['touser'] = trim($_A['M']['openid']);
+            $send['msgtype'] = 'news';
+            $send['news']['articles'][] = $this->encode(array(
+                'title'=>'点击查看'.str_replace(array('image','voice','video'), array('图片','语音','视频'), $type),
+                'description'=>'',
+                'url'=>appurl("system/showmedia/")."&type=".$type."&value=".urlencode($content)
+            ));
+        }else{
+            $send = array();
+            $send['touser'] = trim($_A['M']['openid']);
+            $send['msgtype'] = $type;
+            $send[$type] = array('media_id' => $media_id);
+        }
+        $Request = $this->sendCustomNotice($send);
+        if ($isret) {
+            return $Request;
+        }else{
+            exit();
+        }
+    }
+
+    /**
+     * 从模块发送图文信息
+     * @param array $arr
+     * @param bool $isret
+     * @return string
+     */
+    public function respNews($arr = array(), $isret = false)
+    {
+        global $_A;
+        if (empty($arr)) return 'Invaild value';
+        if (!defined('_ISPROCESSOR')) define('_ISPROCESSOR', true);
+        $_A['M']['text'] = array2string($arr);
+        $_A['M']['msgtype'] = 'imagetext';
+        $this->savemessage($_A['M'], 1);
+        //
+        $send = array();
+        $send['touser'] = trim($_A['M']['openid']);
+        $send['msgtype'] = 'news';
+        $send['news']['articles'] = $this->newshandle($arr);
+        $Request = $this->sendCustomNotice($send);
+        if ($isret) {
+            return $Request;
+        }else{
+            exit();
+        }
+    }
+
+    /**
+     * 格式化图文信息
+     * @param $data
+     * @return array
+     */
+    public function newshandle($data)
+    {
+        $array = $data;
+        foreach($array AS $key=>$val) {
+            if (!is_array($val)) {
+                unset($array[$key]);
+            }
+        }
+        if (empty($array)) {
+            $array = array(0=>$data);
+        }else{
+            $array = $data;
+        }
+        $image_text_msg = array();
+        foreach($array AS $item) {
+            $image_text_msg[] = $this->encode(array(
+                'title'=>$item['title'],
+                'description'=>$item['desc'],
+                'url'=>$item['url'],
+                'picurl'=>$item['img']
+            ));
+        }
+        return $image_text_msg;
     }
 
     /**
@@ -1181,6 +1246,64 @@ class Wx {
             }
             $_A['module'] = get_instance()->uri->segment(2);
         }
+    }
+
+
+    /**
+     * 上传素材
+     * @param string $url               素材原地址
+     * @param string $type              素材类型 分别有图片（image）、语音（voice）、视频（video）和缩略图（thumb）
+     * @param string $waittisopenid     上传素材等候提示对象openid
+     * @param string $waittis           上传素材等候提示
+     * @return mixed                    返回media_id素材ID
+     */
+    public function media_upload($url, $type, $waittisopenid = '', $waittis = '正在查询中，请等待......')
+    {
+        global $_A;
+        $CI =& get_instance();
+        $CI->load->helper('communication');
+        $cmd5 = md5($url.$_A['al']['wx_appid']);
+        $cmd5t = "media_upload_".$_A['al']['id']."_".$cmd5;
+        $tmp = db_getone(table('tmp'), array('title'=>$cmd5t, '`indate`>'=>(SYS_TIME - 259200)),"`indate` DESC");
+        if (empty($tmp)) {
+            if ($type == 'video' && $type != "mp4") {
+                $tmp = array();
+            }else{
+                $tmp = array();
+                $urlpath = $url;
+                if (!file_exists($urlpath)) {
+                    $urlpath = BASE_PATH.$url;
+                }
+                if (file_exists($urlpath)) {
+                    if ($waittisopenid && !defined('_ISEMULATOR')) {
+                        $this->sendCustomNotice(array(
+                            'touser'=>$waittisopenid,
+                            'msgtype'=>'text',
+                            'text'=>array('content'=>$this->encode($this->send2text($waittis)))
+                        ));
+                    }
+                    $data = array('media' => '@'.$urlpath);
+                    if ($this->iscorp()) {
+                        $sendapi = "https://qyapi.weixin.qq.com/cgi-bin/media/upload?access_token=".$this->token()."&type=".$type;
+                    }else{
+                        $sendapi = "https://api.weixin.qq.com/cgi-bin/media/upload?access_token=".$this->token()."&type=".$type;
+                    }
+                    $resp = ihttp_request($sendapi, $data);
+                    $respcon = @json_decode($resp['content'], true);
+                    $media_id = $respcon['media_id'];
+                    if ($media_id) {
+                        $tmp = array();
+                        $tmp['title'] = $cmd5t;
+                        $tmp['value'] = $media_id;
+                        $tmp['indate'] = $respcon['created_at'];
+                        $tmp['content'] = $type;
+                        db_delete(table('tmp'), "`title` LIKE 'media_upload_".$_A['al']['id']."_%' AND `indate`<".(SYS_TIME - 259200)."");
+                        db_insert(table('tmp'), $tmp, true);
+                    }
+                }
+            }
+        }
+        return $tmp['value'];
     }
 
     /**
@@ -1347,6 +1470,7 @@ class Wx {
         } elseif(!empty($result['errcode'])) {
             return error(-1, "访问微信接口错误, 错误代码: {$result['errcode']}, 错误信息: {$result['errmsg']},错误详情：{$this->error_code($result['errcode'])}");
         }
+        if (!defined('_ISSENDCUSTOMNOTICE')) define('_ISSENDCUSTOMNOTICE', true);
         return $result;
     }
 
@@ -1387,6 +1511,7 @@ class Wx {
         } elseif(!empty($result['errcode'])) {
             return error(-1, "访问微信接口错误, 错误代码: {$result['errcode']}, 错误信息: {$result['errmsg']},错误详情：{$this->error_code($result['errcode'])}");
         }
+        if (!defined('_ISSENDCUSTOMNOTICE')) define('_ISSENDCUSTOMNOTICE', true);
         return $result;
     }
 

@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta content="telephone=no" name="format-detection">
-    <title>{#value($shopset, 'name')#}</title>
+    <title>{#if $shopset['name']#}{#$shopset['name']#}{#else#}会员卡首页{#/if#}</title>
     <link rel="stylesheet" href="{#$NOW_PATH#}css/index.css">
     <script type="text/javascript" src="{#$JS_PATH#}jquery.min.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}jquery.alert.js"></script>

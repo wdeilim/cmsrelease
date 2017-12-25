@@ -13,4 +13,9 @@ class Index extends CI_Controller {
 		gourl($this->base->url['index'].'web/system');
 	}
 
+	public function test()
+	{
+		exit('test');
+	}
+
 }

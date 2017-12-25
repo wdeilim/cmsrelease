@@ -91,7 +91,7 @@ class PushMsg {
 	public function sendRequest($biz_content) {
 		$custom_send = new AlipayMobilePublicMessageCustomSendRequest ();
 		$custom_send->setBizContent ( $biz_content );
-
+		if (!defined('_ISSENDCUSTOMNOTICE')) define('_ISSENDCUSTOMNOTICE', true);
 		return aopclient_request_execute ( $custom_send );
 	}
 	

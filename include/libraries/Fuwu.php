@@ -517,7 +517,7 @@ class Fuwu {
 			}
 			//无合适内容时回复
 			if (empty($reply)) {
-				if ($row['setting']['nonekey']['status'] != '启用') {
+				if ($row['setting']['nonekey']['status'] != '启用' || defined('_ISSENDCUSTOMNOTICE')) {
 					return false;
 				}
 				$content['type'] = $row['setting']['nonekey']['content']['type'];
@@ -618,6 +618,73 @@ class Fuwu {
 		}
 	}
 
+	/**
+	 * 从模块发送文本信息
+	 * @param string $content
+	 * @param bool $isret
+	 * @return Ambigous|string
+	 */
+	public function respText($content = '', $isret = false)
+	{
+		global $_A;
+		if (empty($content)) return 'Invaild value';
+		if (!defined('_ISPROCESSOR')) define('_ISPROCESSOR', true);
+		$_A['M']['text'] = $content;
+		$_A['M']['msgtype'] = 'text';
+		$this->savemessage($_A['M'], 1);
+		//
+		$content = str_replace("\r\n", "\n", $content);
+		$push = new PushMsg ();
+		$text_msg = $push->mkTextMsg(new_addslashes($content));
+		$biz_content = $push->mkTextBizContent($_A['M']['openid'], $text_msg);
+		$biz_content = iconv("UTF-8", "GBK//IGNORE", $biz_content);
+		$Request = $push->sendRequest ($biz_content);
+		if ($isret) {
+			return $Request;
+		}else{
+			exit();
+		}
+	}
+
+	/**
+	 * 从模块发送(图片、语音、视频)信息
+	 * @param string $content   资源地址
+	 * @param string $type      类型 （image）、语音（voice）、视频（video）
+	 * @param string $tis       上传素材提示语(服务窗无用)
+	 * @param bool $isret
+	 * @return array|mixed|string
+	 */
+	public function respMedia($content = '', $type = '',  $tis = '', $isret = false)
+	{
+		global $_A;
+		if (empty($content)) return 'Invaild value';
+		if (!defined('_ISPROCESSOR')) define('_ISPROCESSOR', true);
+		if (!in_array($type, array('image', 'voice', 'video'))) return 'Err value';
+		$_A['M']['text'] = $content;
+		$_A['M']['msgtype'] = $type;
+		$this->savemessage($_A['M'], 1);
+		//
+		$imagetext = new_addslashes(array(
+			'title'=>'点击查看'.str_replace(array('image','voice','video'), array('图片','语音','视频'), $type),
+			'desc'=>'',
+			'url'=>appurl("system/showmedia/")."&type=".$type."&value=".urlencode($content)
+		));
+		$push = new PushMsg ();
+		$image_text_msg = array();
+		$image_text_msg[] = $push->mkImageTextMsg(
+			$imagetext['title'],
+			$imagetext['desc'],
+			$imagetext['url'],
+			"", "");
+		$biz_content = $push->mkImageTextBizContent($_A['M']['openid'], $image_text_msg);
+		$Request = $push->sendRequest($biz_content);
+		if ($isret) {
+			return $Request;
+		}else{
+			exit();
+		}
+	}
+
     /**
      * 从模块发送图文信息
      * @param array $arr
@@ -636,13 +703,7 @@ class Fuwu {
 		$this->savemessage($_A['M'], 1);
 		//
 		$push = new PushMsg ();
-		$image_text_msg = array();
-		$image_text_msg[] = $push->mkImageTextMsg(
-			$arr['title'],
-			$arr['desc'],
-			$arr['url'],
-			$arr['img'], "");
-		$biz_content = $push->mkImageTextBizContent($_A['M']['openid'], $image_text_msg);
+		$biz_content = $push->mkImageTextBizContent($_A['M']['openid'], $this->newshandle($arr));
         $Request = $push->sendRequest($biz_content);
         if ($isret) {
             return $Request;
@@ -651,32 +712,41 @@ class Fuwu {
         }
 	}
 
-    /**
-     * 从模块发送文本信息
-     * @param string $content
-     * @param bool $isret
-     * @return Ambigous|string
-     */
-    public function respText($content = '', $isret = false)
+	/**
+	 * 格式化图文信息
+	 * @param $data
+	 * @return array
+	 */
+	public function newshandle($data)
 	{
-		global $_A;
-		if (empty($content)) return 'Invaild value';
-		if (!defined('_ISPROCESSOR')) define('_ISPROCESSOR', true);
-		$_A['M']['text'] = $content;
-		$_A['M']['msgtype'] = 'text';
-		$this->savemessage($_A['M'], 1);
-		//
-		$content = str_replace("\r\n", "\n", $content);
+		$array = $data;
+		foreach($array AS $key=>$val) {
+			if (!is_array($val)) {
+				unset($array[$key]);
+			}
+		}
+		if (empty($array)) {
+			$array = array(0=>$data);
+		}else{
+			$array = $data;
+		}
 		$push = new PushMsg ();
-		$text_msg = $push->mkTextMsg(new_addslashes($content));
-		$biz_content = $push->mkTextBizContent($_A['M']['openid'], $text_msg);
-		$biz_content = iconv("UTF-8", "GBK//IGNORE", $biz_content);
-        $Request = $push->sendRequest ($biz_content);
-        if ($isret) {
-            return $Request;
-        }else{
-            exit();
-        }
+		$image_text_msg = array();
+		foreach($array AS $item) {
+			$imagetext = new_addslashes(array(
+				'title'=>$item['title'],
+				'desc'=>$item['desc'],
+				'url'=>$item['url'],
+				'img'=>$item['img']
+			));
+			$image_text_msg[] = $push->mkImageTextMsg(
+				$imagetext['title'],
+				$imagetext['desc'],
+				$imagetext['url'],
+				$imagetext['img'],
+				"");
+		}
+		return $image_text_msg;
 	}
 
     /**
@@ -825,6 +895,7 @@ class Fuwu {
 		} elseif($response['code'] != "200") {
 			return error(-1, "访问之腐败接口错误, 错误代码: {$result['code']}, 错误信息: {$result['msg']},错误详情：{$this->error_code($result['code'])}");
 		}
+		if (!defined('_ISSENDCUSTOMNOTICE')) define('_ISSENDCUSTOMNOTICE', true);
 		return $result;
 	}
 
