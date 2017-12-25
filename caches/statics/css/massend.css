@@ -1,0 +1,31 @@
+.clearfix:after,.clearfix:before{content:"\0020";display:block;height:0;overflow:hidden}
+.clearfix:after{clear:both}
+.clearfix{zoom:1}
+.button{cursor:pointer;height:30px;line-height:28px;padding:0 18px;border-radius:3px;-webkit-box-shadow:0 1px 0 #ababab;-moz-box-shadow:0 1px 0 #ababab;box-shadow:0 1px 0 #ababab;color:#fff;background-color:#09c;border-color:#018BB9}
+.button.long{padding-left:60px;padding-right:60px;height:38px}
+.button-hover,.button:hover{color:#fff;background-color:#fa0;border-color:#e67a00}
+.masssearch{width:460px;margin:120px auto}
+.masssearch .form-control{width:100%;border-radius:3px;border:1px solid #aaa}
+.masssearch textarea.form-control{padding-top:5px;padding-bottom:5px}
+.masssearch .control-but{margin:10px auto;text-align:center}
+.masssearch .mtitle{margin-bottom:10px;color:#009acc;font-weight:700}
+.form-services .ullist{position:relative}
+.form-services .ullist ul{display:none;position:absolute;z-index:999;background:#fff;border-top:1px solid #aaa;border-bottom:1px solid #aaa;box-shadow:1px 1px 3px #ededed;-webkit-box-shadow:1px 1px 3px #ededed;-moz-box-shadow:1px 1px 3px #ededed;-o-box-shadow:1px 1px 3px #ededed;width:100%;max-height:300px;overflow:auto;top:0;left:0}
+.form-services .ullist ul li{border-left:1px solid #aaa;border-right:1px solid #aaa;height:25px;line-height:25px;cursor:pointer;padding:3px 5px}
+.form-services .ullist ul li:hover{background:#f6f6ff}
+input.button{height:36px}
+.topmenu{position:relative;width:1176px;height:36px;margin:0 auto;padding-left:24px;background-color:#fff;border-bottom:3px solid #09c}
+.topmenu a{display:block;float:left;line-height:36px;padding:0 12px;margin-right:12px;color:#09c}
+.topmenu a.active,.topmenu a:hover{-webkit-border-radius:3px 3px 0 0;-moz-border-radius:3px 3px 0 0;border-radius:3px 3px 0 0;color:#fff;font-weight:700;background-color:#09c}
+.topmenu div{display:none;border:1px solid #09c;border-top:3px solid #09c;background-color:#fff;position:absolute;top:36px;left:0;z-index:9999}
+.topmenu div a{float:none;margin:0}
+.topmenu div a.active,.topmenu div a:hover{-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
+.tabmenu{display:none}
+.sendelement{width:500px;height:120px;overflow:auto}
+.sendelement label{display:block;float:left;padding-right:20px;padding-bottom:5px}
+.masssendlist{font-size:14px}
+.masssendlist td{text-align:center}
+.masssendlist td.lt,.masssendlist th.lt{text-align:left}
+.library-link{color:#257ad0;padding-right:5px}
+.library-link:hover{text-decoration:underline}
+#text-tooltip{position:absolute;background-color:#fff;padding:8px;border:1px solid #cc7116}

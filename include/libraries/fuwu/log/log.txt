@@ -1,0 +1,1030 @@
+﻿2015-05-11 21:30:22  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[会员卡]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431351022]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143135102225015563]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-11 21:30:22  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-11+21%3A30%3A22&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=EJYGxuyj4dLBmcAdNAZYFY%2FeqgOqvEhgVIN%2BYWnH89CqilY7pruK6POd4OXTBBP%2BzC%2FyMqptIn410iVYLcuMGnzoLQznud1C4bhyWOob0X8%2FkmCqZHS97hN0yXzCDZ0j5N9aF977QSBeqat5dVt5iOm3TC%2FOZY83xXddMjHLqy8%3D
+2015-05-11 21:30:22  apiParams: array (
+  'biz_content' => '{"msgType":"image-text","createTime":"1431351022","articles":[{"actionName":"立即查看","desc":"简单描述","imageUrl":"http://127.0.0.1:8081/uploadfiles/users/1/images/2015/05/1431098959993173.jpg","title":"哈哈","url":"http://127.0.0.1:8081/app/vip/welcome/?rid=4&from_user=OWMxN2I0YzBIblZPRnBPS1dUNW9pUzNTS2pYcWh4dzVaMWNvVVdVODlCdnUxeGdqOXNGOUhSRQ==&ui=1&al=6","authType":""}],"toUserId":"emulatorUser"}',
+)
+2015-05-12 19:36:25  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[会员卡]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431430585]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143143058513979797]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-12 19:36:26  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-12+19%3A36%3A25&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=0b61oq8JbiWiNMwY3OE1PHH%2FXx7mtTVkSAoHOgY0su01xR7wOZoJ43jzsrYez9eQ%2ByS%2FvWlz1y%2FodW3O0ALd1ULTJ1n7o9OYwo4GE04o3Ri6KPqFoMacy9BSYEnJrMZvvap7vjvCa0xWKHOA27cySJniBOS6Kr3ErFJ9fy4pfcs%3D
+2015-05-12 19:36:26  apiParams: array (
+  'biz_content' => '{"msgType":"image-text","createTime":"1431430585","articles":[{"actionName":"立即查看","desc":"简单描述","imageUrl":"http://127.0.0.1:8081/uploadfiles/users/1/images/2015/05/1431098959993173.jpg","title":"哈哈","url":"http://127.0.0.1:8081/app/vip/welcome/?rid=4&from_user=ZTNlM1VyeG8vUURZclNReXFSUWVPZThINUt5aWJLYkZmM2lXVUlNYzB6TGhNYXg2MEVVc09hRQ==&ui=1&al=6","authType":""}],"toUserId":"emulatorUser"}',
+)
+2015-05-12 23:38:27  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[会员卡]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431445107]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143144510754772033]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-12 23:38:27  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-12+23%3A38%3A27&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=Quvim6InnyeMsl6Dn0hqsq873Bo3K8S8Rl1Xl2%2B9oQIOgtmCrABJBBPWjny9XpV2GWOEPOeVKnsVgMp%2F7qnLRQqfec6IAqNjohMnyE5KEoOfXDU%2FCktmESLEA0kdAFQ3elJy6nmjd16bvZ8ci%2FYmkgiemrXE2V4Z05iMF26l3UY%3D
+2015-05-12 23:38:27  apiParams: array (
+  'biz_content' => '{"msgType":"image-text","createTime":"1431445107","articles":[{"actionName":"立即查看","desc":"简单描述","imageUrl":"http://127.0.0.1:8081/uploadfiles/users/1/images/2015/05/1431098959993173.jpg","title":"哈哈","url":"http://127.0.0.1:8081/app/vip/welcome/?rid=4&from_user=MTYzOTdWdjRvVVh2RXY1L04veENUWGFOemJGdno3V3ZvSGhFMVpxK3ArQTZvQUJScy9FejZsTQ==&ui=1&al=6","authType":""}],"toUserId":"emulatorUser"}',
+)
+2015-05-12 23:48:56  
+                <XML>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <CreateTime><![CDATA[1431445736]]></CreateTime>
+                    <MsgType><![CDATA[event]]></MsgType>
+                    <EventType><![CDATA[follow]]></EventType>
+                    <ActionParam><![CDATA[{"scene":{"sceneId": "0"}}]]></ActionParam>
+                    <AgreementId><![CDATA[]]></AgreementId>
+                    <AccountNo><![CDATA[]]></AccountNo>
+                    <MsgId><![CDATA[143144573645480346]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-12 23:48:56  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-12+23%3A48%3A56&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=YMbDZ2FlQsGAHSPHeEwJ16E6wTHtwGFpNS14Px1Wpzrh1t5%2BwN26d%2Bnsruq45DQZPFwBbuQYJjK%2BwohtPRibXmmzoSM9J0lHgSut4Nq1jkYcSvk32Mu8L5rRQBhtcmHcV%2Fwb4g7ewNWcfwObDEv4oJQGmSKtR1QSpQJO9JZp2Ow%3D
+2015-05-12 23:48:56  apiParams: array (
+  'biz_content' => '{"msgType":"image-text","createTime":"1431445736","articles":[{"actionName":"立即查看","desc":"摘要随便写的......","imageUrl":"http://127.0.0.1:8081/uploadfiles/users/1/images/2015/05/143093381514.png","title":"3测试高级群发功能【单图文】","url":"http://127.0.0.1:8081/app/library/14/?ui=1&al=6","authType":""}],"toUserId":"emulatorUser"}',
+)
+2015-05-12 23:49:00  
+                <XML>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <CreateTime><![CDATA[1431445740]]></CreateTime>
+                    <MsgType><![CDATA[event]]></MsgType>
+                    <EventType><![CDATA[unfollow]]></EventType>
+                    <ActionParam><![CDATA[{"scene":{"sceneId": "0"}}]]></ActionParam>
+                    <AgreementId><![CDATA[]]></AgreementId>
+                    <AccountNo><![CDATA[]]></AccountNo>
+                    <MsgId><![CDATA[143144574078043823]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-12 23:49:00  取消关注
+2015-05-12 23:49:00  response_xml: <?xml version="1.0" encoding="GBK"?><alipay><response><XML><ToUserId><![CDATA[emulatorUser]]></ToUserId><AppId><![CDATA[2015042200048491]]></AppId><CreateTime>1431445740</CreateTime><MsgType><![CDATA[ack]]></MsgType></XML></response><sign>er6DdjC+AA6fCT2Acx+qDEYG/PYpIJRSPcN/KY4xg3gVJbo68xNhF6Zw9abJFBe66UQt6o5f/kJxFjWQ/TunHeF6Hlhry576Oe2tOjl5Gd2NS3NbI8/0VssX13o5U2JQcWwBZOX/0TQnkT3cGN6d3TLwwDt4l3ggJDv3k8BTMZc=</sign><sign_type>RSA</sign_type></alipay>
+2015-05-12 23:49:05  
+                <XML>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <CreateTime><![CDATA[1431445745]]></CreateTime>
+                    <MsgType><![CDATA[event]]></MsgType>
+                    <EventType><![CDATA[follow]]></EventType>
+                    <ActionParam><![CDATA[{"scene":{"sceneId": "0"}}]]></ActionParam>
+                    <AgreementId><![CDATA[]]></AgreementId>
+                    <AccountNo><![CDATA[]]></AccountNo>
+                    <MsgId><![CDATA[143144574585086059]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-12 23:49:05  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-12+23%3A49%3A05&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=eZ1fG8zRIwAHWmVLwRHy7W2MgBHahEbkj8tQ7GTVBl%2BBGbfEDg%2B3A37uQ9IGmPORUzepEZGyC%2B1CZXHPHbYBkjmLgO78Ert4XRGn8%2F2EToFVYm%2BBoO5sBh9mkfzbKr2s1hj6o9RQDEf1F4CA11zGeFyAdpDzz47Bw680Km8g09E%3D
+2015-05-12 23:49:05  apiParams: array (
+  'biz_content' => '{"msgType":"image-text","createTime":"1431445745","articles":[{"actionName":"立即查看","desc":"摘要随便写的......","imageUrl":"http://127.0.0.1:8081/uploadfiles/users/1/images/2015/05/143093381514.png","title":"3测试高级群发功能【单图文】","url":"http://127.0.0.1:8081/app/library/14/?ui=1&al=6","authType":""}],"toUserId":"emulatorUser"}',
+)
+2015-05-13 06:53:47  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[会员卡]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431471226]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143147122631475524]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-13 06:53:47  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-13+06%3A53%3A47&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=kcAufSaCHi4mYGdEiHnioGKw5sxr%2BBX5CRbGK6ep5UdhKLRvwMLnJOmG5MmW1EkyMd73I8qgYrG2FfJ6H3QC1RglkH5FW8eXx39a4q3zbu5tQF8ydPfi%2B5NCHVB5dy8%2FuDALuqfv9zhK4pYHiiHM2zlkXGPxmYAIjesxE%2FVmFng%3D
+2015-05-13 06:53:47  apiParams: array (
+  'biz_content' => '{"msgType":"image-text","createTime":"1431471227","articles":[{"actionName":"立即查看","desc":"简单描述","imageUrl":"http://127.0.0.1:8081/uploadfiles/users/1/images/2015/05/1431098959993173.jpg","title":"哈哈","url":"http://127.0.0.1:8081/app/vip/welcome/?rid=4&from_user=YzBhZjhtTHR3U0dHZVVtQ1RWOHh4VzlRemUrQy9RME9VT0paOHFTZGEzMkwxNlFnZCtXbTlhcw==&ui=1&al=6","authType":""}],"toUserId":"emulatorUser"}',
+)
+2015-05-13 09:24:00  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[会员卡]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431480239]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143148023915861206]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-13 09:24:00  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-13+09%3A24%3A00&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=fg6qNTkeGkMhx%2FqYvR5KMblXgYOoMIWrrAjrKs%2BGrqVR9ukaHvC0AgEeXmD91C04cIHLNhEY9a3h9WoFfy7WJeUfHAgPbPLWi%2Bf4CMkaoaaxVls05b%2FplicDieU9AHjtqhwX3vGIGqT5w9oj0nbE9NquxrMVBHLg9IR9%2BIjJmlk%3D
+2015-05-13 09:24:00  apiParams: array (
+  'biz_content' => '{"msgType":"image-text","createTime":"1431480240","articles":[{"actionName":"立即查看","desc":"简单描述","imageUrl":"http://127.0.0.1:8081/uploadfiles/users/1/images/2015/05/1431098959993173.jpg","title":"哈哈","url":"http://127.0.0.1:8081/app/vip/welcome/?rid=4&from_user=MzBjOTlvdHE4RVNHdnM5VVlwdWhzUkdYV1VSWUJyd3pqUHVnNWVnRWJMSTJDcVl0NVhvRERYaw==&ui=1&al=6","authType":""}],"toUserId":"emulatorUser"}',
+)
+2015-05-13 17:09:32  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[点餐]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431508172]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143150817276980895]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-13 17:09:33  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-13+17%3A09%3A32&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=wseFyoBx3ljRS08GS2AoqSYaCFsNVN%2FCvWtsugD5eY6EgJfFdsxl2PicDFLVMR9g%2FPt4khmNWXhYHM6TDYj9zTILovP2AphTCliwOdah%2BQdbNCvyvP3%2FDqnlh6o2qTheRGidaTCGXTbDs3EJPSVHTM6aO1lR6gu%2FA9thzC%2BDYFU%3D
+2015-05-13 17:09:33  apiParams: array (
+  'biz_content' => '{"msgType":"text","text":{"content":"没有搜到内容"},"toUserId":"emulatorUser"}',
+)
+2015-05-13 17:24:48  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[点餐]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431509088]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143150908822148132]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-13 17:25:16  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[点餐]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431509116]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143150911697231445]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-13 17:25:50  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[点餐]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431509150]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143150915060267944]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-13 17:25:51  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-13+17%3A25%3A50&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=Tzy%2F8vntRXGIaWv6NPK4Fxnex%2FAArtu8sdw6SRc%2FXSc4t69Sb0ZPtcXQ3JP4VsTeHEDdFH7iuSlYktYJgskqsTotNsk8ZMwO4AobjFNHBHIaRKwty2kJFtNZWmuKdixAW7779iAqM481G30U7x%2BR8Ka4kJvNYyOIvwI07PZ08wg%3D
+2015-05-13 17:25:51  apiParams: array (
+  'biz_content' => '{"msgType":"text","text":{"content":"没有搜到内容"},"toUserId":"emulatorUser"}',
+)
+2015-05-13 17:26:13  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[点餐]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431509173]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143150917351327819]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-13 17:26:14  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-13+17%3A26%3A14&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=baUyYE4THaUWe8NvaP43V%2BfFR0dD9I6FCWS86PS%2F08bTNqjIojCla8krfXlDFx7qeV1Bo3%2BEoGxMTjijqHrmMxBZKaWqQaFkmLuekfnw%2BZLd3kZVnGi68hJOJ5VojVfd9ySgozy3t%2BMoGjwCAmljvZD%2FQKCCS%2FU4i6zsWu%2Fkvx4%3D
+2015-05-13 17:26:14  apiParams: array (
+  'biz_content' => '{"msgType":"text","text":{"content":"没有搜到内容"},"toUserId":"emulatorUser"}',
+)
+2015-05-13 17:26:44  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[点餐]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431509203]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143150920347534790]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-13 17:27:19  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[点餐]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431509238]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143150923816061706]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-13 17:27:19  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-13+17%3A27%3A19&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=BYkVFpvUzgCDD4EnTs7oRWg8kxJEvn0M3Kvh6lbidRUed5Uo7tJuGVUt1Bv%2FpA1aj4LHeNti1qKNkAeE2mgp0xcy2jRabCbUqvty1AHmgatIkw10nQj23PcNnS86bTySkWI%2B9BFTxqxnD9%2BId73%2Fe%2BFwQF8BI6zN%2Fm%2FWzp9sO8c%3D
+2015-05-13 17:27:19  apiParams: array (
+  'biz_content' => '{"msgType":"text","text":{"content":"没有搜到内容"},"toUserId":"emulatorUser"}',
+)
+2015-05-13 17:27:31  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[点餐]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431509251]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143150925158100891]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-13 17:27:31  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-13+17%3A27%3A31&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=L9tw3OQEE925%2FQquvaop1pChUunVJw2TSIZQ6mE1V4%2BDbGyQMTmyY4bDdT1VO9nV7d6vgh7K2S8kLCmwTaaaPYDX0j06fRAoOeLBq26Y013grwqhkZ6vVwKREfBI0uK52FdMd659rQS5bhosY84KFQhISBUySwekcw%2F%2Bc2aXwu8%3D
+2015-05-13 17:27:31  apiParams: array (
+  'biz_content' => '{"msgType":"text","text":{"content":"没有搜到内容"},"toUserId":"emulatorUser"}',
+)
+2015-05-13 17:27:55  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[点餐]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431509275]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143150927546894836]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-13 17:27:55  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-13+17%3A27%3A55&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=SjC3%2BVBTjwbHCWHihE7LSXGi1oXGmHyyL9f5QiVPEHPlPvUPHf0fzkYu7zLJIBAOV1RFmidzD4ng03naW9LzkboJiG3KAqOaU%2Bc4my5yqhsez%2BoFelTLL762tmNhOJnNVpOO6p8jH036gzC78NIunTYnhtpnf6oR99LuIu9JOcg%3D
+2015-05-13 17:27:55  apiParams: array (
+  'biz_content' => '{"msgType":"text","text":{"content":"没有搜到内容"},"toUserId":"emulatorUser"}',
+)
+2015-05-13 17:28:02  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[点餐]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431509282]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143150928287467346]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-13 17:31:49  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[点餐]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431509509]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143150950914820251]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-13 17:32:02  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[点餐]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431509522]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143150952210796508]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-13 17:36:34  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[点餐]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431509794]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143150979457999267]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-13 17:37:02  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[点餐]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431509822]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143150982238240356]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-13 17:38:27  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[点餐]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431509906]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143150990685256347]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-13 17:39:01  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[点餐]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431509941]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143150994146161499]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-13 17:39:22  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[点餐]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431509962]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143150996267057495]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-13 17:39:35  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[点餐]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431509975]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143150997570067749]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-13 17:40:34  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[点餐]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431510034]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143151003439333496]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-13 17:45:14  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[点餐]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431510313]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143151031375494995]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-13 17:45:14  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-13+17%3A45%3A14&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=MAaDU5HdxoUeUiQf8FVxSIlbZsY28MU6s10AybAgm90eB6MuQ78lLqH4o2RkvpgiFFiy%2BnI2lS%2BxNh4XFYTrXy8Hjf7pCTGJNev%2BocIIl11eIhtn4GRrbLnTynI12AdPEwmTg%2BC8Ne3CeT124KS8sVmC8Ejgl1nAkC8mW7PzHvc%3D
+2015-05-13 17:45:14  apiParams: array (
+  'biz_content' => '{"msgType":"text","text":{"content":"没有搜到内容"},"toUserId":"emulatorUser"}',
+)
+2015-05-13 17:45:29  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[点餐]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431510329]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143151032993605957]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-13 17:45:29  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-13+17%3A45%3A29&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=oDWS4suLQjTyjAIdc0CCmJ1R1I723iKar6D8JJk0ARng%2FA0M73SQQkvhQP6dweQM5chyBpATosiKxoLLmjO5kRA3jIFYZ7uImCp10cQ6CRKY4ShDnSyPvw8dZdbfetL9tF4uQdtOR4SIOjPNqOSLDkxQ9hDZIbUgoWWNC%2FoMY4M%3D
+2015-05-13 17:45:29  apiParams: array (
+  'biz_content' => '{"msgType":"text","text":{"content":"没有搜到内容"},"toUserId":"emulatorUser"}',
+)
+2015-05-13 17:45:40  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[点餐]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431510340]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143151034099082641]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-13 17:45:40  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-13+17%3A45%3A40&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=u9YL9z8hutFt5Ljmj7IMZCtkwCAuoph7FA0i%2FNHydsTqVicIiHhiLDX0I3bYN4gDmsnwyud5nLY5gr1h8sds8zLqHXsM83gJ7RfysQx%2FNFcnGsmywiThCDZAP%2F6NvD9fxIMFKEb6A%2F8bZHOO%2B%2BubunnVHcf50cr%2FzpiwVZ22Jhw%3D
+2015-05-13 17:45:40  apiParams: array (
+  'biz_content' => '{"msgType":"text","text":{"content":"没有搜到内容"},"toUserId":"emulatorUser"}',
+)
+2015-05-13 17:45:50  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[点餐]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431510350]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143151035069463500]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-13 17:45:50  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-13+17%3A45%3A50&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=x6bU9POIoJWasat6WHAwtNhIOrs2ORdP%2BnzsAv1e7tZm%2BNMOTE2FgQdb%2B7mGv%2Bp8iiSFZa6l01%2BR%2FFLazWGZsO6NEK3NlPZ847%2FvxLk1vseK4j9AJtsghqUUxVQvac1RE3IYb%2BeSZtpowT7xlWzdqCrL3%2BvOZJ2cTPHQRjIvpTU%3D
+2015-05-13 17:45:50  apiParams: array (
+  'biz_content' => '{"msgType":"text","text":{"content":"没有搜到内容"},"toUserId":"emulatorUser"}',
+)
+2015-05-13 17:46:09  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[点餐]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431510369]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143151036914150085]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-13 17:46:09  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-13+17%3A46%3A09&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=PhZCi91r097%2Br9snvsVdimZ17wyCtfIuL%2FwLXkcchjrWYSpB7%2FOPFCnYNLjUM9FJqJzYNlw5vfi%2FNw5K7spq%2BbthM7kgQazOmNmaB05u3KUGtQQnyeQqg%2FIMvq4m7VYZjrVlAsLUZLgKA1zEqbqXwD7%2BdchmPp9P3jLz%2BKsLfD0%3D
+2015-05-13 17:46:09  apiParams: array (
+  'biz_content' => '{"msgType":"text","text":{"content":"没有搜到内容"},"toUserId":"emulatorUser"}',
+)
+2015-05-13 17:46:21  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[点餐]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431510381]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143151038138819885]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-13 17:46:21  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-13+17%3A46%3A21&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=Lemb5xdzJsFiyLbS18wFcm360Heyz3LTUGuKdp8YUzRA2rVUZy0zi9zsUl%2Bq6vivJlbnGYv1zABkjT%2BqmBR7KThTlAi2QCgQllohy6OlWZJVnZKhIM0DOKsIaNOhDTV0x%2BWEpN4xEarW6k5j1EinPW7WbJipqIVxhqhI3K9yd2Y%3D
+2015-05-13 17:46:21  apiParams: array (
+  'biz_content' => '{"msgType":"text","text":{"content":"没有搜到内容"},"toUserId":"emulatorUser"}',
+)
+2015-05-13 17:47:05  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[点餐]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431510425]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143151042584992675]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-13 17:47:35  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[点餐]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431510455]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143151045591784973]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-13 17:47:35  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-13+17%3A47%3A35&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=jHp2qKeR%2FsvUOxQgu0IEQp8HuzskhhThV0ip5ziAFUxvPM03pV0hKm3ZsaIX8%2F3wD4%2BHKXlyNbbRNzDzDmXwb8sLD69qBvp1g8X2wa8jRxtrmng1ZDtEUl6ID%2FVhwsFRam0J8qGgNRh2t6pJKSEr%2B78mf93dU%2FhMadzMl08UkQw%3D
+2015-05-13 17:47:35  apiParams: array (
+  'biz_content' => '{"msgType":"image-text","createTime":"1431510455","articles":[{"actionName":"立即查看","desc":"南宁总店描述...","imageUrl":"http://127.0.0.1:8081/uploadfiles/users/1/images/2015/05/123123123.jpg","title":"南宁总店","url":"http://127.0.0.1:8081/app/es_cate/index/?sid=2&from_user=ZThlMzdSNTB2LzkrU0lmZkJTSyttbGtkeEVueUxCSExEZTJNZk5xOVN2Z1Mwa3pxaW9uNHdmMA==&ui=1&al=6","authType":""}],"toUserId":"emulatorUser"}',
+)
+2015-05-13 17:52:59  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[点餐]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431510779]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143151077948910827]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-13 17:53:34  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[点餐]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431510814]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143151081435977172]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-13 17:53:35  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-13+17%3A53%3A34&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=iFUUQ9zw8%2BA9SCnxdKaVxQljqhtjfH4fbpI3raT6A6K2iFBcuWXJZvWPNkec0hf%2BTHVID0lbkTi5BMMmh0UMp3Ma0Jft%2BGxaZFBGlHqRjen%2FvDQualgIs%2Bitq1zQStaJgWUDrl58MOArGHZRx%2F6ng1J2wjpemaeu8jm3EbJl6mU%3D
+2015-05-13 17:53:35  apiParams: array (
+  'biz_content' => '{"msgType":"image-text","createTime":"1431510814","articles":[{"actionName":"立即查看","desc":"南宁总店描述...","imageUrl":"http://127.0.0.1:8081/uploadfiles/users/1/images/2015/05/123123123.jpg","title":"南宁总店","url":"http://127.0.0.1:8081/app/es_cate/index/?sid=2&from_user=ZTg2NXBOQ0VGU2NLcDRIdDd1YkdBRmFPcWovdlJKSDQzL2dYYVlrbFdURWsrazNTdy9WMHdFdw==&ui=1&al=6","authType":""}],"toUserId":"emulatorUser"}',
+)
+2015-05-15 17:02:34  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[点餐]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431680553]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143168055342695312]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-15 17:02:34  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-15+17%3A02%3A34&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=wJuV6XkU9272IHaKgqfDsUyGyEsbsF8mAsuYLyfmUBawetUV7zEw2WtL%2Fg%2FL1gbC5tCQs8YZ%2Fg0zzlMevNtuxzEhy0xEF5Gy9lAowpz6OxuQVNMVc%2BRdfXnKGs268iqSCxNH5PIbk5RdDYgLwupVXliTmO5T55FRLZYQCmLxFqQ%3D
+2015-05-15 17:02:34  apiParams: array (
+  'biz_content' => '{"msgType":"image-text","createTime":"1431680554","articles":[{"actionName":"立即查看","desc":"南宁总店描述...","imageUrl":"http://127.0.0.1:8081/uploadfiles/users/1/images/2015/05/123123123.jpg","title":"南宁总店","url":"http://127.0.0.1:8081/app/es_cate/index/?sid=2&from_user=OTgwM3JHWHdDR29URWQycXFXT2l5ZWt0VkdhNHlVTisxb3d1RStwY29ETWlIQlNObjNUMFMxMA==&ui=1&al=6","authType":""}],"toUserId":"emulatorUser"}',
+)
+2015-05-15 20:26:20  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[商城]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431692780]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143169278089384460]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-15 20:26:20  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-15+20%3A26%3A20&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=Z5LOkJHk884y9rprF4UY%2BycN0xpCG0lPD%2F4ErUl65acSUZuq1w5QKrbrr7P6W1QErbo8JKhyZzQhEGvc7CCqwr0S6tQuEWRq1Mlys6E2HkSTwaIPj9z3VXxwzvO7BISt%2Bz2iTSMEWuXt%2FuBgMFQQNlH31adkEdh5Ml0xY7zFL94%3D
+2015-05-15 20:26:20  apiParams: array (
+  'biz_content' => '{"msgType":"image-text","createTime":"1431692780","articles":[{"actionName":"立即查看","desc":"南宁总店描述...","imageUrl":"http://127.0.0.1:8081/uploadfiles/users/1/images/2015/05/123123123.jpg","title":"南宁总店","url":"http://127.0.0.1:8081/app/es_cate/index/?sid=2&from_user=OGNkY0EvNGsxaXY1UkJ0WlVQYUx2OC9tdmtwQlMzSG9od0ltaGhFdlcvWVZKa1lWTlRUZEVxQQ==&ui=1&al=6","authType":""}],"toUserId":"emulatorUser"}',
+)
+2015-05-15 23:06:16  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[菜单]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431702376]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143170237692694091]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-15 23:06:17  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-15+23%3A06%3A16&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=PSfrFfqtLMxtLgqu4qdcaLURmLbHyeoxfcEw1MQKlwVnge%2BNsL0IfhL2wjsu9bjvLrOlapL7GJ1W1Ynvc3lRPiDsh8a%2F7lr4svcTuvYO98D9rRHtflgUHL3C5cG2iGuvhxBqdG%2FjCU6x%2BjF%2BlJ4KJXGO5aKXXW5xh0Vut1Mb1Vw%3D
+2015-05-15 23:06:17  apiParams: array (
+  'biz_content' => '{"msgType":"text","text":{"content":"没有搜到内容"},"toUserId":"emulatorUser"}',
+)
+2015-05-15 23:06:29  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[点餐]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431702389]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143170238921214294]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-15 23:06:29  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-15+23%3A06%3A29&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=O2ZBJg2wzzPbYMbEXeBepI6lFCpRQEH9gZa2gmgWBaD3Hm7r78RsLM3HFqqTp2ZanguCu9hw0RHVI4GckDPsc25JJwyyp7hWv4kgMHxbU%2FHGRn%2FNQg6qTAPog9rtP4XD%2B1kBwTZvZrMXdEJbWIipLvy4bemDq3c3FO6jR51wO%2Fs%3D
+2015-05-15 23:06:29  apiParams: array (
+  'biz_content' => '{"msgType":"image-text","createTime":"1431702389","articles":[{"actionName":"立即查看","desc":"南宁总店描述...","imageUrl":"http://127.0.0.1:8081/uploadfiles/users/1/images/2015/05/123123123.jpg","title":"南宁总店","url":"http://127.0.0.1:8081/app/es_cate/index/?sid=2&from_user=ZmQ4ZjJ4WmtZRjJ3OE8wQXpkVjFhMG9QNGp6UUdjaE9hcnZGT1cvUnlmS1JDVnF2L1VhQW5pUQ==&ui=1&al=6","authType":""}],"toUserId":"emulatorUser"}',
+)
+2015-05-16 22:48:54  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[菜谱]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431787734]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143178773467560119]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-16 22:48:55  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-16+22%3A48%3A54&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=pEWMLPj7pFnqJ4vkbYsyxillfl0g0QoKQy53oTHRXnfv3MDdnOqJuqffSarTx74lm6PLGIYXA8Ih1FVdrjeEYI%2Frs2brP3uULTlMpwXhdbdYXypCGPeInELHKOTpVqor5K2sVgJX0HPQCKs%2FAuxFLet%2B2%2BD%2FZnl8QK9BYVUWOHk%3D
+2015-05-16 22:48:55  apiParams: array (
+  'biz_content' => '{"msgType":"text","text":{"content":"没有搜到内容"},"toUserId":"emulatorUser"}',
+)
+2015-05-16 22:49:19  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[菜单]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431787759]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143178775971182861]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-16 22:49:19  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-16+22%3A49%3A19&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=qXue%2FHtHEx9DX7d732nsLQSoU3hY6K%2FM0RMzy%2FpmtOTkwEa0RyKvaU7S170fvrcpj7lkGdfehqI8Y%2F%2FVylJhzkgYKdOIcFlbbNKHJHXE8mGroLTq7uCqj7JHuCjxqoT5Q%2BvMOYTg2AkQ8kXJfOLZrAXpBqU4LJbo4UclZQeDkVE%3D
+2015-05-16 22:49:19  apiParams: array (
+  'biz_content' => '{"msgType":"image-text","createTime":"1431787759","articles":[{"actionName":"立即查看","desc":"南宁总店描述...","imageUrl":"http://127.0.0.1:8081/uploadfiles/users/1/images/2015/05/123123123.jpg","title":"南宁总店","url":"http://127.0.0.1:8081/app/es_cate/index/?sid=2&from_user=ZWRmOGpBZzR6UENBTWg0ZWZPd29sNjcrdXJnQnBOQXJpRkN1UW55OHVkYUd5TjFDcGpqRGpYWQ==&ui=1&al=6","authType":""}],"toUserId":"emulatorUser"}',
+)
+2015-05-17 10:24:12  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[会员卡]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431829452]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143182945261166076]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-17 10:24:12  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-17+10%3A24%3A12&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=ynKNyceRQ7y9rA6V5KfrEQ06FR4ZxWEjda1IR33BtJ1%2F9h6s1h32PL5y1QiaVRuxcXT%2By5C8CFoL617H49rHPXzv0t226SNPdIDJAfIYQFdKd1aN1oJLwsQW%2B44WAIruo%2BdEFIW122x8jhncY3TH8lB9qbZ6WIqQwjfwjHyZqgE%3D
+2015-05-17 10:24:12  apiParams: array (
+  'biz_content' => '{"msgType":"image-text","createTime":"1431829452","articles":[{"actionName":"立即查看","desc":"简单描述","imageUrl":"http://127.0.0.1:8081/uploadfiles/users/1/images/2015/05/1431098959993173.jpg","title":"哈哈","url":"http://127.0.0.1:8081/app/vip/welcome/?rid=4&from_user=YmY1M0c5WGpJUi90M2Z2aWhPc3A2VkpWeUdRdDJCbnZnS1hpa01IMGp2L2ljN3lxd1M3NnRtYw==&ui=1&al=6","authType":""}],"toUserId":"emulatorUser"}',
+)
+2015-05-17 10:28:11  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[菜单]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431829691]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143182969160056457]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-17 10:28:11  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-17+10%3A28%3A11&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=J1K2KYfxkvgZDZvtzxfidB7nBONNsBHvtHUx8N9IqC5mBER7zYl0Kju%2F0ikJj2HZBCQVDxC5%2Fj1Nu7LBYeo4uBjA3E875g6Aw78%2BOXe8Bx%2F1BqYVtgWZkPl5Zq4TDcP3f6TxJpq2Tm2PA3fd6fPOpy3wtyxQH696pdkuEkYY8Zk%3D
+2015-05-17 10:28:11  apiParams: array (
+  'biz_content' => '{"msgType":"image-text","createTime":"1431829691","articles":[{"actionName":"立即查看","desc":"南宁总店描述...","imageUrl":"http://127.0.0.1:8081/uploadfiles/users/1/images/2015/05/123123123.jpg","title":"南宁总店","url":"http://127.0.0.1:8081/app/es_cate/index/?sid=2&from_user=Yjk2YlBVQUhTYzlNK0xuOTF5SlcwNmxuaTNyVktzRjdnUXhzcjhwRGdKSUVmczdUd2hINUhmOA==&ui=1&al=6","authType":""}],"toUserId":"emulatorUser"}',
+)
+2015-05-17 18:46:07  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[会员卡]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431859567]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143185956761432495]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-17 18:46:07  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-17+18%3A46%3A07&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=fY63d0QlEzxZ9minelWHhNKF2guFih3xL56WPLT%2FsehHej%2BgxbJXil1g1tktZSGKDmXLmU43TrEccDIYschnWfTe%2BoFF9PDFOudD5NGF7R1Tc3C08ODFCwRCk0OBQXLZkOHNOse0ZDWPwEQsxidtexyN2sgMs6IFmz%2Ba874q7sY%3D
+2015-05-17 18:46:07  apiParams: array (
+  'biz_content' => '{"msgType":"image-text","createTime":"1431859567","articles":[{"actionName":"立即查看","desc":"简单描述","imageUrl":"http://127.0.0.1:8081/uploadfiles/users/1/images/2015/05/1431098959993173.jpg","title":"哈哈","url":"http://127.0.0.1:8081/app/vip/welcome/?rid=4&from_user=N2U1Nkhpd0tIUGQvRmI5a0dxOEJVV2Vld2p1SzV0TzNwSk1ZMTkweWtIa0pJUGpPNEM3ajVmWQ==&ui=1&al=6","authType":""}],"toUserId":"emulatorUser"}',
+)
+2015-05-18 10:50:30  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[会员卡]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431917430]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143191743013095397]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-18 10:50:31  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-18+10%3A50%3A30&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=05%2Bv0uZXFbDHvd6w3Po4BQlJen38HW9b7qpxokO42bFkcEnecskwWi%2BYvfiNE3RF3aU81ipqS4JvLMhB%2Fb1dapm2DKqGqIowQxxEz85jKxEFi150a1v0vX%2Bb8P%2BHdrQt%2F4okWgQ9HivzhU8r58CiQuAUM%2FHtJw5tiF8kB1Msqw8%3D
+2015-05-18 10:50:31  apiParams: array (
+  'biz_content' => '{"msgType":"image-text","createTime":"1431917430","articles":[{"actionName":"立即查看","desc":"简单描述","imageUrl":"http://127.0.0.1:8081/uploadfiles/users/1/images/2015/05/1431098959993173.jpg","title":"哈哈","url":"http://127.0.0.1:8081/app/vip/welcome/?rid=4&from_user=ZjkzMEtlVjJHV05uT09RN0Y1eGFqbTJxb1lzTlE2bjMxVmlQN1RGODVoUW15OUxtTDRmeWovaw==&ui=1&al=6","authType":""}],"toUserId":"emulatorUser"}',
+)
+2015-05-18 14:23:22  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[会员卡]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431930202]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143193020252371520]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-18 14:23:22  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-18+14%3A23%3A22&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=ZNo8bUEKiR9MZ8pXiTneuucQejgvwTolovM%2FJjbA%2FFQGwbtOIV6jNI5U8esKB3JtztXgUEyfv0n5UTH0mV6GDAsafDAXlPiYivC2ewCca2Px4lC0s4%2B6lzV1iVZ2%2BbHMW%2BsqKZWBUBiNA%2FUqHjTnBTgvpkVIBdd6ssfewj%2FFg4A%3D
+2015-05-18 14:23:22  apiParams: array (
+  'biz_content' => '{"msgType":"image-text","createTime":"1431930202","articles":[{"actionName":"立即查看","desc":"简单描述","imageUrl":"http://127.0.0.1:8081/uploadfiles/users/1/images/2015/05/1431098959993173.jpg","title":"哈哈","url":"http://127.0.0.1:8081/app/vip/welcome/?rid=4&from_user=YjFlOHVXNC9BNFBWQ04xQ2VBZzJiaGhsL1N0a1hSbW1RbnF1UlhjR1IvME1SaDJzMHJsLzJacw==&ui=1&al=6","authType":""}],"toUserId":"emulatorUser"}',
+)
+2015-05-18 14:23:27  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[菜单]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431930207]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143193020770114440]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-18 14:23:27  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-18+14%3A23%3A27&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=ZBFLaT2BJRhax67Bm2YOwiTbphwOBESCJKCP%2F%2Ba6l%2BRiLytX5K%2FiStoVeTQsicRswbyQHpKk48r%2Buv%2FsDWnjxtsRbapKm7f9%2FA1a0d%2FfQJbEKj9YQJ2Wq5V0O7HI%2F91ucyVVhkp1WiuY%2FUlLR9zOP%2Fj53qUCpW6tOq9QUVwa0h0%3D
+2015-05-18 14:23:27  apiParams: array (
+  'biz_content' => '{"msgType":"image-text","createTime":"1431930207","articles":[{"actionName":"立即查看","desc":"南宁总店描述...","imageUrl":"http://127.0.0.1:8081/uploadfiles/users/1/images/2015/05/123123123.jpg","title":"南宁总店","url":"http://127.0.0.1:8081/app/es_cate/index/?sid=2&from_user=NGVlZXN5bkQ5MUw5bXpVUmxINzdDcStkV2l2Y0JWNm5EdGhlcUVuOWtzaHZKdDNYeWVWU05XSQ==&ui=1&al=6","authType":""}],"toUserId":"emulatorUser"}',
+)
+2015-05-18 15:35:49  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[会员卡]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1431934549]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143193454988925781]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-18 15:35:50  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-18+15%3A35%3A49&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=M655JuWA9GQ8NNce%2Bfw0wbB5gDhHn9KVpywHxJezRxP%2FweES6cOebOTb0Oqk8ytBkVaYuMxCBivC0Li6h40SAcyfYqBuQKM6jALTkd2ZxlJN8TVO0%2F44vjzdMmPK3cxcF0IDxKB5IZvAHaLx4KNLumsaibi%2FSOoiXFV36XKZsY4%3D
+2015-05-18 15:35:50  apiParams: array (
+  'biz_content' => '{"msgType":"image-text","createTime":"1431934549","articles":[{"actionName":"立即查看","desc":"简单描述","imageUrl":"http://127.0.0.1:8081/uploadfiles/users/1/images/2015/05/1431098959993173.jpg","title":"哈哈","url":"http://127.0.0.1:8081/app/vip/welcome/?rid=4&from_user=YWZjNGFlbjdicnErN0pFZlJhSGNOYzZxOUFXeStFNXB5RjMxNnNXNXcvYWxuMVZZblZzWGc4UQ==&ui=1&al=6","authType":""}],"toUserId":"emulatorUser"}',
+)
+2015-05-19 13:50:59  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[菜单]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1432014658]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143201465883872070]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-19 14:52:18  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[菜单]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1432018338]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143201833845966491]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-19 14:52:18  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-19+14%3A52%3A18&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=gS7uhZSJAYHz87a5mOlD3w1p3Z5%2BdPDSh%2BftdkMVJD25suQId%2BjKtSDrUYgDHYdp3rzEQtJ4ZrTKH91EqMXeyQnLs60q3dNHjmkEIsny7Cmyv%2BHcJ6Jp7yhZTu3jrCr5xENxFiAH8TNqLFePPKgtVxRKJhbjmNwfE1ZxC0wLrrE%3D
+2015-05-19 14:52:18  apiParams: array (
+  'biz_content' => '{"msgType":"text","text":{"content":"没有搜到内容"},"toUserId":"emulatorUser"}',
+)
+2015-05-19 15:08:59  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[1]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1432019339]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143201933928218078]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-19 15:08:59  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-19+15%3A08%3A59&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=DR0RlJJeUritdhFkbffQrabwoSm%2FBhII2dVTLDv2hVDGZB0xvm9Vs0CGAr6Sz0CEfyDwVbMNx3As%2BkNIS25ryxnSr14eNbTkT%2F63jPJxhMx7%2BHqTbf8%2FnkXIMV3v9Hu7m1T5IfiPdBlfgZISK7SPVjd67lrwMzuPQcUlDZilCrQ%3D
+2015-05-19 15:08:59  apiParams: array (
+  'biz_content' => '{"msgType":"image-text","createTime":"1432019339","articles":[{"actionName":"立即查看","desc":"摘要随便写的......","imageUrl":"http://127.0.0.1:8081/uploadfiles/users/1/images/2015/05/143093381514.png","title":"5测试高级群发功能【单图文】","url":"http://127.0.0.1:8081/app/library/16/?ui=1&al=6","authType":""}],"toUserId":"emulatorUser"}',
+)
+2015-05-19 15:09:03  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[2]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1432019343]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143201934377527465]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-19 15:09:03  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-19+15%3A09%3A03&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=cuaXk2JD4aSjTwGkuOBBBfijiJxchoV4UAV9vY%2FvE%2F1hARJSPJyXamneqMULtxZ6Kz39FgyWnqSmQlkW9xta93LzraMlvr08ipCZBxp0iQYKBCjzlcClbsFhx8gcOud%2BOkIot72XsR2br3Qg8Qs5%2FKQXXplTKHjl71sfqmierlk%3D
+2015-05-19 15:09:03  apiParams: array (
+  'biz_content' => '{"msgType":"image-text","createTime":"1432019343","articles":[{"actionName":"立即查看","desc":"简单描述","imageUrl":"http://127.0.0.1:8081/uploadfiles/users/1/images/2015/05/1431098226515735.jpg","title":"测试","url":"http://baidu.com","authType":""}],"toUserId":"emulatorUser"}',
+)
+2015-05-19 15:09:16  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[2]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1432019356]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser1]]></FromUserId>
+                    <MsgId><![CDATA[143201935635743713]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"217****0084","user_name":"emulatorUser1"}]]></UserInfo>
+                </XML>
+2015-05-19 15:09:16  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-19+15%3A09%3A16&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=D2GwLXdKq12QR0XBtuJ%2FjOrLLyhc1YmzKwYseNYTrVP3B6qbIKA6tWGNpEe6HADGM1geZFEbn%2Fyb8dpLNF4tpA8CKjk7eqGQ7GQ0%2F1WDk6xBrSBy1p5cbf5Dup0Di6dBiDzYTrBWEiELvswPjV7ciUD6vrEL%2BJTvXO5hAB9SNho%3D
+2015-05-19 15:09:16  apiParams: array (
+  'biz_content' => '{"msgType":"image-text","createTime":"1432019356","articles":[{"actionName":"立即查看","desc":"简单描述","imageUrl":"http://127.0.0.1:8081/uploadfiles/users/1/images/2015/05/1431098226515735.jpg","title":"测试","url":"http://baidu.com","authType":""}],"toUserId":"emulatorUser1"}',
+)
+2015-05-19 15:12:20  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[菜单]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1432019539]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143201953936562194]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-19 15:12:20  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-19+15%3A12%3A20&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=Fnqa9l5u2ZxvHJeJRUeSMju5IfRVGlaGzDKX8gzDx43aH24yaCl8q7xdDcNLT9Yi7TfbcsPB2rckTOyuT2yOWaXmXtw4d7qvqHOGxFLVR%2BzhsRGsvI0un5RttSxb6W2Jjoc26Qk9I0MDZWKSEIh%2BzbczIgA4NsMs2sakveTz7KE%3D
+2015-05-19 15:12:20  apiParams: array (
+  'biz_content' => '{"msgType":"text","text":{"content":"没有搜到内容"},"toUserId":"emulatorUser"}',
+)
+2015-05-19 15:13:16  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[菜单]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1432019596]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143201959670600585]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-19 15:13:16  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-19+15%3A13%3A16&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=eYadhc9fBqNAPpYoFpkgqmzyXbOjY2wzZNSD3Wt2KtLsI7c2tcbfkAeAzv28nAIWd1E%2BEBGvZR0DXZ5M6VCRQQHnUHCNF8WKXx8YicM0QWPpuWLwIFIjRTP9U9TqTW5vm%2BkppKpWyKhrXbg3zkLf96XyC8VGp5XcrvzODvVPeKM%3D
+2015-05-19 15:13:16  apiParams: array (
+  'biz_content' => '{"msgType":"image-text","createTime":"1432019596","articles":[{"actionName":"立即查看","desc":"南宁总店描述...","imageUrl":"http://127.0.0.1:8081/uploadfiles/users/1/images/2015/05/123123123.jpg","title":"南宁总店","url":"http://127.0.0.1:8081/app/es_cate/index/?sid=2&from_user=YjRlODEzc1VOZXRCZ3pnejd1REJLaTZFYUlSY2l6aEdzUjdtZjZtZ0xOK1hQSko0dXczdU1nOA==&ui=1&al=6","authType":""}],"toUserId":"emulatorUser"}',
+)
+2015-05-19 18:29:12  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[场景测试]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1432031352]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143203135267897949]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-19 18:29:12  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-19+18%3A29%3A12&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=b0i2RTWd3s12RUDkNYvzZfmDBg5MEWVR03Rae4j3wLmlT91aDfC6rgeUYeoLF%2B0ZLhjEk6ndNp5MJB%2BdLTunJ3Y1zTLckWGM%2FoB0g1%2FLHnLN8MLvdFv8CqadrjFS%2BXhBbILXRO8a7EIcJSJG9HChvoEmiE5RNN3sMRFH81%2FBpJQ%3D
+2015-05-19 18:29:12  apiParams: array (
+  'biz_content' => '{"msgType":"text","text":{"content":"没有搜到内容"},"toUserId":"emulatorUser"}',
+)
+2015-05-19 18:29:40  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[场景测试]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1432031379]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143203137924883728]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-19 18:29:40  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-19+18%3A29%3A40&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=2fh2Kh4G21FBhWy7T%2B6xPhqOc4pFkLXRnkXgn5cqYzMj7vhFbgzl2TmnTYJB1aWtLkJaSjPKbRw4hIZtlEOJoAXLSSyQqe1bDioZFu2VPz86I%2Bqa1hAQxPLX6saPklkc9vwR1H02KNSv7NEkxVyaB2SbwEX8Kpj1Eq%2FJb9FN0WU%3D
+2015-05-19 18:29:40  apiParams: array (
+  'biz_content' => '{"msgType":"text","text":{"content":"没有搜到内容"},"toUserId":"emulatorUser"}',
+)
+2015-05-19 18:29:57  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[场景测试]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1432031397]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143203139741278076]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-19 18:30:11  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[场景测试]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1432031411]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143203141140325012]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-19 18:30:11  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-19+18%3A30%3A11&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=ydraExMxcL1uu%2B5qI%2BGC%2B7rxhr4nffIBS5uXgahbv%2BE81cnOP0jpPCafw%2FavNEmovyE9lIr%2BZAqJdyiJ1MKj7%2BNr4qCvJRzX%2FTG6DqSbPvaaQzJzw%2FVRzqUHIVBku3DrMq5jJoPQhx7yppH2rKLZVmnnTwJuJbDm5L47jccpgas%3D
+2015-05-19 18:30:11  apiParams: array (
+  'biz_content' => '{"msgType":"text","text":{"content":"没有搜到内容"},"toUserId":"emulatorUser"}',
+)
+2015-05-19 18:30:37  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[场景测试]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1432031437]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143203143792694091]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-19 18:30:54  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[场景测试]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1432031454]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143203145459471435]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-19 18:31:28  
+                <XML>
+                    <Text>
+                        <Content><![CDATA[场景测试]]></Content>
+                    </Text>
+                    <AppId><![CDATA[2015042200048491]]></AppId>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <CreateTime><![CDATA[1432031487]]></CreateTime>
+                    <FromUserId><![CDATA[emulatorUser]]></FromUserId>
+                    <MsgId><![CDATA[143203148795226440]]></MsgId>
+                    <UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+                </XML>
+2015-05-19 18:31:28  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-19+18%3A31%3A28&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=Jk9S2HXzv4qSlhEEw0x96ijYrMmtkzKHDxoONGkoxKg85K2sehw2LWl5429%2ByEla87uyi9CVK6V5bix4iMT9FOKuVMRtZPVzy8%2Fw2y10CkLexToAkB%2BbC%2FEkPsUuTdPEiwH1MPhP53nZxGYqP7qoe5tFqPSbE6aJqxoQ%2BeZJhKk%3D
+2015-05-19 18:31:28  apiParams: array (
+  'biz_content' => '{"msgType":"image-text","createTime":"1432031488","articles":[{"actionName":"立即查看","desc":"描述","imageUrl":"http://127.0.0.1:8081/addons/changjingapp/userfiles/pic/7/201505/5555b2ada0c44.jpg","title":"伊索","url":"http://127.0.0.1:8081/addons/changjingapp/v-U6053BR749","authType":""}],"toUserId":"emulatorUser"}',
+)
+2015-05-21 14:02:34  
+						<XML>
+							<Text>
+								<Content><![CDATA[菜单]]></Content>
+							</Text>
+							<AppId><![CDATA[2015042200048491]]></AppId>
+							<MsgType><![CDATA[text]]></MsgType>
+							<CreateTime><![CDATA[1432188153]]></CreateTime>
+							<FromUserId><![CDATA[emulatorUser]]></FromUserId>
+							<MsgId><![CDATA[143218815317586059]]></MsgId>
+							<UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+						</XML>
+2015-05-21 14:02:34  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-21+14%3A02%3A34&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=0wb3GKDOsG3d6w67c1%2FoUI1LbSTn7BgMKF5Co0E4TmougYs8VC63x6%2FRR02kVSl%2FO9R6EGNJQtDYlH%2By8UInmkkBmL9xFXWZDL%2FQEHHUX1S7p4EGzikJuSthRRR4cziaxpNgAIQk3H9%2Fevfgp2drhh37Iwb%2FAzUTqikI3S1MHtE%3D
+2015-05-21 14:02:34  apiParams: array (
+  'biz_content' => '{"msgType":"image-text","createTime":"1432188154","articles":[{"actionName":"立即查看","desc":"南宁总店描述...","imageUrl":"http://127.0.0.1:8081/uploadfiles/users/1/images/2015/05/123123123.jpg","title":"南宁总店","url":"http://127.0.0.1:8081/app/es_cate/index/?sid=2&from_user=MzA1NkpTVHVYYjdHSmZndVhGQTZuRVFaK3BObkphZS90RXBjaFNqUTlPZm5uZW1tR20rMnFZdw==&ui=1&al=6","authType":""}],"toUserId":"emulatorUser"}',
+)
+2015-05-21 15:13:39  
+						<XML>
+							<AppId><![CDATA[2015042200048491]]></AppId>
+							<FromUserId><![CDATA[emulatorUser]]></FromUserId>
+							<CreateTime><![CDATA[1432192419]]></CreateTime>
+							<MsgType><![CDATA[event]]></MsgType>
+							<EventType><![CDATA[follow]]></EventType>
+							<ActionParam><![CDATA[{"scene":{"sceneId": "0"}}]]></ActionParam>
+							<AgreementId><![CDATA[]]></AgreementId>
+							<AccountNo><![CDATA[]]></AccountNo>
+							<MsgId><![CDATA[143219241955362548]]></MsgId>
+							<UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+						</XML>
+2015-05-21 15:13:39  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-21+15%3A13%3A39&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=tSRr%2BwIR3aLXePaOJukDB%2BHMQG0wJgC0QdadgWoDuOjJIgrHnr8PL1znmopq6VNXNA1v1Z8sYM7VYMS8%2FiSKm%2B32adNjBMkh8eQlOLIP8M6XEjURLsZ7c78%2FzGrUR%2F%2BKkq2%2FV0UfrJlBukftkNIIKX8WHlC%2BO7kg9IQUwlIwTPk%3D
+2015-05-21 15:13:39  apiParams: array (
+  'biz_content' => '{"msgType":"image-text","createTime":"1432192419","articles":[{"actionName":"立即查看","desc":"摘要随便写的......","imageUrl":"http://127.0.0.1:8081/uploadfiles/users/1/images/2015/05/143093381514.png","title":"3测试高级群发功能【单图文】","url":"http://127.0.0.1:8081/app/library/14/?ui=1&al=6","authType":""}],"toUserId":"emulatorUser"}',
+)
+2015-05-21 15:13:48  
+						<XML>
+							<AppId><![CDATA[2015042200048491]]></AppId>
+							<FromUserId><![CDATA[emulatorUser]]></FromUserId>
+							<CreateTime><![CDATA[1432192428]]></CreateTime>
+							<MsgType><![CDATA[event]]></MsgType>
+							<EventType><![CDATA[unfollow]]></EventType>
+							<ActionParam><![CDATA[{"scene":{"sceneId": "0"}}]]></ActionParam>
+							<AgreementId><![CDATA[]]></AgreementId>
+							<AccountNo><![CDATA[]]></AccountNo>
+							<MsgId><![CDATA[143219242875874023]]></MsgId>
+							<UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+						</XML>
+2015-05-21 15:13:48  取消关注
+2015-05-21 15:13:48  response_xml: <?xml version="1.0" encoding="GBK"?><alipay><response><XML><ToUserId><![CDATA[emulatorUser]]></ToUserId><AppId><![CDATA[2015042200048491]]></AppId><CreateTime>1432192428</CreateTime><MsgType><![CDATA[ack]]></MsgType></XML></response><sign>w29R5mt7k3GTHVFoUTVH4XW/Cv9WHyu8Pnt9HG8Rt5ivDC6pK3NhXzMF7IMVycxgjw2LT4AFWBSNtmk2XRDwkf9kGzboWE8F4RYs0VIY66l+uqZ4aO0rV9gWFpFYYnsyBtvHOD13rhckh8IcQiiBc4KQ06TauTFrSpm9B+STvP0=</sign><sign_type>RSA</sign_type></alipay>
+2015-05-21 15:13:52  
+						<XML>
+							<AppId><![CDATA[2015042200048491]]></AppId>
+							<FromUserId><![CDATA[emulatorUser]]></FromUserId>
+							<CreateTime><![CDATA[1432192432]]></CreateTime>
+							<MsgType><![CDATA[event]]></MsgType>
+							<EventType><![CDATA[follow]]></EventType>
+							<ActionParam><![CDATA[{"scene":{"sceneId": "0"}}]]></ActionParam>
+							<AgreementId><![CDATA[]]></AgreementId>
+							<AccountNo><![CDATA[]]></AccountNo>
+							<MsgId><![CDATA[143219243243283081]]></MsgId>
+							<UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+						</XML>
+2015-05-21 15:13:52  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-21+15%3A13%3A52&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=jrrBpMjdE9uYfzbHhJGAqnTXvUd9lvmaKtWKlpVv%2FmT%2FDnDKOl6TNRsYiKnOfjgZnwlBBgZN2BZipLQAB20hapmJEciXUjw0JOiKsw%2BBuy2JKFGmvypq7HLK5q2aySG6cDGsxwH8Ouwq%2F5pLDOQ0Gvbk3CWmIn2a2HYE7b5%2BK%2B8%3D
+2015-05-21 15:13:52  apiParams: array (
+  'biz_content' => '{"msgType":"image-text","createTime":"1432192432","articles":[{"actionName":"立即查看","desc":"摘要随便写的......","imageUrl":"http://127.0.0.1:8081/uploadfiles/users/1/images/2015/05/143093381514.png","title":"3测试高级群发功能【单图文】","url":"http://127.0.0.1:8081/app/library/14/?ui=1&al=6","authType":""}],"toUserId":"emulatorUser"}',
+)
+2015-05-22 19:50:32  
+						<XML>
+							<Text>
+								<Content><![CDATA[]]></Content>
+							</Text>
+							<AppId><![CDATA[2015042200048491]]></AppId>
+							<MsgType><![CDATA[text]]></MsgType>
+							<CreateTime><![CDATA[1432295431]]></CreateTime>
+							<FromUserId><![CDATA[emulatorUser]]></FromUserId>
+							<MsgId><![CDATA[143229543193114318]]></MsgId>
+							<UserInfo><![CDATA[{"logon_id":"0e5****ce71","user_name":"emulatorUser"}]]></UserInfo>
+						</XML>
+2015-05-22 19:50:32  requestUrl: https://openapi.alipay.com/gateway.do?app_id=2015042200048491&version=1.0&format=json&sign_type=RSA&method=alipay.mobile.public.message.custom.send&timestamp=2015-05-22+19%3A50%3A32&auth_token=&alipay_sdk=alipay-sdk-php-20130320&terminal_type=&terminal_info=&prod_code=&sign=pEodU%2B5aubT7SCax1SXjDBwPtjondVbHxWfVZZ0XQFXKV1NAkt7GSM0gieIwnnzDLjXSlKHOdaHkJNt%2ByWJ8pCzctD8QNRFjy1IkF830vZhj5ThOmtmNUwWJ0tQve%2BF8%2BQUvW2BvcZYdCIolsZPKo7BvqzvYXSbPl2XAJerUHxc%3D
+2015-05-22 19:50:32  apiParams: array (
+  'biz_content' => '{"msgType":"image-text","createTime":"1432295432","articles":[{"actionName":"立即查看","desc":"","imageUrl":"http://127.0.0.1:8081/addons/changjingapp/userfiles/default_thum.jpg","title":"测试2","url":"http://127.0.0.1:8081/addons/changjingapp/v-U605CG3694","authType":""}],"toUserId":"emulatorUser"}',
+)

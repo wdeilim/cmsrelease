@@ -1,0 +1,70 @@
+@charset "UTF-8";.header-wrapper{border-bottom:2px solid #0099cb;background-color:#fff}
+.breadcrumb-wrapper,.main-wrapper{background-color:#f6f6f6}
+.breadcrumb,.header,.main{width:1270px;margin-left:auto;margin-right:auto;position:relative}
+.header-title{margin-top:18px;font-family:"Microsoft YaHei",SimSun,Tahoma,Verdana,Arial,sans-serif;color:#0099cb}
+.navbar .welcome{height:32px;line-height:32px;float:left;font-size:12px}
+.navbar .nav{float:right}
+.nav-item{float:left;position:relative;border-top-left-radius:3px;border-top-right-radius:3px;overflow:hidden;margin:0 5px;}
+.nav-item-link{display:block;line-height:32px;padding-left:20px;padding-right:20px;font-size:14px;color:#0099cb;text-decoration:none}
+.nav-item-link:hover,.nav-item.active .nav-item-link{color:#fff;background-color:#0099cb;text-decoration:none}
+.breadcrumb .items{padding-left:20px;padding-right:20px;padding-top:21px;padding-bottom:11px;border-bottom:1px solid #e2e2e2}
+.breadcrumb .items .description{color:#666}
+.breadcrumb .items .link{color:#333;text-decoration:none}
+.breadcrumb .items .link:hover{text-decoration:underline}
+.breadcrumb .items .current{color:#0198cd}
+.breadcrumb .items .iconfont{color:#ccc;padding-left:5px;padding-right:5px}
+.breadcrumb .items .current,.breadcrumb .items .description,.breadcrumb .items .iconfont,.breadcrumb .items .link{font-size:12px}
+.main{padding-top:30px;padding-bottom:30px}
+.sidebar{margin-right:30px}
+.sidebar dd,.sidebar dl{margin:0}
+.sidebar .item{display:block;padding:12px 45px}
+.sidebar .item:hover{text-decoration:none}
+.sidebar .title{color:#fff;background-color:#56a8ce}
+.sidebar .detail{color:#56a8ce;background-color:#fff;border-top:1px solid #eff0f2;font-size:14px}
+.sidebar li:first-child .detail{border-top:none}
+.sidebar .detail.active,.sidebar .detail:hover{color:#f60}
+.sidebar .detail:hover.active{padding-left:45px;padding-right:45px}
+.module{padding-top:30px}
+.main-content .module:first-child{padding-top:0}
+.control-group{padding-bottom:20px}
+.control-group-left{float:left}
+.control-group-right{float:right}
+.button-group .button{margin-right:20px}
+.module-title{color:#333;font-family:"Microsoft YaHei",SimSun,Tahoma,Verdana,Arial,sans-serif}
+.table-wrapper{border:1px solid #c4cecf}
+table.table{font-size:14px}
+table.table-primary td,table.table-primary th{padding-top:10px;padding-bottom:10px}
+table.table-primary th{padding-left:15px;padding-right:15px;color:#333;background-color:#f6f6ff}
+table.table-primary td{padding-left:15px;padding-right:15px;background-color:#fff}
+table.table-primary{width:100%}
+table.table-primary tbody tr td,table.table-primary thead tr th{border-left:1px solid #f3f3f3}
+table.table-primary tbody tr td{border-top:1px solid #f3f3f3}
+table.table-primary tbody tr td:first-child,table.table-primary thead tr th:first-child{border-left:none}
+table.table-primary tbody tr:hover td{background-color:#fafafa}
+table.table-simple{width:100%}
+table.table-simple td,table.table-simple th{padding-top:5px;padding-bottom:5px;padding-left:10px;padding-right:10px}
+table.table-col{width:100%}
+table.table-col th{background-color:#f6f6ff}
+table.table-col td,table.table-col th{padding:10px;border:1px solid #e4e4e4}
+table.table-checkbox{width:100%;font-size:12px}
+table.table-checkbox td{padding:8px 8px;border:1px solid #dfdfdf;text-align:center;background-color:#fff}
+table.table-checkbox td.label{background-color:#f6f6ff}
+.align-left{text-align:left}
+.align-right{text-align:right}
+.align-center{text-align:center}
+.feature-logo,.feature-title{vertical-align:middle}
+.feature-title{color:#666}
+a.normal-link{text-decoration:none}
+a.normal-link:hover{text-decoration:underline}
+a.operation-link{margin-left:10px;margin-right:10px;font-size:14px}
+.invitation{position:fixed;left:0;top:250px;z-index:999}
+.invitation a,.invitation a:hover{cursor:pointer;text-decoration:none}
+.invitation p{padding:10px 5px;font-size:14px;width:14px;color:#fff;background-color:#257ad0;border-top-right-radius:3px;border-bottom-right-radius:3px}
+.invitation a:hover p{background-color:#fa0}
+.edit-area{padding:30px 20px;background-color:#fff}
+.section{padding:20px;margin-bottom:20px;border:1px solid #dfdfdf;background-color:#fff}
+.section-minh{min-height:378px}
+.section-title{margin-bottom:10px}
+.form-inline .col{margin-right:10px}
+.form-stacked .form-group{margin-bottom:20px}
+.form-stacked .form-group .label{display:block;margin-bottom:5px;font-weight:700;color:#56a8ce}

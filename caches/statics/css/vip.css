@@ -1,0 +1,116 @@
+.clearfix:after,.clearfix:before{content:"\0020";display:block;height:0;overflow:hidden}
+.clearfix:after{clear:both}
+.clearfix{zoom:1}
+.col-25{float:left;width:25%}
+.col-50{float:left;width:50%}
+.checkbox,.radio{margin:10px 0}
+.vipmenu{position:relative;width:1176px;height:36px;margin:0 auto;padding-left:24px;background-color:#fff;border-bottom:3px solid #09c}
+.vipmenu a{display:block;float:left;line-height:36px;padding:0 12px;margin-right:12px;color:#09c}
+.vipmenu a.active,.vipmenu a:hover{-webkit-border-radius:3px 3px 0 0;-moz-border-radius:3px 3px 0 0;border-radius:3px 3px 0 0;color:#fff;font-weight:700;background-color:#09c}
+.vipmenu div{display:none;border:1px solid #09c;border-top:3px solid #09c;background-color:#fff;position:absolute;top:36px;left:0;z-index:9999}
+.vipmenu div a{float:none;margin:0}
+.vipmenu div a.active,.vipmenu div a:hover{-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
+.main-bd{padding:20px;padding-top:30px}
+.main-page{padding:30px 80px}
+.form-control{width:460px;border-radius:3px;padding:8px 5px;border:1px solid #aaa}
+.form-control-small{width:160px;border-radius:3px;padding:8px 5px;border:1px solid #aaa}
+.form-control-tiny{width:50px;border-radius:3px;padding:5px 3px;border:1px solid #aaa}
+textarea.form-control{height:150px;padding:5px}
+.btn{line-height:26px}
+.button{cursor:pointer;height:30px;line-height:28px;padding:0 18px;border-radius:3px;-webkit-box-shadow:0 1px 0 #ababab;-moz-box-shadow:0 1px 0 #ababab;box-shadow:0 1px 0 #ababab;color:#fff;background-color:#09c;border-color:#018BB9}
+.button.long{padding-left:60px;padding-right:60px;height:38px}
+.button-hover,.button:hover{color:#fff;background-color:#fa0;border-color:#e67a00}
+.control-group{margin-bottom:10px}
+.align-center td{text-align:center}
+.align-center .button{height:26px;line-height:26px}
+#divimg img{max-width:100px;max-height:100px}
+#setting_show{width:600px;height:360px;margin-top:8px;padding:1px;border:1px solid #ddd;border-radius:5px;background-color:#fff;clear:both}
+hr{border:1px solid #eee}
+table.table-form{width:100%}
+table.table-primary tbody tr td,table.table-primary thead tr th{padding:4px 12px;height:32px;font-size:14px}
+.fen_list input{width:92%;height:22px;padding:0 5px;line-height:22px;border-radius:3px;border:1px solid #aaa}
+.fen_list #u_money,.fen_list #u_point{color:#257ad0;cursor:pointer}
+.fen_list #u_money:hover,.fen_list #u_point:hover{text-decoration:underline}
+.putpoint p{margin-bottom:8px;padding:0;margin-top:0;height:24px;line-height:24px}
+.putpoint p.l{margin-bottom:0;height:55px}
+.putpoint input,.putpoint span,.putpoint textarea{width:160px;display:block;float:left}
+.putpoint span{width:80px;text-align:right}
+.putpoint textarea{height:48px}
+input.check{width:18px;height:18px;vertical-align:middle}
+span#trendedit{padding-left:2px;padding-right:2px;cursor:pointer}
+span#trendedit:hover{background-color:#1c5fff;color:#fff}
+.summary table{width:100%;margin-top:20px}
+.summary td{min-width:190px;max-width:100%}
+.summary td div{height:60px;padding:10px 0;margin:0 4px;background-color:#f6f6f6}
+.summary .text,.summary .value{display:block;line-height:1;text-align:center}
+.summary .text{margin-bottom:20px;font-size:16px;font-weight:700;color:#000}
+.summary .value{font-size:24px;font-weight:700;color:red}
+.timeline{margin-top:50px;line-height:30px}
+.timeline h2{font-size:16px;color:#0299ce}
+.timeline .form-inline{padding-top:10px}
+.timeline .form-group{float:left;margin-right:10px}
+.timeline input{height:14px}
+.timeline .toldiv{width:100%;height:auto}
+.timeline .toldiv .toln{float:left;width:33.333%}
+.timeline .table-primary{border:1px solid #c4ced0;margin-top:15px;margin-bottom:30px}
+.timeline table{width:100%}
+.timeline table thead tr th{background-color:#fafafa;color:#09c;padding:4px 20px;height:32px}
+.timeline table td{padding:4px 20px;text-align:center}
+.timeline table td.lt,.timeline table thead tr th.lt{text-align:left}
+.timeline table td.bor,.timeline table thead tr th.bor{border-right:1px dashed #ccc}
+.timeline table tbody tr:hover td{background-color:#e9f5fe}
+.timeline .align-center{text-align:center}
+.fen_list td{text-align:center}
+.fen_list td.lt{text-align:left}
+.fen_list #s_x input,.fen_list #s_y input{width:60px}
+.fen_list #s_add{line-height:26px;height:26px;overflow:hidden;display:block}
+.level_list td{text-align:center}
+.integral input,.level_list input{height:30px;padding:0 5px;margin:3px 0;line-height:22px;border-radius:3px;border:1px solid #aaa}
+.main-card{padding:30px 80px 50px}
+.main-card .title{font-size:24px;float:left;margin-right:20px}
+.main-card .description{margin-left:0;font-size:12px;color:#999}
+.main-card .form-control{width:280px}
+.main-card .m-left{float:left}
+.main-card .m-right{float:right;margin-right:30px}
+.main-card table.table-form tbody tr td{padding:10px 5px}
+.vip-card-box{width:300px;margin:0 auto;position:relative;margin-bottom:10px;margin-top:40px}
+.vip-card-box .vip-pic{width:300px;vertical-align:top}
+.vip-card-box .vip-name{position:absolute;top:10px;right:15px;font-size:18px;font-weight:400;letter-spacing:2px;color:#fff;text-shadow:0 0 .1em #a20007,0 0 .15em #a20007}
+.vip-card-box .vip-num{position:absolute;right:15px;bottom:10px;font-size:12px;letter-spacing:2px;color:#fff;text-align:right;text-shadow:0 0 .1em #a20007,0 0 .15em #a20007}
+.vip-card-box .vip-num span{display:block;font-size:14px}
+.vip-card-box .vip-logo{position:absolute;top:50px;left:20px;max-width:180px}
+.mobile-item-list{width:1100px}
+.mobile-item-list li{float:left;width:300px;margin:0 38px 20px 0;padding:10px;border:1px solid #ddd}
+.mobile-item-list input{width:200px;height:28px;border-radius:3px;border:1px solid #aaa}
+.mobile-item .edit,.mobile-item .mobile-page{margin-left:auto;margin-right:auto}
+.mobile-item .mobile-page{width:300px;margin-bottom:20px}
+.mobile-item .mobile-page,.mobile-item .mobile-page *{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;-o-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box}
+.mobile-item .mobile-page .banner{height:110px;overflow:hidden}
+.mobile-item .mobile-page .banner img{display:block;max-height:110px}
+.mobile-item .mobile-page .content{width:320px;height:371px;border:1px solid #ddd}
+.mobile-item .edit{width:320px}
+.mobile-item .mobile-page .ptitle{text-align:center;padding:5px;font-size:16px;font-weight:600}
+.mobile-item .form-control input{width:204px}
+.color-danger{color:#cd0000}
+.tdtitle{margin-bottom:10px;color:#009acc;font-weight:700}
+.tdtitle small{font-weight:400;color:#888;padding-left:10px}
+.normal-link{margin:0 2px}
+.control-top{border-radius:3px;padding:8px;margin-bottom:15px}
+.control-top .form-group{display:inline-block;margin-bottom:0;vertical-align:middle}
+.control-top .inp1{width:30px;padding:5px}
+.control-top .inp2{width:150px;padding:5px}
+.control-top .inp3{width:auto;padding:4px 5px}
+.table-simple table tbody tr td,.table-simple table tfoot tr td,.table-simple table thead tr th{border-bottom:1px solid #f3f3f3}
+.table-simple table thead tr th{background-color:#fafafa;color:#09c}
+.table-simple table thead tr th{background-color:#fafafa;color:#09c}
+.table-simple table tbody tr td,.table-simple table tfoot tr td,.table-simple table thead tr th{padding:4px 20px;height:32px}
+.table-simple table tbody tr:hover td{background-color:#f6fbfe}
+.table-simple .color-primary{color:#09c}
+.table-simple input{width:100%;border-radius:3px;padding:4px 5px;border:1px solid #aaa}
+.table-staff input{width:200px}
+.table-staff select{width:212px;border-radius:3px;padding:4px 5px;border:1px solid #aaa}
+.member-info .control-top{padding-left:0;margin-top:10px}
+.member-info h1.title{font-size:24px;margin-bottom:15px}
+.member-info ul li{margin-right:25px;float:left}
+.member-info ul li span{color:#069;font-weight:700}
+.member-info ul li strong{color:#f60}

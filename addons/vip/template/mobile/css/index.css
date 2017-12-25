@@ -1,0 +1,89 @@
+@import url('g.css');
+/* layout */
+.layout{min-width:300px;max-width:620px;margin:0 auto;padding:10px;}
+
+/* 首页头部 */
+.vip-card{margin-bottom:20px;}
+.vip-card-box{
+	width:300px;margin:0 auto;position:relative;margin-bottom:10px;
+}
+.vip-pic{width:300px;vertical-align:top;border-radius:5px;}
+.vip-name{
+	position:absolute;top:10px;right:15px;font-size:18px;font-weight:normal;letter-spacing:2px;color:#fff;
+	font-weight:bold;
+}
+.vip-num{
+	position:absolute;right:15px;bottom:10px;font-size:12px;letter-spacing:2px;color:#fff;text-align:right;
+	font-weight:bold;
+}
+.vip-num span{display:block;font-size:14px;}
+.vip-logo{position:absolute;top:50px;left:20px;max-width:180px;}
+
+.vip-slogan{text-align:center;font-size:14px;margin-bottom:10px;}
+.vip-tips{text-align:center;font-size:14px;color:#fc1e00;}
+
+.vip-icon{display:inline-block;font-size:0;}
+.icon-tips{
+	width:10px;height:14px;vertical-align:-2px;margin-right:5px;
+	background:url(../images/icon_phone.png) no-repeat;
+	background-size:10px 14px;
+}
+
+/* 积分 */
+.vip-credit{border:1px solid #dfdfdf;border-radius:4px;background-color:#fff;}
+.vip-table{width:100%;text-align:center;}
+.vip-table th,
+.vip-table td{border-left:1px solid #dfdfdf;}
+.vip-table th{border-bottom:1px solid #dfdfdf;color:#383838;font-size:16px;padding:5px 0;}
+.vip-table td{color:#2e2e2e;font-size:14px;padding:10px 0;}
+.vip-table th:first-child,
+.vip-table td:first-child{border-left:0 none;}
+
+/* 列表 */
+.vip-list{border:1px solid #dfdfdf;border-radius:4px;background-color:#fff;margin-top:14px;}
+.list-item{padding:12px;border-top:1px solid #dfdfdf;position:relative;}
+.list-item:first-child{border-top:0 none;}
+.list-item .t{font-size:16px;color:#2e2e2e;}
+.list-item .n{
+	position:absolute;top:12px;right:32px;display:inline-block;width:32px;height:21px;line-height:21px;text-align:center;font-size:14px;color:#fff;
+	border:1px solid #e60000;border-radius:3px;background-color:#f53c23;box-shadow:0 1px 1px 0 rgba(0,0,0, .4);
+}
+.list-item:after{
+	content:'';position:absolute;top:20px;right:16px;width:6px;height:6px;border:#838383 solid;border-width: 2px 2px 0 0;
+	-webkit-transform: rotate(45deg);
+}
+.list-item .btn-sign{top:9px;width:100px;height:28px;line-height:28px;}
+.list-item .btn-sign-already{
+	top:9px;width:100px;height:28px;line-height:28px;
+	border:1px solid #b0b0b0;background-color:#cbcbcb;
+}
+
+.vip-contact .vip-icon{
+	width:24px;height:24px;vertical-align:-5px;margin-right:8px;
+	background:url(../images/icon_vip.png) no-repeat;
+}
+.vip-contact .icon-addr{background-position:0 0;}
+.vip-contact .icon-phone{background-position:0 -47px;}
+
+/* 获得VIP */
+.ui-mask-linear{
+	position:absolute;top:0;left:0;z-index:11;width:100%;height:500px;
+	background-image:-webkit-linear-gradient(top, rgba(255,255,255,.0) 25%, rgba(255,255,255,0.95) 10%, rgba(255,255,255,1) 65%);
+}
+
+.getvip{position:absolute;top:170px;z-index:99;text-align:center;width:100%;}
+
+.btn-getvip{
+	width:250px;height:46px;font-size:16px;color:#fff;border:1px solid #e60000;border-radius:3px;box-shadow:0 1px 1px 0 rgba(0,0,0, .4);background-color:#f53c23;margin-top:20px;
+}
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,17 @@
+.clearfix:after,.clearfix:before{content:"\0020";display:block;height:0;overflow:hidden}
+.clearfix:after{clear:both}
+.clearfix{zoom:1}
+.jQuery-baidumap{color:#2E2E2E}
+.jQuery-baidumap-back{width:100%;height:100%;position:fixed;top:0;left:0;background-color:#000;opacity:.5;z-index:99998}
+.jQuery-baidumap-content{display:block;position:fixed;top:30px;left:50%;z-index:99999;width:600px;margin-left:-300px;background-color:#fff;background-clip:padding-box;border:1px solid #999;-webkit-box-shadow:0 5px 10px rgba(0,0,0,.5);box-shadow:0 5px 10px rgba(0,0,0,.5);outline:0}
+.baidumap-title{font-size:20px;margin-bottom:10px;font-weight:600;line-height:1.1;position:relative;padding:10px 10px 7px;border-bottom:1px solid #e5e5e5}
+.baidumap-title em{position:absolute;right:17px;top:15px;font-size:18px;font-weight:700;line-height:1;color:#9C9C9C;text-shadow:0 1px 0 #fff;font-style:normal;cursor:pointer}
+.baidumap-title em:hover{color:#000}
+.baidumap-button{padding:10px;height:40px;border-top:1px solid #e5e5e5}
+.baidumap-button p{float:right;border:1px solid #dadada;border-radius:4px;padding:8px 12px;margin:0 3px;cursor:pointer}
+.baidumap-button p:hover{background-color:#dcdcdc;border:1px solid #aaa}
+.baidumap-button p.hover{color:#fff;background-color:#428bca;border-color:#357ebd}
+.baidumap-show{width:98%;height:430px;margin:1%;border-radius:5px;background-color:#fff;clear:both;position:relative}
+.baidumap-show .baidumap-control{width:160px;height:22px;padding:3px;border-radius:3px;border:1px solid silver;margin-right:5px}
+.baidumap-but{cursor:pointer;height:29px;line-height:27px;padding:0 18px;border-radius:3px;border:1px solid #ccc;-webkit-box-shadow:0 1px 0 #ababab;-moz-box-shadow:0 1px 0 #ababab;box-shadow:0 1px 0 #ababab;color:#fff;background-color:#09c;border-color:#018BB9}
+.baidumap-load{margin-top:10px;height:397px}

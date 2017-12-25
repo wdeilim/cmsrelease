@@ -1,0 +1,14 @@
+.col-left{float:left;margin-top:30px;margin-left:40px;padding:20px;padding-bottom:0;border:1px solid #ededed;border-radius:6px}
+.col-left a{display:block;margin-bottom:20px;max-width:90px;min-width:90px}
+.col-right{float:right;width:880px;margin-top:30px;margin-right:40px;padding:20px;border:1px solid #ededed;border-radius:6px}
+.col-right .form-control{width:460px;border-radius:3px;border:1px solid #aaa}
+textarea.form-control{height:150px;padding:5px}
+.button{line-height:30px;border-radius:3px;-webkit-box-shadow:0 1px 0 #ababab;-moz-box-shadow:0 1px 0 #ababab;box-shadow:0 1px 0 #ababab;color:#fff;background-color:#2378cd;border-color:#26a}
+.button-hover,.button:hover{color:#fff;background-color:#fa0;border-color:#e67a00}
+.control-group{margin-bottom:20px}
+.align-center td{text-align:center}
+.align-center .button{height:26px;line-height:26px}
+#divimg img{max-width:100px;max-height:100px}
+.col-radio{float:left;margin-right:20px}
+.col-right td.key{max-width:200px;padding:5px 10px;line-height:30px}
+em.replykey{font-size:12px;margin-right:5px;font-style:normal;padding:5px 8px;background-color:#e5e7ec;color:#222}

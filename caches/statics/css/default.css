@@ -1,0 +1,27 @@
+﻿*{margin:0; padding:0;}
+body{line-height:28px; font-size:16px; color:#000; font-family:"微软雅黑","黑体","宋体",Arial;}
+body,html{overflow-x:hidden; }
+input{padding:1px 2px; border-radius: 0px;}
+form{display:inline;}
+img {max-width:300px;border:0;}
+li,ul,ol{ list-style:none;}
+a:link,a:visited {text-decoration:none; color:#004299;}
+a:hover,a:active,a:focus {color:#2263a5; text-decoration:none;}
+
+/* */
+input.ipt-btn{ padding:2px;}
+.html-pre{padding:0px 5px;border: 1px solid #CCC;background: #F7F7F7;overflow: hidden;font-size: 12px;line-height: 18px;text-align: left;color: #666666;}
+
+
+/* */
+.footer{ border-top:1px solid #FFF; border-bottom:1px solid #dfe0e1; background:#efefef; float:left; line-height:24px; padding:25px 0; width:100%;}
+.footer p{ text-align:center; padding:5px 0;}
+.footer p a{ display:inline-block; padding:0 5px;}
+.footer p span{ color:#999999;}
+.footer p a:last-child{ background:none;}
+.footer p:nth-child(1){}
+.footer p:nth-child(1) a{ color:#2b2b2b;}
+.footer p:nth-child(2){}
+.footer p:nth-child(2) a{ color:#004276;}
+.footer p:nth-child(2) a.selected{ color:#999;}
+.footer p:last-child{ font-size:12px; color:#666;}

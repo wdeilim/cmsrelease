@@ -1,0 +1,44 @@
+.al-name>span{font-size:16px;color:#666;padding-right:30px}
+.al-name>span>em.toget{font-size:12px;font-style:normal;color:#FFFFFF;background-color:#F069E9;padding:2px 3px;border-radius:2px;margin-left:2px;filter:alpha(opacity=70);-moz-opacity:0.7;-khtml-opacity:0.7;opacity:0.7;}
+.al-name a.openfunc{padding:5px 8px;background-color:#12B44C;color:#fff;display:none}
+.al-name:hover a.openfunc{display:inline}
+.al-name .openfunc_w {display:none;position:absolute;left:0;top:0;z-index:1}
+.al-name .openfunc_w a{display:block;padding:5px 8px;background-color:#12B44C;color:#fff;border-bottom:1px solid #ffffff}
+.al-name .openfunc_w a:last-child{border-bottom:0}
+.heading{position:relative}
+.search{position:absolute;top:9px;right:25px;font-weight:400}
+.search input{border:0;width:180px;height:30px;line-height:30px;font-size:14px;background-color:#fff;padding:0 8px}
+.search .search_btn{height:20px;font-size:14px;color:#aaa;cursor:pointer;background-color:#fff;padding:5px 8px 6px;border-left:1px solid #eaeaea}
+.search:hover .search_btn{color:#fff;border-left:1px solid #2378cd;background-color:#2378cd}
+.subordinate{float:right;padding-right:10px!important}
+
+table.payment{display:none;width:720px;background:#ececec}
+table.payment .pmsg{color:#8a6d3b;border:1px solid #faebcc;background-color:#fcf8e3}
+table.payment .al-right{padding-top:22px}
+table.payment .help-block{display:block;padding-top:5px;line-height:20px;color:#CC8686}
+table.payment a{color:#257ad0}
+.topmenu{position:relative;width:1126px;height:36px;margin:0 auto 8px;padding-left:24px;background-color:#fff;border-bottom:3px solid #09c}
+.topmenu a{display:block;float:left;line-height:36px;padding:0 12px;margin-right:12px;color:#09c}
+.topmenu a.active,.topmenu a:hover{-webkit-border-radius:3px 3px 0 0;-moz-border-radius:3px 3px 0 0;border-radius:3px 3px 0 0;color:#fff;font-weight:700;background-color:#09c}
+.topmenu div{display:none;border:1px solid #09c;border-top:3px solid #09c;background-color:#fff;position:absolute;top:36px;left:0;z-index:9999}
+.topmenu div a{float:none;margin:0}
+.topmenu div a.active,.topmenu div a:hover{-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
+.tabmenu{display:none}
+.backing{margin-left:10px}
+.button-akey{height:35px;line-height:33px;margin-top:-3px;font-size:14px;background-color:#e6e6e6;border-color:#e6e6e6;color:#9C9C9C}
+.other_label label{width:112px;height:20px;margin-bottom:8px;padding-right:8px;line-height:16px;overflow:hidden;float:left;white-space:nowrap;text-overflow:ellipsis;}
+.other_label label.wid{width:200px;}
+.other_label label input{width:16px;height:16px;float:left}
+.label_del{text-decoration:line-through;color:#AAA}
+.isget{padding-left:8px;color:#FF13EC;font-weight:900}
+.isfunc{display:none}
+.gappid{width:330px!important;float:left!important}
+.gselect{width:120px!important;margin-left:-1px!important;padding:7px 5px!important;}
+.ifunlist .button-groups{top:0;left:0;right:0;padding:10px 20px 0}
+.ifunlist .ifunall{position:absolute;z-index:999}
+.ifunall-showbg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:998;background-color:#000;opacity:0}
+.ifunlist .ifunallb{border:0;padding:10px 20px 0!important;background-color:#fff;box-shadow:2px 2px 5px #818181;-webkit-box-shadow:2px 2px 5px #818181;-moz-box-shadow:2px 2px 5px #818181;-o-box-shadow:2px 2px 5px #818181}
+.relative{position:relative}
+.filteral {position:absolute;top:0;right:27px}
+.filteral select{padding:8px;width:160px;border:1px solid #dadada;color:#6a6a6a}
+.indexuptis {display:none;position:fixed;top:0;left:50%;padding:0 30px;background-color:#EE03EE;color:#ffffff;line-height:36px;}

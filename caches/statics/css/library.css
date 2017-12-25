@@ -1,0 +1,115 @@
+.clearfix:after,.clearfix:before{content:"\0020";display:block;height:0;overflow:hidden}
+.clearfix:after{clear:both}
+.clearfix{zoom:1}
+.mod{padding:25px;margin-bottom:25px}
+.mod-bordered{border:1px solid #dadada}
+.mod-rounded{border-radius:3px}
+.col-main,.col-side{float:left}
+.col-side{width:155px}
+.side-bar{width:130px;margin-top:25px;margin-left:25px}
+.side-bar li a{display:block;height:34px;line-height:34px;font-size:14px;color:#fff;background-color:#257ad0;text-align:center}
+.side-bar li a:hover,.side-bar li.active a{background-color:#fa0}
+.col-main{width:1045px}
+.control-group{margin-bottom:20px}
+.control-group-left{float:left}
+.control-group-right{float:right}
+.button-group .button{margin-right:20px}
+.mod-title{color:#333}
+.tip{border-color:#e6df87;background-color:#fffcd8}
+.tip h3{font-size:24px;color:#646464;font-weight:400}
+.tip p{color:#757474}
+.form-control{padding:0 7px}
+.form-control input,.form-control select,.form-control textarea{width:100%;margin-left:-7px;margin-right:-7px;padding:8px 6px;border:1px solid #ccc;outline:0;font-size:14px}
+.form-control select{-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box}
+.form-control input:hover,.form-control select:hover,.form-control textarea:hover{border-color:#7e7e7e}
+.form-control input:focus,.form-control select:focus,.form-control textarea:focus{border-color:#799bd2}
+select.form-control{width:100px}
+.add{display:block;padding:0 5px;height:34px;line-height:34px}
+.add .icontext{font-size:18px;color:#1d1d1d;font-weight:900}
+.col{float:left}
+.indent{display:block;height:34px;line-height:34px}
+.appmsg-list{width:1180px;position:relative}
+.appmsg-col{display:block;margin-right:22px;float:left;vertical-align:top;text-align:left;font-size:14px;letter-spacing:normal}
+.appmsg-col-with-margin{margin-right:22px}
+.appmsg{width:269px;margin-bottom:20px;position:relative;overflow:hidden;border:1px solid #d3d3d3;background-color:#fff;border-radius:5px}
+.appmsg-content{padding:0 14px;border-bottom:1px solid #d3d3d3;position:relative}
+.appmsg-title{font-weight:700;font-style:normal;font-size:16px;padding-top:6px;line-height:28px;max-height:56px;overflow:hidden;white-space:pre-wrap;word-wrap:normal;word-break:normal;margin:0}
+.appmsg-title a{display:block;word-break:break-all;color:#222}
+.appmsg-info{font-size:13px;line-height:20px;padding-bottom:6px}
+.appmsg-date{font-weight:400;font-style:normal}
+.appmsg-thumb-wrap{height:130px;background-color:#F5F5F5;overflow:hidden}
+.appmsg-thumb{width:100%}
+.appmsg-desc{padding:5px 0 10px;margin-top:0;margin-bottom:0;white-space:pre-wrap;-ms-word-break:normal;word-break:normal;-ms-word-wrap:normal;word-wrap:normal}
+.appmsg-item{position:relative;padding:12px 14px;border-top:1px solid #d3d3d3}
+.appmsg-item .appmsg-thumb{float:right;width:55px;height:55px;margin-left:14px}
+.appmsg-item .appmsg-title{line-height:20px;max-height:40px;overflow:hidden;margin-top:8px}
+.cover-appmsg-item{position:relative;margin:0 14px 14px;zoom:1}
+.cover-appmsg-item .appmsg-title{position:absolute;bottom:0;left:0;width:100%;background:rgba(0,0,0,.6)!important;filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#99000000', endcolorstr='#99000000')}
+.cover-appmsg-item .appmsg-title a{padding:0 4px;color:#fff}
+.multi .appmsg-content{padding:0}
+.multi .appmsg-info{padding-top:4px;padding-left:14px;padding-right:14px}
+.multi .appmsg-title{font-size:14px;padding-top:0}
+.appmsg-operate{position:relative;background-color:#f4f4f4}
+.appmsg-line{position:absolute;left:50%;top:0;border-left:1px solid #E6E6EA;height:100%}
+.appmsg-operate-item{width:50%;height:44px;line-height:44px;float:left}
+.appmsg-operate-item a{display:block;text-align:center;line-height:20px;margin-top:12px}
+.appmsg-operate-item a .iconfont{font-size:20px;color:#888}
+.appmsg-operate-item a:hover .iconfont{color:#5f5f5f}
+.appmsg-thumb.default{display:block;color:silver;text-align:center;line-height:130px;font-weight:400;font-style:normal;background-color:#ececec;font-size:20px}
+.editing .appmsg-thumb{display:none}
+.editing .appmsg-thumb.default{display:block}
+.appmsg-item .appmsg-thumb.default{line-height:56px;font-size:14px}
+.appmsg-edit-mask{display:none;position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(229,229,229,.85)!important;filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#d9e5e5e5', endcolorstr='#d9e5e5e5');text-align:center}
+.editing .appmsg-item.hover .appmsg-edit-mask,.editing .appmsg-item:hover .appmsg-edit-mask,.editing .cover-appmsg-item.hover .appmsg-edit-mask,.editing .cover-appmsg-item:hover .appmsg-edit-mask{display:block}
+.cover-appmsg-item .appmsg-edit-mask{line-height:138px}
+.appmsg-item .appmsg-edit-mask{line-height:80px}
+.appmsg-edit-mask a .iconfont{font-size:20px;padding:0 10px;color:#888}
+.appmsg-edit-mask a.hover .iconfont,.appmsg-edit-mask a:hover .iconfont{color:#5f5f5f}
+.appmsg-editor{position:relative;padding-left:12px;zoom:1}
+.appmsg-editor .inner{padding:20px;border:1px solid #d3d3d3;background-color:#f8f8f8;border-radius:3px;min-height:350px}
+.arrow{width:0;height:0;margin:0;padding:0;border-left:0;border-top:12px solid transparent;border-bottom:12px solid transparent;position:absolute;font-size:0;line-height:0}
+.arrow-in{border-right:12px solid #f8f8f8;top:10px;left:1px}
+.arrow-out{border-right:12px solid #d3d3d3;top:10px;left:0}
+.media-preview-area{margin-right:14px}
+.media-edit-area{width:865px}
+.media-edit-area,.media-preview-area{float:left}
+.appmsg-edit-item{margin-bottom:14px}
+.appmsg-edit-item .form-label{display:block;margin-bottom:4px;font-size:14px}
+.appmsg-edit-item .form-input-box,.appmsg-edit-item .form-textarea-box{display:block;border:1px solid #d3d3d3;border-radius:3px;background-color:#fff;font-size:14px;position:relative}
+.appmsg-edit-item .form-input-box{min-height:30px;line-height:30px;vertical-align:middle;padding:0 10px}
+.appmsg-edit-item .form-input-upbox{min-height:30px;line-height:30px;vertical-align:middle}
+.appmsg-edit-item .form-input-upbox img{max-width:100px;max-height:100px}
+.appmsg-edit-item .form-textarea-box{padding:4px 10px}
+.appmsg-edit-item pre{overflow:visible!important}
+.form-input,.form-textarea{width:100%;padding:0;border:0;outline:0}
+.form-input{height:22px;margin:4px 0;background-color:transparent}
+.form-placeholder{color:#c9c9c9;position:absolute;top:0;left:12px;cursor:text}
+.form-textarea{height:100px}
+.form-tips{padding-top:10px}
+.button-upload{color:#666}
+.upload-box:hover .button-upload{color:#000}
+.button-upload .iconfont{font-size:18px}
+.upload-preview img{width:100px;max-width:100px;max-height:100px}
+.tool-area{margin-top:35px;padding-top:35px;border-top:1px solid #ddd}
+.tool-area .button{min-width:70px}
+.appmsg-add{text-align:center;padding:12px 14px;line-height:72px}
+.appmsg-add a{display:block;border-radius:5px;border:3px dotted #b8b8b8;height:72px;color:#b8b8b8}
+.appmsg-add a .iconfont{font-size:36px}
+.appmsg-add a:hover{border-color:#5f5f5f;color:#5f5f5f}
+.form-group{margin-bottom:20px}
+.form-control{padding:0 7px}
+.form-control input,.form-control select,.form-control textarea{width:100%;margin-left:-7px;margin-right:-7px;padding:8px 6px;border:1px solid #ccc;outline:0;font-size:14px}
+.form-control select{-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box}
+.form-control input:hover,.form-control select:hover,.form-control textarea:hover{border-color:#7e7e7e}
+.form-control input:focus,.form-control select:focus,.form-control textarea:focus{border-color:#799bd2}
+.button{line-height:30px;border-radius:3px;-webkit-box-shadow:0 1px 0 #ababab;-moz-box-shadow:0 1px 0 #ababab;box-shadow:0 1px 0 #ababab;color:#fff;background-color:#2378cd;border-color:#26a;margin-right:3px}
+.button-hover,.button:hover{color:#fff;background-color:#fa0;border-color:#e67a00}
+.control-submit .button{width:110px;height:38px;line-height:36px}
+.normal-link{margin:0;color:#257ad0}
+.normal-link:hover{text-decoration:underline}
+.control-top{border-radius:3px;padding:8px 0;margin-bottom:15px}
+.control-top .form-group{display:inline-block;margin-bottom:0;vertical-align:middle}
+.control-top .form-control{width:460px;border-radius:3px;padding:8px 5px;border:1px solid #aaa}
+.control-top .inp1{width:30px;padding:5px}
+.control-top .inp2{width:150px;padding:7px}
+.control-top .inp3{width:auto;padding:6px 5px}

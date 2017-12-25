@@ -1,0 +1,43 @@
+td.alipay {
+    background-image: url('../images/alipay.png');
+    background-repeat: no-repeat;
+    background-position: 125px 12px;
+    background-size: 16px;
+    padding-right: 30px !important;
+}
+td.alipay_4 {
+    background-image: url('../images/reg.png');
+}
+td.weixin {
+    background-image: none;
+    background-repeat: no-repeat;
+    background-position: 125px 12px;
+    background-size: 16px;
+    padding-right: 30px !important;
+}
+td.weixin_3 {
+    background-image: url('../images/borrow.png');
+}
+.follow {
+    display: inline;
+    padding: .2em .6em .3em;
+    font-size: 75%;
+    font-weight: 500;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+}
+.follow-success {
+    background-color: #5cb85c;
+}
+.follow-warning {
+    background-color: #f0ad4e;
+    margin-left: -4px;
+    margin-right: -4px;
+}
+.follow-other {
+    background-color: #B5B5B5;
+}

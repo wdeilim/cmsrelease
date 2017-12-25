@@ -1,0 +1,173 @@
+@charset "utf-8";
+html,body,div,ul,ol,li,h1,h2,h3,h4,h5,form,fieldset,input,textarea,p,th,td,button,span,menu,section,nav{margin:0;padding:0;}
+ul,ol,li{list-style:none}
+article,aside,dialog,figure,footer,header,hgroup,menu,nav,section,menu{display:block; }
+input[type="text"],
+input[type="tel"],
+input[type="number"],
+input[type="time"],
+input[type="password"],
+textarea{
+	-webkit-appearance:none;
+	-webkit-tap-highlight-color:#fff;
+	outline:0
+}
+:focus{outline:none}
+body{
+	font:normal 14px/1.5 Tahoma,"Lucida Grande",Verdana,"Microsoft YaHei",hei;
+	color:#000;
+	background-color:#f6f6f6;
+	-webkit-font-smoothing:subpixel-antialiased;
+	-webkit-tap-highlight-color:rgba(225,255,255,0);
+	-webkit-fr:none;
+	-webkit-text-size-adjust:none;
+}
+a,
+a:visited{text-decoration:none;display:inline-block;color:#0066cc;}
+a:-webkit-any-link{outline:none;}
+h1,h2,h3,h4{font-size:15px;}
+i,em,dfn{font-style:normal;font-weight:500;}
+dfn{font-family:arial;}
+img{border:0 none}
+table{border-collapse:collapse;border-spacing:0}
+
+/* iconfont  */
+@font-face {
+    font-family: 'iconfont';
+    src: url('http://static.ddb168.com/iconfont/iconfont.eot'); /* IE9*/
+    src: url('http://static.ddb168.com/iconfont/iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('http://static.ddb168.com/iconfont/iconfont.woff') format('woff'), /* chrome、firefox */
+    url('http://static.ddb168.com/iconfont/iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url('http://static.ddb168.com/iconfont/iconfont.svg#uxiconfont') format('svg'); /* iOS 4.1- */
+}
+.iconfont{font-family:"iconfont";}
+
+/* loading  */
+#load_more,
+.load_more{text-align:center;border:1px solid #ccc;border-radius:3px;background-color:#fff;padding:10px;}
+
+/* footer */
+.copyright{text-align:center;padding:20px 0 55px;font-size:12px;}
+.copyright a{text-decoration:underline;}
+
+/* toolbar  */
+.toolbar{
+    position:fixed;bottom:0;left:0;width:100%;text-align:center;background-color:#282828;
+    display:-webkit-box;display:-ms-flexbox;
+}
+.toolbar a{
+    display:block;color:#fff;font-size:14px;line-height:50px;background-color:#282828;
+    -webkit-box-flex:1;-ms-flex:1;box-sizing:border-box;
+}
+.toolbar a.cur,
+.toolbar a:active{background-color:#e63639;}
+
+/* alert */
+.ui-alert{
+	display:none;
+	position:fixed;top:40%;z-index:10;width:100%;
+}
+.ui-alert-box{
+	margin:0 auto;padding:10px;background-color:#fff;width:80%;text-align:center;font-size:16px;color:#666;
+	word-break:break-word;word-wrap:break-word;
+}
+
+/* mask  */
+.ui-mask{
+	display:none;
+	position:absolute;top:0;left:0;z-index:9;width:100%;height:100%;
+	background:rgba(0,0,0, .5);
+}
+
+/* loading */
+#loading {
+	display:none;
+	left:50%;top:50%;
+	margin-left:-40px;
+	margin-top:-35px;
+	z-index:101;
+	position:fixed !important;
+	border-radius:10px;
+}
+.cui-breaking-load{
+	margin:auto;
+	position:relative;
+	width:80px;
+	height:70px;
+	border-radius:5px;
+	background:rgba(0,0,0,.7);
+	z-index:9999;
+}
+.cui-w-loading{
+	background:url(../img/loading.png) no-repeat;
+	background-size:50px 50px;
+	position:absolute;
+	width:50px;
+	height:50px;
+	left:50%;
+	top:50%;
+	margin:-25px 0 0 -25px;
+}
+.cui-white-logo{
+	background:url(../img/watch.png) no-repeat;
+	background-size:24px 24px;
+	position:absolute;
+	width:24px;
+	height:24px;
+	left:50%;
+	top:50%;
+	z-index:9;
+	margin:-12px 0 0 -12px;
+}
+.cui-w-loading{
+	-webkit-animation:cui-loading 1.58s linear infinite;
+	-moz-animation:cui-loading 1.58s linear infinite;
+	-ms-animation:cui-loading 1.58s linear infinite;
+	animation:cui-loading 1.58s linear infinite;
+	-webkit-transform-origin:50% 49%;
+	-moz-transform-origin:50% 49%;
+	-ms-transform-origin:50% 49%;
+	transform-origin:50% 49%;
+	opacity:0
+}
+
+@-webkit-keyframes cui-loading{
+	0%{
+		opacity:1;
+		-webkit-transform:rotate(0deg)
+	}
+	100%{
+		opacity:1;
+		-webkit-transform:rotate(360deg)
+	}
+}
+@-moz-keyframes cui-loading{
+	0%{
+		opacity:1;
+		-webkit-transform:rotate(0deg)
+	}
+	100%{
+		opacity:1;
+		-webkit-transform:rotate(360deg)
+	}
+}
+@-ms-keyframes cui-loading{
+		0%{
+		opacity:1;
+		-webkit-transform:rotate(0deg)
+	}
+	100%{
+		opacity:1;
+		-webkit-transform:rotate(360deg)
+	}
+}
+@keyframes cui-loading{
+		0%{
+		opacity:1;
+		-webkit-transform:rotate(0deg)
+	}
+	100%{
+		opacity:1;
+		-webkit-transform:rotate(360deg)
+	}
+}
