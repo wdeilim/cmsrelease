@@ -1429,6 +1429,7 @@ class ES_System extends CI_Model {
 				$arr['message'] = $r['message'];
 				echo json_encode($arr); exit();
 			}
+			cloud_release_copys(ES_RELEASE);
 			$pro = cloud_pro_sql(ES_RELEASE, ES_VERSION);
 			if(is_error($pro)) {
 				$arr['message'] = $pro['message'];

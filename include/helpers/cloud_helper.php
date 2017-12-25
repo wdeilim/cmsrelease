@@ -296,15 +296,15 @@ function cloud_pro_upgrade($release, $version) {
 }
 
 function cloud_pro_downs($release, $version, $files) {
+    make_dir(BASE_PATH.'caches/upgrade_retain/'.ES_RELEASE.'/');
+    make_dir(BASE_PATH.'caches/upgrade_retain/'.ES_RELEASE.'_newfile/');
     $lists = json_decode($files, true);
     if ($lists) {
         @set_time_limit(0);
         foreach($lists AS $f) {
-            $spath = _cloud_normalizePath(BASE_PATH.$f['path']);
-            $opath = _cloud_normalizePath(BASE_PATH.'caches/upgrade_retain/'.ES_RELEASE.'/'.$f['path']);
+            $spath = _cloud_normalizePath(BASE_PATH.'caches/upgrade_retain/'.ES_RELEASE.'_newfile/'.$f['path']);
             if ($f['type'] == "dir") {
                 make_dir($spath);
-                make_dir($opath);
             }elseif ($f['type'] == "file") {
                 $pars = cloud_get_cloud_array();
                 if (is_error($pars)) { return $pars; }
@@ -320,13 +320,42 @@ function cloud_pro_downs($release, $version, $files) {
                 if (_cloud_error($dat['content'])) {
                     return error('-1', _cloud_errmsg($dat['content']));
                 }
-                if (!file_exists($opath)) {
-                    @copy($spath, $opath);
-                }
                 file_put_contents($spath, $dat['content']);
             }
         }
     }
+    return true;
+}
+
+function cloud_release_copys($release = ES_RELEASE) {
+    $newpath = BASE_PATH.'caches/upgrade_retain/'.$release.'_newfile/';
+    $lists = _cloud_file_list_empty($newpath);
+    if ($lists) {
+        @set_time_limit(0);
+        $strp = realpath($newpath);
+        foreach($lists AS $f) {
+            $_path = str_replace($strp, '', realpath($f['path']));
+            $spath = _cloud_normalizePath(BASE_PATH.$_path);
+            $opath = _cloud_normalizePath(BASE_PATH.'caches/upgrade_retain/'.$release.'/'.$_path);
+            if ($f['type'] == "dir") {
+                make_dir($spath);
+                make_dir($opath);
+            }elseif ($f['type'] == "file") {
+                if (!file_exists($opath)) {
+                    @copy($spath, $opath);
+                }
+                $isco = copy($f['path'], $spath);
+                if (!$isco) {
+                    if ($content = file_get_contents($f['path'])) {
+                        file_put_contents($spath, $content);
+                    }
+                }else{
+                    @unlink($f['path']);
+                }
+            }
+        }
+    }
+    _cloud_remove_Dir($newpath);
     return true;
 }
 
@@ -404,4 +433,61 @@ function _cloud_normalizePath($path) {
         }
     }
     return implode(DIRECTORY_SEPARATOR, $parts);
+}
+
+function _cloud_file_list_empty($path , $arr = array()){
+    $lists = $arr;
+    if ($handle = opendir($path)) {
+        while (false !== ($file = readdir($handle))) {
+            if ($file != "." && $file != "..") {
+                if (is_dir($path."/".$file)) {
+                    if (!_cloud_is_empty_dir($path."/".$file)) {
+                        $lists[] = array(
+                            'type'=>'dir',
+                            'path'=>$path."/".$file
+                        );
+                        $lists = _cloud_file_list_empty($path."/".$file, $lists);
+                    }
+                } else {
+                    $lists[] = array(
+                        'type'=>'file',
+                        'path'=>$path."/".$file
+                    );
+                }
+            }
+        }
+    }
+    return $lists;
+}
+
+function _cloud_is_empty_dir($path , $is_empty = true){
+    if ($handle = opendir($path)) {
+        while (false !== ($file = readdir($handle))) {
+            if ($file != "." && $file != "..") {
+                if (is_dir($path."/".$file)) {
+                    $is_empty = _cloud_is_empty_dir($path."/".$file, $is_empty);
+                } else {
+                    $is_empty = false;
+                }
+                if ($is_empty == false) break;
+            }
+        }
+    }
+    return $is_empty;
+}
+
+function _cloud_remove_Dir($dirName){
+    if(!is_dir($dirName)) {
+        @unlink($dirName);
+        return false;
+    }
+    $handle = @opendir($dirName);
+    while(($file = @readdir($handle)) !== false) {
+        if($file!='.'&&$file!='..') {
+            $dir = $dirName . '/' . $file;
+            is_dir($dir)?_cloud_remove_Dir($dir):@unlink($dir);
+        }
+    }
+    closedir($handle);
+    return rmdir($dirName) ;
 }

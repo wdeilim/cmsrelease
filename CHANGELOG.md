@@ -62,3 +62,13 @@
 【重要】修复系统漏洞
 ```
 
+## 2.0_20160328
+
+> Release Time: 2016-03-28
+>
+> Download Link: http://www.vwins.cn/index.php?act=download&id=61
+
+```
+优化升级系统为下一个版本升级做准备；
+```
+
