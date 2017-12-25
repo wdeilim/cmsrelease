@@ -228,10 +228,10 @@ class Payment extends CI_Controller {
 		$wx_appid = $get_appid?$get_appid:$_A['al']['wx_appid'];
 		if ($wechat['appid'] != $wx_appid) {
 			//支付微信号与授权不同时将重新授权openid
-			$sessionname = 'openid_'.md5($wx_appid.$_A['fans']['openid']);
+			$sessionname = 'openid_'.md5($wechat['appid'].$wx_appid.$_A['fans']['openid']);
 			$wechat_openid = $this->session->userdata($sessionname);
 			if (empty($wechat_openid) || strlen($wechat_openid) < 15) {
-				if (isset($_GPC['weixin_oauth2'])) {
+				if (isset($_GPC['wxpay_oauth2'])) {
 					if (!isset($_GPC['code'])) {
 						message(null, "WXpay OAuth 2.0授权失败！");
 					}
@@ -247,7 +247,7 @@ class Payment extends CI_Controller {
 					$this->session->set_userdata($sessionname, $wechat_openid);
 				}else{
 					$_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$wechat['appid'];
-					$_url.= '&redirect_uri='.urlencode(get_link('weixin_oauth2')."&weixin_oauth2=1");
+					$_url.= '&redirect_uri='.urlencode(get_link('wxpay_oauth2')."&wxpay_oauth2=1");
 					$_url.= '&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect';
 					gourl($_url);
 				}

@@ -20,7 +20,7 @@
 <body>
 
 {#include file="header_admin.tpl"#}
-<script>$('#head-nav-menu li:eq(1)').addClass('active');</script>
+<script>$('#head-nav-menu>li:eq(1)').addClass('active');</script>
 
 <div class="box">
 <a class="retrunlist" href="{#$urlarr.3#}functions/">返回已安装的应用</a>

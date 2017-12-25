@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{#$CSS_PATH#}font-awesome.css"/>
     <script type="text/javascript" src="{#$JS_PATH#}jquery-1.11.0.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}jquery.alert.js"></script>
+    <script type="text/javascript" src="{#$JS_PATH#}jquery.keyauto.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}aliedit/jquery.aliedit.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}jquery.form.min.js"></script>
     <style type="text/css">
@@ -171,6 +172,8 @@
             });
             return false;
         });
+        //
+        $("#key").keyauto();
     });
 </script>
 

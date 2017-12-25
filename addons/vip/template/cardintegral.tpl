@@ -12,10 +12,14 @@
     <link rel="stylesheet" href="{#$CSS_PATH#}font-awesome.css"/>
     <script type="text/javascript" src="{#$JS_PATH#}jquery-1.11.0.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}jquery.alert.js"></script>
+    <script type="text/javascript" src="{#$JS_PATH#}jquery.keyauto.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}jquery.form.min.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}ueditor/ueditor.config.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}ueditor/ueditor.all.min.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}artdialog/artDialog.js?skin=default"></script>
+    <style type="text/css">
+        .form-keyauto {border: 1px solid #aaa !important;border-radius:3px;overflow:hidden;}
+    </style>
 </head>
 <body>
 {#template("header")#}
@@ -91,7 +95,7 @@
                         <tbody class="integral">
                         <tr>
                             <td width="120"><span>签到关键词</span></td>
-                            <td><input type="text" name="keys" value="{#value($jfcl,'keys')#}" style="width:362px;" placeholder="留空不启用"/></td>
+                            <td><input type="text" name="keys" id="keys" value="{#value($jfcl,'keys')#}" style="width:362px;" placeholder="留空不启用"/></td>
                             <td><span>留空不启用；多个请用英文逗号“,”隔开。</span></td>
                         </tr>
                         <tr>
@@ -120,6 +124,8 @@
     {#if $dosubmit#}$.alert("保存成功");{#/if#}
     $(document).ready(function() {
         UE.getEditor('shuoming', {autoHeightEnabled:false});
+        //
+        $("#keys").keyauto(false, 'form-keyauto');
     });
 </script>
 

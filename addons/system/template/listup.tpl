@@ -15,6 +15,7 @@
                 {#if $list.img#}<img src="{#$list.thumb#}" data-src="{#$list.img#}"/>{#/if#}
                 {#if $list.class#}<div class="{#$list.class#}"></div>{#/if#}
                 <div class="filename">{#$list.title#}</div>
+                <div class="fselecticon"></div>
             </div>
             {#if $list.type#}<em class="del" onclick="$.__formfile_fun.del(this);">×</em>{#/if#}
         </li>

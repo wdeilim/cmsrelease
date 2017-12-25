@@ -30,7 +30,7 @@
 <body>
 
 {#include file="header_admin.tpl"#}
-<script>$('#head-nav-menu li:eq(1)').addClass('active');</script>
+<script>$('#head-nav-menu>li:eq(1)').addClass('active');</script>
 
 
 <div class="breadcrumb-wrapper">

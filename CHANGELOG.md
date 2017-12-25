@@ -40,3 +40,15 @@
 功能支持快速搜索。
 ```
 
+## 2.0_20160308
+
+> Release Time: 2016-03-08
+>
+> Download Link: http://www.vwins.cn/index.php?act=download&id=57
+
+```
+新增首页（登录页）主题及SEO功能；
+优化微信支付功能；
+修复已知bug。
+```
+

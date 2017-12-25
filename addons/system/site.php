@@ -146,8 +146,43 @@ class ES_System extends CI_Model {
 			$arr['success'] = 1;
 			echo json_encode($arr); exit();
 		}
+		//
+		$tem = array();
+		if (file_exists(FCPATH."caches".DIRECTORY_SEPARATOR."cache.templet.php")) {
+			$tem = @include FCPATH."caches".DIRECTORY_SEPARATOR."cache.templet.php";
+			if (!is_array($tem)) $tem = array();
+		}
+		if (empty($tem['t1']['loginbg'])) {
+			$tem['t1']['loginbg'] = array('addons/system/template/css/login_1/1.jpg');
+		}
+		if (empty($tem['t2']['loginbg'])) {
+			$tem['t2']['loginbg'] = array(
+				'addons/system/template/css/login_2/1.jpg',
+				'addons/system/template/css/login_2/2.jpg',
+				'addons/system/template/css/login_2/3.jpg'
+			);
+		}
+		if (empty($tem['t2']['logo'])) {
+			$tem['t2']['logo'] = 'addons/system/template/css/login_2/logo.png';
+		}
+		if (empty($tem['t2']['map']['title']) || empty($tem['t2']['map']['lat']) || empty($tem['t2']['map']['lng'])) {
+			$tem['t2']['map']['title'] = '广西壮族自治区南宁市青秀区长湖路24号';
+			$tem['t2']['map']['lat'] = '108.370866';
+			$tem['t2']['map']['lng'] = '22.832879';
+		}
+		if (empty($tem['t2']['comp'])) {
+			$tem['t2']['comp'] = '广西三顾网络科技有限公司';
+		}
+		if (empty($tem['t2']['tel'])) {
+			$tem['t2']['tel'] = '0771-5671712';
+		}
+		if (empty($tem['t3']['loginbg'])) {
+			$tem['t3']['loginbg'] = array('caches/statics/images/sign-in-bg.jpg');
+		}
+		$templet = in_array($tem['templet'], array(1,2,3))?$tem['templet']:1;
+		//
 		$_SESSION['_RELEASE'.ES_RELEASE] = "";
-		tpl(get_defined_vars());
+		tpl('login_'.$templet,get_defined_vars());
 	}
 
     /**
@@ -555,6 +590,28 @@ class ES_System extends CI_Model {
 		if (file_exists(FCPATH."caches".DIRECTORY_SEPARATOR."cache.sqlset.php")) {
 			require_once FCPATH."caches".DIRECTORY_SEPARATOR."cache.sqlset.php";
 		}
+		//
+		$tem = array();
+		if (file_exists(FCPATH."caches".DIRECTORY_SEPARATOR."cache.templet.php")) {
+			$tem = @include FCPATH."caches".DIRECTORY_SEPARATOR."cache.templet.php";
+			if (!is_array($tem)) $tem = array();
+		}
+		if (empty($tem['t1']['loginbg'])) {
+			$tem['t1']['loginbg'] = array('addons/system/template/css/login_1/1.jpg');
+		}
+		if (empty($tem['t2']['loginbg'])) {
+			$tem['t2']['loginbg'] = array(
+				'addons/system/template/css/login_2/1.jpg',
+				'addons/system/template/css/login_2/2.jpg',
+				'addons/system/template/css/login_2/3.jpg'
+			);
+		}
+		if (empty($tem['t2']['logo'])) {
+			$tem['t2']['logo'] = 'addons/system/template/css/login_2/logo.png';
+		}
+		if (empty($tem['t3']['loginbg'])) {
+			$tem['t3']['loginbg'] = array('caches/statics/images/sign-in-bg.jpg');
+		}
         //
 		if ($this->input->post("dosubmit")){
 			$fost = $this->input->post();
@@ -597,6 +654,12 @@ class ES_System extends CI_Model {
 				$text = "";
 				$text.= "define('OFF_SQL_TEMP', '".intval($fost['OFF_SQL_TEMP'])."');\r\n";
 				$this->writesetting($text, 'sqlset');
+				$arr['success'] = 1;
+				echo json_encode($arr); exit();
+			}elseif ($fost['_type'] == '_templet') {
+				$text = "if (!defined(\"BASEPATH\")) exit(\"No direct script access allowed\");\r\n";
+				$text.= " return ".array2string($fost['tem'], 0).";";
+				$this->writesetting($text, 'templet');
 				$arr['success'] = 1;
 				echo json_encode($arr); exit();
             }else{
@@ -1388,6 +1451,11 @@ class ES_System extends CI_Model {
 			$arr['success'] = 1;
 			$arr['message'] = '升级完成！';
 			echo json_encode($arr); exit();
+		}
+		$tem = array();
+		if (file_exists(FCPATH."caches".DIRECTORY_SEPARATOR."cache.templet.php")) {
+			$tem = @include FCPATH."caches".DIRECTORY_SEPARATOR."cache.templet.php";
+			if (!is_array($tem)) $tem = array();
 		}
 		tpl('setting_upgrade', get_defined_vars());
 	}
@@ -2689,7 +2757,7 @@ class ES_System extends CI_Model {
     {
         $user = $this->user->getuser();
         $_path = "uploadfiles/users/".$user['userid'];
-        $_gath = $this->input->get('path');
+		$_gath = str_replace("..", "", $this->input->get('path'));
         if (strpos($_gath, $_path) !== false) {
             if (file_exists(FCPATH.$_gath)) {
                 @unlink(FCPATH.$_gath);
@@ -2735,6 +2803,7 @@ class ES_System extends CI_Model {
             $folder.= ($v)?'|'.$v:'';
             if ($v) $path[$v] = $folder;
         }
+		$_path = str_replace("..", "", $_path);
         $list = glob(FCPATH.$_path . '*', GLOB_BRACE);
         $dir = $file= array();
         if ($path) {

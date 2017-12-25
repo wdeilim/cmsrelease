@@ -76,9 +76,9 @@ $.__baidu_map_fun = {
     show: function(paramet, callback){
         var tthis = this;
         tthis.close();
-        if (!paramet.title) paramet.title = '';
-        if (!paramet.lng) paramet.lng = '';
-        if (!paramet.lat) paramet.lat = '';
+        if (!paramet.title || paramet.title == 'undefined') paramet.title = '';
+        if (!paramet.lng || paramet.lng == 'undefined') paramet.lng = '';
+        if (!paramet.lat || paramet.lat == 'undefined') paramet.lat = '';
         var intemp = $('<div class="jQuery-baidumap">' +
             '<div class="jQuery-baidumap-back"></div>' +
             '<div class="jQuery-baidumap-content">' +
@@ -158,7 +158,7 @@ $.__baidu_map_fun = {
                 width: 220,	 // 信息窗口宽度 220-730
                 height: 60,	 // 信息窗口高度 60-650
                 title: ""  // 信息窗口标题
-            }
+            };
             var infoWindow = new BMap.InfoWindow("原本位置 【" + data.title + "】 ， 移动地图修改位置!", opts);  // 创建信息窗口对象
             marker1.openInfoWindow(infoWindow);	  // 打开信息窗口
             doit(point);
@@ -195,7 +195,7 @@ $.__baidu_map_fun = {
                         width: 220,	 // 信息窗口宽度 220-730
                         height: 60,	 // 信息窗口高度 60-650
                         title: ""  // 信息窗口标题
-                    }
+                    };
 
                     var infoWindow = new BMap.InfoWindow("定位成功这是你当前的位置!,移动红点标注目标位置，你也可以直接修改上方位置,系统自动定位!", opts);  // 创建信息窗口对象
                     marker1.openInfoWindow(infoWindow);	  // 打开信息窗口
@@ -230,7 +230,7 @@ $.__baidu_map_fun = {
                     width: 220,	 // 信息窗口宽度 220-730
                     height: 60,	 // 信息窗口高度 60-650
                     title: ""  // 信息窗口标题
-                }
+                };
                 var infoWindow = new BMap.InfoWindow("拖拽地图或红点，在地图上用红点标注您的店铺位置。", opts);  // 创建信息窗口对象
                 marker2.openInfoWindow(infoWindow);	  // 打开信息窗口
 
@@ -243,7 +243,7 @@ $.__baidu_map_fun = {
                     myGeo.getLocation(new BMap.Point(e.point.lng, e.point.lat), function (result) {
                         if (result) {
                             if (!hiderobjid && result.address) $('#'+addrobjid).val(result.address);
-                            marker2.setPoint(new BMap.Point(e.point.lng, e.point.lat));
+                            marker2.setPosition(new BMap.Point(e.point.lng, e.point.lat));
                             map.panTo(new BMap.Point(e.point.lng, e.point.lat));
                         }
                     });
@@ -256,7 +256,7 @@ $.__baidu_map_fun = {
                             if (!hiderobjid && result.address) $('#'+addrobjid).val(result.address);
                             $('#'+lngobjid).val(cp.lat);
                             $('#'+longobjid).val(cp.lng);
-                            marker2.setPoint(new BMap.Point(cp.lng, cp.lat));
+                            marker2.setPosition(new BMap.Point(cp.lng, cp.lat));
                             map.panTo(new BMap.Point(cp.lng, cp.lat));
                         }
                     });
@@ -265,24 +265,33 @@ $.__baidu_map_fun = {
                 map.addEventListener("dragging", function showInfo() {
                     var cp = map.getCenter();
                     //marker1.setPoint(new BMap.Point(cp.lng,cp.lat));		// 移动标注
-                    marker2.setPoint(new BMap.Point(cp.lng, cp.lat));
+                    marker2.setPosition(new BMap.Point(cp.lng, cp.lat));
                     map.panTo(new BMap.Point(cp.lng, cp.lat));
-                    map.centerAndZoom(marker2.getPoint(), map.getZoom());
+                    map.centerAndZoom(marker2.getPosition(), map.getZoom());
                 });
             }
         }
 
-        function loadmap() {
-            var city = $('#'+addrobjid).val();
-            var myCity = new BMap.LocalCity();
+        function loadmap(val) {
+            var city = (typeof(val) != 'undefined')?val:$('#'+addrobjid).val();
             // 将结果显示在地图上，并调整地图视野
             myGeo.getPoint(city, function (point) {
                 if (point) {
-                    marker2.setPoint(new BMap.Point(point.lng, point.lat));
+                    marker2.setPosition(new BMap.Point(point.lng, point.lat));
                     $('#'+lngobjid).val(point.lat);
                     $('#'+longobjid).val(point.lng);
-                    map.panTo(new BMap.Point(marker2.getPoint().lng, marker2.getPoint().lat));
-                    map.centerAndZoom(marker2.getPoint(), map.getZoom());
+                    map.panTo(new BMap.Point(marker2.getPosition().lng, marker2.getPosition().lat));
+                    map.centerAndZoom(marker2.getPosition(), map.getZoom());
+                }else{
+                    if (typeof(val) == 'undefined') {
+                        var cp = map.getCenter();
+                        myGeo.getLocation(new BMap.Point(cp.lng, cp.lat), function (result) {
+                            if (result) {
+                                var addressC = result.addressComponents;
+                                loadmap(addressC.province + addressC.city + city);
+                            }
+                        });
+                    }
                 }
             });
         }
@@ -290,10 +299,10 @@ $.__baidu_map_fun = {
         function initarreawithpoint(lng, lat) {
             window.setTimeout(function () {
                 //marker1.setPoint(new BMap.Point(lng,lat));		// 移动标注
-                marker2.setPoint(new BMap.Point(lng, lat));
+                marker2.setPosition(new BMap.Point(lng, lat));
                 //window.external.setlngandlat(lng,lat);
                 map.panTo(new BMap.Point(lng, lat));
-                map.centerAndZoom(marker2.getPoint(), map.getZoom());
+                map.centerAndZoom(marker2.getPosition(), map.getZoom());
             }, 2000);
         }
 
@@ -319,11 +328,17 @@ $.fn.baidu_map = function(paramet) {
         if (!tname) return false;
         if (!tthis.attr("placeholder")) tthis.attr("placeholder", "点击打开地图标注");
         var m = Math.round(Math.random() * 10000);
+        if (!paramet.title || paramet.title == 'undefined') paramet.title = '';
+        if (!paramet.lng || paramet.lng == 'undefined') paramet.lng = '';
+        if (!paramet.lat || paramet.lat == 'undefined') paramet.lat = '';
         tthis.attr('name', tname + '[title]').val(paramet.title);
         tthis.after('<input type="hidden" name="'+tname+'[lng]" id="map_'+m+'_lng" value="'+paramet.lng+'" placeholder="地理经度">');
         tthis.after('<input type="hidden" name="'+tname+'[lat]" id="map_'+m+'_lat" value="'+paramet.lat+'" placeholder="地理纬度">');
         tthis.click(function(){
             $.__baidu_map_fun.show(paramet, function(title,lng,lat){
+                paramet.title = title;
+                paramet.lng = lng;
+                paramet.lat = lat;
                 tthis.val(title);
                 $('#map_'+m+'_lng').val(lng);
                 $('#map_'+m+'_lat').val(lat);

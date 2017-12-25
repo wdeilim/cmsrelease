@@ -1,0 +1,108 @@
+.navbar {
+    height: 60px;
+}
+.wrapper-sign-in {
+    background: none;
+    position: relative;
+}
+.main-sigh-in .sign-in-mod .form-group input.form-control {
+    border: 1px solid #B9B9B9;
+}
+.main-sigh-title {
+    position: absolute;
+    top: 90px;
+    left: 30px;
+    font-size: 39px;
+    color: #ffffff;
+}
+.main-sigh-subtitle {
+    position: absolute;
+    top: 150px;
+    left: 30px;
+    font-size: 20px;
+    color: #ffffff;
+}
+.wrapper-sign-in .carousel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 520px;
+}
+.wrapper-sign-in .carousel-inner {
+    position: relative;
+    width: 100%;
+    height: 520px;
+    overflow: hidden;
+}
+.wrapper-sign-in .carousel-inner .item {
+    width: 100%;
+    height: 520px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.carousel {
+    position: relative;
+    line-height: 1;
+}
+
+.carousel-inner {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.carousel-inner > .item {
+    position: relative;
+    display: none;
+    -webkit-transition: 0.6s ease-in-out left;
+    -moz-transition: 0.6s ease-in-out left;
+    -o-transition: 0.6s ease-in-out left;
+    transition: 0.6s ease-in-out left;
+}
+
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+    display: block;
+    line-height: 1;
+}
+
+.carousel-inner > .active,
+.carousel-inner > .next,
+.carousel-inner > .prev {
+    display: block;
+}
+
+.carousel-inner > .active {
+    left: 0;
+}
+
+.carousel-inner > .next,
+.carousel-inner > .prev {
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.carousel-inner > .next {
+    left: 100%;
+}
+
+.carousel-inner > .prev {
+    left: -100%;
+}
+
+.carousel-inner > .next.left,
+.carousel-inner > .prev.right {
+    left: 0;
+}
+
+.carousel-inner > .active.left {
+    left: -100%;
+}
+
+.carousel-inner > .active.right {
+    left: 100%;
+}

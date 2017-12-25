@@ -58,7 +58,7 @@ jQuery.alertk = function(e, t, p, but) {
 jQuery.alertb = function(e, but, diy) {
     if (!but) but = "确定";
     var _click =  (!diy)?'onclick="$.alert(0)" ':'';
-    $.alert(e, 0, 1, '<div '+_click+'style="text-align:center;padding:5px;border-top:1px solid #ECECEC;margin:15px -10px -15px;">'+but+'</div>')
+    $.alert(e, 0, 1, '<div '+_click+' style="text-align:center;padding:5px;border-top:1px solid #ECECEC;margin:15px -10px -15px;">'+but+'</div>')
 };
 jQuery.confirm = function(e, qfun, cfun, q, c) {
     if (!q) q = "确定";
@@ -303,7 +303,8 @@ jQuery.showModal = function(msg, url, goonurl, isautohide) {
         "font-size": "14px",
         "line-height": "20px",
         "padding":"7px 14px",
-        "outline":"none"
+        "outline":"none",
+        "text-decoration":"none"
     });
     nobj.find(".jqmodal-btn-info").css({
         "margin-left": "5px",
@@ -316,7 +317,9 @@ jQuery.showModal = function(msg, url, goonurl, isautohide) {
         "background-image":"linear-gradient(to bottom, #5bc0de, #2f96b4)",
         "font-size": "14px",
         "line-height": "20px",
-        "padding":"7px 14px"
+        "padding":"7px 14px",
+        "outline":"none",
+        "text-decoration":"none"
     });
     var i = $(window).width(),
         s = $(window).height(),

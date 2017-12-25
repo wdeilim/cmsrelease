@@ -46,7 +46,7 @@
 </head>
 <body>
 {#include file="header_user.tpl"#}
-<script>$('#head-nav-menu li:eq(0)').addClass('active');</script>
+<script>$('#head-nav-menu>li:eq(0)').addClass('active');</script>
 
 
 <div class="wrapper">

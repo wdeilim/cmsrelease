@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{#$CSS_PATH#}font-awesome.css"/>
     <script type="text/javascript" src="{#$JS_PATH#}jquery-1.11.0.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}jquery.alert.js"></script>
+    <script type="text/javascript" src="{#$JS_PATH#}jquery.keyauto.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}jquery.form.min.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}ajaxfileupload.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}ueditor/ueditor.config.js"></script>
@@ -28,6 +29,7 @@
         #_showitem label input {padding-right: 5px;vertical-align: top;}
         .addlink {padding-left:10px;}
         .dellink {line-height:32px;}
+        .form-keyauto {border: 1px solid #ccc !important;border-radius:3px;overflow:hidden;}
     </style>
 </head>
 <body>
@@ -235,6 +237,7 @@
         $(obj).parents("tbody").remove();
     }
     $(document).ready(function() {
+        $("#key").keyauto(false, 'form-keyauto');
         //添加保存数据
         $('#saveform').submit(function() {
             $.alert('正在保存...', 0);

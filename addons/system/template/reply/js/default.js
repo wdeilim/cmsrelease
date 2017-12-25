@@ -16,6 +16,9 @@ function _init_mod_tab_menu(h) {
                     saveform.find(">div[data-modtabmenu='"+texj+"']").show();
                     mod_tab_menu.find(">a").removeClass("active");
                     $(this).addClass("active");
+                    if (window._data_reply_id) {
+                        $.cookie('_init_tab_click_' + window._data_reply_id, texj);
+                    }
                 });
                 mod_tab_menu.append($mimtemp);
                 tthis.unbind("click").click(function(){
@@ -69,6 +72,8 @@ function _init_flyElm() {
     });
 }
 $(function(){
+    $("#reply_key").keyauto(false, "form-control-key");
+    //
     var vip_link = $(".vip_link");
     vip_link.bootstrapSwitch().on('switchChange.bootstrapSwitch', function(e, state){
         var pobj = $(this).parents(".panel-default");
@@ -152,5 +157,9 @@ $(function(){
     }
     if ($.cookie('_init_flyElm') != '1') {
         _init_flyElm();
+    }
+    window._data_reply_id = $("body:eq(0)").attr("data-replyid");
+    if (window._data_reply_id) {
+        $("a[data-j='"+$.cookie('_init_tab_click_' + $("body").attr("data-replyid"))+"']").click();
     }
 });

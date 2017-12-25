@@ -34,13 +34,11 @@ class Fuwu {
         if (empty($post_str)) return false;
         parse_str(mb_convert_encoding(urldecode($post_str), "UTF-8","GBK"), $post_obj);
 
-
 		$sign = HttpRequest::getRequest ( "sign" , $post_obj );
 		$sign_type = HttpRequest::getRequest ( "sign_type" , $post_obj );
 		$biz_content = HttpRequest::getRequest ( "biz_content" , $post_obj );
 		$service = HttpRequest::getRequest ( "service" , $post_obj );
 		$charset = HttpRequest::getRequest ( "charset" , $post_obj );
-
 
 		if (empty ( $sign ) || empty ( $sign_type ) || empty ( $biz_content ) || empty ( $service ) || empty ( $charset )) {
             if ($_GPC['sid']) {

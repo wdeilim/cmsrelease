@@ -20,11 +20,16 @@ class _Sys_Safe_Stop {
 
 	public function __construct()
 	{
+		static $safeinitrun;
+		if ($safeinitrun === true) { return true; }
+		$safeinitrun = true;
+		//
 		include('cache.sqlset.php');
 		if (defined('OFF_SQL_TEMP') && !OFF_SQL_TEMP)
 		{
 			$this->init();
 		}
+		return true;
 	}
 
 	private function scanpape()
@@ -118,6 +123,26 @@ class _Sys_Safe_Stop {
 		$referer = empty($_SERVER['HTTP_REFERER']) ? array() : array($_SERVER['HTTP_REFERER']);
 		foreach($referer as $key=>$value){
 			$this->StopAttack($key, $value, $this->getfilter);
+		}
+	}
+
+	public function safe($StrValue)
+	{
+		if (defined('OFF_SQL_TEMP') && !OFF_SQL_TEMP)
+		{
+			if (is_array($StrValue)) {
+				foreach($StrValue AS $key=>$val) {
+					$this->safe($key);
+					$this->safe($val);
+				}
+			}else{
+				if (preg_match("/".$this->getfilter."/is", $StrValue) == 1){
+					echo $this->scanpape(); exit();
+				}
+				if (preg_match("/".$this->postfilter."/is", $StrValue) == 1){
+					echo $this->scanpape(); exit();
+				}
+			}
 		}
 	}
 }

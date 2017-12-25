@@ -13,8 +13,9 @@
 
 <body>
 <script type="text/javascript">
+    window._WeixinJSBridgePay = false;
     $(function(){
-        $.alert("正在打开支付功能...",0,1);
+        $.alert("正在打开支付功能...", 0, 1);
         //
         if (typeof(wx) != "undefined") wx = null;
         var jssdkconfig = {#json_encode($_A.wx_jssdkConfig)#} || {};
@@ -36,21 +37,28 @@
                         if(res.errMsg == 'chooseWXPay:ok') {
                             location.search += '&done=1';
                         } else {
-                            //alert('启动微信支付失败, 请检查你的支付参数. 详细错误为: ' + res.errMsg);
-                            history.go(-1);
+                            alert('启动微信支付失败, 请检查你的支付参数. 详细错误为: ' + res.errMsg);
+                            window.history.go(-1);
                         }
                     },
                     fail:function (res) {
-                        alert('启动微信支付失败，详细错误为: ' + res.errMsg);
-                        history.go(-1);
+                        if (res.errMsg == 'chooseWXPay:fail' && window._WeixinJSBridgePay === true) {
+                            WeixinJSBridgePay();
+                        }else{
+                            alert('启动微信支付失败，详细错误为: ' + res.errMsg);
+                            window.history.go(-1);
+                        }
+                    },
+                    cancel:function() {
+                        //取消支付
+                        $.alert("已取消支付", 0);
+                        window.history.go(-1);
                     }
                 });
             });
         });
     });
-    /*
-    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
-        $.alert(0);
+    function WeixinJSBridgePay() {
         WeixinJSBridge.invoke('getBrandWCPayRequest', {
             'appId' : '{#$wOpt['appId']#}',
             'timeStamp': '{#$wOpt['timeStamp']#}',
@@ -62,12 +70,17 @@
             if(res.err_msg == 'get_brand_wcpay_request:ok') {
                 location.search += '&done=1';
             } else {
-                //alert('启动微信支付失败, 请检查你的支付参数. 详细错误为: ' + res.err_msg);
-                history.go(-1);
+                if (res.err_msg == 'get_brand_wcpay_request:cancel') {
+                    //取消支付
+                    $.alert("已取消支付", 0);
+                }else{
+                    alert('启动微信支付失败，详细错误为: ' + res.err_msg);
+                }
+                window.history.go(-1);
             }
         });
-    }, false);
-    */
+    }
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() { window._WeixinJSBridgePay = true; }, false);
 </script>
 
 </body>

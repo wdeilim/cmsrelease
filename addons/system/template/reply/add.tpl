@@ -15,11 +15,12 @@
     <link rel="stylesheet" href="{#$CSS_PATH#}font-awesome.css"/>
     <script type="text/javascript" src="{#$JS_PATH#}jquery-1.11.0.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}jquery.alert.js"></script>
+    <script type="text/javascript" src="{#$JS_PATH#}jquery.keyauto.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}jquery.cookie.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}bootstrap.min.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}bootstrap-switch.min.js"></script>
 </head>
-<body style="overflow-y:scroll;">
+<body style="overflow-y:scroll;" data-replyid="{#$reply.id#}">
 {#template("header")#}
 
 <div class="wrapper">
@@ -74,7 +75,7 @@
                                         <div class="form-group">
                                             <label class="col-xs-12 col-sm-3 col-md-2 control-label">关键词</label>
                                             <div class="col-xs-12 col-sm-9">
-                                                <input type="text" name="reply[key]" value="{#$reply['key']|trim:","#}" class="form-control" placeholder="多个请用英文逗号“,”隔开" data-need="关键词称不能为空">
+                                                <input type="text" id="reply_key" name="reply[key]" value="{#$reply['key']|trim:","#}" class="form-control" placeholder="多个请用英文逗号“,”隔开" data-need="关键词称不能为空">
                                             </div>
                                         </div>
 

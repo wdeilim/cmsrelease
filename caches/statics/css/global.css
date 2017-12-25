@@ -172,6 +172,7 @@ select.form-control{padding:6px 5px}
 .wrapper-sign-in{width:100%;background:center top no-repeat;background-image:url(../images/sign-in-bg.jpg)}
 .main-sigh-in{width:1200px;margin-left:auto;margin-right:auto;position:relative}
 .main-sigh-in .sign-in-mod{width:274px;padding:30px 25px;position:absolute;top:35px;right:0}
+.main-sigh-in .sign-in-mod .form-group input.form-control{width:260px;}
 .form-item{margin-bottom:20px}
 .form-item .form-input-box{display:block;height:32px;line-height:32px;padding:0 10px;border:1px solid #a9a9a9;background-color:#fff;position:relative}
 .form-item .form-input-hover{border-color:#7e7e7e}

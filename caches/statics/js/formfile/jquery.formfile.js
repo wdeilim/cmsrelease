@@ -133,7 +133,7 @@ $.__formfile_fun = {
             '<div class="formfile-button"><p class="hover" id="f-confirm">确定</p><p id="f-cancel">取消</p></div> ' +
             '</div>' +
             '</div>');
-        if (imgurl) {
+        if (imgurl && tthis.var.inimagesismore !== true) {
             intemp.find("#formfile_imageurl").val(imgurl);
         }
         //背景
@@ -168,6 +168,12 @@ $.__formfile_fun = {
         });
         //点击选择图片
         intemp.find(".formfile_imagebut").click(function(){
+            if (tthis.var.inimagesismore === true) {
+                if (tthis.var.inimagesismoremax > 0 && tthis.arrlength(tthis.var.imgurl) >= tthis.var.inimagesismoremax) {
+                    tthis.call("最多只能选：" + tthis.var.inimagesismoremax + "张", 0, 1);
+                    return false;
+                }
+            }
             var m = "formimg_" + Math.round(Math.random() * 10000);
             intemp.find(".formfile_images").attr("id", m).attr("name", m).click();
         });
@@ -201,7 +207,15 @@ $.__formfile_fun = {
                         success: function (data, status) {
                             if (data != null && data.success != null && data.success) {
                                 tthis.call("上传成功");
-                                if (callback) callback({'path':data.upload_data.full_path_site, 'fullpath':data.upload_data.full_path_new});
+                                if (callback) {
+                                    if (tthis.var.inimagesismore === true) {
+                                        tthis.var.moreimg = tthis.var.imgurl;
+                                        tthis.var.moreimg[data.upload_data.full_path_site] = data.upload_data.full_path_new
+                                        callback({'images':tthis.var.moreimg, 'num':tthis.arrlength(tthis.var.moreimg)});
+                                    }else{
+                                        callback({'path':data.upload_data.full_path_site, 'fullpath':data.upload_data.full_path_new});
+                                    }
+                                }
                                 tthis.out();
                             } else {
                                 tthis.call("上传失败", 1);
@@ -249,11 +263,17 @@ $.__formfile_fun = {
         intemp.find(".jQuery-form-content").css({width:w,marginLeft:wl});
         //点击确定
         intemp.find("#f-confirm").click(function(){
-            tthis.call("请点击列表选择");
+            if (tthis.var.inimagesismore === true && tthis.arrlength(tthis.var.moreimg) > 0) {
+                if (callback) callback({'images':tthis.var.moreimg, 'num':tthis.arrlength(tthis.var.moreimg)});
+                tthis.close();
+            }else{
+                tthis.call("请点击列表选择");
+            }
         });
         //显示
         $("body").append(intemp);
         //加载列表
+        tthis.var.moreimg = tthis.var.imgurl;
         tthis.browser(null, indexurl, callback, 'images');
     },
     browser: function(obj, indexurl, callback, uptype){
@@ -283,8 +303,24 @@ $.__formfile_fun = {
                     fileurl+= "?path=" + $(obj).attr("data-f");
                 }else{
                     var fullpath = $(obj).find("img").attr("data-src")?$(obj).find("img").attr("data-src"):$(obj).find("img").attr("src");
-                    if (callback) callback({'path':$(obj).find("#fileurl").val(), 'fullpath':fullpath});
-                    tthis.close();
+                    if (tthis.var.inimagesismore === true) {
+                        if ($(obj).hasClass("fselect")) {
+                            $(obj).removeClass("fselect");
+                            tthis.var.moreimg[$(obj).find("#fileurl").val()] = "";
+                        }else{
+                            if (tthis.var.inimagesismoremax > 0 && tthis.arrlength(tthis.var.moreimg) >= tthis.var.inimagesismoremax) {
+                                tthis.call("最多只能选：" + tthis.var.inimagesismoremax + "张", 0, 1);
+                            }else{
+                                $(obj).addClass("fselect");
+                                tthis.var.moreimg[$(obj).find("#fileurl").val()] = fullpath;
+                            }
+                        }
+                        tthis.alert("已选：" + tthis.arrlength(tthis.var.moreimg) + "张");
+                        return true;
+                    }else{
+                        if (callback) callback({'path':$(obj).find("#fileurl").val(), 'fullpath':fullpath});
+                        tthis.close();
+                    }
                 }
             }
             try{
@@ -303,6 +339,14 @@ $.__formfile_fun = {
                     if (eli.length == 2 && eli.eq(0).attr("title") == '...' && eli.eq(1).find("div.folder").length > 0) {
                         eli.eq(1).find(">div.fitem").click();
                     }*/
+                    if (tthis.var.inimagesismore === true) {
+                        eve.find(".formfile-fileview").find("li").each(function () {
+                            var fileval = tthis.var.moreimg[$(this).find("input#fileurl").val()];
+                            if (typeof(fileval) != "undefined" && fileval != "") {
+                                $(this).find("div").eq(0).addClass("fselect");
+                            }
+                        });
+                    }
                 },
                 error: function (msg) {
                     tthis.alert("加载失败");
@@ -520,7 +564,19 @@ $.__formfile_fun = {
     },
     close: function(){
         $("div.jQuery-formfile").remove();
-    }
+    },
+    arrlength: function(arr) {
+        var j = 0;
+        if (this.var.inimagesismore === true) {
+            $.each(arr, function(n,v) {
+                if (v != "") {
+                    j++;
+                }
+            });
+        }
+        return j;
+    },
+    var: []
 };
 
 /**
@@ -533,15 +589,36 @@ $.__formfile_fun = {
  * @param size 大小限制KB
  */
 $.formfile = function(callback, imgurl, indexurl, uptype, allowed, size) {
-    var fthis = $.__formfile_fun;
+    var tthis = $.__formfile_fun;
     if (typeof $.ajaxFileUpload == "undefined") {
-        fthis.loadjscssfile(fthis.path + "/ajaxfileupload.js", "js");
+        tthis.loadjscssfile(tthis.path + "/ajaxfileupload.js", "js");
     }
-    fthis.loadjscssfile(fthis.path + "/default.css", "css", function(){
+    tthis.var.inimagesismore = false;
+    tthis.loadjscssfile(tthis.path + "/default.css", "css", function(){
         if (uptype) {
-            fthis.inupfile(callback, imgurl, indexurl, uptype, '', allowed, size);
+            tthis.inupfile(callback, imgurl, indexurl, uptype, '', allowed, size);
         }else{
-            fthis.inimages(callback, imgurl, indexurl);
+            tthis.inimages(callback, imgurl, indexurl);
         }
+    });
+};
+
+/**
+ *
+ * @param callback
+ * @param imgurl
+ * @param indexurl
+ * @param max
+ */
+$.formfilemore = function(callback, imgurl, indexurl, max) {
+    var tthis = $.__formfile_fun;
+    if (typeof $.ajaxFileUpload == "undefined") {
+        tthis.loadjscssfile(tthis.path + "/ajaxfileupload.js", "js");
+    }
+    tthis.var.inimagesismore = true;
+    tthis.var.inimagesismoremax = max;
+    tthis.var.imgurl = imgurl;
+    tthis.loadjscssfile(tthis.path + "/default.css", "css", function(){
+        tthis.inimages(callback, imgurl, indexurl);
     });
 };

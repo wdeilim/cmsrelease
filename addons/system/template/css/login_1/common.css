@@ -1,0 +1,373 @@
+html body .ft-left {
+    text-align: left;
+}
+html body .fn-right {
+    float: right;
+}
+html body .fn-left, html body .fn-right {
+    display: inline-block;
+}
+.header {
+    border-bottom: 1px #eee solid;
+}
+.navbar {
+    height: 80px;
+    position: relative;
+}
+.navbar .logo {
+    margin-top: 18px;
+}
+.navbar .title {
+    margin-left: 15px;
+    line-height: 80px;
+    font-size: 20px;
+}
+.nav-item-link {
+    line-height: 77px;
+    height: 77px;
+    font-size: 16px;
+}
+.active .nav-item-link, .nav-item-link:hover {
+    border-top: 3px solid transparent;
+    color: #257ad0;
+    background-color: transparent!important;
+}
+ul#head-nav-menu:hover .active .nav-item-link:hover {
+    border-top: 3px solid transparent;
+    color: #257ad0;
+    background-color: transparent!important;
+}
+.wrapper-sign-in {
+    background: none;
+    position: relative;
+}
+.main-sigh-in, .wrapper-sign-in {
+    height: 480px;
+}
+.wrapper-sign-in .carousel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 480px;
+}
+.wrapper-sign-in .carousel-inner {
+    position: relative;
+    width: 100%;
+    height: 480px;
+    overflow: hidden;
+}
+.wrapper-sign-in .carousel-inner .item {
+    width: 100%;
+    height: 480px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.wrapper-sign-in .brandBox {
+    position: absolute;
+    top: 150px;
+    left: 60px;
+    max-width: 600px;
+}
+.wrapper-sign-in .brandBox .slogan {
+    color: #fff;
+    width: 450px;
+    font-size: 38px;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 11px;
+}
+.wrapper-sign-in .brandBox .description {
+    color: #fff;
+    font-size: 18px;
+    padding: 0;
+    margin: 0;
+}
+.sign-in-mod {
+    color: #ffffff;
+    border: 1px solid transparent;
+    background: rgba(0,0,0,.5);
+    _background: 0 0;
+    _border: 0;
+    filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='#66000000', EndColorStr='#66000000');
+}
+.sign-in-mod input.form-control {
+    color: #595959;
+}
+.main-sigh-in .sign-in-mod {
+    padding: 15px 30px 7px;
+    width: 260px;
+    top: 30px;
+}
+.sign-in-mod .normal-link{
+    color: #0AE;
+}
+.sign-in-mod .qrcode {
+    margin-top: 25px;
+}
+.sign-in-mod .qrcode .description p {
+    line-height: 25px;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 7px;
+}
+.sign-in-mod .qrcode .description p:hover {
+    color: #929292;
+}
+.sign-in-mod .qrcode .image {
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+.sign-in-mod .form-item.remember {
+    display: none;
+}
+.contentSection .section, .contentSection .brandList{
+    border-bottom: 1px solid #ddd;
+}
+.contentSection .step{
+    overflow: hidden;
+    width: 995px;
+    margin: 70px auto 74px;
+}
+.contentSection .step li{
+    float: left;
+    overflow: hidden;
+    width: 200px;
+    text-align: center;
+    margin-right: 65px;
+}
+.contentSection .step li:last-child{
+    margin-right: 0;
+}
+.contentSection .step li a{
+    text-decoration: none;
+    display: block;
+    cursor: default;
+}
+.contentSection .step li a .iconfont-crmhome{
+    font-size: 44px;
+    position: relative;
+    top: 14px;
+    color: #737383;
+}
+.contentSection .step li a:hover .iconfont-crmhome, .contentSection .step li a:hover dl dt{
+    color: #0ae;
+}
+.contentSection .step li a:hover em{
+    border: 1px solid #0ae;
+}
+.contentSection .step em, .contentSection .step span{
+    font-size: 24px;
+}
+.step em{
+    border-radius: 60px;
+    border: 1px solid #ddd;
+    width: 100px;
+    height: 100px;
+    line-height: 72px;
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+}
+.contentSection .step dl dt{
+    font-size: 20px;
+    padding-top: 37px;
+    padding-bottom: 21px;
+    color: #1a1a1a;
+}
+.contentSection .step dl dd{
+    font-size: 15px;
+    color: gray;
+    margin: 0;
+    padding: 0;
+}
+.step span{
+    font-size: 24px;
+    margin-top: 21px;
+    margin-left: 15px;
+    margin-right: 135px;
+}
+.step li:last-child span{
+    margin-right: 0;
+}
+.contentSection .gray{
+    background-color: #F8F8F8;
+}
+.brandList{
+    overflow: hidden;
+    height: 418px;
+}
+.brandList .background{
+    background-image: url(./2.png);
+    background-repeat: no-repeat;
+}
+.brandList .bg1{
+    background-position: 0 0;
+    background-image: url(./3.png);
+    background-size: 500px 230px;
+    width: 500px;
+    height: 230px;
+    margin-top: 135px;
+}
+.brandList .bg2{
+    background-position: 0 -372px;
+    width: 534px;
+    height: 246px;
+    margin-top: 94px;
+}
+.brandList .brand .slogan{
+    font-size: 45px;
+    line-height: 45px;
+    margin-bottom: 25px;
+    margin-top: 195px;
+}
+.brandList .brand .description{
+    font-size: 18px;
+    line-height: 17px;
+    margin-bottom: 40px;
+    margin-left: 0;
+}
+.brandList .brand .enter .jui-btn{
+    border-radius: 3px;
+}
+.w1000{
+    width: 1000px;
+    margin: 0 auto;
+}
+.footer.footer-temp {
+    margin: 0;
+    padding-top: 38px;
+    padding-bottom: 38px;
+    background-color: #232736;
+    border-top: 1px solid #484651;
+}
+.iconfont-crmhome {
+    font-family:"iconfont" !important;
+    font-size:44px;
+    font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+    position: relative;
+    top: 14px;
+    color: #737383;
+}
+.main-sigh-in .sign-in-mod .form-group-input {
+    width: 260px;
+    height: 37px;
+}
+.main-sigh-in .sign-in-mod .form-group-input label {
+    float: left;
+    padding: 0;
+    border-top: 1px solid #a7a7a7;
+    border-bottom: 1px solid #a7a7a7;
+    border-left: 1px solid #a7a7a7;
+}
+.main-sigh-in .sign-in-mod .form-group-input label span {
+    width: 39px;
+    height: 38px;
+    display: block;
+    overflow: hidden;
+    background-color: #aaabab;
+    background-repeat: no-repeat;
+    text-align: center;
+    line-height: 38px;
+}
+.main-sigh-in .sign-in-mod .form-group-input label span i.iconfont-auth {
+    font-family:"iconfont" !important;
+    font-size: 24px;
+    font-style: normal;
+    color: #FFF;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: .2px;
+    -moz-osx-font-smoothing: grayscale;
+}
+.main-sigh-in .sign-in-mod .form-group-input input.form-control {
+    float: left;
+    padding-left: 10px;
+    width: 201px;
+    height: 22px;
+    line-height: 22px;
+    border: 1px solid #fff;
+    outline:none;
+}
+.main-sigh-in .sign-in-mod .form-item input.button-metro {
+    height: 40px;
+    width: 259px;
+    border-radius: 4px;
+    background-color: #0AE;
+    border-color: #0AE;
+    display: block;
+    text-align: center;
+    margin: 0 auto 5px;
+}
+.main-sigh-in .sign-in-mod .form-item input.button-metro:hover {
+    text-decoration: none;
+    background-color: #00a3d2;
+    border-color: #00a3d2;
+}
+
+.carousel {
+    position: relative;
+    line-height: 1;
+}
+
+.carousel-inner {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.carousel-inner > .item {
+    position: relative;
+    display: none;
+    -webkit-transition: 0.6s ease-in-out left;
+    -moz-transition: 0.6s ease-in-out left;
+    -o-transition: 0.6s ease-in-out left;
+    transition: 0.6s ease-in-out left;
+}
+
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+    display: block;
+    line-height: 1;
+}
+
+.carousel-inner > .active,
+.carousel-inner > .next,
+.carousel-inner > .prev {
+    display: block;
+}
+
+.carousel-inner > .active {
+    left: 0;
+}
+
+.carousel-inner > .next,
+.carousel-inner > .prev {
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.carousel-inner > .next {
+    left: 100%;
+}
+
+.carousel-inner > .prev {
+    left: -100%;
+}
+
+.carousel-inner > .next.left,
+.carousel-inner > .prev.right {
+    left: 0;
+}
+
+.carousel-inner > .active.left {
+    left: -100%;
+}
+
+.carousel-inner > .active.right {
+    left: 100%;
+}

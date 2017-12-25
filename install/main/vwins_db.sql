@@ -3865,6 +3865,7 @@ CREATE TABLE `es_vip_users` (
   `point` int(10) DEFAULT '0' COMMENT '剩余积分',
   `inpoint` int(10) DEFAULT '0' COMMENT '签到积分',
   `outpoint` int(10) DEFAULT '0' COMMENT '消费积分',
+  `suppoint` int(10) DEFAULT '0',
   `editnum` int(10) unsigned DEFAULT '0' COMMENT '修改资料次数',
   `indate` bigint(18) unsigned DEFAULT '0' COMMENT '注册时间',
   `update` bigint(18) unsigned DEFAULT '0',

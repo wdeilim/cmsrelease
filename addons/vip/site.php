@@ -2127,7 +2127,7 @@ class ES_Vip extends CI_Model {
                 $params['tid'] = $payid;
                 $params['user'] = $_A['vip']['fullname'];
                 $params['fee'] =$cha_num;
-                $params['title'] = $_A['al']['al_name'];
+                $params['title'] = $_A['al']['wx_name']?$_A['al']['wx_name']:$_A['al']['al_name'];
                 $params['ordersn'] = $parr['cartmd5'];
                 $params['virtual'] = false;
                 $params['module'] = 'vip';
@@ -2161,7 +2161,7 @@ class ES_Vip extends CI_Model {
 				$params['tid'] = $payid;
 				$params['user'] = $_A['vip']['fullname'];
 				$params['fee'] =$cha_num;
-				$params['title'] = $_A['al']['al_name'];
+				$params['title'] = $_A['al']['wx_name']?$_A['al']['wx_name']:$_A['al']['al_name'];
 				$params['ordersn'] = $parr['cartmd5'];
 				$params['virtual'] = false;
 				$params['module'] = 'vip';

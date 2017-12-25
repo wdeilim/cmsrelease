@@ -15,27 +15,29 @@
     <script type="text/javascript" src="{#$JS_PATH#}ueditor/ueditor.config.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}ueditor/ueditor.all.min.js"></script>
     <style type="text/css">
-        textarea.form-control {width:450px;height:100px;padding-top:5px;}
-        .tis{color:#989898;padding-left:5px;}
+        textarea.form-control{width:450px;height:100px;padding-top:5px}
+        .tis{color:#989898;padding-left:5px}
         .topmenu{position:relative;width:990px;height:36px;margin:15px auto 8px;padding-left:18px;background-color:#fff;border-bottom:3px solid #09c}
         .topmenu a{display:block;float:left;line-height:36px;padding:0 12px;margin-right:12px;color:#09c}
-        .topmenu a.active,.topmenu a:hover{-webkit-border-radius:3px 3px 0 0;-moz-border-radius:3px 3px 0 0;border-radius:3px 3px 0 0;color:#fff;font-weight:bold;background-color:#09c}
+        .topmenu a.active,.topmenu a:hover{-webkit-border-radius:3px 3px 0 0;-moz-border-radius:3px 3px 0 0;border-radius:3px 3px 0 0;color:#fff;font-weight:700;background-color:#09c}
         .topmenu div{display:none;border:1px solid #09c;border-top:3px solid #09c;background-color:#fff;position:absolute;top:36px;left:0;z-index:9999}
         .topmenu div a{float:none;margin:0}
         .topmenu div a.active,.topmenu div a:hover{-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
-        .tabmenu{display:none;}
-        select.form-control {width:465px;padding:8px 5px;}
-        thead th {background-color: #DDDDDD; padding: 10px;}
-        table.table-setting tbody tr td:first-child {vertical-align:top;padding-top:22px;}
-        #_topmenu input,#_topmenu select{width:238px;padding: 8px 5px;}
-        #_regitem label {width: 160px;display: block;float: left;line-height: 70px;padding: 5px;}
-        #_regitem label input {padding-right: 5px;}
+        .tabmenu{display:none}
+        select.form-control{width:465px;padding:8px 5px}
+        thead th{background-color:#DDD;padding:10px}
+        table.table-setting tbody tr td:first-child{vertical-align:top;padding-top:22px}
+        #_topmenu input,#_topmenu select{width:238px;padding:8px 5px}
+        #_regitem label{width:160px;display:block;float:left;line-height:70px;padding:5px}
+        #_regitem label input{padding-right:5px}
+        .templettab{display:none}
+        .partition{background-color:#E6F1FB;line-height:32px;text-align:left;padding-left:10px;color:#09C}
     </style>
 </head>
 <body>
 
 {#include file="header_admin.tpl"#}
-<script>$('#head-nav-menu li:eq(2)').addClass('active');</script>
+<script>$('#head-nav-menu>li:eq(2)').addClass('active');</script>
 
 
 <div class="breadcrumb-wrapper">
@@ -62,12 +64,13 @@
                         <div class="section">
 
                             <div class="topmenu" id="topmenu">
-                                <a href="javascript:;">系统设置</a>
-                                <a href="javascript:;">顶部菜单</a>
-                                <a href="javascript:;">会员注册项</a>
-                                <a href="javascript:;">关闭网站</a>
+                                <a href="javascript:;" data-index="set">系统设置</a>
+                                <a href="javascript:;" data-index="top">顶部菜单</a>
+                                <a href="javascript:;" data-index="reg">会员注册项</a>
+                                <a href="javascript:;" data-index="closed">关闭网站</a>
                                 <a href="javascript:;" data-index="safe">安全设置</a>
-                                <a href="javascript:;">其他设置</a>
+                                <a href="javascript:;" data-index="tmp">SEO、首页模板</a>
+                                <a href="javascript:;" data-index="other">其他设置</a>
                             </div>
 
                             <div class="tabmenu" id="tabmenu-1">
@@ -154,8 +157,7 @@
                                         <tr>
                                             <td></td>
                                             <td>
-                                                <input class="button button-primary button-rounded" type="submit" value="保存">&nbsp;
-                                                <input class="button button-primary button-rounded" type="reset" value="重置">
+                                                <input class="button button-primary button-rounded" type="submit" value="保存本页">
                                                 <input type="hidden" name="dosubmit" value="1">
                                             </td>
                                         </tr>
@@ -211,8 +213,7 @@
                                         <tbody>
                                         <tr>
                                             <td colspan="4">
-                                                <input class="button button-primary button-rounded" type="submit" value="保存">&nbsp;
-                                                <input class="button button-primary button-rounded" type="reset" value="重置">
+                                                <input class="button button-primary button-rounded" type="submit" value="保存本页">
                                                 <input type="hidden" name="dosubmit" value="1">
                                             </td>
                                         </tr>
@@ -239,8 +240,7 @@
                                         </tr>
                                         <tr>
                                             <td style="padding-top: 30px;">
-                                                <input class="button button-primary button-rounded" type="submit" value="保存">&nbsp;
-                                                <input class="button button-primary button-rounded" type="reset" value="重置">
+                                                <input class="button button-primary button-rounded" type="submit" value="保存本页">
                                                 <input type="hidden" name="dosubmit" value="1">
                                             </td>
                                         </tr>
@@ -274,7 +274,7 @@
                                         <tr>
                                             <td></td>
                                             <td>
-                                                <input class="button button-primary button-rounded" type="submit" value="保存">&nbsp;
+                                                <input class="button button-primary button-rounded" type="submit" value="保存本页">
                                                 <input type="hidden" name="dosubmit" value="1">
                                             </td>
                                         </tr>
@@ -301,7 +301,7 @@
                                         <tr>
                                             <td></td>
                                             <td>
-                                                <input class="button button-primary button-rounded" type="submit" value="保存">&nbsp;
+                                                <input class="button button-primary button-rounded" type="submit" value="保存本页">
                                                 <input type="hidden" name="dosubmit" value="1">
                                             </td>
                                         </tr>
@@ -311,6 +311,145 @@
                                 </form>
                             </div>
                             <div class="tabmenu" id="tabmenu-6">
+                                <form action="{#get_url()#}" method="post" id="settingform">
+                                    <table class="table-setting" style="width:908px">
+                                        <tbody>
+                                        <tr><th colspan="2" class="partition">SEO相关</th></tr>
+                                        <tr>
+                                            <td class="al-right" style="width:120px;"><span>title</span></td>
+                                            <td><input class="form-control" type="text" name="tem[title]" value="{#$tem['title']#}"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="al-right"><span>keywords</span></td>
+                                            <td><input class="form-control" type="text" name="tem[keywords]" value="{#$tem['keywords']#}"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="al-right"><span>description</span></td>
+                                            <td><input class="form-control" type="text" name="tem[description]" value="{#$tem['description']#}"></td>
+                                        </tr>
+                                        <tr><th colspan="2" class="partition">模板相关</th></tr>
+                                        <tr>
+                                            <td class="al-right"><span>选择模板</span></td>
+                                            <td>
+                                                <select class="form-control" name="tem[templet]" id="tem_templet" data-val="{#$tem['templet']#}">
+                                                    <option value="1"{#if $tem['templet']==1#} selected{#/if#}>模板一</option>
+                                                    <option value="2"{#if $tem['templet']==2#} selected{#/if#}>模板二</option>
+                                                    <option value="3"{#if $tem['templet']==3#} selected{#/if#}>模板三</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+
+                                        <!-- 主题1 -->
+                                        <tbody id="templet_1" class="templettab">
+                                        <tr>
+                                            <td class="al-right"><span>幻灯片背景</span></td>
+                                            <td>
+                                                {#tpl_form_imagemore("tem[t1][loginbg]", $tem['t1']['loginbg'], 5)#}
+                                                <span class="tis">建议尺寸：1920x480 (留空使用默认背景)</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="al-right"><span>幻灯片上的大文字</span></td>
+                                            <td>
+                                                <input class="form-control" type="text" name="tem[t1][title]" value="{#$tem['t1']['title']#}" placeholder="例如：微窗服务全新上线">
+                                                <span class="tis">留空不显示</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="al-right"><span>幻灯片上的小文字</span></td>
+                                            <td>
+                                                <input class="form-control" type="text" name="tem[t1][subtitle]" value="{#$tem['t1']['subtitle']#}" placeholder="例如：全方位微营销解决方案，一站式个性化服务平台！">
+                                                <span class="tis">留空不显示</span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+
+                                        <!-- 主题2 -->
+                                        <tbody id="templet_2" class="templettab">
+                                        <tr>
+                                            <td class="al-right"><span>幻灯片背景</span></td>
+                                            <td>
+                                                {#tpl_form_imagemore("tem[t2][loginbg]", $tem['t2']['loginbg'], 5)#}
+                                                <span class="tis">建议尺寸：1920x980 (留空使用默认背景)</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="al-right"><span>幻灯片上的LOGO</span></td>
+                                            <td>
+                                                {#tpl_form_image("tem[t2][logo]", $tem['t2']['logo'])#}
+                                                <span class="tis">建议尺寸：420x95 (留空使用默认logo)</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="al-right"><span>幻灯片上的文字</span></td>
+                                            <td>
+                                                <input class="form-control" type="text" name="tem[t2][title]" value="{#$tem['t2']['title']#}">
+                                                <span class="tis">留空显示：再小的个体，也有自己的微窗</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="al-right"><span>底部-地图显示</span></td>
+                                            <td>
+                                                <input class="form-control" type="text" id="temt2map" name="tem[t2][map]">
+                                                {#tpl_form_coordinate('$("#temt2map")', $tem['t2']['map'])#}
+                                                <span class="tis">留空默认显示</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="al-right"><span>地图上的公司名称</span></td>
+                                            <td>
+                                                <input class="form-control" type="text" name="tem[t2][comp]" value="{#$tem['t2']['comp']#}">
+                                                <span class="tis">留空显示：广西三顾网络科技有限公司</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="al-right"><span>地图上的联系电话</span></td>
+                                            <td>
+                                                <input class="form-control" type="text" name="tem[t2][tel]" value="{#$tem['t2']['tel']#}">
+                                                <span class="tis">留空显示：0771-5671712</span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+
+                                        <!-- 主题3 -->
+                                        <tbody id="templet_3" class="templettab">
+                                        <tr>
+                                            <td class="al-right"><span>幻灯片背景</span></td>
+                                            <td>
+                                                {#tpl_form_imagemore("tem[t3][loginbg]", $tem['t3']['loginbg'], 5)#}
+                                                <span class="tis">建议尺寸：1920x520 (留空使用默认背景)</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="al-right"><span>幻灯片上的大文字</span></td>
+                                            <td>
+                                                <input class="form-control" type="text" name="tem[t3][title]" value="{#$tem['t3']['title']#}" placeholder="例如：量身定制 随需而变">
+                                                <span class="tis">留空不显示</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="al-right"><span>幻灯片上的小文字</span></td>
+                                            <td>
+                                                <input class="form-control" type="text" name="tem[t3][subtitle]" value="{#$tem['t3']['subtitle']#}" placeholder="例如：优质产品 助您绘制移动互联时代蓝图">
+                                                <span class="tis">留空不显示</span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                            <td style="padding-top: 30px;">
+                                                <input class="button button-primary button-rounded" type="submit" value="保存本页">
+                                                <input type="hidden" name="dosubmit" value="1">
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <input type="hidden" name="_type" value="_templet">
+                                </form>
+                            </div>
+                            <div class="tabmenu" id="tabmenu-7">
                                 <form action="{#get_url()#}" method="post" id="settingform">
                                     <table class="table-setting" style="width:908px">
                                         <tbody id="_other">
@@ -326,13 +465,6 @@
                                             <td>
                                                 <textarea class="form-control" type="text" name="other[logintext]">{#value($setting['content']['other'],'logintext')#}</textarea>
                                                 <span class="tis">登录页二维码傍边的文字</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="al-right"><span>登录页背景图</span></td>
-                                            <td>
-                                                {#tpl_form_image("other[loginbg]", value($setting['content']['other'],'loginbg'))#}
-                                                <span class="tis">建议尺寸：1920x520</span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -356,8 +488,7 @@
                                         <tr>
                                             <td>
                                             <td style="padding-top: 30px;">
-                                                <input class="button button-primary button-rounded" type="submit" value="保存">&nbsp;
-                                                <input class="button button-primary button-rounded" type="reset" value="重置">
+                                                <input class="button button-primary button-rounded" type="submit" value="保存本页">
                                                 <input type="hidden" name="dosubmit" value="1">
                                             </td>
                                         </tr>
@@ -391,8 +522,13 @@
         }
     }
     $(document).ready(function() {
-        var ue = UE.getEditor('otherregagreement',{autoHeightEnabled:false});
-
+        UE.getEditor('otherregagreement',{autoHeightEnabled:false});
+        //
+        $("#tem_templet").change(function(){
+            var tthis = $(this);
+            $(".templettab").hide();
+            $("#templet_" + tthis.val()).show();
+        }).change();
         //初始化TAB
         $("#topmenu a").each(function(index){
             $(this).attr("d-index", index);
@@ -415,7 +551,7 @@
                 success : function (data) {
                     $.alert(0);
                     if (data != null && data.success != null && data.success) {
-                        $.showModal('保存成功。', '{#$urlarr.now#}');
+                        $.showModal('保存成功。', '{#get_link('index')#}&index='+$("#topmenu").find("a.active").attr("data-index"));
                     } else {
                         $.showModal('保存失败。');
                     }

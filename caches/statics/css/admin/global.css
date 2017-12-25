@@ -121,9 +121,10 @@ table.table-setting input.form-control{width:450px}
 .formfile-inputbox input.form-control{border-radius:3px 0 0 3px;padding:6px 5px!important;height:22px;border:1px solid #aaa}
 .formfile-inputbox button.btn-default{margin-left:-1px;padding:0 10px;border-radius:0 3px 3px 0;border:1px solid #aaa;background-color:#fff;color:#555;height:36px}
 .formfile-inputbox button.btn-default:hover{background-color:#dcdcdc;border:1px solid #aaa}
-.formfile-inputbox img.img-thumbnail{display:inline-block;width:100% \9;max-width:100%;height:auto;padding:4px;background-color:#fff;border:1px solid #ddd;border-radius:3px;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;transition:all .2s ease-in-out}
-.formfile-inputbox em.close{float:none;padding-left:3px;vertical-align:top;font-style:normal;font-size:18px;font-weight:700;line-height:1;color:#000;text-shadow:0 1px 0 #fff;filter:alpha(opacity=20);opacity:.2}
+.formfile-inputbox img.img-thumbnail{display:inline-block;width:100% \9;max-width:100%;height:auto;padding:4px;background-color:#fff;border:1px solid #ddd;border-radius:3px;vertical-align:top;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;transition:all .2s ease-in-out}
+.formfile-inputbox em.close{float:none;padding-left:3px;padding-right:5px;vertical-align:top;font-style:normal;font-size:18px;font-weight:700;line-height:1;color:#000;text-shadow:0 1px 0 #fff;filter:alpha(opacity=20);opacity:.2}
 .formfile-inputbox em.close:focus,.formfile-inputbox em.close:hover{color:#000;text-decoration:none;cursor:pointer;filter:alpha(opacity=50);opacity:.5}
+.formfile-inputbox div.inimem{float:left;margin-bottom:5px;}
 #pagelist{margin-top:15px;margin-right:5px;text-align:right;font-size:12px}
 #pagelist a{margin-right:5px;line-height:20px;padding:6px 10px;border:1px solid #e0e0e0;background-color:#fff;color:#777}
 #pagelist a.now_page,#pagelist a:hover{background-color:#1b72b5;color:#fff}

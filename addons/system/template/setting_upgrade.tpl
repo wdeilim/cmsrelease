@@ -30,7 +30,7 @@
 <body>
 
 {#include file="header_admin.tpl"#}
-<script>$('#head-nav-menu li:eq(2)').addClass('active');</script>
+<script>$('#head-nav-menu>li:eq(2)').addClass('active');</script>
 
 
 <div class="breadcrumb-wrapper">
@@ -119,7 +119,7 @@
                 $.alert(data.message);
                 if (data != null && data.success != null && data.success) {
                     setTimeout(function(){
-                        window.location.reload();
+                        window.location.href = '{#$urlarr.now#}?winopen=1';
                     }, 800);
                 }
             },error : function () {
@@ -173,6 +173,22 @@
                             button: [{
                                 name: '关闭',
                                 callback: function () {
+                                    {#if empty($tem['templet'])#}
+                                    art.dialog({
+                                        lock: true,
+                                        opacity: '.3',
+                                        title: '设置提醒',
+                                        content: '您尚未设置系统首页（登录页）SEO、模板！',
+                                        button: [{
+                                            focus: true,
+                                            name: '前往设置',
+                                            callback: function () {
+                                                window.location.href = '{#$urlarr.3#}?index=tmp';
+                                                return true;
+                                            }
+                                        }]
+                                    });
+                                    {#/if#}
                                     return true;
                                 }
                             }]
