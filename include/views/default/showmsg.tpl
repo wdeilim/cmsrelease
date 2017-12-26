@@ -42,6 +42,7 @@
         <div class="war-l" id="war-l">{#$datalink#}</div>
     </div>
     <script type="text/javascript">
+        if (document.referrer == '') document.getElementById("historygo-1").style.display = 'none';
         var datalink = document.getElementById("war-l").innerHTML;
         var arr = datalink.match(/<a.*?href=[\'|\"]([^\"]*?)[\'|\"]>([^\"]*?)<\/a>/ig);
         var links = '';
@@ -50,7 +51,6 @@
         }
         if (links) document.getElementById("war-l").innerHTML = links;
     </script>
-
 
     <div class="footer">
         <p>©{#$TIME|date_format:"%Y-%m-%d %H:%M"#}</p>

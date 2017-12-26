@@ -197,3 +197,13 @@
 优化IE8浏览器的体验。
 ```
 
+## 3.0_20160809
+
+> Release Time: 2016-08-09
+>
+> Download Link: http://www.vwins.cn/index.php?act=download&id=76
+
+```
+新增微信开放平台公众号第三方平台接入；
+```
+

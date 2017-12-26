@@ -41,7 +41,8 @@ table.table-border>tbody>tr>td{border-right:1px solid #ccc;border-bottom:1px sol
 .button-default{color:#333;background-color:#fff;border-color:#ccc}
 .button-default:hover{color:#333;background-color:#ebebeb;border-color:#adadad}
 .button-primary{color:#fff;background-color:#2378cd;border-color:#26a;text-decoration:none}
-.button-hover,.button-primary:hover{color:#fff;background-color:#fa0;border-color:#e67a00;text-decoration:none}
+.button-success{color:#fff;background-color:#44b549;border-color:#41ac45;text-decoration:none}
+.button-hover,.button-primary:hover,.button-success:hover{color:#fff;background-color:#fa0;border-color:#e67a00;text-decoration:none}
 .button-warning:hover{background-color:#ff9100;border-color:#e66b00}
 .button-link{color:#06c;border-color:transparent;background-color:transparent}
 .button-link:hover{text-decoration:underline}
@@ -70,7 +71,7 @@ table.table-border>tbody>tr>td{border-right:1px solid #ccc;border-bottom:1px sol
 .header .nav{float:right;font-family:"Microsoft YaHei",SimSun,Tahoma,Verdana,Arial,sans-serif}
 .header .nav li{float:left}
 .header .nav-item-img {display:none}
-.header .nav-item-link{display:block;padding:0 10px!important;margin-left:10px;margin-right:10px;border-top:3px solid #fff;font-size:14px;line-height:56px;height:57px;overflow:hidden;max-width:85px;white-space:nowrap;text-overflow:ellipsis;color:#1c1c1c;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box}
+.header .nav-item-link{display:block;padding:0 15px!important;margin-left:5px;margin-right:5px;border-top:3px solid #fff;font-size:14px;line-height:56px;height:57px;overflow:hidden;max-width:85px;white-space:nowrap;text-overflow:ellipsis;color:#1c1c1c;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box}
 .active .nav-item-link,.nav-item-link:hover{border-top:3px solid #257ad0;color:#257ad0;background-color:#f6f6f6!important}
 ul#head-nav-menu:hover .active .nav-item-link{border-top:3px solid #ffffff;color:#1c1c1c;background-color:transparent!important}
 ul#head-nav-menu:hover .active .nav-item-link:hover{border-top:3px solid #257ad0;color:#257ad0;background-color:#f6f6f6!important}
@@ -92,13 +93,14 @@ ul#head-nav-menu:hover .active_s .nav-item-link{border-top:3px solid #257ad0;col
 .funnav ol li span.nav-item-img img{width:16px;height:16px;border:0;vertical-align:middle;}
 .funnav ol li a.nav-item-link{margin:0;padding:0 10px!important;height:36px;line-height:36px;text-align:left;border-top:3px solid #f6f6f6;max-width:none;}
 .funnav ol li a.nav-item-link:hover{text-decoration:none;background-color:#FFF!important}
-.dropdown-menu-nav{display:none;position:absolute;z-index:1;right:0}
+.dropdown-menu-nav{display:none;position:absolute;z-index:1;right:0;top:59px;}
 .nav-item-user{width:1000px;}
 .nav-item-user li.dropdown-menu-item{float:right !important;}
 .triangle:before{content:'';display:block;position:absolute;top:-10px;right:33px;border-width:5px;border-style:solid;border-color:transparent transparent #257ad0 transparent}
 .triangle:hover:before{border-color:transparent transparent #fa0 transparent}
-.dropdown-menu-item-link{display:block;padding:0 10px;line-height:34px;color:#fff;background-color:#257ad0}
+.dropdown-menu-item-link{display:block;padding:5px 15px;line-height:32px;color:#fff;background-color:#257ad0;border-right:1px solid #478DD3}
 .dropdown-menu-item-link:hover{color:#fff;background-color:#fa0}
+.triangle .dropdown-menu-item-link{border-right:0}
 .wrapper{width:100%;padding-top:15px;padding-bottom:15px;background-color:#f6f6f6}
 .breadcrumb,.bulletin-overview,.main{background-color:#fff;border-radius:3px}
 .breadcrumb,.bulletin-overview{margin-bottom:15px;padding:2px 0}

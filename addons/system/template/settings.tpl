@@ -16,6 +16,7 @@
     <script type="text/javascript" src="{#$JS_PATH#}ueditor/ueditor.all.min.js"></script>
     <style type="text/css">
         textarea.form-control{width:450px;height:100px;padding-top:5px}
+        .section{min-height:447px;}
         .tis{color:#989898;padding-left:5px}
         .topmenu{position:relative;width:990px;height:36px;margin:15px auto 8px;padding-left:18px;background-color:#fff;border-bottom:3px solid #09c}
         .topmenu a{display:block;float:left;line-height:36px;padding:0 12px;margin-right:12px;color:#09c}

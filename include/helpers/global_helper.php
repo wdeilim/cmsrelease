@@ -1246,6 +1246,26 @@ function module_setting($setname, $modulename = '') {
     return $setting;
 }
 
+/**
+ * 是否使用第三方
+ * @param $openweixin
+ * @return bool
+ */
+function isopenweixin($openweixin) {
+    global $_A;
+    if (!isset($_A['openweixin'])) {
+        $CI = & get_instance();
+        $CI->load->library('wxopen');
+    }
+    if ($openweixin === true && $_A['openweixin']['open']) {
+        return true;
+    }
+    if ($openweixin && $_A['openweixin']['open'] && $_A['openweixin']['appid'] == $openweixin) {
+        return $openweixin;
+    }else{
+        return false;
+    }
+}
 
 /**
  * 查询分页列表

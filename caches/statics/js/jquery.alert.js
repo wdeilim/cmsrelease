@@ -8,14 +8,14 @@
 jQuery.alert = function(e, t, p, but, bk) {
     var alertvisible = $("div.jQuery-ui-alert").is(":visible");
     $("div.jQuery-ui-alert").remove();
-	$("div.jQuery-ui-alert-back").remove();
+    $("div.jQuery-ui-alert-back").remove();
     if (e === 0) return;
-	var m = Math.round(Math.random() * 10000);
+    var m = Math.round(Math.random() * 10000);
     if (but) e+= but;
-	var n = '<div class="jQuery-ui-alert" style="position:fixed;top:0;left:0;padding:15px 10px;min-width:100px;opacity:1;min-height:25px;text-align:center;color:#fff;display:block;z-index:2147483647;border-radius:3px;background-color: rgba(51,51,51,.9); opacity:1;font-size:14px;" id="jQuery-ui-alert-' + m + '" >' + e + '</div>' +
+    var n = '<div class="jQuery-ui-alert" style="position:fixed;top:0;left:0;padding:15px 10px;min-width:100px;opacity:1;min-height:25px;text-align:center;color:#fff;z-index:2147483647;border-radius:3px;background-color: rgba(51,51,51,.9); opacity:1;font-size:14px;display:table;max-width:80%;" id="jQuery-ui-alert-' + m + '" ><div style="display:table-cell;vertical-align:middle;">' + e + '</div></div>' +
         '<div class="jQuery-ui-alert-back" style="display:none;z-index:2147483646" id="jQuery-ui-alert-back-' + m + '"></div>';
-	$("body").append(n);
-	var nobjbg = $('#jQuery-ui-alert-back-' + m);
+    $("body").append(n);
+    var nobjbg = $('#jQuery-ui-alert-back-' + m);
     nobjbg.css({
         "width":"100%",
         "height":$(document).height(),
@@ -33,26 +33,24 @@ jQuery.alert = function(e, t, p, but, bk) {
         isIphone = !ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/),
         isAndroid = ua.match(/(Android)\s+([\d.]+)/),
         isMobile = isIphone || isAndroid;
-    if(isMobile) {
-        if ($(window).width()>=640){
-            nobj.css({"padding":"25px 20px","font-size":"20px", "line-height":"28px"});
-        }else{
-            nobj.css({"padding":"15px 10px","font-size":"14px", "line-height":"22px"});
-        }
+    if(isMobile && $(window).width()>=640) {
+        nobj.css({"padding":"25px 20px","font-size":"20px", "line-height":"28px"});
+    }else{
+        nobj.css({"padding":"15px 10px","font-size":"14px", "line-height":"22px"});
     }
     if (!p)	nobj.click(function(){ nobj.removeClass("jQuery-ui-alert-style").fadeOut(); nobjbg.hide(); });
     if (!p)	nobjbg.click(function(){ nobj.removeClass("jQuery-ui-alert-style").fadeOut(); nobjbg.hide(); });
-	var i = $(window).width(),
-	s = $(window).height(),
-	o = nobj.outerWidth() + 10,
-	u = nobj.height(),
-	l = (i - o) / 2,
-    top = (s - u) / 2 - 20,
-    tot = top * 0.7;
-	i > o && nobj.css("left", parseInt(l-5));
-	i > o && nobj.css("right", parseInt(l-5));
-	s > u && nobj.css("top", top);
-	l < 5 && nobj.css("margin", "0 5px");
+    var i = $(window).width(),
+        s = $(window).height(),
+        o = nobj.outerWidth(),
+        u = nobj.height(),
+        l = (i - o) / 2,
+        top = (s - u) / 2 - 20,
+        tot = top * 0.7;
+    i > o && nobj.css("left", parseInt(l));
+    i > o && nobj.css("right", parseInt(l));
+    s > u && nobj.css("top", top);
+    l < 5 && nobj.css("margin", "0 5px");
     var style = $("style#jQuery-ui-alert-style");
     if (s > u && style.attr("data-top") != top) {
         style.remove(); $("<style id='jQuery-ui-alert-style' data-top='" + top + "'>.jQuery-ui-alert-style{animation:jQuery_ui_alert_style 0.5s ease forwards;-moz-animation:jQuery_ui_alert_style 0.5s ease forwards;-webkit-animation:jQuery_ui_alert_style 0.5s ease forwards;-o-animation:jQuery_ui_alert_style 0.5s ease forwards}@keyframes jQuery_ui_alert_style{from{top:" + tot + "px;opacity:0}to{top:" + top + "px;opacity:1}}@-moz-keyframes jQuery_ui_alert_style{from{top:" + tot + "px;opacity:0}to{top:" + top + "px;opacity:1}}@-webkit-keyframes jQuery_ui_alert_style{from{top:" + tot + "px;opacity:0}to{top:" + top + "px;opacity:1}}@-o-keyframes jQuery_ui_alert_style{from{top:" + tot + "px;opacity:0}to{top:" + top + "px;opacity:1}}</style>").appendTo($("head"));
@@ -62,8 +60,8 @@ jQuery.alert = function(e, t, p, but, bk) {
     }else{
         nobj.addClass("jQuery-ui-alert-style").show();
     }
-	if (t === 0) return;
-	setTimeout(function() { nobj.removeClass("jQuery-ui-alert-style").fadeOut(); nobjbg.hide(); }, t || 2000)
+    if (t === 0) return;
+    setTimeout(function() { nobj.removeClass("jQuery-ui-alert-style").fadeOut(); nobjbg.hide(); }, t || 2000)
 };
 jQuery.alertk = function(e, t, p, but) {
     $.alert(e, t, p, but, 1)
@@ -203,47 +201,47 @@ $.fn.inTips = function(msg, parame, retu, parame2, msgobj) {
         if (parame.val() == this.val()) return true;
     }
     //
-	var m = Math.round(Math.random() * 10000);
-	var $imithis = this;
+    var m = Math.round(Math.random() * 10000);
+    var $imithis = this;
     if (msgobj instanceof jQuery) $imithis = msgobj;
-	if ($imithis.attr("data-jQueryuitips-id") > 0){
-		m = $imithis.attr("data-jQueryuitips-id");
-	}else{	
-		$imithis.attr("data-jQueryuitips-id", m)
-	}
-	$("span#jQuery-ui-tips-"+m).remove();
-	var $imitate = $('<span id="jQuery-ui-tips-' + m + '" style="position:absolute; display:none; overflow:hidden; color:#cccccc; height:20px;"><i>！' + msg + '</i></span>');
-	$(document.body).append($imitate.click(function () {
-		$imithis.trigger('focus');
-		$imithis.removeClass('jQuery-ui-tips');
-		$imitate.remove();
-	}));
-	if ($imithis.attr("data-uitips") == "jQ"){
-		$imithis.unbind("click",jQUiTips);
-	}
-	$imithis.addClass('jQuery-ui-tips');
-	$imithis.attr("data-uitips", "jQ");
-	$imithis.bind("click", jQUiTips = function(){
-		$imithis.removeClass('jQuery-ui-tips');
-		$imitate.remove();
-	});
-	//定位
+    if ($imithis.attr("data-jQueryuitips-id") > 0){
+        m = $imithis.attr("data-jQueryuitips-id");
+    }else{
+        $imithis.attr("data-jQueryuitips-id", m)
+    }
+    $("span#jQuery-ui-tips-"+m).remove();
+    var $imitate = $('<span id="jQuery-ui-tips-' + m + '" style="position:absolute; display:none; overflow:hidden; color:#cccccc; height:20px;"><i>！' + msg + '</i></span>');
+    $(document.body).append($imitate.click(function () {
+        $imithis.trigger('focus');
+        $imithis.removeClass('jQuery-ui-tips');
+        $imitate.remove();
+    }));
+    if ($imithis.attr("data-uitips") == "jQ"){
+        $imithis.unbind("click",jQUiTips);
+    }
+    $imithis.addClass('jQuery-ui-tips');
+    $imithis.attr("data-uitips", "jQ");
+    $imithis.bind("click", jQUiTips = function(){
+        $imithis.removeClass('jQuery-ui-tips');
+        $imitate.remove();
+    });
+    //定位
     var ttop  = $imithis.offset().top;     		//控件的定位点高
     var thei  = $imithis.outerHeight();  		//控件本身的高
     var twid  = $imithis.outerWidth();  		//控件本身的宽
     var tleft = $imithis.offset().left;    		//控件的定位点宽
-	$("#jQuery-ui-tips-" + m).css({
+    $("#jQuery-ui-tips-" + m).css({
         width:$("#jQuery-ui-tips-" + m).width() + 12,
         height:thei,
         top:ttop,
         left:tleft + twid + 10,
         'line-height':thei+'px'
     }).show();
-	$("#jQuery-ui-tips-" + m + " i").css({
-		'color':'#ff0000',
-		'font-style': 'normal',
-		'font-weight': '600',
-		'font-size': '12px'
+    $("#jQuery-ui-tips-" + m + " i").css({
+        'color':'#ff0000',
+        'font-style': 'normal',
+        'font-weight': '600',
+        'font-size': '12px'
     }).show();
     //
     $body = (window.opera) ? (document.compatMode == "CSS1Compat" ? $('html') : $('body')) : $('html,body');
@@ -268,27 +266,27 @@ jQuery.inModal = function(msg) {
 jQuery.showModal = function(msg, url, goonurl, isautohide) {
     $("div.jQuery-ui-myModal").remove();
     $("div.jQuery-ui-myModal-Bg").remove();
-	var m = Math.round(Math.random() * 10000);
-	var n = '<div class="jQuery-ui-myModal" id="jQuery-ui-myModal-' + m + '" style="display:none;">'
-		+'	<div class="jqmodal-header">'
-		+'		<button type="button" class="close" onclick="$(\'.jQuery-ui-myModal\').hide();$(\'.jQuery-ui-myModal-Bg\').hide();">\u00d7</button>'
-		+'		<h3 id="myModalLabel">\u6d88\u606f</h3>'
-		+'	</div>'
-		+'	<div class="jqmodal-body">'
+    var m = Math.round(Math.random() * 10000);
+    var n = '<div class="jQuery-ui-myModal" id="jQuery-ui-myModal-' + m + '" style="display:none;">'
+        +'	<div class="jqmodal-header">'
+        +'		<button type="button" class="close" onclick="$(\'.jQuery-ui-myModal\').hide();$(\'.jQuery-ui-myModal-Bg\').hide();">\u00d7</button>'
+        +'		<h3 id="myModalLabel">\u6d88\u606f</h3>'
+        +'	</div>'
+        +'	<div class="jqmodal-body">'
         +'      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="error-text">'
         +'          <tr>'
         +'              <td style="width:72px;text-align:left;vertical-align:middle;"><i class="jqmodal-icon fa fa-exclamation-triangle"></i></td>'
         +'              <td style="text-align:left;vertical-align:middle;"><span id="myModalContent">Are you sure you?</span></td>'
         +'          </tr>'
         +'      </table>'
-		+'	</div>'
-		+'	<div class="jqmodal-footer">'
-		+'		<a id="myModalLink" href="javascript:void(0);" class="jqmodal-btn-danger"><i class="fa fa-check">\u221a\u0020</i>\u786e\u5b9a</a>'
-		+'		<a id="myModalGoon" href="javascript:void(0);" class="jqmodal-btn-info">\u7ee7\u7eed<i class="fa fa-chevron-right">\u0020\u003e</i></a>'
-		+'	</div>'
-		+'</div>'
-		+'<div class="jQuery-ui-myModal-Bg" id="jQuery-ui-myModal-Bg-' + m + '" style="display:none;"></div>';
-	$("body").append(n);
+        +'	</div>'
+        +'	<div class="jqmodal-footer">'
+        +'		<a id="myModalLink" href="javascript:void(0);" class="jqmodal-btn-danger"><i class="fa fa-check">\u221a\u0020</i>\u786e\u5b9a</a>'
+        +'		<a id="myModalGoon" href="javascript:void(0);" class="jqmodal-btn-info">\u7ee7\u7eed<i class="fa fa-chevron-right">\u0020\u003e</i></a>'
+        +'	</div>'
+        +'</div>'
+        +'<div class="jQuery-ui-myModal-Bg" id="jQuery-ui-myModal-Bg-' + m + '" style="display:none;"></div>';
+    $("body").append(n);
     var nobjbg = $('#jQuery-ui-myModal-Bg-' + m);
     nobjbg.css({
         "width":"100%",
@@ -301,7 +299,7 @@ jQuery.showModal = function(msg, url, goonurl, isautohide) {
         "z-index":"10000"
     });
     var nobj = $('#jQuery-ui-myModal-' + m);
-	nobj.css({
+    nobj.css({
         "background-color":"#ffffff",
         "border-radius":"6px",
         "box-shadow":"0 3px 7px rgba(0, 0, 0, 0.3)",
@@ -317,10 +315,10 @@ jQuery.showModal = function(msg, url, goonurl, isautohide) {
         "padding": "9px 15px",
         "border-bottom": "1px solid #eee"
     });
-	nobj.find(".jqmodal-header h3").css({
+    nobj.find(".jqmodal-header h3").css({
         "line-height": "30px"
     });
-	nobj.find("button.close").css({
+    nobj.find("button.close").css({
         "margin-top": "5px",
         "padding": "0",
         "background": "transparent",
@@ -334,7 +332,7 @@ jQuery.showModal = function(msg, url, goonurl, isautohide) {
         "text-shadow": "0 1px 0 #ffffff",
         "opacity": "0.2"
     });
-	nobj.find(".jqmodal-body").css({
+    nobj.find(".jqmodal-body").css({
         "font-size": "14px",
         "padding": "2em",
         "overflow-y": "auto",
@@ -398,9 +396,9 @@ jQuery.showModal = function(msg, url, goonurl, isautohide) {
         u = nobj.height(),
         l = (i - o) / 2;
     i > o && nobj.css("left", l),
-        s > u && nobj.css("top", (s - u) / 2),
-        l < 5 && nobj.css("margin", "0 5px");
-	nobj.show();
+    s > u && nobj.css("top", (s - u) / 2),
+    l < 5 && nobj.css("margin", "0 5px");
+    nobj.show();
     nobj.find(".jqmodal-footer").find("#myModalLink").focus();
 
     var isIe6 = false;
@@ -432,15 +430,15 @@ jQuery.showModal = function(msg, url, goonurl, isautohide) {
             u = nobj.height(),
             l = (i - o) / 2;
         i > o && nobj.css("left", l),
-            s > u && nobj.css("top", (s - u) / 2),
-            l < 5 && nobj.css("margin", "0 5px");
+        s > u && nobj.css("top", (s - u) / 2),
+        l < 5 && nobj.css("margin", "0 5px");
         if(isIe6){
             var offsetTop = ($(window).scrollTop() + ($(window).height() - nobj.height()) / 2) +"px";
             nobj.css("top", offsetTop);
         }
     });
 
-	if (goonurl) {
+    if (goonurl) {
         nobj.find("#myModalGoon").show();
         if (typeof(goonurl) == "function") {
             nobj.find("#myModalGoon").click(function(){
@@ -453,9 +451,9 @@ jQuery.showModal = function(msg, url, goonurl, isautohide) {
             nobj.find("#myModalGoon").attr("href", goonurl);
         }
 
-	}
+    }
     nobj.find("#myModalContent").html(msg);
-	if (url) {
+    if (url) {
         if (typeof(url) == "function") {
             nobj.find("#myModalLink").click(function(){
                 if (url() !== true) {
@@ -467,8 +465,8 @@ jQuery.showModal = function(msg, url, goonurl, isautohide) {
             nobj.find("#myModalLink").attr("href", url);
         }
         if (!isautohide) {
-			setTimeout(function(){
-				nobj.fadeOut(1000, function(){
+            setTimeout(function(){
+                nobj.fadeOut(1000, function(){
                     if (typeof(url) == "function") {
                         if (url() !== true) {
                             $("div.jQuery-ui-myModal").remove();
@@ -478,17 +476,17 @@ jQuery.showModal = function(msg, url, goonurl, isautohide) {
                         window.location.href = url;
                     }
                 });
-			},1000);			
-		}
-	} else {
+            },1000);
+        }
+    } else {
         nobj.find("#myModalLink").attr("href", 'javascript:void(0);');
         nobj.find("#myModalLink").click(function(){nobj.hide();nobjbg.hide();});
-		if (!isautohide) {
-			setTimeout(function(){
-				nobj.fadeOut(1000, function(){nobjbg.hide();});
-			},1000);
-		}		
-	}
+        if (!isautohide) {
+            setTimeout(function(){
+                nobj.fadeOut(1000, function(){nobjbg.hide();});
+            },1000);
+        }
+    }
 };
 
 jQuery.tusi = function(txt, fun, t) {

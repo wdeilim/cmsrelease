@@ -57,6 +57,8 @@ die('This file is not really here!');
  * @property fuwu               $fuwu
  * @property weixin             $weixin
  * @property wx                 $wx
+ * @property weixinopen         $weixinopen
+ * @property wxopen             $wxopen
  * @property vupload            $vupload
  * @property communication      $communication
  * @property del                $del
@@ -119,6 +121,8 @@ class MY_Controller extends CI_Controller {};
  * @property fuwu               $fuwu
  * @property weixin             $weixin
  * @property wx                 $wx
+ * @property weixinopen         $weixinopen
+ * @property wxopen             $wxopen
  * @property vupload            $vupload
  * @property communication      $communication
  * @property del                $del

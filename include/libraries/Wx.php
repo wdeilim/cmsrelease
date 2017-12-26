@@ -4,6 +4,7 @@ error_reporting(0);
 
 class Wx {
     private $wxcpt;
+    private $isopen = false;
     public $data = array();
 
     /**
@@ -41,46 +42,59 @@ class Wx {
 
     /**
      * 接收信息处理
+     * @param array $mess_obj
+     * @return bool
      */
-    public function Message()
+    public function Message($mess_obj = array())
     {
         global $_A,$_GPC;
         //
-        $post_str = isset($GLOBALS['HTTP_RAW_POST_DATA']) ? $GLOBALS['HTTP_RAW_POST_DATA'] : file_get_contents("php://input");
-        if (empty($post_str)) return false;
-        //模拟器
-        if (isset($_GPC['sid']) && $_GPC['sid']) {
-            if ($_GPC['sid'] != md52($_A['al']['id'],$_A['al']['wx_appid'])) {
-                echo "some parameter is empty.";
-                exit ();
-            }else{
-                define('_ISEMULATOR', true);
-                $post_obj = array();
-                $post_obj['FromUserName'] = $this->getNode ( $_GPC['content'], "FromUserName" );
-                $post_obj['ToUserName'] = $this->getNode ( $_GPC['content'], "ToUserName" );
-                $post_obj['CreateTime'] = $this->getNode ( $_GPC['content'], "CreateTime" );
-                $post_obj['MsgType'] = $this->getNode ( $_GPC['content'], "MsgType" );
-                $post_obj['Event'] = $this->getNode ( $_GPC['content'], "Event" );
-                $post_obj['Content'] = $this->getNode ( $_GPC['content'], "Content" );
-                $post_obj['EventKey'] = $this->getNode ( $_GPC['content'], "EventKey" );
-            }
+        if ($mess_obj) {
+            $post_obj = $mess_obj;
+            $this->wxcpt = new WXBizMsgCrypt($_A['openweixin']['token'], $_A['openweixin']['key'], $_A['openweixin']['appid']);
+            $this->isopen = true;
         }else{
-            if ($this->iscorp()) {
-                $errCode = $this->wxcpt->DecryptMsg($_GPC['msg_signature'], $_GPC["timestamp"], $_GPC["nonce"], $post_str, $post_str);
-                if ($errCode != 0) { exit (); }
-                $post_obj = json_decode(xml2json($post_str), true);
-                $_A['corp_agentid'] = value($post_obj, 'AgentID');
+            $post_str = isset($GLOBALS['HTTP_RAW_POST_DATA']) ? $GLOBALS['HTTP_RAW_POST_DATA'] : file_get_contents("php://input");
+            if (empty($post_str)) return false;
+            //模拟器
+            if (isset($_GPC['sid']) && $_GPC['sid']) {
+                if ($_GPC['sid'] != md52($_A['al']['id'],$_A['al']['wx_appid'])) {
+                    echo "some parameter is empty.";
+                    exit ();
+                }else{
+                    define('_ISEMULATOR', true);
+                    $post_obj = array();
+                    $post_obj['FromUserName'] = $this->getNode ( $_GPC['content'], "FromUserName" );
+                    $post_obj['ToUserName'] = $this->getNode ( $_GPC['content'], "ToUserName" );
+                    $post_obj['CreateTime'] = $this->getNode ( $_GPC['content'], "CreateTime" );
+                    $post_obj['MsgType'] = $this->getNode ( $_GPC['content'], "MsgType" );
+                    $post_obj['Event'] = $this->getNode ( $_GPC['content'], "Event" );
+                    $post_obj['Content'] = $this->getNode ( $_GPC['content'], "Content" );
+                    $post_obj['EventKey'] = $this->getNode ( $_GPC['content'], "EventKey" );
+                }
             }else{
-                $post_obj = json_decode(xml2json($post_str), true);
-                if (isset($post_obj['Encrypt']) && !isset($post_obj['FromUserName'])) {
-                    include_once "weixin/WXBizMsgCrypt.php";
-                    $this->wxcpt = new WXBizMsgCrypt($_A['al']['wx_token'], $_A['al']['wx_aeskey'], $_A['al']['wx_appid']);
+                if ($this->iscorp()) {
                     $errCode = $this->wxcpt->DecryptMsg($_GPC['msg_signature'], $_GPC["timestamp"], $_GPC["nonce"], $post_str, $post_str);
                     if ($errCode != 0) { exit (); }
                     $post_obj = json_decode(xml2json($post_str), true);
+                    $_A['corp_agentid'] = value($post_obj, 'AgentID');
+                }else{
+                    $post_obj = json_decode(xml2json($post_str), true);
+                    if (isset($post_obj['Encrypt']) && !isset($post_obj['FromUserName'])) {
+                        include_once "weixin/WXBizMsgCrypt.php";
+                        $this->wxcpt = new WXBizMsgCrypt($_A['al']['wx_token'], $_A['al']['wx_aeskey'], $_A['al']['wx_appid']);
+                        $errCode = $this->wxcpt->DecryptMsg($_GPC['msg_signature'], $_GPC["timestamp"], $_GPC["nonce"], $post_str, $post_str);
+                        if ($errCode != 0) { exit (); }
+                        $post_obj = json_decode(xml2json($post_str), true);
+                    }
                 }
             }
         }
+        //
+        $msgid = $post_obj['MsgId']?$post_obj['MsgId']:($post_obj['CreateTime'].$post_obj['MsgType'].$post_obj['Event']);
+        $msgfile = BASE_PATH.'caches/tpl_cache/weixinmsgid_'.$_A['al']['id'].'.txt';
+        if (file_exists($msgfile) && $msgid == file_get_contents($msgfile)) { return false; }
+        file_put_contents($msgfile, $msgid);
         //
         $M = array();
         $M['userinfo'] = '';
@@ -110,7 +124,7 @@ class Wx {
             if ($M['msgtype'] == "image") {
                 $mediaurl = value($post_obj, "PicUrl");
             }
-            if ($media_id) {
+            if ($media_id && $_A['al']['wx_level'] > 2) {
                 $CI =& get_instance();
                 $CI->load->helper('communication');
                 if ($this->iscorp()) {
@@ -1009,7 +1023,7 @@ class Wx {
      */
     public function resecho($responce) {
         global $_GPC;
-        if ($this->iscorp() && !defined('_ISEMULATOR')) {
+        if (($this->iscorp() && !defined('_ISEMULATOR')) || $this->isopen === true) {
             $sEncryptMsg = "";
             $errCode = $this->wxcpt->EncryptMsg($responce, $_GPC["timestamp"], $_GPC["nonce"], $sEncryptMsg);
             if ($errCode == 0) {
@@ -1530,6 +1544,95 @@ class Wx {
         return $result;
     }
 
+    /**
+     * 通过被动回复
+     * @param $data
+     * @return bool|string
+     */
+    function sendPassivereply($data) {
+        global $_A;
+        $xml = '';
+        if (empty($_A['M']['appid'])) {
+            return false;
+        }
+        $data[$data['msgtype']] = $this->decode($data[$data['msgtype']]);
+        if ($data['msgtype'] == 'text') {
+            $xml = '<xml>
+                            <ToUserName><![CDATA['.$data['touser'].']]></ToUserName>
+                            <FromUserName><![CDATA['.$_A['M']['appid'].']]></FromUserName>
+                            <CreateTime>'.SYS_TIME.'</CreateTime>
+                            <MsgType><![CDATA[text]]></MsgType>
+                            <Content><![CDATA['.$this->decode($data['text']['content']).']]></Content>
+                        </xml>';
+        }elseif ($data['msgtype'] == 'image') {
+            $xml = '<xml>
+                            <ToUserName><![CDATA['.$data['touser'].']]></ToUserName>
+                            <FromUserName><![CDATA['.$_A['M']['appid'].']]></FromUserName>
+                            <CreateTime>'.SYS_TIME.'</CreateTime>
+                            <MsgType><![CDATA[image]]></MsgType>
+                            <Image>
+                                <MediaId><![CDATA['.$data['image']['media_id'].']]></MediaId>
+                            </Image>
+                        </xml>';
+        }elseif ($data['msgtype'] == 'voice') {
+            $xml = '<xml>
+                            <ToUserName><![CDATA['.$data['touser'].']]></ToUserName>
+                            <FromUserName><![CDATA['.$_A['M']['appid'].']]></FromUserName>
+                            <CreateTime>'.SYS_TIME.'</CreateTime>
+                            <MsgType><![CDATA[voice]]></MsgType>
+                            <Voice>
+                                <MediaId><![CDATA['.$data['voice']['media_id'].']]></MediaId>
+                            </Voice>
+                        </xml>';
+        }elseif ($data['msgtype'] == 'video') {
+            $xml = '<xml>
+                            <ToUserName><![CDATA['.$data['touser'].']]></ToUserName>
+                            <FromUserName><![CDATA['.$_A['M']['appid'].']]></FromUserName>
+                            <CreateTime>'.SYS_TIME.'</CreateTime>
+                            <MsgType><![CDATA[video]]></MsgType>
+                            <Video>
+                                <MediaId><![CDATA['.$data['video']['media_id'].']]></MediaId>
+                                <Title><![CDATA['.$data['video']['title'].']]></Title>
+                                <Description><![CDATA['.$data['video']['description'].']]></Description>
+                            </Video>
+                        </xml>';
+        }elseif ($data['msgtype'] == 'music') {
+            $xml = '<xml>
+                            <ToUserName><![CDATA['.$data['touser'].']]></ToUserName>
+                            <FromUserName><![CDATA['.$_A['M']['appid'].']]></FromUserName>
+                            <CreateTime>'.SYS_TIME.'</CreateTime>
+                            <MsgType><![CDATA[music]]></MsgType>
+                            <Music>
+                                <Title><![CDATA['.$data['music']['title'].']]></Title>
+                                <Description><![CDATA['.$data['music']['description'].']]></Description>
+                                <MusicUrl><![CDATA['.$data['music']['musicurl'].']]></MusicUrl>
+                                <HQMusicUrl><![CDATA['.$data['music']['hqmusicurl'].']]></HQMusicUrl>
+                                <ThumbMediaId><![CDATA['.$data['music']['thumb_media_id'].']]></ThumbMediaId>
+                            </Music>
+                        </xml>';
+        }elseif ($data['msgtype'] == 'news') {
+            $articlecount = 0;
+            $articles = array();
+            foreach ($data['news']['articles'] AS $item) {
+                $articles.= '<item>
+                                    <Title><![CDATA['.$item['title'].']]></Title>
+                                    <Description><![CDATA['.$item['description'].']]></Description>
+                                    <PicUrl><![CDATA['.$item['url'].']]></PicUrl>
+                                    <Url><![CDATA['.$item['picurl'].']]></Url>
+                                </item>';
+                $articlecount++;
+            }
+            $xml = '<xml>
+                            <ToUserName><![CDATA['.$data['touser'].']]></ToUserName>
+                            <FromUserName><![CDATA['.$_A['M']['appid'].']]></FromUserName>
+                            <CreateTime>'.SYS_TIME.'</CreateTime>
+                            <MsgType><![CDATA[news]]></MsgType>
+                            <ArticleCount>'.$articlecount.'</ArticleCount>
+                            <Articles>'.$articles.'</Articles>
+                        </xml>';
+        }
+        return $xml;
+    }
 
     /**
      * 发送客服信息
@@ -1543,6 +1646,10 @@ class Wx {
         }
         if (defined('_ISEMULATOR')) {
             echo json_encode($data); exit();
+        }
+        if ($_A['al']['wx_level'] <= 2) {
+            $xml = $this->sendPassivereply($data);
+            if ($xml) { echo $xml; exit(); }
         }
         $token = $this->token();
         if(is_error($token)){
@@ -1565,6 +1672,8 @@ class Wx {
         if(empty($result)) {
             return error(-1, "接口调用失败, 元数据: {$response['meta']}");
         } elseif(!empty($result['errcode'])) {
+            $xml = $this->sendPassivereply($data);
+            if ($xml) { echo $xml; exit(); }
             return error(-1, "访问微信接口错误：{$this->error_code($result['errcode'])}");
         }
         if (!defined('_ISSENDCUSTOMNOTICE')) define('_ISSENDCUSTOMNOTICE', true);
@@ -1642,17 +1751,23 @@ class Wx {
     {
         global $_A;
         if (empty($_A['al']['wx_appid'])) return "";
+        $CI =& get_instance();
         $setting = string2array($_A['al']['setting']);
+        if ($setting['openweixin']) {
+            $CI->load->library('wxopen');
+            if ($CI->wxopen->isopen()) {
+                return $CI->wxopen->get_accesstoken($_A['al']['wx_appid']);
+            }
+        }
         $wx_token = json_decode(value($setting, 'wx_token'), true);
         if ($wx_token['expire'] > SYS_TIME) {
             return $wx_token['token'];
         }
         //从网页中获取
-        $CI =& get_instance();
         if ($this->iscorp()) {
-            $url = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={$_A['al']['wx_appid']}&corpsecret={$_A['al']['wx_secret']}";
+            $url = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=".$_A['al']['wx_appid']."&corpsecret=".$_A['al']['wx_secret'];
         }else{
-            $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={$_A['al']['wx_appid']}&secret={$_A['al']['wx_secret']}";
+            $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".$_A['al']['wx_appid']."&secret=".$_A['al']['wx_secret'];
         }
         $CI->load->library('communication');
         $content = $CI->communication->ihttp_request($url);
@@ -1686,12 +1801,12 @@ class Wx {
             return $wx_token['ticket'];
         }
         //从网页中获取
-        $CI =& get_instance();
         if ($this->iscorp()) {
             $url = "https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket?access_token=".$this->token();
         }else{
             $url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=".$this->token()."&type=jsapi";
         }
+        $CI =& get_instance();
         $CI->load->library('communication');
         $content = $CI->communication->ihttp_request($url);
         if($CI->communication->is_error($content)) {

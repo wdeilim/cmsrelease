@@ -36,6 +36,11 @@
             <div class="section">
                 <div class="control-group relative">
                     <a href="{#$urlarr.2#}add/" class="button button-primary button-rounded">+添加接入</a>
+                    {#if isopenweixin(true)#}
+                        &nbsp;
+                        <a href="{#$_A['url']['index']#}open/weixin/auth/" onclick="_openweixin();"
+                           class="button button-success button-rounded" target="_blank">+微信公众号授权接入</a>
+                    {#/if#}
                     <p class="description">还没有公众号/服务窗？
                         <a class="normal-link" href="https://mp.weixin.qq.com/" target="_blank">点击申请公众号</a>
                         <a class="normal-link" href="https://fuwu.alipay.com/" target="_blank">点击申请服务窗</a>
@@ -82,6 +87,9 @@
                                         {#/if#}
                                         {#if $list['setting']['other']['getjs_appid']#}
                                             <em class="toget" title="借用 JS 分享接口">借JSSDK</em>
+                                        {#/if#}
+                                        {#if $list['setting']['openweixin'] && isopenweixin($list['setting']['openweixin'])#}
+                                            {#openauth_expires($list['setting']['openweixin_expires'])#}
                                         {#/if#}
                                     </span>
                                 {#/if#}
@@ -290,6 +298,28 @@
                 }
             },
             cache: false
+        });
+    }
+    function _openweixin() {
+        art.dialog({
+            title: '微信公众号登录授权',
+            fixed: true,
+            lock: true,
+            content: '请在新窗口中完成微信公众号登录授权，点击授权成功刷新列表。',
+            button: [{
+                name: '授权成功',
+                focus: true,
+                callback: function () {
+                    $.alert("正在刷新...", 0, 1);
+                    window.location.reload();
+                    return true;
+                }
+            },{
+                name: '关闭提示',
+                callback: function () {
+                    return true;
+                }
+            }]
         });
     }
 </script>

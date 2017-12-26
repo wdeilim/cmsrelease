@@ -6,6 +6,7 @@
                 <li><a class="item detail" href="{#$urlarr.3#}">系统设置</a></li>
                 <li id="nav-pay"><a class="item detail" href="{#$urlarr.3#}pay/">支付方式</a></li>
                 <li id="nav-database"><a class="item detail" href="{#$urlarr.3#}database/">数据库管理</a></li>
+                <li id="nav-openweixin"><a class="item detail" href="{#$urlarr.3#}openweixin/">微信开发平台</a></li>
             </ul>
         </dd>
         <dt><span class="item title">云 服 务</span></dt>

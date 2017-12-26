@@ -33,29 +33,31 @@
         <div class="mod">
 
             <div class="clearfix welcome-container">
-                <div class="page-header">
-                    <h4><i class="fa fa-plane"></i> 核心功能设置</h4>
-                </div>
-                <div class="shortcut clearfix">
-                    {#if $_A['f']['reply']#}
-                        <a href="{#weburl(0, $_A.f.title_en)#}&entry=reply">
-                            <i class="fa fa-comments"></i>
-                            <span>回复规则列表</span>
-                        </a>
-                    {#/if#}
-                    {#foreach $_A['f']['setting']['bindings']['cover'] AS $item#}
-                        <a href="{#weburl(0, $_A.f.title_en)#}&entry=cover&do={#$item['do']#}" {#$item['attr']#}{#if $item['target']#} target="{#$item['attr']#}"{#/if#}>
-                            <i class="fa fa-external-link-square"></i>
-                            <span title="{#$item['title']#}">{#$item['title']#}</span>
-                        </a>
-                    {#/foreach#}
-                    {#foreach $_A['f']['setting']['bindings']['setting'] AS $item#}
-                        <a href="{#weburl(0, $_A.f.title_en)#}&entry=setting&do={#$item['do']#}" {#$item['attr']#}{#if $item['target']#} target="{#$item['attr']#}"{#/if#}>
-                            <i class="fa fa-cog"></i>
-                            <span title="{#$item['title']#}">{#$item['title']#}</span>
-                        </a>
-                    {#/foreach#}
-                </div>
+                {#if $_A['f']['reply'] || $_A['f']['setting']['bindings']['cover'] || $_A['f']['setting']['bindings']['setting']#}
+                    <div class="page-header">
+                        <h4><i class="fa fa-plane"></i> 核心功能设置</h4>
+                    </div>
+                    <div class="shortcut clearfix">
+                        {#if $_A['f']['reply']#}
+                            <a href="{#weburl(0, $_A.f.title_en)#}&entry=reply">
+                                <i class="fa fa-comments"></i>
+                                <span>回复规则列表</span>
+                            </a>
+                        {#/if#}
+                        {#foreach $_A['f']['setting']['bindings']['cover'] AS $item#}
+                            <a href="{#weburl(0, $_A.f.title_en)#}&entry=cover&do={#$item['do']#}" {#$item['attr']#}{#if $item['target']#} target="{#$item['attr']#}"{#/if#}>
+                                <i class="fa fa-external-link-square"></i>
+                                <span title="{#$item['title']#}">{#$item['title']#}</span>
+                            </a>
+                        {#/foreach#}
+                        {#foreach $_A['f']['setting']['bindings']['setting'] AS $item#}
+                            <a href="{#weburl(0, $_A.f.title_en)#}&entry=setting&do={#$item['do']#}" {#$item['attr']#}{#if $item['target']#} target="{#$item['attr']#}"{#/if#}>
+                                <i class="fa fa-cog"></i>
+                                <span title="{#$item['title']#}">{#$item['title']#}</span>
+                            </a>
+                        {#/foreach#}
+                    </div>
+                {#/if#}
                 {#if $_A['f']['setting']['bindings']['menu']#}
                     <div class="page-header">
                         <h4><i class="fa fa-plane"></i> 业务功能菜单</h4>

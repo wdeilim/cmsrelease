@@ -1044,6 +1044,29 @@ class ES_System extends CI_Model {
 	}
 
 	/**
+	 * 微信开放平台
+	 */
+	public function S_openweixin()
+	{
+		$file = FCPATH."caches".DIRECTORY_SEPARATOR."cache.openweixin.php";
+		$openweixin = array();
+		if (file_exists($file)) {
+			$openweixin = string2array(str_replace('<?php exit();?>', '', file_get_contents($file)));
+			$openweixin['applist'] = string2array($openweixin['applist']);
+		}
+		if ($this->input->post("dosubmit")) {
+			foreach ($this->input->post('openweixin') AS $key=>$val) { $openweixin[$key] = $val; }
+			file_put_contents($file, '<?php exit();?>'.array2string(_Sys_Safe_Stop::addslashes_deep($openweixin)));
+			//
+			$arr = array();
+			$arr['success'] = 1;
+			echo json_encode($arr); exit();
+		}
+		//
+		tpl('setting_openweixin', get_defined_vars());
+	}
+
+	/**
 	 * 客户管理
 	 */
 	public function S_users()
@@ -3415,7 +3438,13 @@ class ES_System extends CI_Model {
 		if ($_GPC['al'] > 0) {
 			$this->load->library('wx');
 			$this->wx->setting(intval($_GPC['al']));
-			echo json_encode($this->wx->jssdkConfig(value($_GPC, 'url')));
+			$jssdk = json_encode($this->wx->jssdkConfig(value($_GPC, 'url')));
+			$jsoncallback = $_GPC['jsoncallback'];
+			if ($jsoncallback) {
+				echo $jsoncallback.'('.$jssdk.')';
+			}else{
+				echo $jssdk;
+			}
 		}
 		exit();
 	}
@@ -3620,15 +3649,22 @@ class ES_System extends CI_Model {
 		$get_appid = value($_A, 'al|setting|other|get_appid');
 		if ($get_appid) {
 			$get_appoint = value($_A, 'al|setting|other|get_appoint', true);
+			$notescon = str_replace($_A['url'][1], "", $notes['content']);
+			$notescon = substr($notescon, 0, strpos($notescon, "/"));
+			if ($notescon) {
+				$_A['module'] = $notescon;
+			}
 			if (empty($get_appoint) || in_array($_A['module'], $get_appoint)) {
 				$_temp_isget = true; //微信授权 - 借用
 				//
 				$_A['wxget']['appid'] = trim($get_appid);
 				$_A['wxget']['secret'] = trim($_A['al']['setting']['other']['get_secret']);
-				$_A['wxget']['scope'] = trim($_A['al']['setting']['other']['get_scope']);
+				$_A['wxget']['scope'] = trim($_A['al']['setting']['other']['get_scope'])=='snsapi_base'?'snsapi_base':'snsapi_userinfo';
 				$_A['wxget']['md5'] = substr(md5($_A['wxget']['appid'].$_A['wxget']['secret']), 8, 16);
 			}
 		}
+		$this->load->library('wxopen');
+		$openweixin = $this->wxopen->isopen();
 		//
 		if (($_A['al']['wx_appid'] && $_A['al']['wx_level'] == 4) || $_temp_isget) {
 			if (isset($_GPC['weixin_system_oauth2'])) {
@@ -3638,6 +3674,10 @@ class ES_System extends CI_Model {
 				if ($_temp_isget) {
 					$url  = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid='.$_A['wxget']['appid'];
 					$url.= '&secret='.$_A['wxget']['secret'].'&code='.$_GPC['code'].'&grant_type=authorization_code';
+				}elseif ($openweixin){
+					$url  = 'https://api.weixin.qq.com/sns/oauth2/component/access_token?appid='.$_A['al']['wx_appid'];
+					$url.= '&code='.$_GPC['code'].'&grant_type=authorization_code&component_appid='.$openweixin;
+					$url.= '&component_access_token='.$this->wxopen->get_token();
 				}else{
 					$url  = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid='.$_A['al']['wx_appid'];
 					$url.= '&secret='.$_A['al']['wx_secret'].'&code='.$_GPC['code'].'&grant_type=authorization_code';
@@ -3665,6 +3705,8 @@ class ES_System extends CI_Model {
 				);
 				if ($_temp_isget) {
 					$M['follow'] = 3;
+				}elseif ($openweixin) {
+					$M['follow'] = 1;
 				}
 				$M['user_name'] = value($_content, 'nickname');
 				$M['sex'] = str_replace(array("1","2"), array("男","女"),value($_content, 'sex'));
@@ -3687,18 +3729,18 @@ class ES_System extends CI_Model {
 				if ($_temp_isget) {
 					$_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$_A['wxget']['appid'];
 					$_url.= '&redirect_uri='.urlencode(get_link('weixin_system_oauth2|weixin_oauth2|code')."&weixin_system_oauth2=1");
-					if ($_A['wxget']['scope'] != 'snsapi_base') {
-						$_url.= '&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
-					}else{
-						$_url.= '&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect';
-					}
-					gourl($_url);
+					$_url.= '&response_type=code&scope='.$_A['wxget']['scope'].'&state=STATE#wechat_redirect';
+				}elseif ($openweixin) {
+					$_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$_A['al']['wx_appid'];
+					$_url.= '&redirect_uri='.urlencode(get_link('weixin_system_oauth2|weixin_oauth2|code')."&weixin_system_oauth2=1");
+					$_url.= '&response_type=code&scope=snsapi_userinfo&state=STATE';
+					$_url.= '&component_appid='.$openweixin.'#wechat_redirect';
 				}else{
 					$_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$_A['al']['wx_appid'];
 					$_url.= '&redirect_uri='.urlencode(get_link('weixin_system_oauth2|weixin_oauth2|code')."&weixin_system_oauth2=1");
 					$_url.= '&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
-					gourl($_url);
 				}
+				gourl($_url);
 			}
 		}else{
 			message(null, "系统未开放此登录接口！");

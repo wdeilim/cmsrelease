@@ -101,7 +101,7 @@
                         <tr>
                             <td class="al-right"><span>认证级别</span></td>
                             <td class="form-reg">
-                                <select id="wx_level" name="wx_level" style="width:110px;" onchange="wx_level(this);">
+                                <select id="wx_level" name="wx_level" style="width:110px;">
                                     <option value="1">普通订阅号</option>
                                     <option value="2">普通服务号</option>
                                     <option value="3">认证订阅号</option>
@@ -113,7 +113,7 @@
                         <tr style="display:none;color:#AAA;" id="wx_level_tis">
                             <td class="al-right"><span>OAuth 2.0</span></td>
                             <td class="form-reg">
-                                开发者需要先到公众平台网站的【开发者中心】<strong>网页账号</strong>中配置授权回调域名。<a href="http://bbs.vwins.cn/thread-591-1-1.html" target="_blank" class="normal-link">详情</a>
+                                非公众号授权的接入开发者需要先到公众平台网站的【开发者中心】<strong>网页账号</strong>中配置授权回调域名。<a href="http://bbs.vwins.cn/thread-591-1-1.html" target="_blank" class="normal-link">详情</a>
                             </td>
                         </tr>
                         <tr>
@@ -587,7 +587,9 @@
             if ($('#wx_name').val()) {
                 retu = $('#wx_name').inTips("", 2, retu);
                 retu = $('#wx_appid').inTips("", -1, retu);
-                retu = $('#wx_secret').inTips("", -1, retu);
+                {#if !$edit#}
+                    retu = $('#wx_secret').inTips("", -1, retu);
+                {#/if#}
                 if (!retu) {
                     $('a[d-index="0"]').click();
                     return false;

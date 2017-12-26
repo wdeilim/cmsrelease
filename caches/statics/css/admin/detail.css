@@ -17,7 +17,7 @@
 .main{padding-top:30px;padding-bottom:30px}
 .sidebar{margin-right:30px}
 .sidebar dd,.sidebar dl{margin:0}
-.sidebar .item{display:block;padding:12px 45px}
+.sidebar .item{display:block;padding:12px 40px}
 .sidebar .item:hover{text-decoration:none}
 .sidebar .title{color:#fff;background-color:#56a8ce;height:20px;line-height:20px;}
 .sidebar .detail{color:#56a8ce;background-color:#fff;border-top:1px solid #eff0f2;font-size:14px;height:20px;line-height:20px;}
@@ -63,7 +63,7 @@ a.operation-link{margin-left:10px;margin-right:10px;font-size:14px}
 .invitation a:hover p{background-color:#fa0}
 .edit-area{padding:30px 20px;background-color:#fff}
 .section{padding:20px;margin-bottom:20px;border:1px solid #dfdfdf;background-color:#fff}
-.section-minh{min-height:402px}
+.section-minh{min-height:447px}
 .section-title{margin-bottom:10px}
 .form-inline .col{margin-right:10px}
 .form-stacked .form-group{margin-bottom:20px}

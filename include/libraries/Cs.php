@@ -190,16 +190,21 @@ class Cs extends Smarty {
 					}
 				}
 			}else{
-				$gotolinks = $links;
-				$_datalink.= '<a href="'.$links.'">如果你的浏览器没有自动跳转，请点击此链接</a>';
+				if ($links === -1) {
+					$_datalink.= '<a href="javascript:window.opener=null;window.open(\'\',\'_self\');window.close();">关闭当前窗口，请点击此链接</a>';
+					$_datalink.= '<br/>'.chr(13).chr(10);
+				}else{
+					$gotolinks = $links;
+					$_datalink.= '<a href="'.$links.'">如果你的浏览器没有自动跳转，请点击此链接</a>';
+				}
 			}
 		}else{
 			if (isset($_POST['go_url'])){
 				$_POST['go_url'] = str_replace('&amp;', '&', urldecode($_POST['go_url']));
 				$_POST['go_url'] = str_replace('&', '&amp;', $_POST['go_url']);
-				$_datalink.= '<a href="'.$_POST['go_url'].'">返回来源地址</a>';
+				$_datalink.= '<a href="'.$_POST['go_url'].'">返回来源地址，请点击此链接</a>';
 			}else{
-				$_datalink.= '<a href="javascript:onclick=history.go(-1)">返回来源地址</a>';
+				$_datalink.= '<a href="javascript:onclick=history.go(-1)" id="historygo-1">返回来源地址，请点击此链接</a>';
 			}
 			$_datalink.= '<br/>'.chr(13).chr(10);
 		}

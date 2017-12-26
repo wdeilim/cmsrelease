@@ -273,3 +273,16 @@ function ext_file_get_contents($path = '') {
 	}
 	return $content;
 }
+
+function openauth_expires($openweixin_expires) {
+    global $_A;
+    $endtxt = '微信公众号授权接入, 过期时间：'.date("Y-m-d H:i:s", $openweixin_expires);
+    $endurl = $_A['url']['index'].'open/weixin/auth/';
+    if ($openweixin_expires <= SYS_TIME) {
+        return '<a class="toget openweixin expires" title="'.$endtxt.'，点击重新授权" href="'.$endurl.'" onclick="_openweixin();" target="_blank">授权过期</a>';
+    }elseif ($openweixin_expires <= SYS_TIME + 432000) {
+        return '<a class="toget openweixin onexpires" title="'.$endtxt.'，点击重新授权" href="'.$endurl.'" onclick="_openweixin();" target="_blank">授权即将过期</a>';
+    }else{
+        return '<em class="toget openweixin" title="'.$endtxt.'">公众号授权</em>';
+    }
+}

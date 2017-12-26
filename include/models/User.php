@@ -185,7 +185,7 @@ class User extends CI_Model {
 					//
 					$_A['wxget']['appid'] = trim($get_appid);
 					$_A['wxget']['secret'] = trim($_A['al']['setting']['other']['get_secret']);
-					$_A['wxget']['scope'] = trim($_A['al']['setting']['other']['get_scope']);
+					$_A['wxget']['scope'] = trim($_A['al']['setting']['other']['get_scope'])=='snsapi_base'?'snsapi_base':'snsapi_userinfo';
 					$_A['wxget']['md5'] = substr(md5($_A['wxget']['appid'].$_A['wxget']['secret']), 8, 16);
 					$_A['openid'] = $this->get_udata('g_openid_'.$_A['wxget']['md5']);
 					if ($_A['openid']) {
@@ -205,7 +205,7 @@ class User extends CI_Model {
 							if (empty($_A['openid'])) {
 								message(null, "OAuth 2.0授权失败 - wx - get - openid！");
 							}
-							if ($_A['wxget']['scope'] != 'snsapi_base') {
+							if ($_A['wxget']['scope'] == 'snsapi_userinfo') {
 								$access_token = value($_content,'access_token');
 								$url  = 'https://api.weixin.qq.com/sns/userinfo?access_token='.$access_token.'&openid='.$_A['openid'].'&lang=zh_CN';
 								$content = $this->communication->ihttp_request($url);
@@ -220,7 +220,7 @@ class User extends CI_Model {
 								'openid'=>$_A['openid'],
 								'alid'=>$_A['al']['id'],
 								'appid'=>$_A['al']['wx_appid'],
-								'follow'=>'3' //借用的会员
+								'follow'=>3 //借用的会员
 							);
 							$M['user_name'] = value($_content, 'nickname');
 							$M['sex'] = str_replace(array("1","2"), array("男","女"),value($_content, 'sex'));
@@ -236,16 +236,74 @@ class User extends CI_Model {
 						} else {
 							$_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$_A['wxget']['appid'];
 							$_url.= '&redirect_uri='.urlencode(get_link('weixin_oauth2')."&weixin_oauth2=1");
-							if ($_A['wxget']['scope'] != 'snsapi_base') {
-								$_url.= '&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
-							}else{
-								$_url.= '&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect';
-							}
+							$_url.= '&response_type=code&scope='.$_A['wxget']['scope'].'&state=STATE#wechat_redirect';
 							gourl($_url);
 						}
 					}
 				}
 			}
+            if ($_temp_isget == false) {
+                $this->load->library('wxopen');
+                $openweixin = $this->wxopen->isopen();
+                if ($openweixin) {
+                    //微信授权 - 第三方
+                    $_temp_isget = true;
+                    $_A['openid'] = $this->get_udata('o_openid_'.$openweixin);
+                    if ($_A['openid']) {
+                        $_A['fans'] = $this->wx->exist_group(array('openid'=>$_A['openid'],'alid'=>$_A['al']['id']), true);
+                    }
+                    if (empty($_A['fans'])) {
+                        if (isset($_GPC['weixin_oauth2'])) {
+                            if (!isset($_GPC['code'])) {
+                                message(null, "OAuth 2.0授权失败！");
+                            }
+                            $this->load->library('communication');
+                            $this->load->library('wxopen');
+                            $url  = 'https://api.weixin.qq.com/sns/oauth2/component/access_token?appid='.$_A['al']['wx_appid'];
+                            $url.= '&code='.$_GPC['code'].'&grant_type=authorization_code&component_appid='.$openweixin;
+                            $url.= '&component_access_token='.$this->wxopen->get_token();
+                            $content = $this->communication->ihttp_request($url);
+                            $_content = isset($content['content'])?json_decode($content['content'], true):'';
+                            $_A['openid'] = value($_content,'openid');
+                            if (empty($_A['openid'])) {
+                                message(null, "OAuth 2.0授权失败 - wx - open - openid！");
+                            }
+                            $access_token = value($_content,'access_token');
+                            $url  = 'https://api.weixin.qq.com/sns/userinfo?access_token='.$access_token.'&openid='.$_A['openid'].'&lang=zh_CN';
+                            $content = $this->communication->ihttp_request($url);
+                            $_content = isset($content['content'])?json_decode($content['content'], true):'';
+                            $_A['openid'] = value($_content,'openid');
+                            if (empty($_A['openid'])) {
+                                message(null, "OAuth 2.0授权失败 - wx - open - userinfo！");
+                            }
+                            $this->set_udata('o_openid_'.$openweixin, $_A['openid']);
+                            $M = array(
+                                'openid'=>$_A['openid'],
+                                'alid'=>$_A['al']['id'],
+                                'appid'=>$_A['al']['wx_appid'],
+                                'follow'=>1
+                            );
+                            $M['user_name'] = value($_content, 'nickname');
+                            $M['sex'] = str_replace(array("1","2"), array("男","女"),value($_content, 'sex'));
+                            $M['city'] = value($_content, 'city');
+                            $M['province'] = value($_content, 'province');
+                            $M['avatar'] = value($_content, 'headimgurl');
+                            $_A['_oauthopenweixin'] = 1; //微信第三方授权
+                            //
+                            $this->wx->exist_group($M);
+                            $this->wx->processor();
+                            //
+                            gourl(get_link('weixin_oauth2|code'));
+                        }else{
+                            $_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$_A['al']['wx_appid'];
+                            $_url.= '&redirect_uri='.urlencode(get_link('weixin_oauth2')."&weixin_oauth2=1");
+                            $_url.= '&response_type=code&scope=snsapi_userinfo&state=STATE';
+                            $_url.= '&component_appid='.$openweixin.'#wechat_redirect';
+                            gourl($_url);
+                        }
+                    }
+                }
+            }
 			if ($_temp_isget == false) {
 				//微信授权 - 原号
 				if ($_A['openid']) {

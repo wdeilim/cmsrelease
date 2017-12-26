@@ -10,9 +10,12 @@
             {#if $_A.u.admin == 1#}
                 <li class="dropdown" style="position:relative;">
                     <a class="nav-item-link" href="{#$urlarr.2#}settings/">系统管理</a>
-                    <ul style="width:800px;margin-right:10px;" class="dropdown-menu-nav cf nav-item-user">
+                    <ul style="width:800px;margin-right:5px;" class="dropdown-menu-nav cf nav-item-user">
                         <li class="dropdown-menu-item triangle">
                             <a class="dropdown-menu-item-link" href="{#$urlarr.2#}settings/">系统设置</a>
+                        </li>
+                        <li class="dropdown-menu-item">
+                            <a class="dropdown-menu-item-link" href="{#$urlarr.2#}settings/openweixin/">开放平台</a>
                         </li>
                         <li class="dropdown-menu-item">
                             <a class="dropdown-menu-item-link" href="{#$urlarr.2#}settings/upgrade/">系统更新</a>
@@ -34,7 +37,7 @@
             {#/if#}
             <li class="dropdown" style="position:relative;">
                 <a class="nav-item-link" href="{#$urlarr.2#}me_edit/">会员中心</a>
-                <ul style="width:800px;margin-right:10px;" class="dropdown-menu-nav cf nav-item-user">
+                <ul style="width:800px;margin-right:5px;" class="dropdown-menu-nav cf nav-item-user">
                     <li class="dropdown-menu-item triangle" id="out">
                         <a class="dropdown-menu-item-link" href="javascript:void(0);">退出平台</a>
                     </li>
