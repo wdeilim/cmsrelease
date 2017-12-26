@@ -34,7 +34,7 @@
 
 
 
-<div id="footer"> Powered by Vwins (c) 2008-2015 </div>
+<div id="footer"> Powered by Vwins (c) 2008-2016 </div>
 
 
 <script language="JavaScript">

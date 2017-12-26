@@ -85,3 +85,14 @@
 同步codeigniter框架到最新版本
 ```
 
+## 2.0_20160414
+
+> Release Time: 2016-04-14
+>
+> Download Link: http://www.vwins.cn/index.php?act=download&id=63
+
+```
+重要！
+修复已知漏洞。
+```
+

@@ -10,6 +10,27 @@ input.info {width:230px; padding:6px 8px;}
 .ipage label .ra {display:block;float:left;width:140px;color:#303030;}
 .ipage label .rt {display:block;float:left;}
 .ipage label em {font-style:normal;color:#bb83fd;text-decoration:underline}
+.hosttis {
+	display: none;
+	position: absolute;
+	top: 45px;
+	left: 421px;
+	border: 2px solid #f4c600;
+	padding: 3px 8px;
+	line-height: 25px;
+	background: #ffffff;
+	}
+.hosttis:after {
+	content: " ";
+	position: absolute;
+	left: 51px;
+	top: -10px;
+	width: 0;
+	height: 0;
+	border-left: 7px solid rgba(255, 255, 255, 0);
+	border-right: 7px solid transparent;
+	border-bottom: 10px solid #f4c600;
+}
 </style>
 
 <form id="install" name="myform" action="install.php" method="post">
@@ -54,10 +75,15 @@ input.info {width:230px; padding:6px 8px;}
 		<div class="header">数据库信息:</div>
 		<div class="body">
 			<dl>
-				<dt>主机: </dt>
-				<dd>
-					<input class="info" type="text" size="24" name="dbhost" id="dbhost" value="<?php echo $__dbhost?$__dbhost:"localhost"?>" />
-					<span class="grey"> 端口号格式：127.0.0.1:10123</span></dd>
+				<dt>主机IP: </dt>
+				<dd style="position:relative;">
+					<input class="info" type="text" size="24" name="dbhost" id="dbhost" value="<?php echo $__dbhost?$__dbhost:"127.0.0.1"?>" />
+					<span class="grey">
+						端口号格式：127.0.0.1:10123
+						<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAABpklEQVQ4T62UzVHCQBTH/+t4QBJGOhArEI/CQTpAKhAqECswdhArECoQO8ADeAQ7oIQ4BrwR/28hMZDdkHHcmXxt3vu971X456XyeOEEdXWEdhShCl58X2CNudPEq03PCAzf0SXggUo1kyINBIT33SsM9/9ngOEUAwrdFslEBIzcE/TUJYJYfgdoglHp81ihXiohWK4whsJF2phAKw10MsBtmM/7nlHhjQot2adBn4+7jEyEx0oTnuwnHlJ4we8zU6hKwSN4Ea3h871qAAZuGecSugZKNYmeFclbTnU7TgMjDfyawKNlqWpmUUALarkpxvy+tkCf3Ab6Gw8tuZF/6RzmAWO5GDigrrFV/gTMC7kokA4NGXJXe7ic4oaKL6bcFAYq9Dg5g4NtUwQozc+JqSVtowuzmd/cxrYVhbOdbext+4zYPu290O+ZG5kQbZTKPsM6TWQifLhN9vF27cxyNEM1XDEPu9Bx2gCB9WRaCHPKaFkPh1hRqs7JkSb99SRFlZwxPX48v2mD1gNWvF19o0VluXRIFJ7zNndKHLHUkVUIaBmvg9s/wtSrFVWYOlYAAAAASUVORK5CYII=" style="vertical-align:text-bottom;cursor:pointer;" id="hosttis">
+					</span>
+					<div class="hosttis">如果使用 localhost 发现访问慢请使用 127.0.0.1</div>
+				</dd>
 				<dt>用户名: </dt>
 				<dd>
 					<input class="info" type="text" size="24" name="dbuser" id="dbuser" value="<?php echo $__dbuser?>" />
@@ -123,7 +149,7 @@ input.info {width:230px; padding:6px 8px;}
 
 
 </div>
-<div id="footer"> Powered by Vwins (c) 2008-2015 </div>
+<div id="footer"> Powered by Vwins (c) 2008-2016 </div>
 
 <script language="JavaScript">
 <!--
@@ -145,6 +171,13 @@ $(document).ready(function(){
 			$(this).parents("label").find(">div").css({"color": "#aaa"});
 			$(this).parent("div").css({"text-decoration": "line-through", "color": "#888"});
 		}
+	});
+	$("#hosttis").mousemove(function(){
+		$(".hosttis").show();
+	}).mouseout(function(){
+		$(".hosttis").hide();
+	}).click(function(){
+		alert($(".hosttis").html());
 	});
 });
 

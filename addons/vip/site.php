@@ -650,7 +650,7 @@ class ES_Vip extends CI_Model {
         $arr = array();
         $arr['success'] = 1;
 
-        $y_id = $this->input->post("id");
+        $y_id = $this->yidcheck($this->input->post("id"));
         if (!empty($y_id)){
             $y_id = trim($y_id, ',');
             $this->ddb->query("DELETE FROM ".table("vip_content")." WHERE ".$this->merge(0)." AND `type`='vip' AND `id` IN (".$y_id.")");
@@ -873,7 +873,7 @@ class ES_Vip extends CI_Model {
         $arr = array();
         $arr['success'] = 1;
 
-        $y_id = $this->input->post("id");
+        $y_id = $this->yidcheck($this->input->post("id"));
         if (!empty($y_id)){
             $y_id = trim($y_id, ',');
             $this->ddb->query("DELETE FROM ".table("vip_content")." WHERE ".$this->merge(0)." AND `type`='gift' AND `id` IN (".$y_id.")");
@@ -1103,7 +1103,7 @@ class ES_Vip extends CI_Model {
         $arr = array();
         $arr['success'] = 1;
 
-        $y_id = $this->input->post("id");
+        $y_id = $this->yidcheck($this->input->post("id"));
         if (!empty($y_id)){
             $y_id = trim($y_id, ',');
             $this->ddb->query("DELETE FROM ".table("vip_content")." WHERE ".$this->merge(0)." AND `type`='cut' AND `id` IN (".$y_id.")");
@@ -1229,7 +1229,7 @@ class ES_Vip extends CI_Model {
         $arr = array();
         $arr['success'] = 1;
 
-        $y_id = $this->input->post("id");
+        $y_id = $this->yidcheck($this->input->post("id"));
         if (!empty($y_id)){
             $y_id = trim($y_id, ',');
             $this->ddb->query("DELETE FROM ".table("vip_content")." WHERE ".$this->merge(0)." AND `type`='msg' AND `id` IN (".$y_id.")");
@@ -1824,7 +1824,7 @@ class ES_Vip extends CI_Model {
         $arr = array();
         $arr['success'] = 1;
 
-        $y_id = $this->input->post("id");
+        $y_id = $this->yidcheck($this->input->post("id"));
         if (!empty($y_id)){
             $y_id = trim($y_id, ',');
 			$row = $this->ddb->getall("SELECT * FROM ".table("vip_users")." WHERE ".$this->merge(0)." AND `id` IN (".$y_id.")");
@@ -1893,7 +1893,7 @@ class ES_Vip extends CI_Model {
                 echo json_encode($arr); exit();
             }elseif ($fost["dosubmit"] == 'del'){
                 //删除店员
-                $y_id = $this->input->post("id");
+                $y_id = $this->yidcheck($this->input->post("id"));
                 if (!empty($y_id)){
                     $y_id = trim($y_id, ',');
                     $this->ddb->query("DELETE FROM ".table("vip_shop_users")." WHERE ".$this->merge(0)." AND `id` IN (".$y_id.")");
@@ -1934,7 +1934,7 @@ class ES_Vip extends CI_Model {
             $arr['success'] = 0;
             if ($fost["dosubmit"] == 'del'){
                 //删除记录
-                $y_id = $this->input->post("id");
+                $y_id = $this->yidcheck($this->input->post("id"));
                 if (!empty($y_id)){
                     $y_id = trim($y_id, ',');
                     $this->ddb->query("DELETE FROM ".table("vip_content_notes")." WHERE ".$this->merge(0)." AND `id` IN (".$y_id.")");

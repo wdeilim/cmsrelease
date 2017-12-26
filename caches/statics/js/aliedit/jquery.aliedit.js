@@ -879,7 +879,7 @@ $.fn.aliedit = function(paramet) {
                     paramet.material_val = $("#"+eve.attr("id")+"_material").val();
                     if ($(this).attr('data-one')) {
                         $(this).attr('data-one', '');
-                        parentobj.find(".appmsg-list").html("加载中...");
+                        parentobj.find(".appmsg-list").html("&nbsp;加载中...");
                         $.ajax({
                             type: "GET",
                             url: paramet.home + "web/library/alieditlist/?l="+paramet.alid+"&id="+paramet.material_val,
@@ -893,7 +893,7 @@ $.fn.aliedit = function(paramet) {
                                 parentobj.find(".appmsg-list").html($maintemp);
                             },
                             error: function (msg) {
-                                parentobj.find(".appmsg-list").html("加载失败");
+                                parentobj.find(".appmsg-list").html("&nbsp;加载失败");
                             }
                         });
                         return false;

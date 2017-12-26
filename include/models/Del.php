@@ -6,7 +6,10 @@ class Del extends CI_Model {
 	public function __construct()
     {
         parent::__construct();
-
+        $user = $this->user->getuser();
+        if ($user['admin'] != 1) {
+            message("没有权限");
+        }
 	}
 
     /**

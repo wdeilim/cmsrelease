@@ -657,7 +657,7 @@ class ES_System extends CI_Model {
 			}elseif ($fost['_type'] == '_offsite') {
 				$text = "";
 				$text.= "define('OFF_SITE_IS', '".intval($fost['OFF_SITE_IS'])."');\r\n";
-				$text.= "define('OFF_SITE_WHY', '".$fost['OFF_SITE_WHY']."');\r\n";
+				$text.= "define('OFF_SITE_WHY', '"._Sys_Safe_Stop::addslashes_deep($fost['OFF_SITE_WHY'])."');\r\n";
 				$text.= "define('OFF_REG_IS', '".intval($fost['OFF_REG_IS'])."');\r\n";
 				$this->writesetting($text, 'offsite');
 				$arr['success'] = 1;
@@ -698,13 +698,13 @@ class ES_System extends CI_Model {
 				}
 				$text = "";
 				$text.= "define('OFF_SQL_TEMP', ".(intval($fost['OFF_SQL_TEMP'])*60+SYS_TIME).");\r\n";
-				$text.= "define('OFF_SQL_TEMP_TIS', '".$texttis."');\r\n";
+				$text.= "define('OFF_SQL_TEMP_TIS', '"._Sys_Safe_Stop::addslashes_deep($texttis)."');\r\n";
 				$this->writesetting($text, 'sqlset');
 				$arr['success'] = 1;
 				echo json_encode($arr); exit();
 			}elseif ($fost['_type'] == '_templet') {
 				$text = "if (!defined(\"BASEPATH\")) exit(\"No direct script access allowed\");\r\n";
-				$text.= " return ".array2string($fost['tem'], 0).";";
+				$text.= " return ".array2string(_Sys_Safe_Stop::addslashes_deep($fost['tem']), 0).";";
 				$this->writesetting($text, 'templet');
 				$arr['success'] = 1;
 				echo json_encode($arr); exit();
@@ -712,7 +712,7 @@ class ES_System extends CI_Model {
                 $text = "";
                 foreach($fost as $k=>$v){
                     if (substr($k,0,4) == 'SET_'){
-                        $text.= "define('DIY_".substr($k,4)."', '{$v}');\r\n";
+                        $text.= "define('DIY_".substr($k,4)."', '"._Sys_Safe_Stop::addslashes_deep($v)."');\r\n";
                     }
                 }
 				$text.= "define('DIY_BASE_PROTOCOL', '".((defined('DIY_BASE_PROTOCOL'))?DIY_BASE_PROTOCOL:'REQUEST_URI')."');\r\n";
@@ -2735,12 +2735,12 @@ class ES_System extends CI_Model {
 	}
 
     /**
-     * 删除服务窗
+     * 删除 接入
      * @param null $parent
      */
     public function doWebDel($parent = null)
     {
-        $this->user->getuser();
+		$this->user->getuser();
         $_id = value($parent, 1, 'int');
         $this->load->model('del');
         $this->del->delal($_id);
