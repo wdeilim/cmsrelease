@@ -338,4 +338,3 @@ outer:          while (next()) {
         return value();
     }
 };
-/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
