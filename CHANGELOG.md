@@ -225,3 +225,22 @@ Added ordered Queue Support and the slow_livesearch example to show it off
 	Added support for exporting callbacks using the PHP callback pseudo-type
 ```
 
+## 0.4.1
+
+> Release Time: 2006-06-13
+>
+> Download Link: http://download.pear.php.net/package/HTML_AJAX-0.4.1.tgz
+
+```
+Added support for returning PHP associative arrays from JS objects when using JSON
+	NOTE: HTML_AJAX now returns associative arrays by default when using the JSON serializer
+	Fix exported class name character case in stub should match the object class name for PHP5
+	Fix bug #7201, Loading DIV didn't unload after sync call
+	Fix values returned by formEncode should not be escaped when using array_format
+	Fix HttpClients from the clientPool are not reused until their callback has returned (fixes chained calls problem in FF1.0)
+
+	Provided an option to set the serverUrl in HTML_AJAX_Server
+	Added a new HTML_AJAX_Action example
+	Disabled form elements are now ignored by formEncode() and formSubmit()
+```
+
