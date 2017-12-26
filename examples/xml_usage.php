@@ -13,7 +13,7 @@
  * @author     Elizabeth Smith <auroraeosrose@gmail.com>
  * @copyright  2006 Elizabeth Smith
  * @license    http://www.opensource.org/licenses/lgpl-license.php  LGPL
- * @version    Release: 0.5.2
+ * @version    Release: 0.5.3
  * @link       http://pear.php.net/package/HTML_AJAX
  */
  

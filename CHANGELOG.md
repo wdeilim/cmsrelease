@@ -308,3 +308,17 @@ Update HTML_AJAX_Action to use HTML_AJAX_Util.setInnerHTML
 * Fix Bug #10973: package.xml does not replace '@data-dir@' [jeichorn]
 ```
 
+## 0.5.3
+
+> Release Time: 2008-04-01
+>
+> Download Link: http://download.pear.php.net/package/HTML_AJAX-0.5.3.tgz
+
+```
+* Gzip compression Support
+* Fix for Bug #12129  	Error with URL generated using HTML_AJAX_Helper::setupAJAX()
+* Add an option to optionally combined js libraries
+* Fix for bug #12415 - Return value of makeRequest in formSubmit when doing a async request
+* Fix for bug #13113 - Opera, JavaScript and XMLSerializer
+```
+

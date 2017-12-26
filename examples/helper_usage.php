@@ -9,7 +9,7 @@
  * @author     Joshua Eichorn <josh@bluga.net>
  * @copyright  2005 Joshua Eichorn
  * @license    http://www.opensource.org/licenses/lgpl-license.php  LGPL
- * @version    Release: 0.5.2
+ * @version    Release: 0.5.3
  * @link       http://pear.php.net/package/HTML_AJAX
  */
 
@@ -18,7 +18,7 @@ require_once 'HTML/AJAX/Helper.php';
 
 // create an instance and set the server url
 $ajaxHelper = new HTML_AJAX_Helper();
-$ajaxHelper->serverUrl = 'auto_server.php';
+$ajaxHelper->serverUrl = 'server.php?gzip=true';
 $ajaxHelper->jsLibraries[] = 'customLib';
 ?>
 <html>

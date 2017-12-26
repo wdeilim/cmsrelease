@@ -10,7 +10,7 @@
  * @author     Joshua Eichorn <josh@bluga.net>
  * @copyright  2005 Joshua Eichorn
  * @license    http://www.opensource.org/licenses/lgpl-license.php  LGPL
- * @version    Release: 0.5.2
+ * @version    Release: 0.5.3
  * @link       http://pear.php.net/package/HTML_AJAX
  */
 
@@ -27,6 +27,13 @@ $server = new HTML_AJAX_Server();
 $test =& new test();
 $server->registerClass($test);
 $server->ajax->packJavaScript = true;
+
+if (isset($_GET['gzip']) && $_GET['gzip'] == 'true') {
+	$server->compression['enabled'] = true;
+}
+
+// user HTML_AJAX to deliver a custom library
+$server->registerJSLibrary('customLib','customLib.js','./support/');
 
 // handle different types of requests possiblities are
 // ?client=all - request for all javascript client files

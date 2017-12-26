@@ -22,7 +22,7 @@ require_once 'HTML/AJAX/Debug.php';
  * @author      Elizabeth Smith <auroraeosrose@gmail.com>
  * @copyright   2005 Joshua Eichorn, Arpad Ray, David Coallier, Elizabeth Smith
  * @license     http://www.opensource.org/licenses/lgpl-license.php   LGPL
- * @version     Release: 0.5.2
+ * @version     Release: 0.5.3
  * @link        http://pear.php.net/package/HTML_AJAX
  */
 class HTML_AJAX {
@@ -520,7 +520,7 @@ class HTML_AJAX {
     /**
      * Actually send a list of headers
      *
-     * @param   array list of headers to send, default callback for headers
+     * @param   array list of headers to send
      * @access private
      */
     function _sendHeaders($array)

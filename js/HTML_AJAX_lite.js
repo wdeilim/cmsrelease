@@ -103,7 +103,7 @@ Copyright: 2004-2005, Dean Edwards (http://dean.edwards.name/)
 */
 if (!DOMParser.parseFromString && window.ActiveXObject)
 {
-function DOMParser() {/* empty constructor */};
+DOMParser = new function() {/* empty constructor */};
 DOMParser.prototype = {
 parseFromString: function(str, contentType) {
 var xmlDocument = new ActiveXObject('Microsoft.XMLDOM');
@@ -111,7 +111,7 @@ xmlDocument.loadXML(str);
 return xmlDocument;
 }
 };
-function XMLSerializer() {/* empty constructor */};
+XMLSerializer = new function() {/* empty constructor */};
 XMLSerializer.prototype = {
 serializeToString: function(root) {
 return root.xml || root.outerHTML;
@@ -150,7 +150,7 @@ return root.xml || root.outerHTML;
 * HTML_AJAX static methods, this is the main proxyless api, it also handles global error and event handling
 */
 var HTML_AJAX = {
-version: '0.5.2',
+version: '0.5.3',
 defaultServerUrl: false,
 defaultEncoding: 'JSON',
 queues: false,
@@ -469,8 +469,13 @@ for(var i in options) {
 request[i] = options[i];
 }
 }
+if (request.isAsync == false) {
+return HTML_AJAX.makeRequest(request);
+}
+else {
 HTML_AJAX.makeRequest(request);
 return true;
+}
 }, // end formSubmit()
 makeFormAJAX: function(form,target,options) {
 form = HTML_AJAX_Util.getElement(form);
@@ -1573,7 +1578,7 @@ this.xmlhttp.multipart = true;
 var self = this;
 this.xmlhttp.open(this.request.requestType,this.request.completeUrl(),this.request.isAsync);
 if (this.request.customHeaders) {
-for (i in this.request.customHeaders) {
+for (var i in this.request.customHeaders) {
 this.xmlhttp.setRequestHeader(i, this.request.customHeaders[i]);
 }
 }
@@ -1756,7 +1761,7 @@ args: null,
 callback: null,
 queue: 'default',
 priority: 0,
-customHeaders: {'X-Requested-With': 'XMLHttpRequest', 'X-Ajax-Engine': 'HTML_AJAX/0.5.2'},
+customHeaders: {'X-Requested-With': 'XMLHttpRequest', 'X-Ajax-Engine': 'HTML_AJAX/0.5.3'},
 iframe: false,
 grab: false,
 multipart: false,

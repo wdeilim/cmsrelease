@@ -26,20 +26,20 @@ if ($ajax->handleRequest()) {
 <head>
 <script type='text/javascript' src="../js/HTML_AJAX.js"></script>
 <script type="text/javascript">
-
-function grab()
-{
-    var callback = function(result) {
-        document.getElementById('target').innerHTML = result;
+var BugFixes = {
+    /**
+     * @link http://pear.php.net/bugs/11542
+     */
+    bug11542: function()
+    {
+        var i = 0;
+        result = HTML_AJAX.grab('grab.php?grab=1');
+        alert(i);
     }
-    HTML_AJAX.grab('grab.php?grab=1', callback);
 }
-
 </script>
 </head>
 <body>
-<a href="javascript:grab()">grab</a>
-<pre id="target">
-</pre>
+<a href="#" onclick="BugFixes.bug11542();">Test bugfix 11542 (Should alert 0)</a>
 </body>
 </html>

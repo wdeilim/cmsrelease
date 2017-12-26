@@ -30,7 +30,7 @@
  * HTML_AJAX static methods, this is the main proxyless api, it also handles global error and event handling
  */
 var HTML_AJAX = {
-	version: '0.5.2',
+	version: '0.5.3',
 	defaultServerUrl: false,
 	defaultEncoding: 'JSON',
 	queues: false,
@@ -391,8 +391,14 @@ var HTML_AJAX = {
 				request[i] = options[i];
 			}
 		}
-		HTML_AJAX.makeRequest(request);
-		return true;
+
+		if (request.isAsync == false) {
+			return HTML_AJAX.makeRequest(request);
+		}
+		else {
+			HTML_AJAX.makeRequest(request);
+			return true;
+		}
 	}, // end formSubmit()
 	makeFormAJAX: function(form,target,options) {
 		form = HTML_AJAX_Util.getElement(form);
