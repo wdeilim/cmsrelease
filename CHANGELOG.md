@@ -206,3 +206,22 @@ Fix for Bug #6478 problems with assignAttr in HTML_AJAX_Action
 	Fix bug #6478, Not possible to set className in firefox using HTML_AJAX_Action, now were setting the attribute directly instead of calling setAttribute
 ```
 
+## 0.4.0
+
+> Release Time: 2006-04-07
+>
+> Download Link: http://download.pear.php.net/package/HTML_AJAX-0.4.0.tgz
+
+```
+Added ordered Queue Support and the slow_livesearch example to show it off
+	Added setInnerHTML method to HTML_AJAX_Util (Bug #6672)
+	Added getElementsByCssSelector, hasClass, addClass, removeClass, replaceClass, getElement methods to HTML_AJAX_Util
+	Method parameter change to HTML_AJAX.fullCall the last option is now a hash for setting any option on the request object instead of just its customHeaders property
+	Added support for setting options to HTML_AJAX.grab
+	Added slow livesearch example
+	Added jsEncode method to generate a JSON string from a single variable
+	Added dhtmlHistory.js to provide access to DHTML history, history data, and bookmarking (not fully integrated yet)
+	Added support to formEncode to return form data in an array
+	Added support for exporting callbacks using the PHP callback pseudo-type
+```
+
