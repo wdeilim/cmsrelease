@@ -1122,6 +1122,9 @@ function template($file = '') {
         case 'footer':
             $filesite = BASE_PATH."addons/system/template/footer.tpl";
             break;
+        case 'reply_right':
+            $filesite = BASE_PATH."addons/system/template/reply/_right.tpl";
+            break;
     }
     return $filesite?get_instance()->cs->fetch($filesite):'';
 }

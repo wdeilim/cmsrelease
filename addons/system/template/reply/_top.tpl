@@ -31,8 +31,7 @@
             <i class="iconfont">&#xe621;</i>
             <span>{#$dosetting['title']#}</span>
 
-
-            <span class="ilink iright"><a href="{#weburl(0, $_A.f.title_en)#}" >返回 {#$_A.f.title#}</a></span>
+            {#template('reply_right')#}
         </div>
     </div>
 

@@ -110,7 +110,7 @@ class User extends CI_Model {
         }else{
             $_A['browser'] = 'none';
         }
-		$openidname = '__SYS:USERID:'.intval($_A['al']['id']);
+		$openidname = '__SYS:USERID:'.intval(isset($_A['al']['id'])?$_A['al']['id']:0);
         //链接带有身份信息
         if (isset($_GPC['from_user'])) {
             $_A['openid'] = authcode(base64_decode($_GPC['from_user']));
@@ -437,6 +437,30 @@ class User extends CI_Model {
 				//
 				include_once dirname(dirname(__FILE__)).'/libraries/other/phpqrcode.php';
 				QRcode::png(appurl('system/weixinauth/s'.$wxcodedata.'/v'.$wxvalue.'/'), false, 'L', 10, 0);
+				exit();
+			}elseif ($_GPC['authtype'] == "alipaycode") {
+				//支付宝登录(二维码)
+				$alcodename = '__SYS:ALCODE:'.intval($_A['al']['id']);
+				$alcodedata = $this->get_udata($alcodename);
+				if (empty($alcodedata)) {
+					$alcodedata = generate_password(8);
+					$this->set_udata($alcodename, $alcodedata);
+				}
+				$alvalue = generate_password(6);
+				db_delete(table('tmp'), array("`indate`<"=>(SYS_TIME-600),"`title` LIKE 'system_alac_%'"=>''));
+				$notewhere = array('title'=>'system_alac_'.$alcodedata);
+				$notes = db_getone(table('tmp'), $notewhere);
+				if (empty($notes)) {
+					$notewhere['indate'] = SYS_TIME;
+					$notewhere['value'] = $alvalue;
+					$notewhere['content'] = get_link('authsend|authtype|tv');
+					db_insert(table('tmp'), $notewhere);
+				}else{
+					db_update(table('tmp'), array('indate'=>SYS_TIME, 'value'=>$alvalue, 'content'=>get_link('authsend|authtype|tv')), $notewhere);
+				}
+				//
+				include_once dirname(dirname(__FILE__)).'/libraries/other/phpqrcode.php';
+				QRcode::png(appurl('system/alipayauth/s'.$alcodedata.'/v'.$alvalue.'/'), false, 'L', 10, 0);
 				exit();
 			}
 			if (empty($_GPC['username'])) {

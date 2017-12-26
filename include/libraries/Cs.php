@@ -167,7 +167,7 @@ class Cs extends Smarty {
 							$_link['href'] = 'javascript:onclick=history.go(-1)';
 						}
 						$_datalink.= '<a href="'.$_link['href'].'">'.$_link['title'].'</a>';
-						if ($_link['cut']){
+						if (isset($_link['cut']) && $_link['cut']){
 							$_datalink.= $_link['cut'];
 						}else{
 							$_datalink.= '<br/>'.chr(13).chr(10);

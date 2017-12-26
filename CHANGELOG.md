@@ -136,3 +136,13 @@
 修复上一个版本修改【系统设置】中的【SEO、首页模板】时出现的BUG！
 ```
 
+## 3.0_20160430
+
+> Release Time: 2016-04-30
+>
+> Download Link: http://www.vwins.cn/index.php?act=download&id=70
+
+```
+修复部分主机访问移动端时出现的空白页。
+```
+

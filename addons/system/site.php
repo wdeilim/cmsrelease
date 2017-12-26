@@ -2467,6 +2467,8 @@ class ES_System extends CI_Model {
                 $row['setting'] = string2array($row['setting']);
                 $row['payment'] = string2array($row['payment']);
 				$_func = string2array($row['function']);
+				//
+				$this->session->set_userdata('user:alid', $_id);
             }else{
                 $_id = 0;
             }

@@ -22,6 +22,8 @@ a:hover {
     text-decoration: underline;
     color: #4191aa;
 }
+.cf:after,.cf:before{content:"";display:table}
+.cf:after{clear:both}
 .hide {
     display:none;
 }
@@ -39,17 +41,48 @@ a:hover {
     padding: 12px 18px;
 }
 .tab {
+    display: -webkit-box;
+    border-bottom: 1px solid #cccccc;
+    margin-bottom: 18px;
+    margin-top: 10px;
+    height: 41px;
+    width: 100%;
+}
+.tab a {
+    border: 1px solid #ffffff;
+    border-bottom: 1px solid transparent;
+    -webkit-box-flex: 1;
+    background: #ffffff;
+    line-height: 20px;
+    display: block;
+    height: 40px;
+    padding: 10px 5px;
+    text-align: center;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    overflow:hidden;
+}
+.tab a.hov {
+    border: 1px solid #cccccc;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    color: #4191aa;
+    text-decoration: none;
+    height: 41px;
+}
+.tab_o {
     padding-top: 10px;
     padding-bottom: -1px;
     margin-bottom: 18px;
     border-bottom: 1px solid #cccccc;
 }
-.tab a {
+.tab_o a {
     background: #ffffff;
     padding: 12px 13px;
     line-height: 40px;
 }
-.tab a.hov {
+.tab_o a.hov {
     border: 1px solid #cccccc;
     border-bottom: 1px solid transparent;
     border-top-left-radius: 3px;
@@ -116,6 +149,22 @@ a:hover {
     -webkit-box-shadow: none;
     box-shadow: none;
     opacity: .65;
+}
+.albut {
+    margin:20px;
+}
+.albut .btn {
+    width: 80%;
+    margin: 80px auto;
+    max-width: 300px;
+}
+.albut .btn em {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAA3NCSVQICAjb4U/gAAAAMFBMVEX///////////////////////////////////////////////////////////////9Or7hAAAAAEHRSTlMAESIzRFVmd4iZqrvM3e7/dpUBFQAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAFmSURBVCiRY2AAAdbZ5//sDGCAA823rc4mEfcmwvgcLw1AFPO8Agif8YwBhMF8RgBM202AKeV8DFbwDEiol4FFakFKeEAK/H9DlBwAEj0MCAGGE0AdjxlEXFzq/7i4uADV+wkwcE5gsN69+/y/3bt3Ay0D8vgMkLUwP2CIZWBggmhxBIlcZehgYGDbDQL/P4IEOhi2Qh3F+h9kJUM2wxGYK/8ngChvhs8MjNX/b5cwyP8De8QfKCDzZ/f9/y/6fzJABLYw7BBgYMz6//8rA0TLVmawZ3X//79hADa0g70BJJD/////vy0ga31ZQQJs/x97A4V+MFxh4DN8AnTr/r8GDECR30Cnc0yIP1lx/j8ogL3//+ZqYGB8wnb//98msBWev4HeBwWQEixQNU7AghDm/g2gQL6OEOgFO98WHmOSlyERtccBwmc5LQCNyleQqFzXAFMq8Xaai0vmvUaEYSzd+3/vgMQwAF4BfRtcd2mEAAAAAElFTkSuQmCC');
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+    font-style: normal;
+    padding: 2px 0 2px 25px;
+    line-height: 18px;
 }
 .link {
     margin: 15px auto;

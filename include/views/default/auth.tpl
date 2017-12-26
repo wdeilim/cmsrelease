@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta content="telephone=no" name="format-detection">
-    <title>{#$_A.al.al_name#}</title>
+    <title>{#if $_A.al.al_name#}{#$_A.al.al_name#}{#else#}{#$_A.al.wx_name#}{#/if#}</title>
     <link type="text/css" rel="stylesheet" href="{#$NOW_PATH#}css/auth.css" />
     <script type="text/javascript" src="{#$JS_PATH#}jquery.min.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}jquery.alert.js"></script>
@@ -23,7 +23,7 @@
             {#if $_A['al']['al_appid']#}
                 <a href="javascript:void(0);" onclick="login('alipay')">支付宝登录</a>
             {#/if#}
-            <a href="javascript:void(0);" class="hov">账号登录</a>
+            <a href="javascript:void(0);" onclick="show('login')" class="hov">账号登录</a>
             <a href="javascript:void(0);" onclick="show('login2')">验证码登录</a>
         </div>
         <div class="inp">
@@ -44,6 +44,31 @@
     </div>
 </div>
 
+<div id="alipay" class="main-auth hide">
+    <div class="tit">确认身份</div>
+    <div class="con">
+        <div class="tab" id="tablogin">
+            {#if (($_A['al']['wx_appid'] && $_A['al']['wx_level'] == 4) || $_temp_isget) && $_A['browser'] == 'none'#}
+                <a href="javascript:void(0);" onclick="login('weixin')">微信登录</a>
+            {#/if#}
+            {#if $_A['al']['al_appid']#}
+                <a href="javascript:void(0);" onclick="login('alipay')" class="hov">支付宝登录</a>
+            {#/if#}
+            <a href="javascript:void(0);" onclick="show('login')">账号登录</a>
+            <a href="javascript:void(0);" onclick="show('login2')">验证码登录</a>
+        </div>
+        <div class="inp">
+            <div class="but albut">
+                <a type="button" class="btn" href=""><em>使用支付宝登录</em></a>
+            </div>
+        </div>
+        <div class="link">
+            <a href="javascript:void(0);" onclick="show('reg')" class="l-l">免费注册</a>
+            <a href="javascript:void(0);" onclick="show('pass')" class="l-r">找回密码</a>
+        </div>
+    </div>
+</div>
+
 <div id="login2" class="main-auth hide">
     <div class="tit">确认身份</div>
     <div class="con">
@@ -55,7 +80,7 @@
                 <a href="javascript:void(0);" onclick="login('alipay')">支付宝登录</a>
             {#/if#}
             <a href="javascript:void(0);" onclick="show('login')">账号登录</a>
-            <a href="javascript:void(0);" class="hov">验证码登录</a>
+            <a href="javascript:void(0);" onclick="show('login2')" class="hov">验证码登录</a>
         </div>
         <div class="inp">
             <div class="put">
@@ -83,7 +108,7 @@
     <div class="con">
         <div class="tab" id="tablogin">
             {#if (($_A['al']['wx_appid'] && $_A['al']['wx_level'] == 4) || $_temp_isget) && $_A['browser'] == 'none'#}
-                <a href="javascript:void(0);" class="hov">微信登录</a>
+                <a href="javascript:void(0);" onclick="login('weixin')" class="hov">微信登录</a>
             {#/if#}
             {#if $_A['al']['al_appid']#}
                 <a href="javascript:void(0);" onclick="login('alipay')">支付宝登录</a>
@@ -102,8 +127,8 @@
 <div id="reg" class="main-auth hide">
     <div class="tit">注册用户</div>
     <div class="con">
-        <div class="tab">
-            <a href="javascript:void(0);" class="hov">注册用户</a>
+        <div class="tab_o">
+            <a href="javascript:void(0);" onclick="show('reg')" class="hov">注册用户</a>
         </div>
         <div class="inp">
             <div class="put">
@@ -130,8 +155,8 @@
 <div id="pass" class="main-auth hide">
     <div class="tit">找回密码</div>
     <div class="con">
-        <div class="tab">
-            <a href="javascript:void(0);" class="hov">找回密码</a>
+        <div class="tab_o">
+            <a href="javascript:void(0);" onclick="show('pass')" class="hov">找回密码</a>
         </div>
         <div class="inp">
             <div class="put">
@@ -152,7 +177,7 @@
 <div id="pass2" class="main-auth hide">
     <div class="tit">找回密码</div>
     <div class="con">
-        <div class="tab">
+        <div class="tab_o">
             <a href="javascript:void(0);" class="hov">重置密码</a>
         </div>
         <div class="inp">
@@ -221,7 +246,8 @@
     }
     function login(type) {
         if (type == 'alipay') {
-            window.location.href = 'https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id={#$_A['al']['al_appid']#}&scope=auth_userinfo&redirect_uri=' + encodeURIComponent('{#get_link('authsend|authtype')#}&authsend=1&authtype=alipay');
+            show('alipay');
+            $(".albut").find("a").attr('href', 'https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id={#$_A['al']['al_appid']#}&scope=auth_userinfo&redirect_uri=' + encodeURIComponent('{#get_link('authsend|authtype')#}&authsend=1&authtype=alipay'));
         }else if (type == 'weixin') {
             show('weixin');
             if (window.tcodetimename !== 0) { clearInterval(window.tcodetimename); }
@@ -251,7 +277,7 @@
         }
     }
     $(function(){
-        $("#login").find("#tablogin").find("a:eq(0)").click();
+        $("#login").find("#tablogin:eq(0)").find("a:eq(0)").click();
         //
         $("#codebtn").click(function(){
             var tthis = $(this);

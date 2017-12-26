@@ -35,7 +35,7 @@
                 <i class="iconfont">&#xe621;</i>
                 <span>回复规则列表</span>
 
-                <span class="ilink iright"><a href="{#weburl(0, $_A.f.title_en)#}" >返回 {#$_A.f.title#}</a></span>
+                {#template('reply_right')#}
             {#/if#}
         </div>
     </div>

@@ -93,7 +93,7 @@ class Web extends CI_Controller {
             $reply['content'] = string2array($reply['content']);
             $reply['setting'] = string2array($reply['setting']);
         }
-        if ($_GPC['dosubmit']) {
+        if (isset($_GPC['dosubmit']) && $_GPC['dosubmit']) {
             $_GPC['reply']['key'] = str_replace('，', ',', $_GPC['reply']['key']);
             if (!empty($reply)) {
                 $rok = db_update(table('reply'),
@@ -165,7 +165,7 @@ class Web extends CI_Controller {
             if (class_exists($classname)) {
                 $es_site = new $classname();
                 $es_method = 'doSettingDisplay';
-                if ($_GPC['dosubmit']) {
+                if (isset($_GPC['dosubmit']) && $_GPC['dosubmit']) {
                     $post = $this->input->post();
                     if (is_array($post['setting']) && $post['setting']) {
                         $post = $post['setting'];
@@ -178,7 +178,7 @@ class Web extends CI_Controller {
                 }
             }
         }
-        if ($_GPC['dosubmit']) {
+        if (isset($_GPC['dosubmit']) && $_GPC['dosubmit']) {
             $post = $this->input->post();
             if (is_array($post['setting']) && $post['setting']) {
                 $post = $post['setting'];

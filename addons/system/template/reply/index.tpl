@@ -44,13 +44,13 @@
                         </a>
                     {#/if#}
                     {#foreach $_A['f']['setting']['bindings']['cover'] AS $item#}
-                        <a href="{#weburl(0, $_A.f.title_en)#}&entry=cover&do={#$item['do']#}" {#$item['attr']#}>
+                        <a href="{#weburl(0, $_A.f.title_en)#}&entry=cover&do={#$item['do']#}" {#$item['attr']#}{#if $item['target']#} target="{#$item['attr']#}"{#/if#}>
                             <i class="fa fa-external-link-square"></i>
                             <span title="{#$item['title']#}">{#$item['title']#}</span>
                         </a>
                     {#/foreach#}
                     {#foreach $_A['f']['setting']['bindings']['setting'] AS $item#}
-                        <a href="{#weburl(0, $_A.f.title_en)#}&entry=setting&do={#$item['do']#}" {#$item['attr']#}>
+                        <a href="{#weburl(0, $_A.f.title_en)#}&entry=setting&do={#$item['do']#}" {#$item['attr']#}{#if $item['target']#} target="{#$item['attr']#}"{#/if#}>
                             <i class="fa fa-cog"></i>
                             <span title="{#$item['title']#}">{#$item['title']#}</span>
                         </a>
@@ -62,7 +62,7 @@
                     </div>
                     <div class="shortcut clearfix">
                         {#foreach $_A['f']['setting']['bindings']['menu'] AS $item#}
-                            <a href="{#weburl(0, $_A.f.title_en)#}&entry=menu&do={#$item['do']#}" {#$item['attr']#}>
+                            <a href="{#weburl(0, $_A.f.title_en)#}&entry=menu&do={#$item['do']#}" {#$item['attr']#}{#if $item['target']#} target="{#$item['attr']#}"{#/if#}>
                                 <i class="fa fa-puzzle-piece"></i>
                                 <span title="{#$item['title']#}">{#$item['title']#}</span>
                             </a>
