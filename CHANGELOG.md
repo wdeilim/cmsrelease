@@ -35,3 +35,28 @@ Support for generating multiple stubs in a single request stub=test,test2
 304 Http Cache support for Client and Stub generation, this is on by default, caching rules are configurable see docblocks for more info
 ```
 
+## 0.2.0
+
+> Release Time: 2005-09-27
+>
+> Download Link: http://download.pear.php.net/package/HTML_AJAX-0.2.0.tgz
+
+```
+Reliense under the LGPL fixing concerns about GPL compability
+
+Full rewrite of all JavaScript code pulled in from JPSpan, this allows for relicence, as well as shrinking the code size while adding new features
+   Big new Features are: 
+   Request object non contains all information needed to make a request, HTML_AJAX.makeRequest added service a request object
+   HTML_AJAX_HttpClient instances now created as needed by a factory HTML_AJAX.httpClient(), this functionality will be replaced at some future point
+
+   These changes will allow for various queue and pool structures to be created in the future, but for now client in progress errors should not be possible
+   	when using proxy objects
+
+Serializer that mimics post added, filling _POST on an ajax request, helper code for AJAX forms still in progress
+
+Bugs Fixed:
+5087, 5284 	- jsClient Location fixes, allows it to be set manually
+5908 		- PHP 5 bug fix, auto loading of classes not working in php5 for an unknown reason, just load serializer as a normal include
+5029 		- init bug in auto_server
+```
+
