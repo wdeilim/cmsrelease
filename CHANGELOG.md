@@ -118,3 +118,27 @@ Small optimizations and cleanup of HTML_AJAX and HTML_AJAX_Server
 	Added a flag to turn off sending a Content-Length header
 ```
 
+## 0.3.0
+
+> Release Time: 2005-11-17
+>
+> Download Link: http://download.pear.php.net/package/HTML_AJAX-0.3.0.tgz
+
+```
+BC BREAK - in js renamed event handlers so they don't collide with native ones and cause problems onOpen -> Open, onLoad -> Load, onProgress -> Progress, onSend -> Send
+   Added stub support to helper class
+   HTML_AJAX_Util (javascript):
+   - setElementEvent() renamed to registerEvent(), set event should now be fixed
+   - New methods: getType() and strRepeat()
+   - Fixed methods: varDump() and getElementsByClassName()
+   Behavior javascript files moved to own directory and HTML_AJAX_Server updated to reflect change
+   Better example for behavior use in example directory
+   Fixed URL encoding serializer, requires PHP 5 or the PHP_Compat implementation of http_build_query()
+   Added serializer compatible with PHP's native serialization functions
+   Small optimizations and cleanup of HTML_AJAX
+   Added a request priority queue
+   Added HTTP client pooling
+   Update and cleaned up the examples
+   Pass errors from sync calls to HTML_AJAX.onError
+```
+
