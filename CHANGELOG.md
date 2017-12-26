@@ -334,3 +334,14 @@ Update HTML_AJAX_Action to use HTML_AJAX_Util.setInnerHTML
 * Add a newline at the end of packed files
 ```
 
+## 0.5.5
+
+> Release Time: 2008-04-07
+>
+> Download Link: http://download.pear.php.net/package/HTML_AJAX-0.5.5.tgz
+
+```
+* Merge bug fixes in combineJsIncludes from Clearhealth
+* Fix for bug #13616, HTML_AJAX_lite.js wasn't rebuilt in the 0.5.4 release
+```
+

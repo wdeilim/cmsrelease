@@ -149,7 +149,7 @@ if (window.ActiveXObject && window['DOMParser'] == 'undefined') {
  * HTML_AJAX static methods, this is the main proxyless api, it also handles global error and event handling
  */
 var HTML_AJAX = {
-	version: '0.5.4',
+	version: '0.5.5',
 	defaultServerUrl: false,
 	defaultEncoding: 'JSON',
 	queues: false,
@@ -1997,7 +1997,7 @@ HTML_AJAX_Request.prototype = {
 	priority: 0,
 
 	// a hash of headers to add to add to this request
-	customHeaders: {'X-Requested-With': 'XMLHttpRequest', 'X-Ajax-Engine': 'HTML_AJAX/0.5.4'},
+	customHeaders: {'X-Requested-With': 'XMLHttpRequest', 'X-Ajax-Engine': 'HTML_AJAX/0.5.5'},
 
 	// true if this request will be sent using iframes
 	iframe: false,

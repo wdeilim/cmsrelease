@@ -9,7 +9,7 @@
  * @author     Arpad Ray <arpad@php.net>
  * @copyright  2005 Arpad Ray
  * @license    http://www.opensource.org/licenses/lgpl-license.php  LGPL
- * @version    Release: 0.5.4
+ * @version    Release: 0.5.5
  * @link       http://pear.php.net/package/HTML_AJAX
  */
 
