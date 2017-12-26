@@ -371,3 +371,12 @@ ul#head-nav-menu:hover .active .nav-item-link:hover {
 .carousel-inner > .active.right {
     left: 100%;
 }
+.contentSection ol.step {
+    list-style: none;
+}
+.contentSection ol.step li {
+    list-style: none;
+}
+.contentSection ol.step li._last{
+    margin-right: 0;
+}

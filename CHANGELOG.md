@@ -186,3 +186,14 @@
 修复一个高危漏洞（getshell）请尽快升级此版本！
 ```
 
+## 3.0_20160701
+
+> Release Time: 2016-07-01
+>
+> Download Link: http://www.vwins.cn/index.php?act=download&id=75
+
+```
+修复已知BUG；
+优化IE8浏览器的体验。
+```
+

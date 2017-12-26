@@ -14,10 +14,14 @@
     <link rel="stylesheet" href="{#$NOW_PATH#}css/iconfont.css"/>
     <link rel="stylesheet" href="{#$CSS_PATH#}bootstrap.min.css"/>
     <link rel="stylesheet" href="{#$NOW_PATH#}css/login_2/common.css"/>
+    <link rel="stylesheet" href="{#$CSS_PATH#}iealert.css"/>
     <script type="text/javascript" src="{#$JS_PATH#}jquery-1.11.0.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}jquery.alert.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}jquery.form.min.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}bootstrap.min.js"></script>
+    <script type="text/javascript" src="{#$JS_PATH#}jquery.browser.js"></script>
+    <script type="text/javascript" src="{#$JS_PATH#}iealert.js"></script>
+    <script type="text/javaScript">$(document).ready(function() { $("body").iealert(); });</script>
 </head>
 <body>
 

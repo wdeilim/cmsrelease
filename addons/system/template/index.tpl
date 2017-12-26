@@ -10,10 +10,14 @@
     <link rel="stylesheet" href="{#$CSS_PATH#}alert.css"/>
     <link rel="stylesheet" href="{#$CSS_PATH#}font-awesome.css"/>
     <link rel="stylesheet" href="{#$NOW_PATH#}css/style.css"/>
+    <link rel="stylesheet" href="{#$CSS_PATH#}iealert.css"/>
     <script type="text/javascript" src="{#$JS_PATH#}jquery-1.11.0.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}jquery.alert.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}jquery.cookie.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}jquery.form.min.js"></script>
+    <script type="text/javascript" src="{#$JS_PATH#}jquery.browser.js"></script>
+    <script type="text/javascript" src="{#$JS_PATH#}iealert.js"></script>
+    <script type="text/javaScript">$(document).ready(function() { $("body").iealert(); });</script>
 </head>
 <body>
 
@@ -95,7 +99,7 @@
                             </td>
                         </tr>
                         <tr id="list-{#$list.id#}"{#if $list.wx_level==7#} class="wx_corp"{#/if#}>
-                            <td class="ifunlist" id="ifunlist">
+                            <td class="ifunlist" id="ifunlist" width="875">
                                 <div class="button-groups">
                                     {#foreach from=string2array($list.function) item=list2#}
                                         <a href="{#$urlarr.1#}{#$list2.title_en#}/?al={#$list2.alid#}&uf={#$list2.ida#}"
@@ -108,7 +112,7 @@
                                     </label>
                                 </div>
                             </td>
-                            <td class="al-center" width="195">
+                            <td class="al-center">
                                 <div class="button-groups action">
                                     <a href="javascript:_del({#$list.id#});" class="button button-primary button-rounded button-extra-small">删除</a>
                                     <a href="{#$urlarr.2#}add/{#$list.id#}/" class="button button-primary button-rounded button-extra-small">编辑</a>
