@@ -142,3 +142,20 @@ BC BREAK - in js renamed event handlers so they don't collide with native ones a
    Pass errors from sync calls to HTML_AJAX.onError
 ```
 
+## 0.3.1
+
+> Release Time: 2005-12-05
+>
+> Download Link: http://download.pear.php.net/package/HTML_AJAX-0.3.1.tgz
+
+```
+Rearranged the examples dir, moving support files and tests into there own directory
+	Updated examples index.php page so that it makes sense when shown from the HTML_AJAX website
+	Fix some various IE bugs, grabbing non-existant headers was throwing errors
+	Fixed problem with async requests timing out in IE
+	Added IFrame fallback, targeted at versions of Opera before XMLHttpRequest and IE with ActiveX turned off
+	Fix js file detection when not installed through PEAR
+	Fix numerous IE 5 javascript bugs and added js compat functions
+	haSerializer and HTML_AJAX_Action bugs fixed
+```
+
