@@ -79,3 +79,18 @@ There is also a couple small features added
 	HTML_AJAX.replace now works async
 ```
 
+## 0.2.3
+
+> Release Time: 2005-10-24
+>
+> Download Link: http://download.pear.php.net/package/HTML_AJAX-0.2.3.tgz
+
+```
+Initial Helper API see examples/usage_helper.php for details
+	HTML_AJAX.append
+	BC Change, default loading implementation moved to its own file
+	client param takes a comma seperated list of args now ex: server.php?client=main,httpclient
+	ajax server has support for delivering custom libraries HTML_AJAX_Server::registerJSLibrary
+Bug #5675 Reference bug in php 4.4 5.1 etc
+```
+
