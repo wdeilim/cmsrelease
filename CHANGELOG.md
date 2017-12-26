@@ -116,3 +116,13 @@
 优化【添加微信接入】一键获取功能；
 ```
 
+## 3.0_20160428
+
+> Release Time: 2016-04-28
+>
+> Download Link: http://www.vwins.cn/index.php?act=download&id=68
+
+```
+修复部分主机【微信支付参数】中的【支付授权目录】提示错误。
+```
+

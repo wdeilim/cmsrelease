@@ -141,7 +141,7 @@
                                             登录:
                                             <a href="https://mp.weixin.qq.com/" target="_blank">微信公众平台 &gt;&gt; 微信支付 &gt;&gt; 开发配置</a>
                                             &gt;&gt; 公众号支付<br/>
-                                            支付授权目录: {#$smarty.const.BASE_URI#}payment/weixin/
+                                            支付授权目录: {#$urlarr['index']#}payment/weixin/
                                         </td>
                                     </tr>
                                     <tr>

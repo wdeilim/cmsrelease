@@ -3,7 +3,7 @@
         <img class="logo" src="{#$IMG_PATH#}logo.png" alt=""/>
         <h2 class="title">欢迎使用{#$BASE_NAME#}</h2>
         <ul class="nav cf" id="head-nav-menu">
-            <li><a class="nav-item-link" href="{#$_A['BASE_URI']#}">首页</a></li>
+            <li><a class="nav-item-link" href="{#$urlarr['index']#}">首页</a></li>
             {#foreach from=$topmenulists item=_topmenu#}
                 <li><a class="nav-item-link" href="{#$_topmenu.link#}" href="{#$_topmenu.target#}">{#$_topmenu.title#}</a></li>
             {#foreachelse#}

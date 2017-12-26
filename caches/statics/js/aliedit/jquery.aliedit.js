@@ -432,7 +432,7 @@ $.__aliedit_fun = {
             $("div.jQuery-formfile").remove();
             return true;
         }
-        var url = $.__aliedit_fun.paramet.BASE_URI+'web/library/alieditlist/aliedit/?index=1';
+        var url = $.__aliedit_fun.paramet.home+'web/library/alieditlist/aliedit/?index=1';
         $.ajax({
             type: "GET",
             url: url + "&page=" + page + "&keyval=" + (key?key:''),
@@ -499,7 +499,7 @@ $.__aliedit_fun = {
         }else{
             callback =  $.__aliedit_fun.paramet.__moduleurlpage_callback;
         }
-        var url = $.__aliedit_fun.paramet.BASE_URI+'web/menu/reply/aliedit/?index=1';
+        var url = $.__aliedit_fun.paramet.home+'web/menu/reply/aliedit/?index=1';
         $.ajax({
             type: "GET",
             url: url + "&page=" + page + "&keyval=" + (key?key:''),
