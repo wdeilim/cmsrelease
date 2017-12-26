@@ -60,3 +60,22 @@ Bugs Fixed:
 5029 		- init bug in auto_server
 ```
 
+## 0.2.1
+
+> Release Time: 2005-09-30
+>
+> Download Link: http://download.pear.php.net/package/HTML_AJAX-0.2.1.tgz
+
+```
+This release is mainly bug fixes.
+	Remove debug message when throwing an exception
+	Fix problems with async calls
+	Fix broken content-type detection
+	Stop trying to run an init method when the init flag isn't set
+	PHP required version moved to 4.1.0 which is what it should need
+
+There is also a couple small features added
+	A basic debug class has been added, allowing you to write PHP errors to a file
+	HTML_AJAX.replace now works async
+```
+
