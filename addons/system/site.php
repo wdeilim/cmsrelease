@@ -726,11 +726,11 @@ class ES_System extends CI_Model {
             }
 		}
 		$temphtml = ihttp_request(BASE_URI.'index.php/index/test/');
-		if (strpos($temphtml['responseline'], "404") !== false) {
+		if (strpos($temphtml['responseline'], "403") !== false || strpos($temphtml['responseline'], "404") !== false) {
 			$nomoren = 1;
 		}
 		$temphtml = ihttp_request(BASE_URI.'index/test/');
-		if (strpos($temphtml['responseline'], "404") !== false) {
+		if (strpos($temphtml['responseline'], "403") !== false || strpos($temphtml['responseline'], "404") !== false) {
 			$noweijingtai = 1;
 		}
 		if (!isset($_SERVER['REQUEST_URI'], $_SERVER['SCRIPT_NAME'])) {
@@ -2514,12 +2514,11 @@ class ES_System extends CI_Model {
 					// 同步到微信
 					if ($fost['wx_username']) {
 						$this->account_weixin_interface($fost['wx_username'], array(
-							'url' => $_A['url']['index'].'weixin/'.$row['id'],
+							'url' => $_A['url']['index'].'weixin/'.$row['id'].(strexists($_A['url']['index'],'?')?'?index':''),
 							'token' => $_arr['wx_token'],
 							'encodingaeskey' => $_arr['wx_aeskey']
 						));
 					}
-					//
                     $arr['success'] = 1;
                     $arr['message'] = '修改成功';
                     $this->ddb->update(table('users_functions'),
@@ -2562,7 +2561,7 @@ class ES_System extends CI_Model {
 				// 同步到微信
 				if ($fost['wx_username']) {
 					$this->account_weixin_interface($fost['wx_username'], array(
-							'url' => $_A['url']['index'].'weixin/'.$arr['id'],
+							'url' => $_A['url']['index'].'weixin/'.$arr['id'].(strexists($_A['url']['index'],'?')?'?index':''),
 							'token' => $_arr['wx_token'],
 							'encodingaeskey' => $_arr['wx_aeskey']
 						));
@@ -2943,21 +2942,176 @@ class ES_System extends CI_Model {
 		$arr['success'] = 0;
 		$arr['message'] = '';
 		$arr['username'] = $username;
+		$arr['password'] = $password;
+		$arr['errcode'] = 0;
+		$arr['bindalias'] = '';
 		$arr['ret'] = 0;
+		$arr['islogin'] = false;
 		//
-		$code_cookie = $_COOKIE['weixin_code_cookie'];
-		$response = ihttp_request($loginurl, $post, array('CURLOPT_REFERER' => 'https://mp.weixin.qq.com/', 'CURLOPT_COOKIE' => $code_cookie));
-		if (is_error($response)) {
-			$arr['message'] = '获取失败-1';
-			echo json_encode($arr); exit();
+		$data = array();
+		if ($_GPC['validate_wx_tmpl'] == '1') {
+			//二维码验证
+			$response = ihttp_request(WEIXIN_ROOT.'/safe/safeuuid?timespam='.ceil(microtime(true)*1000).'&token=&lang=zh_CN',
+				array(
+					'token'=>'',
+					'lang'=>'zh_CN',
+					'f'=>'json',
+					'ajax'=>'1',
+					'random'=>'',
+					'uuid'=>$this->session->userdata($username.'_uuid'),
+					'action'=>'json',
+					'type'=>'json'
+				),
+				array(
+					'CURLOPT_COOKIE' => $this->session->userdata($username.'_cookie'),
+					'CURLOPT_REFERER' => $this->session->userdata($username.'_redirect_url')
+				)
+			);
+			if (is_error($response)) {
+				$arr['message'] = '网络繁忙，请重试！';
+				echo json_encode($arr); exit();
+			}
+			$data = json_decode($response['content'], true);
+			$arr['errcode'] = $data['errcode'];
+			if ($data['errcode'] == '401') {
+				echo json_encode($arr); exit();
+			}elseif ($data['errcode'] == '403') {
+				$arr['success'] = 2;
+				$arr['message'] = '<font color="red">【您已取消登录】请重新操作！</font>';
+				echo json_encode($arr); exit();
+			}elseif ($data['errcode'] == '404') {
+				$arr['success'] = 2;
+				$arr['message'] = '<font color="green">【扫描成功】请在微信上点击确认即可！</font>';
+				echo json_encode($arr); exit();
+			}elseif ($data['errcode'] == '405') {
+				if ($_GPC['errcode'] == '405') {
+					$arr['errcode'] = 4051;
+					$response = ihttp_request(WEIXIN_ROOT.'/misc/safeassistant?1=1&token=&lang=zh_CN',
+						array(
+							'token'=>'',
+							'lang'=>'zh_CN',
+							'f'=>'json',
+							'ajax'=>'1',
+							'random'=>'',
+							'action'=>'get_uuid',
+							'uuid'=>$this->session->userdata($username.'_uuid'),
+							'auth'=>'ticket'
+						),
+						array(
+							'CURLOPT_COOKIE' => $this->session->userdata($username.'_cookie'),
+							'CURLOPT_REFERER' => $this->session->userdata($username.'_redirect_url')
+						)
+					);
+					if (is_error($response)) {
+						$arr['success'] = 101;
+						$arr['message'] = '一键获取信息失败-1';
+						echo json_encode($arr); exit();
+					}
+					$data = json_decode($response['content'], true);
+					if ($data['base_resp']['ret'] != '0') {
+						$arr['success'] = 101;
+						$arr['message'] = '一键获取信息失败-2';
+						echo json_encode($arr); exit();
+					}
+					if (!in_array($data['isadmin'], array(1,2))) {
+						$arr['success'] = 101;
+						$arr['message'] = '请使用指定管理员进行验证';
+						echo json_encode($arr); exit();
+					}
+					$response = ihttp_request(WEIXIN_ROOT.'/cgi-bin/securewxverify',
+						array(
+							'token'=>'',
+							'lang'=>'zh_CN',
+							'f'=>'json',
+							'ajax'=>'1',
+							'random'=>'',
+							'action'=>'get_uuid',
+							'code'=>$this->session->userdata($username.'_uuid'),
+							'account'=>$username,
+							'operation_seq'=>$this->session->userdata($username.'_operation_seq')
+						),
+						array(
+							'CURLOPT_COOKIE' => $this->session->userdata($username.'_cookie'),
+							'CURLOPT_REFERER' => $this->session->userdata($username.'_redirect_url')
+						)
+					);
+					if (is_error($response)) {
+						$arr['success'] = 101;
+						$arr['message'] = '一键获取信息失败-3';
+						echo json_encode($arr); exit();
+					}
+					$data = json_decode($response['content'], true);
+					if ($data['base_resp']['ret'] != 0) {
+						$arr['success'] = 101;
+						$arr['message'] = '一键获取信息失败-4';
+						echo json_encode($arr); exit();
+					}
+					preg_match('/token=([0-9]+)/', $data['redirect_url'], $match);
+					$_GPC['wxl'][$username]['token'] = $match[1];
+					$_GPC['wxl'][$username]['cookie'] = implode('; ', _array_merge(explode('; ', $this->session->userdata($username.'_cookie')), $response['headers']['Set-Cookie']));
+					$this->session->set_userdata($username.'_token', $_GPC['wxl'][$username]['token']);
+					$this->session->set_userdata($username.'_cookie', $_GPC['wxl'][$username]['cookie']);
+					$arr['islogin'] = true;
+				}else{
+					$arr['success'] = 2;
+					$arr['message'] = '<font color="green">【确认成功】请稍等片刻。。。</font>';
+					echo json_encode($arr); exit();
+				}
+			}else{
+				echo json_encode($arr); exit();
+			}
 		}
-		$data = json_decode($response['content'], true);
+		//
+		if ($arr['islogin'] !== true) {
+			$code_cookie = $_COOKIE['weixin_code_cookie'];
+			$response = ihttp_request($loginurl, $post, array('CURLOPT_REFERER' => 'https://mp.weixin.qq.com/', 'CURLOPT_COOKIE' => $code_cookie));
+			if (is_error($response)) {
+				$arr['message'] = '获取失败-1';
+				echo json_encode($arr); exit();
+			}
+			$data = json_decode($response['content'], true);
+		}
 		if ($data['base_resp']['ret'] == 0) {
-			preg_match('/token=([0-9]+)/', $data['redirect_url'], $match);
-			$_GPC['wxl'][$username]['token'] = $match[1];
-			$_GPC['wxl'][$username]['cookie'] = implode('; ', $response['headers']['Set-Cookie']);
-			$this->session->set_userdata($username.'_token', $_GPC['wxl'][$username]['token']);
-			$this->session->set_userdata($username.'_cookie', $_GPC['wxl'][$username]['cookie']);
+			if ($arr['islogin'] !== true) {
+				preg_match('/token=([0-9]+)/', $data['redirect_url'], $match);
+				$_GPC['wxl'][$username]['token'] = $match[1];
+				$_GPC['wxl'][$username]['cookie'] = implode('; ', $response['headers']['Set-Cookie']);
+				$this->session->set_userdata($username . '_token', $_GPC['wxl'][$username]['token']);
+				$this->session->set_userdata($username . '_cookie', $_GPC['wxl'][$username]['cookie']);
+			}
+			//
+			if (strexists($data['redirect_url'], 't=user/validate_wx_tmpl')) {
+				preg_match('/bindalias=(.*?)&/', $data['redirect_url'], $match);
+				$arr['bindalias'] = $match[1];
+				//
+				$arr['message'] = "公众号已开启登录保护，无法一键获取！";
+				$response = $this->account_weixin_http($username, WEIXIN_ROOT . $data['redirect_url']);
+				if (is_error($response)) {
+					echo json_encode($arr); exit();
+				}
+				$response = $this->account_weixin_http($username, WEIXIN_ROOT . '/misc/safeassistant?1=1&token=&lang=zh_CN',
+					array('token'=>'','lang'=>'zh_CN','f'=>'json','ajax'=>'1','random'=>'','action'=>'get_ticket','auth'=>'ticket'));
+				if (is_error($response)) {
+					echo json_encode($arr); exit();
+				}
+				$safeassistant = json_decode($response['content'], true);
+				$response = $this->account_weixin_http($username, WEIXIN_ROOT . '/safe/safeqrconnect?1=1&token=&lang=zh_CN',
+					array('token'=>'','lang'=>'zh_CN','f'=>'json','ajax'=>'1','random'=>'','appid'=>'wx3a432d2dbe2442ce','scope'=>'snsapi_contact','state'=>'0','redirect_uri'=>WEIXIN_ROOT,'login_type'=>'safe_center','type'=>'json','ticket'=>$safeassistant['ticket']));
+				if (is_error($response)) {
+					echo json_encode($arr); exit();
+				}
+				$safeqrconnect = json_decode($response['content'], true);
+				if (empty($safeassistant['ticket']) || empty($safeassistant['operation_seq']) || empty($safeqrconnect['uuid'])) {
+					echo json_encode($arr); exit();
+				}
+				//
+				$arr['ret'] = -10007;
+				$arr['message'] = WEIXIN_ROOT . '/safe/safeqrcode?ticket='.$safeassistant['ticket'].'&uuid='.$safeqrconnect['uuid'].'&action=check&type=login&auth=ticket&msgid='.$safeassistant['operation_seq'];
+				$this->session->set_userdata($username.'_uuid', $safeqrconnect['uuid']);
+				$this->session->set_userdata($username.'_operation_seq', $safeassistant['operation_seq']);
+				$this->session->set_userdata($username.'_redirect_url', $arr['message']);
+				echo json_encode($arr); exit();
+			}
 			//
 			$response = $this->account_weixin_http($username, WEIXIN_ROOT . '/cgi-bin/settingpage?t=setting/index&action=index&lang=zh_CN');
 			if (is_error($response)) {
@@ -3006,6 +3160,8 @@ class ES_System extends CI_Model {
 				preg_match_all("/value\:\"(.*?)\"/", $authcontent['content'], $match);
 				$info['key'] = $match[1][2];
 				$info['secret'] = $match[1][3];
+				preg_match("/\"wx_alias\"\:\"(.*?)\"/", $authcontent['content'], $match);
+				$info['wx_alias'] = trim(strip_tags($match[1]));
 				unset($match);
 				if (empty($info['secret'])) {
 					preg_match_all("/encode_app_key\: \"(.*?)\"/", $authcontent['content'], $match);
@@ -3026,6 +3182,8 @@ class ES_System extends CI_Model {
 				$info['qrcode_img'] = $_path;
 				$info['qrcode_imgurl'] = fillurl($_path);
 			}
+			unset($info['qrcode']);
+			unset($info['headimg']);
 			//
 			$arr['success'] = 1;
 			$arr['message'] = $info;
@@ -3069,19 +3227,157 @@ class ES_System extends CI_Model {
 					$msg = "输入密码错误。";
 					break;
 				default:
-					$arr['ret'] = $data['base_resp']['ret'];
-					if ($data['base_resp']['ret'] == '-8') {
-						$msg = "请输入图中的验证码。";
-					}elseif ($data['base_resp']['ret'] == '-23') {
-						$msg = "输入密码错误。";
-					}elseif ($data['base_resp']['ret'] == '-27') {
-						$msg = "输入验证码错误。";
-					}else{
-						$msg = "未知的返回：".$data['base_resp']['ret'];
-					}
+					$arr['ret'] = $data['base_resp']['ret'].'';
+					$msg = "未知的返回：".$data['base_resp']['ret'];
 			}
 			$arr['message'] = $msg;
 		}
+		echo json_encode($arr); exit();
+	}
+	
+	public function doWebWeixinsecret() {
+		global $_GPC;
+		$this->user->getuser();
+		//
+		$arr = array();
+		$arr['success'] = 0;
+		$arr['message'] = '';
+		//
+		$username = $_GPC['username'];
+		$_GPC['wxl'][$username]['token'] = $this->session->userdata($username.'_token');
+		$_GPC['wxl'][$username]['cookie'] = $this->session->userdata($username.'_cookie');
+		//
+		if ($_GPC['secret_wx_tmpl'] == '1') {
+			//二维码验证
+			$response = $this->account_weixin_http($username, WEIXIN_ROOT.'/safe/safeuuid?timespam='.ceil(microtime(true)*1000).'&lang=zh_CN',
+				array(
+					'token'=>$_GPC['wxl'][$username]['token'],
+					'lang'=>'zh_CN',
+					'f'=>'json',
+					'ajax'=>'1',
+					'random'=>'',
+					'uuid'=>$this->session->userdata($username.'_uuid'),
+					'action'=>'json',
+					'type'=>'json'
+				)
+			);
+			if (is_error($response)) {
+				$arr['message'] = '网络繁忙，请重试！';
+				echo json_encode($arr); exit();
+			}
+			$data = json_decode($response['content'], true);
+			$arr['errcode'] = $data['errcode'];
+			if ($data['errcode'] == '401') {
+				echo json_encode($arr); exit();
+			}elseif ($data['errcode'] == '403') {
+				$arr['success'] = 2;
+				$arr['message'] = '<font color="red">【您已取消登录】请重新操作！</font>';
+				echo json_encode($arr); exit();
+			}elseif ($data['errcode'] == '404') {
+				$arr['success'] = 2;
+				$arr['message'] = '<font color="green">【扫描成功】请在微信上点击确认即可！</font>';
+				echo json_encode($arr); exit();
+			}elseif ($data['errcode'] == '405') {
+				if ($_GPC['errcode'] == '405') {
+					$arr['errcode'] = 4051;
+					$response = $this->account_weixin_http($username, WEIXIN_ROOT.'/misc/safeassistant?1=1&lang=zh_CN',
+						array(
+							'token'=>$_GPC['wxl'][$username]['token'],
+							'lang'=>'zh_CN',
+							'f'=>'json',
+							'ajax'=>'1',
+							'random'=>'',
+							'action'=>'get_uuid',
+							'uuid'=>$this->session->userdata($username.'_uuid')
+						)
+					);
+					if (is_error($response)) {
+						$arr['success'] = 101;
+						$arr['message'] = '一键获取信息失败-1';
+						echo json_encode($arr); exit();
+					}
+					$data = json_decode($response['content'], true);
+					if ($data['base_resp']['ret'] != '0') {
+						$arr['success'] = 101;
+						$arr['message'] = '一键获取信息失败-2';
+						echo json_encode($arr); exit();
+					}
+					if (!in_array($data['isadmin'], array(1,2))) {
+						$arr['success'] = 101;
+						$arr['message'] = '请使用指定管理员进行验证';
+						echo json_encode($arr); exit();
+					}
+					$arr['success'] = 1;
+				}else{
+					$arr['success'] = 2;
+					$arr['message'] = '<font color="green">【确认成功】请稍等片刻。。。</font>';
+				}
+				echo json_encode($arr); exit();
+			}
+			echo json_encode($arr); exit();
+		}elseif ($_GPC['secret_wx_tmpl'] == '2') {
+			$response = $this->account_weixin_http($username, WEIXIN_ROOT.'/advanced/advanced?action=view_appsecret',
+				array(
+					'token'=>$_GPC['wxl'][$username]['token'],
+					'lang'=>'zh_CN',
+					'f'=>'json',
+					'ajax'=>'1',
+					'random'=>'',
+					'pwd'=>$_GPC['password'],
+					'imgcode'=>$_GPC['imgcode']
+				)
+			);
+			if (is_error($response)) {
+				$arr['message'] = '网络繁忙，请重试！';
+				echo json_encode($arr); exit();
+			}
+			$data = json_decode($response['content'], true);
+			if ($data['base_resp']['ret'] != '0') {
+				$arr['message'] = $data['base_resp']['err_msg'];
+				echo json_encode($arr); exit();
+			}
+			$arr['success'] = 1;
+			$arr['message'] = $data['app_key'];
+			echo json_encode($arr); exit();
+		}
+		$response = $this->account_weixin_http($username, WEIXIN_ROOT . '/misc/safeassistant?1=1&lang=zh_CN', array(
+			'token'=>$_GPC['wxl'][$username]['token'],
+			'lang'=>'zh_CN',
+			'f'=>'json',
+			'ajax'=>'1',
+			'random'=>'',
+			'action'=>'get_ticket',
+		));
+		$safeassistant = json_decode($response['content'], true);
+		if (is_error($response)) {
+			echo json_encode($arr); exit();
+		}
+		$response = $this->account_weixin_http($username, WEIXIN_ROOT . '/safe/safeqrconnect?1=1&token=&lang=zh_CN',
+			array(
+				'token'=>$_GPC['wxl'][$username]['token'],
+				'lang'=>'zh_CN',
+				'f'=>'json',
+				'ajax'=>'1',
+				'random'=>'',
+				'appid'=>'wx3a432d2dbe2442ce',
+				'scope'=>'snsapi_contact',
+				'state'=>'0',
+				'redirect_uri'=>WEIXIN_ROOT,
+				'login_type'=>'safe_center',
+				'type'=>'json',
+				'ticket'=>$safeassistant['ticket']
+			));
+		if (is_error($response)) {
+			echo json_encode($arr); exit();
+		}
+		$safeqrconnect = json_decode($response['content'], true);
+		if (empty($safeassistant['ticket']) || empty($safeassistant['operation_seq']) || empty($safeqrconnect['uuid'])) {
+			echo json_encode($arr); exit();
+		}
+		$arr['success'] = 1;
+		$arr['message'] = WEIXIN_ROOT.'/safe/safeqrcode?ticket='.$safeassistant['ticket'].'&uuid='.$safeqrconnect['uuid'].'&action=check&type=showas&msgid='.$safeassistant['operation_seq'];
+		$this->session->set_userdata($username.'_uuid', $safeqrconnect['uuid']);
+		$this->session->set_userdata($username.'_operation_seq', $safeassistant['operation_seq']);
 		echo json_encode($arr); exit();
 	}
 
@@ -3099,7 +3395,12 @@ class ES_System extends CI_Model {
 	{
 		global $_GPC;
 		$username = trim($_GPC['username']);
-		$response = ihttp_get("https://mp.weixin.qq.com/cgi-bin/verifycode?username={$username}&r=" . SYS_TIME);
+		if ($username) {
+			$_url = "https://mp.weixin.qq.com/cgi-bin/verifycode?username={$username}&r=" . SYS_TIME;
+		}else{
+			$_url = "https://mp.weixin.qq.com/cgi-bin/verifycode?r=" . SYS_TIME;
+		}
+		$response = ihttp_get($_url);
 		if(!is_error($response)) {
 			setcookie('weixin_code_cookie', $response['headers']['Set-Cookie'], 0, BASE_DIR);
 			header('Content-type: image/jpg');
@@ -3428,13 +3729,28 @@ class ES_System extends CI_Model {
 		$_GPC['wxl'][$username]['token'] = $this->session->userdata($username.'_token');
 		$_GPC['wxl'][$username]['cookie'] = $this->session->userdata($username.'_cookie');
 		if ($_GPC['wxl'][$username]['token'] && $_GPC['wxl'][$username]['cookie']) {
+			$operation_seq = $this->session->userdata($username.'_operation_seq');
 			$response = $this->account_weixin_http($username, WEIXIN_ROOT.'/advanced/callbackprofile?t=ajax-response&lang=zh_CN',
 				array(
 					'url' => $account['url'],
 					'callback_token' => $account['token'],
 					'encoding_aeskey' => $account['encodingaeskey'],
 					'callback_encrypt_mode' => '0',
-					'operation_seq' => '203038881',
+					'operation_seq' => $operation_seq?$operation_seq:'405920941',
+					'action' => 'set_callback',
+					'type' => 'check_domain',
+					'step' => '1',
+				));
+			if (!is_error($response)) {
+				$response = json_decode($response['content'], true);
+			}
+			$response = $this->account_weixin_http($username, WEIXIN_ROOT.'/advanced/callbackprofile?t=ajax-response&lang=zh_CN',
+				array(
+					'url' => $account['url'],
+					'callback_token' => $account['token'],
+					'encoding_aeskey' => $account['encodingaeskey'],
+					'callback_encrypt_mode' => '0',
+					'operation_seq' => $operation_seq?$operation_seq:'405920941',
 				));
 			if (is_error($response)) {
 				return $response;

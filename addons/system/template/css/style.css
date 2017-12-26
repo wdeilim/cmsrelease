@@ -58,3 +58,6 @@ table.payment a{color:#257ad0}
 .filteral {position:absolute;top:0;right:27px}
 .filteral select{padding:8px;width:160px;border:1px solid #dadada;color:#6a6a6a}
 .indexuptis {display:none;position:fixed;top:0;left:50%;padding:0 30px;background-color:#EE03EE;color:#ffffff;line-height:36px;}
+.lastin{margin-top:5px;color:#C3C0B8}
+.lastin a{color:#E59C00}
+.lastin a:hover{text-decoration:underline;}

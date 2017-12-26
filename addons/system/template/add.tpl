@@ -65,6 +65,13 @@
                                     <input class="form-control" id="_wxurl" type="text"
                                            value="{#$urlarr.index#}weixin/{#value($edit,'id')#}/{#if strexists($urlarr.index,'?')#}?index{#/if#}" disabled="disabled"/>
                                     <a id="_wxurlbut" href="javascript:;" class="normal-link" title="点击复制">复制</a>
+                                    <div class="lastin">
+                                        {#if $edit['wx_lastin']#}
+                                            最后接入时间: {#date("Y-m-d H:i:s", $edit['wx_lastin'])#}
+                                        {#else#}
+                                            <a href="http://bbs.vwins.cn/thread-629-1-1.html" target="_blank">最后接入时间: 尚未接入，点击查看详情。</a>
+                                        {#/if#}
+                                    </div>
                                 </td>
                             </tr>
                         {#else#}
@@ -369,7 +376,14 @@
                                 <td>
                                     <input class="form-control" id="_alurl" type="text"
                                            value="{#$urlarr.index#}alipay/{#value($edit,'id')#}/{#if strexists($urlarr.index,'?')#}?index{#/if#}" disabled="disabled"/>
-                                    <a id="_alurlbut" class="normal-link">复制</a>
+                                    <a id="_alurlbut" class="normal-link" title="点击复制">复制</a>
+                                    <div class="lastin">
+                                        {#if $edit['al_lastin']#}
+                                            最后接入时间: {#date("Y-m-d H:i:s", $edit['al_lastin'])#}
+                                        {#else#}
+                                            <a href="http://bbs.vwins.cn/thread-630-1-1.html" target="_blank">最后接入时间: 尚未接入，点击查看详情。</a>
+                                        {#/if#}
+                                    </div>
                                 </td>
                             </tr>
                         {#else#}
@@ -473,7 +487,7 @@
             <td class="al-right"><span>验证码</span></td>
             <td>
                 <input idd="akeyverify" type="text" class="form-control" style="width:110px" placeholder="验证码"/>
-                <img src="#" style="width:110px;height:37px;vertical-align:bottom;">
+                <img src="#" style="width:110px;height:37px;vertical-align:bottom;cursor:pointer;" onclick="againimg(this)">
             </td>
         </tr>
         </tbody>
@@ -615,12 +629,14 @@
             });
             return false;
         });
+        window._ajax_data = null;
+        window._ajax_art = null;
+        window._secret_art = null;
         $(".button-akey").click(function(){
             var akeyart = art.dialog({
                 title: '一键获取微信信息',
                 fixed: true,
                 lock: true,
-                opacity: '.3',
                 content: $("#akeytemp").html().replace(/idd/g, 'id'),
                 button: [{
                     name: '一键获取',
@@ -635,25 +651,68 @@
                             success: function (data) {
                                 $.alert(0);
                                 if (data != null && data.success != null && data.success) {
-                                    $("#wx_name").val(data.message.name);
-                                    $("#wx_appid").val(data.message.key);
-                                    $("#wx_secret").val(data.message.secret);
-                                    $("#wx_token").val(data.message.token);
-                                    $("#wx_aeskey").val(data.message.EncodingAESKey);
-                                    $("#wx_level").val(data.message.level);
-                                    $("#wx_username").val(data.username);
-                                    if (data.message.qrcode_img) {
-                                        $("#wx_qrcode").val(data.message.qrcode_img);
-                                        $("#wx_qrcode").parent().next().find("img").attr('src', data.message.qrcode_imgurl);
-                                    }
+                                    _setdata(data);
                                     akeyart.close();
                                 }else{
                                     $("#wx_username").val('');
-                                    if (data.ret == '-8' || data.ret == '-27') {
-                                        _verify2($("#akeyusername"));
-                                        $.alert(data.message);
+                                    if (data.ret == '-10007') {
+                                        window._ajax_data = {wxusername: $("#akeyusername").val(), wxpassword: $("#akeyuserpass").val(), validate_wx_tmpl: 1};
+                                        akeyart.close();
+                                        window._ajax_art = art.dialog({
+                                            title: '安全保护(获取基本信息)',
+                                            fixed: true,
+                                            lock: true,
+                                            content: '<div style="text-align:center">' +
+                                            '账号登录属风险操作，为保障账号安全，请使用你的微信进行扫码验证' +
+                                            '<img src="'+data.message+'" style="height:230px;display:block;width:230px;margin:15px auto;">' +
+                                            '任意微信号可扫码，扫码后需要管理员('+data.bindalias+')验证' +
+                                            '<div id="_validate_wx_tmpl" style="padding:10px;"></div>' +
+                                            '</div>',
+                                            button: [{
+                                                name: '关闭',
+                                                callback: function () {
+                                                    return true;
+                                                }
+                                            }]
+                                        });
                                     }else{
-                                        alert(data.message);
+                                        switch(data.ret){
+                                            case"-1":
+                                                $.alert("系统错误，请稍候再试。");
+                                                break;
+                                            case"200002":
+                                                $.alert("帐号或密码错误。");
+                                                break;
+                                            case"200007":
+                                                $.alert("您目前处于访问受限状态。");
+                                                break;
+                                            case"200008":
+                                                _verify2($("#akeyusername"));
+                                                $.alert("请输入图中的验证码");
+                                                break;
+                                            case"200021":
+                                                $.alert("不存在该帐户。");
+                                                break;
+                                            case"200023":
+                                                _verify2($("#akeyusername"));
+                                                $.alert("您输入的帐号或者密码不正确，请重新输入。");
+                                                break;
+                                            case"200025":
+                                                $.alert('海外帐号请在公众平台海外版登录,<a href="http://admin.wechat.com/" target="_blank">点击登录</a>');
+                                                break;
+                                            case"200026":
+                                                $.alert("该公众会议号已经过期，无法再登录使用。");
+                                                break;
+                                            case"200027":
+                                                _verify2($("#akeyusername"));
+                                                $.alert("您输入的验证码不正确，请重新输入");
+                                                break;
+                                            case"200121":
+                                                $.alert('该帐号属于微信开放平台，请点击<a href="https://open.weixin.qq.com/" target="_blank">此处登录</a>');
+                                                break;
+                                            default:
+                                                alert(data.message);
+                                        }
                                     }
                                 }
                             },error : function () {
@@ -705,6 +764,7 @@
                 $("#weixinsecret").val($(this).val());
             }
         });
+        setTimeout("_safeuuid()", 1500);
         {#if !value($edit,'wx_name') && value($edit,'al_name')#}
         $('a[d-index="1"]').click();
         {#/if#}
@@ -724,6 +784,166 @@
         sv.find("img").attr("src", _url+"&r="+new Date().getTime());
         sv.find("img").unbind();
         sv.find("img").click(function(){ $(this).attr("src", _url+"&r="+new Date().getTime()); });
+    }
+    function _safeuuid(errcode) {
+        if ($("#_validate_wx_tmpl").length > 0) {
+            window._ajax_data.errcode = errcode;
+            $.ajax({
+                url: "{#weburl("system/weixinlogin")#}",
+                type: "POST",
+                data: window._ajax_data,
+                dataType: "json",
+                success: function (data) {
+                    if (data != null && data.success != null && data.success) {
+                        $("#_validate_wx_tmpl").html(data.message);
+                        if (data.errcode == 405) {
+                            setTimeout("_safeuuid(405)", 1500);
+                            return false;
+                        }else{
+                            if ((data.success == 1 || data.success == 101) && window._ajax_art != null) {
+                                if (data.success == 101) { alert(data.message); }
+                                window._ajax_art.close();
+                                window._ajax_art = null;
+                                _setdata(data);
+                            }
+                        }
+                    }
+                    setTimeout("_safeuuid()", 1500);
+                },error : function () {
+                    setTimeout("_safeuuid()", 1500);
+                },
+                cache: false
+            });
+        }else if ($("#_secret_wx_tmpl").length > 0) {
+            var secretobj = $("#_secret_wx_tmpl");
+            $.ajax({
+                url: "{#weburl("system/weixinsecret")#}",
+                type: "POST",
+                data: {
+                    secret_wx_tmpl: 1,
+                    errcode: errcode,
+                    'username': secretobj.attr("data-username")
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data != null && data.success != null && data.success) {
+                        secretobj.html(data.message);
+                        if (data.errcode == 405) {
+                            setTimeout("_safeuuid(405)", 1500);
+                            return false;
+                        }else{
+                            if (data.success == 1 && window._secret_art != null) {
+                                window._secret_art.close();
+                                window._secret_art = null;
+                                window._secret_ver_art = art.dialog({
+                                    title: '请输入验证码',
+                                    fixed: true,
+                                    lock: true,
+                                    content: '<div style="text-align:center">' +
+                                    '<input id="secretverify" type="text" class="form-control" style="width:110px" placeholder="请输入验证码"/>' +
+                                    '<img src="{#weburl("system/wxcode")#}" style="display:block;margin:10px 0;cursor:pointer;" onclick="againimg(this)">' +
+                                    '</div>',
+                                    button: [{
+                                        name: '确定',
+                                        focus: true,
+                                        callback: function () {
+                                            $.ajax({
+                                                url: "{#weburl("system/weixinsecret")#}",
+                                                type: "POST",
+                                                data: {
+                                                    secret_wx_tmpl: 2,
+                                                    'username': secretobj.attr("data-username"),
+                                                    'password': secretobj.attr("data-password"),
+                                                    'imgcode': $("#secretverify").val()
+                                                },
+                                                dataType: "json",
+                                                success: function (data) {
+                                                    if (data != null && data.success != null && data.success) {
+                                                        $("#wx_secret").val(data.message);
+                                                        window._secret_ver_art.close();
+                                                    }else{
+                                                        if (data.message == 'system error') {
+                                                            alert("一键获取AppSecret(应用密钥)失败，请登录【微信公众平台】手动获取！");
+                                                            window._secret_ver_art.close();
+                                                        }else{
+                                                            alert(data.message);
+                                                        }
+                                                    }
+                                                },error : function () {
+                                                    alert("网络错误！");
+                                                    window._secret_ver_art.close();
+                                                },
+                                                cache: false
+                                            });
+                                            return false;
+                                        }
+                                    },{
+                                        name: '关闭',
+                                        callback: function () {
+                                            return true;
+                                        }
+                                    }]
+                                });
+                            }
+                        }
+                    }
+                    setTimeout("_safeuuid()", 1500);
+                },error : function () {
+                    setTimeout("_safeuuid()", 1500);
+                },
+                cache: false
+            });
+        }else{
+            setTimeout("_safeuuid()", 1500);
+        }
+    }
+    function _setdata(res) {
+        $("#wx_name").val(res.message.name);
+        $("#wx_appid").val(res.message.key);
+        $("#wx_secret").val(res.message.secret);
+        $("#wx_token").val(res.message.token);
+        $("#wx_aeskey").val(res.message.EncodingAESKey);
+        $("#wx_level").val(res.message.level);
+        $("#wx_username").val(res.username);
+        if (res.message.qrcode_img) {
+            $("#wx_qrcode").val(res.message.qrcode_img);
+            $("#wx_qrcode").parent().next().find("img").attr('src', res.message.qrcode_imgurl);
+        }
+        //获取secret
+        if ($("#wx_secret").val() == "" && res.message.wx_alias != "") {
+            $.alert("请稍等...", 0);
+            $.ajax({
+                url: "{#weburl("system/weixinsecret")#}",
+                type: "POST",
+                data: { username: res.username },
+                dataType: "json",
+                success: function (data) {
+                    $.alert(0);
+                    if (data != null && data.success != null && data.success) {
+                        window._secret_art = art.dialog({
+                            title: '安全验证(获取AppSecret应用密钥)',
+                            fixed: true,
+                            lock: true,
+                            content: '<div style="text-align:center">' +
+                            '您的帐号开启了微信保护功能，查看密钥操作需进行微信验证' +
+                            '<img src="'+data.message+'" style="height:230px;display:block;width:230px;margin:15px auto;">' +
+                            '扫码后，请联系管理员('+res.message.wx_alias+')进行验证' +
+                            '<div id="_secret_wx_tmpl" data-username="'+res.username+'" data-password="'+res.password+'" style="padding:10px;"></div>' +
+                            '</div>',
+                            button: [{
+                                name: '关闭',
+                                callback: function () {
+                                    return true;
+                                }
+                            }]
+                        });
+                    }
+                },error : function () {
+                    $.alert(0);
+                },
+                cache: false
+            });
+        }
     }
     function showhide(obj, t) {
         var tthis = $(obj);
@@ -748,6 +968,16 @@
             secret.prop("disabled", true).val($("#wx_secret").val());
             tthis.text('点击这里修改');
         }
+    }
+    function againimg(obj) {
+        var tthis = $(obj);
+        if (tthis.attr("data-oneagainimg") != "1") {
+            tthis.attr("data-oneagainimg", "1");
+            tthis.attr("data-src", tthis.attr("src"));
+        }
+        var src = tthis.attr("data-src") + "";
+        if (src.indexOf("?") === -1) { src+= "?"  }
+        tthis.attr("src", src + "&" + Math.random())
     }
     linkage("linkaddr","{#$urlarr.index#}web/system/linkage/",0,0);
 </script>

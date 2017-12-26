@@ -345,6 +345,7 @@ function utf8_substr($str, $len, $start=0)
     }
     return join(array_slice($new_str,$start));
 }
+
 /**
  * 将字符串转换为数组
  * @param	string	$data	字符串
@@ -352,14 +353,21 @@ function utf8_substr($str, $len, $start=0)
  */
 function string2array($data) {
     if(is_array($data)) return $data;
+    $data = trim($data);
     if($data == '') return array();
-    if(!strexists(strtolower($data), 'array')) return array();
-    @ini_set('display_errors', 'on');
-    @eval("\$array = $data;");
-    @ini_set('display_errors', 'off');
-    $array = isset($array)?$array:array();
-    return is_array($array)?$array:array();
+    if (strpos(strtolower($data), 'array') === 0) {
+        @ini_set('display_errors', 'on');
+        @eval("\$array = $data;");
+        @ini_set('display_errors', 'off');
+    }else{
+        if (strpos($data, '{\\') === 0) {
+            $data = stripslashes($data);
+        }
+        $array = json_decode($data,true);
+    }
+    return (isset($array)&&is_array($array))?$array:array();
 }
+
 /**
  * 将数组转换为字符串
  * @param	array	$data		数组
@@ -367,9 +375,13 @@ function string2array($data) {
  * @return	string	返回字符串，如果，data为空，则返回空
  */
 function array2string($data, $isformdata = 1) {
-    if($data == '') return '';
-    if($isformdata) $data = new_stripslashes($data);
-    return var_export($data, TRUE);
+    if ($data == '' || empty($data)) return '';
+    if ($isformdata) $data = new_stripslashes($data);
+    if (version_compare(PHP_VERSION,'5.3.0','<')){
+        return addslashes(json_encode($data));
+    }else{
+        return addslashes(json_encode($data, JSON_FORCE_OBJECT));
+    }
 }
 
 /**

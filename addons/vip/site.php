@@ -1251,9 +1251,13 @@ class ES_Vip extends CI_Model {
             $id = intval($this->input->post('id'));
             $type = $this->input->post('type');
             $isnum = $this->input->post('isnum');
-            $val = $this->input->post('val');
+            $val = _Sys_Safe_Stop::addslashes_deep($this->input->post('val'));
             if ($isnum == 'yes') {
                 $val = intval($val);
+            }
+            if (!in_array($type, array('inorder', 'title'))) {
+                $arr['message'] = '非法操作！';
+                echo json_encode($arr); exit();
             }
             $row = $this->ddb->getone("SELECT * FROM ".table('vip_content'), $this->merge(array('id'=>$id)));
             if (empty($row)) {

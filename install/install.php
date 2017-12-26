@@ -49,7 +49,7 @@ switch($step)
 		include BASE_PATH."install/step/step".$step.".tpl.php";
 		break;
 	case '3': //检测目录属性
-		make_dir('../caches/tpl_cache/_cache/');
+		make_dir(dirname(dirname(__FILE__)).'/caches/tpl_cache/_cache/');
 		$chmod_file = 'chmod.txt';
 		$selectmod = $needmod.$selectmod;
 		$selectmods = explode(',',$selectmod);
@@ -102,11 +102,11 @@ switch($step)
 		$url = substr($url, 0, strrpos($url, '/install.php?'));
 		$url = substr($url, 0, strrpos($url, '/') + 1);
 		$html = ihttp_request($url.'index.php/web/system/login/');
-		if (strpos($html['responseline'], "404") !== false) {
+		if (strpos($html['responseline'], "403") !== false || strpos($html['responseline'], "404") !== false) {
 			$nomoren = 1;
 		}
 		$html = ihttp_request($url.'web/system/login/');
-		if (strpos($html['responseline'], "404") !== false) {
+		if (strpos($html['responseline'], "403") !== false || strpos($html['responseline'], "404") !== false) {
 			$noweijingtai = 1;
 		}
 		if (!isset($_SERVER['REQUEST_URI'], $_SERVER['SCRIPT_NAME'])) {

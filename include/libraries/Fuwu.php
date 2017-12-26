@@ -66,6 +66,7 @@ class Fuwu {
 				$response_xml = "<success>true</success><biz_content>".$as->getPublicKeyStr($this->config('merchant_public_key_file'))."</biz_content>";
 				$return_xml = $as->sign_response ( $response_xml, $this->config('charset'), $this->config('merchant_private_key_file'));
 				writeLog ( "response_xml: " . $return_xml );
+				$this->lastin($_A['al']['id']);
 				echo $return_xml;
 				exit ();
 			}
@@ -103,6 +104,7 @@ class Fuwu {
 		$M['rawdata'] = xml2array($biz_content);
 		$M['alid'] = $_A['al']['id'];
 		$this->exist_group($M);
+		$this->lastin($_A['al']['id']);
 
 		$push = new PushMsg ();
 
@@ -1102,4 +1104,9 @@ class Fuwu {
         $_A['al'] = $row;
     }
 
+	private function lastin($id) {
+		if (!defined('_ISEMULATOR')) {
+			db_update(table('users_al'), array('al_lastin'=>SYS_TIME), array('id'=>$id));
+		}
+	}
 }

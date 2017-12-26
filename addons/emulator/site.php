@@ -342,6 +342,8 @@ class ES_Emulator extends CI_Model {
 						$avatarleft = "查看地图: 查看指定关键字的地理位置";
 					}elseif ($_GPC['menutype'] == "alipay2") {
 						$avatarleft = "消费记录: 查看与服务窗之间发生的交易明细";
+					}elseif ($_GPC['menutype'] == "view") {
+						$avatarleft = "打开链接: <a href='".$_GPC['menukey']."' target='_blank'>".$_GPC['menukey']."</a>";
 					}elseif ($_GPC['menutype'] != "click") {
 						$arr['message'] = '此菜单不支持模拟！';
 						echo json_encode($arr); exit();

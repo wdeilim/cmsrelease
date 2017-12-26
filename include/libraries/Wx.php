@@ -29,6 +29,7 @@ class Wx {
                 $tmpStr = implode( $tmpArr );
                 $tmpStr = sha1( $tmpStr );
                 if( $tmpStr == $_GPC["signature"] ){
+                    $this->lastin($_A['al']['id']);
                     echo $_GPC["echostr"];
                 }
             }
@@ -87,6 +88,7 @@ class Wx {
         $M['rawdata'] = $post_obj;
         $M['alid'] = $_A['al']['id'];
         $this->exist_group($M);
+        $this->lastin($_A['al']['id']);
 
         // 收到用户发送的对话消息
         if ($M['msgtype'] == "text") {
@@ -326,6 +328,7 @@ class Wx {
                     $M['avatar'] = value($_content, 'headimgurl');
                 }
             }
+            $this->error_code($_content);
         }
         if ($M['user_name']) {
             $CI =& get_instance();
@@ -458,6 +461,7 @@ class Wx {
         }
         $content = $CI->communication->ihttp_date($url, $_data);
         $content = isset($content['content'])?json_decode($content['content'], true):'';
+        $this->error_code($content);
         $errcode = value($content, 'errcode');
         if ($errcode != 0) {
             $rcode = value($content, 'errmsg');
@@ -512,6 +516,7 @@ class Wx {
         }
         $content = $CI->communication->ihttp_date($url, $_data);
         $content = isset($content['content'])?json_decode($content['content'], true):'';
+        $this->error_code($content);
         $errcode = value($content, 'errcode');
         if ($errcode != 0) {
             $rcode = value($content, 'errmsg');
@@ -590,6 +595,7 @@ class Wx {
         }
         $content = $CI->communication->ihttp_date($url, $_data);
         $content = isset($content['content'])?json_decode($content['content'], true):'';
+        $this->error_code($content);
         $errcode = value($content, 'errcode');
         if ($errcode != 0) {
             $rcode = value($content, 'errmsg');
@@ -638,6 +644,7 @@ class Wx {
                 }
                 $resp = ihttp_request($sendapi, $data);
                 $respcon = @json_decode($resp['content'], true);
+                $this->error_code($respcon);
                 $media_id = $respcon['media_id'];
                 if ($media_id) {
                     $tmp = array();
@@ -690,6 +697,7 @@ class Wx {
         }
         $content = $CI->communication->ihttp_date($url, $_data);
         $content = isset($content['content'])?json_decode($content['content'], true):'';
+        $this->error_code($content);
         $errcode = value($content, 'errcode');
         if ($errcode != 0) {
             $rcode = value($content, 'errmsg');
@@ -928,6 +936,7 @@ class Wx {
                     }
                     $resp = ihttp_request($sendapi, $data);
                     $respcon = @json_decode($resp['content'], true);
+                    $this->error_code($respcon);
                     $media_id = $respcon['media_id'];
                     if ($media_id) {
                         $tmp = array();
@@ -1316,6 +1325,7 @@ class Wx {
                     }
                     $resp = ihttp_request($sendapi, $data);
                     $respcon = @json_decode($resp['content'], true);
+                    $this->error_code($respcon);
                     $media_id = $respcon['media_id'];
                     if ($media_id) {
                         $tmp = array();
@@ -1396,6 +1406,7 @@ class Wx {
         $CI->load->library('communication');
         $content = $CI->communication->ihttp_date($url, $data);
         $_content = isset($content['content'])?json_decode($content['content'], true):'';
+        $this->error_code($_content);
         return $_content;
     }
 
@@ -1415,6 +1426,7 @@ class Wx {
         }
         $content = $CI->communication->ihttp_request($url);
         $_content = isset($content['content'])?json_decode($content['content'], true):'';
+        $this->error_code($_content);
         return $_content;
     }
 
@@ -1434,6 +1446,7 @@ class Wx {
         }
         $content = $CI->communication->ihttp_request($url);
         $_content = isset($content['content'])?json_decode($content['content'], true):'';
+        $this->error_code($_content);
         return $_content;
     }
 
@@ -1547,6 +1560,9 @@ class Wx {
 
     public function error_code($code) {
         global $_A;
+        if (is_array($code) && isset($code['errcode'])) {
+            $code = $code['errcode'];
+        }
         $errors = array(
             '-1' => '系统繁忙',
             '0' => '请求成功',
@@ -1752,6 +1768,7 @@ class Wx {
             return $CI->communication->error(-1, $error);
         }
         $ticket = @json_decode($content['content'], true);
+        $this->error_code($ticket);
         if(empty($ticket) || intval(($ticket['errcode'])) != 0 || $ticket['errmsg'] != 'ok') {
             return $CI->communication->error(-1, '获取微信公众号 jsapi_ticket 结果错误, 错误信息: ' . $ticket['errmsg']);
         }
@@ -1970,6 +1987,12 @@ class Wx {
         if ($this->iscorp()) {
             $_A['corp_token'] = $_A['wx_token'];
             $_A['corp_jssdkConfig'] = $_A['wx_jssdkConfig'];
+        }
+    }
+
+    private function lastin($id) {
+        if (!defined('_ISEMULATOR')) {
+            db_update(table('users_al'), array('wx_lastin'=>SYS_TIME), array('id'=>$id));
         }
     }
 

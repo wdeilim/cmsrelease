@@ -241,7 +241,12 @@ jQuery.showModal = function(msg, url, goonurl, isautohide) {
 		+'		<h3 id="myModalLabel">\u6d88\u606f</h3>'
 		+'	</div>'
 		+'	<div class="jqmodal-body">'
-		+'		<p class="error-text"><i class="jqmodal-icon fa fa-exclamation-triangle"></i><span id="myModalContent">Are you sure you?</span></p>'
+        +'      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="error-text">'
+        +'          <tr>'
+        +'              <td style="width:72px;text-align:left;vertical-align:middle;"><i class="jqmodal-icon fa fa-exclamation-triangle"></i></td>'
+        +'              <td style="text-align:left;vertical-align:middle;"><span id="myModalContent">Are you sure you?</span></td>'
+        +'          </tr>'
+        +'      </table>'
 		+'	</div>'
 		+'	<div class="jqmodal-footer">'
 		+'		<a id="myModalLink" href="javascript:void(0);" class="jqmodal-btn-danger"><i class="fa fa-check">\u221a\u0020</i>\u786e\u5b9a</a>'
@@ -301,14 +306,13 @@ jQuery.showModal = function(msg, url, goonurl, isautohide) {
         "overflow-y": "auto",
         "max-height": "400px"
     });
-    nobj.find(".jqmodal-body p").css({
+    nobj.find(".jqmodal-body table").css({
         "line-height": "1.5em"
     });
-    nobj.find(".jqmodal-body p i").css({
+    nobj.find(".jqmodal-body table tr td i").css({
         "vertical-align": "middle",
         "font-size": "56px",
         "float": "left",
-        "line-height": "28px",
         "margin-right": ".25em"
     });
     nobj.find(".jqmodal-footer").css({
@@ -374,7 +378,7 @@ jQuery.showModal = function(msg, url, goonurl, isautohide) {
         }
     }
     if(isIe6){
-        nobj.find(".jqmodal-body p i").hide();
+        nobj.find(".jqmodal-body table tr td i").hide();
         nobj.find(".jqmodal-footer a i").each(function(){$(this).text($(this).attr("data-text"));});
         nobj.css({
             "position":"absolute"

@@ -178,6 +178,7 @@
                     dataType: "html",
                     success: function (data) {
                         tdcontent.find('#menu_'+accid+agentid+datatype).html(data);
+                        _selectmenu(tdcontent.find('#menu_'+accid+agentid+datatype).find('#menukey'));
                     },
                     error: function(data) {
                         tdcontent.find('#menu_'+accid+agentid+datatype).text("读取菜单失败");

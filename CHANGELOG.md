@@ -106,3 +106,13 @@
 更新应用机制；
 ```
 
+## 3.0_20160427
+
+> Release Time: 2016-04-27
+>
+> Download Link: http://www.vwins.cn/index.php?act=download&id=67
+
+```
+优化【添加微信接入】一键获取功能；
+```
+

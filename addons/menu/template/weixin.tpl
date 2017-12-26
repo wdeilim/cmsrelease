@@ -288,7 +288,7 @@
                     if (data != null && data.success != null && data.success) {
                         $.showModal('生成成功');
                     } else {
-                        $.inModal('生成失败,'+data.errmsg+':'+data.errcode);
+                        $.inModal('生成失败,'+data.errmsg+':'+data.errcode+'【请重试一次】');
                     }
                 }
             });
