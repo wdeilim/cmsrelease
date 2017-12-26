@@ -1125,7 +1125,7 @@ class Wx {
         if (!defined('_ISPROCESSOR')) define('_ISPROCESSOR', true);
         $_A['M']['text'] = $content;
         $_A['M']['msgtype'] = 'text';
-        $this->savemessage($_A['M'], 1);
+        $mid = $this->savemessage($_A['M'], 1);
         //
         $content = str_replace("\r\n", "\n", $content);
         $send = array();
@@ -1133,6 +1133,9 @@ class Wx {
         $send['msgtype'] = 'text';
         $send['text'] = array('content' => $this->encode($this->send2text($content)));
         $Request = $this->sendCustomNotice($send);
+        if (is_error($Request) && $Request['message'] && $mid) {
+            db_update(tableal('message'), array('err'=>$Request['message']), array('id'=>$mid));
+        }
         if ($isret) {
             return $Request;
         }else{
@@ -1156,7 +1159,7 @@ class Wx {
         if (!in_array($type, array('image', 'voice', 'video'))) return 'Err value';
         $_A['M']['text'] = $content;
         $_A['M']['msgtype'] = $type;
-        $this->savemessage($_A['M'], 1);
+        $mid = $this->savemessage($_A['M'], 1);
         //
         $media_id = $this->media_upload($content, $type, trim($_A['M']['openid']), $tis);
         if (empty($media_id)) {
@@ -1175,6 +1178,9 @@ class Wx {
             $send[$type] = array('media_id' => $media_id);
         }
         $Request = $this->sendCustomNotice($send);
+        if (is_error($Request) && $Request['message'] && $mid) {
+            db_update(tableal('message'), array('err'=>$Request['message']), array('id'=>$mid));
+        }
         if ($isret) {
             return $Request;
         }else{
@@ -1195,13 +1201,16 @@ class Wx {
         if (!defined('_ISPROCESSOR')) define('_ISPROCESSOR', true);
         $_A['M']['text'] = array2string($arr);
         $_A['M']['msgtype'] = 'imagetext';
-        $this->savemessage($_A['M'], 1);
+        $mid = $this->savemessage($_A['M'], 1);
         //
         $send = array();
         $send['touser'] = trim($_A['M']['openid']);
         $send['msgtype'] = 'news';
         $send['news']['articles'] = $this->newshandle($arr);
         $Request = $this->sendCustomNotice($send);
+        if (is_error($Request) && $Request['message'] && $mid) {
+            db_update(tableal('message'), array('err'=>$Request['message']), array('id'=>$mid));
+        }
         if ($isret) {
             return $Request;
         }else{
@@ -1556,7 +1565,7 @@ class Wx {
         if(empty($result)) {
             return error(-1, "接口调用失败, 元数据: {$response['meta']}");
         } elseif(!empty($result['errcode'])) {
-            return error(-1, "访问微信接口错误, 错误代码: {$result['errcode']}, 错误信息: {$result['errmsg']},错误详情：{$this->error_code($result['errcode'])}");
+            return error(-1, "访问微信接口错误：{$this->error_code($result['errcode'])}");
         }
         if (!defined('_ISSENDCUSTOMNOTICE')) define('_ISSENDCUSTOMNOTICE', true);
         return $result;
@@ -1691,7 +1700,7 @@ class Wx {
         }
         $ticket = @json_decode($content['content'], true);
         $this->error_code($ticket, true);
-        if(empty($ticket) || intval(($ticket['errcode'])) != 0 || $ticket['errmsg'] != 'ok') {
+        if(empty($ticket) || intval(($ticket['errcode'])) != 0) {
             return $CI->communication->error(-1, '获取微信公众号 jsapi_ticket 结果错误, 错误信息: ' . $ticket['errmsg']);
         }
         $record = array();

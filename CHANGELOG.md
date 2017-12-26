@@ -166,3 +166,13 @@
 修复公众号接口安全模式不能正常回复的问题。
 ```
 
+## 3.0_20160521
+
+> Release Time: 2016-05-21
+>
+> Download Link: http://www.vwins.cn/index.php?act=download&id=73
+
+```
+修复微信分享接口的bug。
+```
+
