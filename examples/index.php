@@ -1,9 +1,9 @@
 <html>
 <head>
-<title>HTML_AJAX 0.4.1 Examples</title>
+<title>HTML_AJAX 0.5.0 Examples</title>
 </head>
 <body>
-<h1>HTML_AJAX 0.4.1 Examples</h1>
+<h1>HTML_AJAX 0.5.0 Examples</h1>
 <p>
 These are examples showing the basics of using HTML_AJAX
 </p>
@@ -38,6 +38,7 @@ Front end files for examples, you can actually run these and see some example ou
 <li><a href='helper_usage.php'>helper_usage.php</a> - An example showing the basics of the helper api</li>
 <li><a href='form.php'>form.php</a> - Basic AJAX form submission example</a></li>
 <li><a href='action_usage.php'>action_usage.php</a> - Basic HTML_AJAX_Action usage</a></li>
+<li><a href='xml_usage.php'>xml_usage.php</a> - Basic XML serializer usage</a></li>
 </ul>
 
 <p>Real Life Examples</p>
@@ -76,6 +77,8 @@ Other Example files:
 <li><a href='tests/serialize.php.examples.php'>serialize.php.examples.php</a>	- Internal tests for the php serialize format serializer</li>
 <li><a href='tests/serialize.url.examples.php'>serialize.url.examples.php</a>	- Internal tests for the urlencoded format serializer</li>
 <li><a href='tests/setInnerHTML.php'>setInnerHTML.php</a>	- Tests used to verify the operation of HTML_AJAX_Util.setInnerHTML</li>
+<li><a href='tests/duplicateJSLib.php'>duplicateJSLib.php</a>	- Tests used to verify that HTML_AJAX_Server is removing duplicate JS libraries from client generation correctly</li>
+<li><a href='tests/behaviorSpeed.php'>behaviorSpeed.php</a>	- Tests used to see how fast the JavaScript behavior code runs.</li>
 </ul>
 
 <p>
