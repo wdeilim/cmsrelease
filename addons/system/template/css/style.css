@@ -46,6 +46,7 @@ table.payment a{color:#257ad0}
 .topmenu div a{float:none;margin:0}
 .topmenu div a.active,.topmenu div a:hover{-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
 .tabmenu{display:none}
+.tabmenu tbody tr td.al-top{vertical-align:top;padding-top:22px;}
 .backing{margin-left:10px}
 .button-akey{height:35px;line-height:33px;margin-top:-3px;font-size:14px;background-color:#e6e6e6;border-color:#e6e6e6;color:#9C9C9C}
 .other_label label{width:112px;height:20px;margin-bottom:8px;padding-right:8px;line-height:16px;overflow:hidden;float:left;white-space:nowrap;text-overflow:ellipsis;}
@@ -54,8 +55,9 @@ table.payment a{color:#257ad0}
 .label_del{text-decoration:line-through;color:#AAA}
 .isget{padding-left:8px;color:#FF13EC;font-weight:900}
 .isfunc{display:none}
-.gappid{width:330px!important;float:left!important}
-.gselect{width:120px!important;margin-left:-1px!important;padding:7px 5px!important;height:37px;}
+.gappid{width:330px!important;float:left!important;padding:8px 5px!important;height:17px;}
+.gselect{width:120px!important;margin-left:-1px!important;padding:7px 5px!important;height:37px;line-height:37px;}
+@media screen\0 {.gselect{height:35px;line-height:35px;}}
 .ifunlist .button-input{display:none;float:left;position:relative;margin-bottom:10px;margin-right:8px;padding:0;height:28px;width:125px;}.ifunlist .button-input input{position:absolute;left:0;top:0;border:1px solid #ababab;color:#6a6a6a;height:28px;width:90px;margin:0;padding:0 5px 0 28px;line-height:26px;font-size:14px;}.ifunlist .button-input em{position:absolute;display:block;background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaBAMAAABbZFH9AAAAA3NCSVQICAjb4U/gAAAALVBMVEX///+IiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIixak6rAAAAD3RSTlMAESIzRFVmd4iZqszd7v8z/eE5AAAACXBIWXMAAAsSAAALEgHS3X78AAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAALtJREFUGJVjYGBgyNz3ehoDDMS8A4KjUA7nuxshrr3vJkB4814KMDAwznsJ5rC+SwBRbO8CQBTPS6iSAyAy7yKEJ/sMLNbgAOZxgNXsC1gI0f8aRL5zeArmsbyD8F4i8fYF3DNAqJzXMO8gwpS8i7pvHeA28Lxkvve6xQBqO9BlGvtOGkBdBnP1u3IFJB+9e3cZybd1796CbYKERB1MEgx038EkQYD5Hoqk7bt3bxhQJBmQJV8g8ZjPNQAAFZ5b+9Pz3GcAAAAASUVORK5CYII=");width:18px;height:18px;top:6px;left:5px;background-size:18px 18px;}
 .ifunlist .button-groups{top:0;left:0;right:0;padding:10px 20px 0}
 .ifunlist .ifunall{position:absolute;z-index:999}

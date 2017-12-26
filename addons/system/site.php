@@ -102,7 +102,7 @@ class ES_System extends CI_Model {
      */
     public function doWebLogin()
 	{
-        $settinglists = $this->ddb->getone("SELECT * FROM ".table('setting')." WHERE `title`='setting'");
+        $settinglists = db_getone(table('setting'), array('title'=>'setting'));
         $settinglists = string2array($settinglists['content']);
         $topmenulists = $settinglists['topmenu'];
         $regitem = $settinglists['regitem'];
@@ -170,7 +170,7 @@ class ES_System extends CI_Model {
 			$tem['t2']['map']['lng'] = '22.832879';
 		}
 		if (empty($tem['t2']['comp'])) {
-			$tem['t2']['comp'] = '广西三顾网络科技有限公司';
+			$tem['t2']['comp'] = '广西伊索网络科技有限公司';
 		}
 		if (empty($tem['t2']['tel'])) {
 			$tem['t2']['tel'] = '0771-5671712';
@@ -189,7 +189,7 @@ class ES_System extends CI_Model {
      */
     public function doWebReg()
     {
-        $settinglists = $this->ddb->getone("SELECT * FROM ".table('setting')." WHERE `title`='setting'");
+        $settinglists = db_getone(table('setting'), array('title'=>'setting'));
         $settinglists = string2array($settinglists['content']);
         $topmenulists = $settinglists['topmenu'];
         $regitem = $settinglists['regitem'];
@@ -2614,6 +2614,11 @@ class ES_System extends CI_Model {
 				unset($wxlist[$k]);
 			}
 		}
+		//
+		$settinglists = db_getone(table('setting'), array('title'=>'setting'));
+		$settinglists = string2array($settinglists['content']);
+		$settingother = $settinglists['other'];
+		//
         tpl(get_defined_vars());
     }
 

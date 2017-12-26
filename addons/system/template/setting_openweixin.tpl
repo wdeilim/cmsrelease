@@ -15,6 +15,7 @@
     <script type="text/javascript" src="{#$JS_PATH#}ueditor/ueditor.config.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}ueditor/ueditor.all.min.js"></script>
     <style type="text/css">
+        body{overflow-y:scroll;}
         .section{min-height:447px;}
         .topmenu{position:relative;width:990px;height:36px;margin:15px auto 8px;padding-left:18px;background-color:#fff;border-bottom:3px solid #09c}
         .topmenu a{display:block;float:left;line-height:36px;padding:0 12px;margin-right:12px;color:#09c}

@@ -13,6 +13,7 @@
     <script type="text/javascript" src="{#$JS_PATH#}jquery.form.min.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}placeholder.js"></script>
     <style type="text/css">
+        body{overflow-y:scroll;}
         textarea.form-control {width:450px;height:100px;padding-top:5px;}
         .tis{color:#989898;padding-left:5px;}
         .section{min-height:447px;}

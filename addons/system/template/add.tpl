@@ -52,7 +52,7 @@
                     <table class="table table-form tabmenu">
                         <tbody>
                         <tr>
-                            <td class="al-right" width="130"><span>公众号名称</span></td>
+                            <td class="al-right al-top" width="135"><span>公众号名称</span></td>
                             <td>
                                 <input class="form-control" id="wx_name" type="text" name="wx_name" value="{#value($edit,'wx_name')#}"/>
                                 <a href="javascript:void(0);" class="button button-primary button-akey">一键获取</a>
@@ -60,7 +60,7 @@
                         </tr>
                         {#if $edit#}
                             <tr>
-                                <td class="al-right"><span>URL(服务器地址)</span></td>
+                                <td class="al-right al-top"><span>URL(服务器地址)</span></td>
                                 <td>
                                     <input class="form-control" id="_wxurl" type="text"
                                            value="{#$urlarr.index#}weixin/{#value($edit,'id')#}/{#if strexists($urlarr.index,'?')#}?index{#/if#}" disabled="disabled"/>
@@ -69,37 +69,37 @@
                                         {#if $edit['wx_lastin']#}
                                             最后接入时间: {#date("Y-m-d H:i:s", $edit['wx_lastin'])#}
                                         {#else#}
-                                            <a href="http://bbs.vwins.cn/thread-629-1-1.html" target="_blank">最后接入时间: 尚未接入，点击查看详情。</a>
+                                            <a href="{#if $settingother['add_url_1']#}{#$settingother['add_url_1']#}{#else#}http://bbs.vwins.cn/thread-629-1-1.html{#/if#}" target="_blank">最后接入时间: 尚未接入，点击查看详情。</a>
                                         {#/if#}
                                     </div>
                                 </td>
                             </tr>
                         {#else#}
                             <tr>
-                                <td class="al-right"><span>URL(服务器地址)</span></td>
+                                <td class="al-right al-top"><span>URL(服务器地址)</span></td>
                                 <td>
                                     <input class="form-control" value="添加后可查看" style="color:#BBB;" disabled="disabled"/>
                                 </td>
                             </tr>
                         {#/if#}
                         <tr>
-                            <td class="al-right"><span>AppID(应用ID)</span></td>
+                            <td class="al-right al-top"><span>AppID(应用ID)</span></td>
                             <td><input class="form-control" id="wx_appid" type="text" name="wx_appid" value="{#value($edit,'wx_appid')#}" placeholder="留空关闭微信功能"/></td>
                         </tr>
                         <tr>
-                            <td class="al-right"><span>AppSecret(应用密钥)</span></td>
+                            <td class="al-right al-top"><span>AppSecret(应用密钥)</span></td>
                             <td><input class="form-control" id="wx_secret" type="text" name="wx_secret" value="{#value($edit,'wx_secret')#}"/></td>
                         </tr>
                         <tr>
-                            <td class="al-right"><span>Token(令牌)</span></td>
+                            <td class="al-right al-top"><span>Token(令牌)</span></td>
                             <td><input class="form-control" id="wx_token" type="text" name="wx_token" value="{#value($edit,'wx_token')#}"/></td>
                         </tr>
                         <tr>
-                            <td class="al-right"><span>EncodingAESKey</span></td>
+                            <td class="al-right al-top"><span>EncodingAESKey</span></td>
                             <td><input class="form-control" id="wx_aeskey" type="text" name="wx_aeskey" value="{#value($edit,'wx_aeskey')#}"/></td>
                         </tr>
                         <tr>
-                            <td class="al-right"><span>认证级别</span></td>
+                            <td class="al-right al-top"><span>认证级别</span></td>
                             <td class="form-reg">
                                 <select id="wx_level" name="wx_level" style="width:110px;">
                                     <option value="1">普通订阅号</option>
@@ -111,21 +111,21 @@
                             </td>
                         </tr>
                         <tr style="display:none;color:#AAA;" id="wx_level_tis">
-                            <td class="al-right"><span>OAuth 2.0</span></td>
+                            <td class="al-right "><span>OAuth 2.0</span></td>
                             <td class="form-reg">
-                                非公众号授权的接入开发者需要先到公众平台网站的【开发者中心】<strong>网页账号</strong>中配置授权回调域名。<a href="http://bbs.vwins.cn/thread-591-1-1.html" target="_blank" class="normal-link">详情</a>
+                                非公众号授权的接入开发者需要先到公众平台网站的【开发者中心】<strong>网页账号</strong>中配置授权回调域名。<a href="{#if $settingother['add_url_2']#}{#$settingother['add_url_2']#}{#else#}http://bbs.vwins.cn/thread-591-1-1.html{#/if#}" target="_blank" class="normal-link">详情</a>
                             </td>
                         </tr>
                         <tr>
-                            <td class="al-right"><span>引导关注素材</span></td>
+                            <td class="al-right al-top"><span>引导关注素材</span></td>
                             <td>
                                 <input class="form-control" id="wx_suburl" type="text" name="wx_suburl" value="{#value($edit,'wx_suburl')#}" placeholder="选填"/>
                                 <a id="_wxsuburl" href="javascript:;" class="normal-link" title="点击查看示例">示例</a>
                             </td>
                         </tr>
                         <tr>
-                            <td class="al-right"><span>微信支付参数</span></td>
-                            <td>
+                            <td class="al-right al-top"><span>微信支付参数</span></td>
+                            <td class="al-top">
                                 <a href="javascript:;" onclick="showhide(this,'payment-wx');" class="normal-link"> 点击展开设置 </a>
                                 <table class="table table-form payment" id="payment-wx">
                                     <tbody>
@@ -213,7 +213,7 @@
                                         <td class="al-right" valign="top"><span>商户支付密钥<br/>(API密钥)</span></td>
                                         <td>
                                             <input class="form-control" type="text" name="payment[weixin][apikey]" id="weixinapikey" value="{#value($edit,'payment|weixin|apikey')#}" placeholder="请输入32个字符，只允许输入数字和英文大小写字母的组合。"/><br/>
-                                            <span class="help-block">此值需要手动在腾讯商户后台API密钥保持一致，<a href="http://bbs.vwins.cn/thread-585-1-1.html" target="_blank">查看设置教程</a></span>
+                                            <span class="help-block">此值需要手动在腾讯商户后台API密钥保持一致，<a href="{#if $settingother['add_url_3']#}{#$settingother['add_url_3']#}{#else#}http://bbs.vwins.cn/thread-585-1-1.html{#/if#}" target="_blank">查看设置教程</a></span>
                                         </td>
                                     </tr>
 
@@ -226,8 +226,8 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="al-right"><span>借用网页授权登录</span></td>
-                            <td class="get_class">
+                            <td class="al-right al-top"><span>借用网页授权登录</span></td>
+                            <td class="get_class al-top">
                                 <a href="javascript:;" onclick="showhide(this,'payment-wxoauth');" class="normal-link">点击展开设置</a>
                                 <span class="isget"></span>
                                 <table class="table table-form payment" id="payment-wxoauth">
@@ -292,8 +292,8 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="al-right"><span>借用 JS 分享接口</span></td>
-                            <td class="get_class">
+                            <td class="al-right al-top"><span>借用 JS 分享接口</span></td>
+                            <td class="get_class al-top">
                                 <a href="javascript:;" onclick="showhide(this,'payment-wxjs');" class="normal-link">点击展开设置</a>
                                 <span class="isget"></span>
                                 <table class="table table-form payment" id="payment-wxjs">
@@ -344,7 +344,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="al-right"><span>二维码图片</span></td>
+                            <td class="al-right al-top"><span>二维码图片</span></td>
                             <td>{#tpl_form_image("wx_qrcode", value($edit,'wx_qrcode'))#}</td>
                         </tr>
                         <tr>
@@ -367,12 +367,12 @@
                     <table class="table table-form tabmenu">
                         <tbody>
                         <tr>
-                            <td class="al-right" width="130"><span>服务窗名称</span></td>
+                            <td class="al-right al-top" width="135"><span>服务窗名称</span></td>
                             <td><input class="form-control" id="al_name" type="text" name="al_name" value="{#value($edit,'al_name')#}"/></td>
                         </tr>
                         {#if $edit#}
                             <tr>
-                                <td class="al-right"><span>应用网关</span></td>
+                                <td class="al-right al-top"><span>应用网关</span></td>
                                 <td>
                                     <input class="form-control" id="_alurl" type="text"
                                            value="{#$urlarr.index#}alipay/{#value($edit,'id')#}/{#if strexists($urlarr.index,'?')#}?index{#/if#}" disabled="disabled"/>
@@ -381,38 +381,38 @@
                                         {#if $edit['al_lastin']#}
                                             最后接入时间: {#date("Y-m-d H:i:s", $edit['al_lastin'])#}
                                         {#else#}
-                                            <a href="http://bbs.vwins.cn/thread-630-1-1.html" target="_blank">最后接入时间: 尚未接入，点击查看详情。</a>
+                                            <a href="{#if $settingother['add_url_1']#}{#$settingother['add_url_1']#}{#else#}http://bbs.vwins.cn/thread-629-1-1.html{#/if#}" target="_blank">最后接入时间: 尚未接入，点击查看详情。</a>
                                         {#/if#}
                                     </div>
                                 </td>
                             </tr>
                         {#else#}
                             <tr>
-                                <td class="al-right"><span>应用网关</span></td>
+                                <td class="al-right al-top"><span>应用网关</span></td>
                                 <td>
                                     <input class="form-control" value="添加后可查看" style="color:#BBB;" disabled="disabled"/>
                                 </td>
                             </tr>
                         {#/if#}
                         <tr>
-                            <td class="al-right"><span>APPID</span></td>
+                            <td class="al-right al-top"><span>APPID</span></td>
                             <td><input class="form-control" id="al_appid" type="text" name="al_appid" value="{#value($edit,'al_appid')#}" placeholder="留空关闭服务窗功能"/></td>
                         </tr>
                         <tr>
-                            <td class="al-right"><span>支付宝网关地址</span></td>
+                            <td class="al-right al-top"><span>支付宝网关地址</span></td>
                             <td><input class="form-control" id="al_gateway" type="text" name="al_gateway" value="{#value($edit,'al_gateway','','https://openapi.alipay.com/gateway.do')#}"/></td>
                         </tr>
                         <tr>
-                            <td class="al-right"><span>支付宝公钥（RSA)</span></td>
+                            <td class="al-right al-top"><span>支付宝公钥（RSA)</span></td>
                             <td><textarea class="form-control" id="al_rsa" name="al_rsa">{#value($edit,'al_rsa')#}</textarea></td>
                         </tr>
                         <tr>
-                            <td class="al-right"><span>应用公钥（RSA）</span></td>
+                            <td class="al-right al-top"><span>应用公钥（RSA）</span></td>
                             <td><textarea class="form-control" id="al_key" name="al_key" placeholder="建议留空自动生成">{#value($edit,'al_key')#}</textarea></td>
                         </tr>
                         <tr>
-                            <td class="al-right"><span>无线支付参数</span></td>
-                            <td>
+                            <td class="al-right al-top"><span>无线支付参数</span></td>
+                            <td class="al-top">
                                 <a href="javascript:;" onclick="showhide(this,'payment');" class="normal-link"> 点击展开设置 </a>
                                 <table class="table table-form payment" id="payment">
                                     <tbody>
@@ -447,13 +447,13 @@
                             </td>
                         </tr>
                         <tr style="display:none;">
-                            <td class="al-right"><span>服务所在地区</span></td>
+                            <td class="al-right al-top"><span>服务所在地区</span></td>
                             <td class="form-reg">
                                 <input class="form-control" type="text" name="linkaddr" id="linkaddr" value="{#value($edit,'linkaddr','',$user.linkaddr)#}"/>
                             </td>
                         </tr>
                         <tr>
-                            <td class="al-right"><span>二维码图片</span></td>
+                            <td class="al-right al-top"><span>二维码图片</span></td>
                             <td>{#tpl_form_image("al_qrcode", value($edit,'al_qrcode'))#}</td>
                         </tr>
                         <tr>

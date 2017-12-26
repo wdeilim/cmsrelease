@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{#$CSS_PATH#}admin/detail.css"/>
     <link rel="stylesheet" href="{#$CSS_PATH#}font-awesome.css"/>
     <style type="text/css">
+        body{overflow-y:scroll;}
         .form-information { border: 1px solid #ffffff; }
         .table-information tbody tr td { border-left: 1px solid #ffffff; border-top: 1px solid #ffffff; padding: 5px 10px; }
     </style>

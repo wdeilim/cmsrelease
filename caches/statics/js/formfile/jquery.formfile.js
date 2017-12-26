@@ -106,7 +106,7 @@ $.__formfile_fun = {
         if (t === 0) return;
         setTimeout(function() { $intemp.fadeOut(); }, t || 2000)
     },
-    inimages: function(callback, imgurl, indexurl){
+    inimages: function(callback, imgurl, indexurl, isanimate){
         var tthis = this;
         tthis.close();
         var intemp = $('<div class="jQuery-formfile">' +
@@ -114,8 +114,8 @@ $.__formfile_fun = {
             '<div class="jQuery-form-content">' +
             '<div class="formfile-title"><em id="f-cancel">×</em><span class="formfile-call"></span>请选择图片</div>' +
             '<div class="formfile-subtitle">' +
-            '<p class="hover">网络图片</p>' +
-            '<p>上传图片</p>' +
+            '<p data-type="view" class="hover">网络图片</p>' +
+            '<p data-type="up">上传图片</p>' +
             '</div> ' +
             '<div class="formfile-content">' +
             '<p class="hover">' +
@@ -151,7 +151,11 @@ $.__formfile_fun = {
             tthis.out();
         });
         //动画显示
-        intemp.find(".jQuery-form-content").animate({top: "30px"});
+        if (isanimate === false) {
+            intemp.find(".jQuery-form-content").css({top: "30px"});
+        }else{
+            intemp.find(".jQuery-form-content").animate({top: "30px"});
+        }
         //点击选项卡
         intemp.find(".formfile-subtitle p").each(function(index){
             $(this).click(function(){
@@ -160,11 +164,14 @@ $.__formfile_fun = {
                 intemp.find(".formfile-content>p").removeClass("hover");
                 intemp.find(".formfile-subtitle>p").eq(index).addClass("hover");
                 intemp.find(".formfile-content>p").eq(index).addClass("hover");
+                if ($(this).attr("data-type") == "up") {
+                    intemp.find(".formfile_imagebut").click();
+                }
             });
         });
         //浏览图片空间
         intemp.find("#formfile_imagesbutton").click(function(){
-            tthis.viewimages(callback, indexurl, $(this).prev("input").val());
+            tthis.viewimages(callback, indexurl, $(this).prev("input").val(), imgurl);
         });
         //点击选择图片
         intemp.find(".formfile_imagebut").click(function(){
@@ -234,7 +241,7 @@ $.__formfile_fun = {
         });
         $("body").append(intemp);
     },
-    viewimages: function(callback, indexurl, nowval){
+    viewimages: function(callback, indexurl, nowval, imgurl){
         var tthis = this;
         tthis.close();
         var intemp = $('<div class="jQuery-formfile">' +
@@ -242,7 +249,7 @@ $.__formfile_fun = {
             '<div class="jQuery-form-content">' +
             '<div class="formfile-title"><em id="f-cancel">×</em><span class="formfile-call"></span>浏览图片空间的图片</div>' +
             '<div class="formfile-item">正在加载...</div>' +
-            '<div class="formfile-button"><p class="hover" id="f-confirm">确定</p><p id="f-cancel">取消</p></div> ' +
+            '<div class="formfile-button"><p class="hover" id="f-confirm">确定</p><p id="f-cancel-off">取消</p></div> ' +
             '</div>' +
             '</div>');
         //原路径
@@ -253,9 +260,13 @@ $.__formfile_fun = {
         }).click(function(){
             tthis.out();
         });
-        //点击关闭 取消
+        //点击关闭
         intemp.find("#f-cancel").click(function(){
             tthis.out();
+        });
+        //点击取消
+        intemp.find("#f-cancel-off").click(function(){
+            tthis.inimages(callback, imgurl, indexurl, false);
         });
         //调整宽度
         var w = $(window).width();

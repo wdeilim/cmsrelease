@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{#$CSS_PATH#}admin/detail.css"/>
     <link rel="stylesheet" href="{#$CSS_PATH#}font-awesome.css"/>
     <style type="text/css">
+        body{overflow-y:scroll;}
         .utis{padding:15px;margin-bottom:20px;border:1px solid #ebccd1;border-radius:4px;color:#a94442;background-color:#f2dede}
         .normal-link{color:#257ad0}
         .normal-link:hover{text-decoration:underline}

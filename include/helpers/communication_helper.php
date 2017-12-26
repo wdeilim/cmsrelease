@@ -136,7 +136,7 @@ function ihttp_response_parse($data, $chunked = false) {
     foreach ($header as $v) {
         $row = explode(':', $v);
         $key = trim($row[0]);
-        $value = trim($row[1]);
+        $value = trim(substr($v, strlen($row[0]) + 1));
         if (is_array($rlt['headers'][$key])) {
             $rlt['headers'][$key][] = $value;
         } elseif (!empty($rlt['headers'][$key])) {

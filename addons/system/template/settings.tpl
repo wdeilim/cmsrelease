@@ -15,6 +15,7 @@
     <script type="text/javascript" src="{#$JS_PATH#}ueditor/ueditor.config.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}ueditor/ueditor.all.min.js"></script>
     <style type="text/css">
+        body{overflow-y:scroll;position:relative;}
         textarea.form-control{width:450px;height:100px;padding-top:5px}
         .section{min-height:447px;}
         .tis{color:#989898;padding-left:5px}
@@ -36,6 +37,9 @@
         .sqllabel{width:550px;line-height:38px;}
         .sqllabel label{display:block;float:left;width:165px;}
         .sqllabel label input{margin-right:3px;margin-bottom:1px;vertical-align:middle}
+        .showimg {color:#4596ff;cursor:pointer;}
+        #text-tooltip{position:absolute;background-color:#fff;padding:8px;border:1px solid #cc7116;z-index:999999}
+        #text-tooltip img{display:block;margin:10px 0 0;max-width:600px;max-height:600px}
     </style>
 </head>
 <body>
@@ -422,7 +426,7 @@
                                             <td class="al-right"><span>地图上的公司名称</span></td>
                                             <td>
                                                 <input class="form-control" type="text" name="tem[t2][comp]" value="{#$tem['t2']['comp']#}">
-                                                <span class="tis">留空显示：广西三顾网络科技有限公司</span>
+                                                <span class="tis">留空显示：广西伊索网络科技有限公司</span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -507,6 +511,27 @@
                                             <td class="al-right"><span>用户注册协议</span></td>
                                             <td class="form-uetext">
                                                 <script id="otherregagreement" name="other[regagreement]" type="text/plain" style="width: 770px;height: 300px;">{#value($setting['content']['other'],'regagreement')#}</script>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="al-right"><span>接入页外网链接1</span></td>
+                                            <td>
+                                                <input class="form-control" type="text" name="other[add_url_1]" value="{#$setting['content']['other']['add_url_1']#}">
+                                                <div class="tis">添加接入页[URL]部分[尚未接入，点击查看详情]跳转链接地址。<span class="showimg" data-img="{#$NOW_PATH#}images/add_1.jpg">图示</span></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="al-right"><span>接入页外网链接2</span></td>
+                                            <td>
+                                                <input class="form-control" type="text" name="other[add_url_2]" value="{#$setting['content']['other']['add_url_2']#}">
+                                                <div class="tis">添加接入页[认证级别]部分[详情]跳转链接地址。<span class="showimg" data-img="{#$NOW_PATH#}images/add_2.jpg">图示</span></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="al-right"><span>接入页外网链接3</span></td>
+                                            <td>
+                                                <input class="form-control" type="text" name="other[add_url_3]" value="{#$setting['content']['other']['add_url_3']#}">
+                                                <div class="tis">添加接入页[微信支付参数]部分[查看设置教程]跳转链接地址。<span class="showimg" data-img="{#$NOW_PATH#}images/add_3.jpg">图示</span></div>
                                             </td>
                                         </tr>
                                         <tr>
@@ -633,6 +658,24 @@
                 }
             });
             return false;
+        });
+        //
+        $(".showimg").mouseover(function(e){
+            var _img = $(this).attr("data-img");
+            _img = (_img)?"<img src='"+_img+"'/>":'';
+            var $tooltip = $("<div id='text-tooltip'>"+_img+"</div>"); //创建 div 元素
+            $("body").append($tooltip); //把它追加到文档中
+            $("#text-tooltip").css({
+                "bottom": ($("body").height() - e.pageY) + "px",
+                "left":  (e.pageX+10)  + "px"
+            }).show("fast");   //设置x坐标和y坐标，并且显示
+        }).mouseout(function(){
+            $("#text-tooltip").remove();  //移除
+        }).mousemove(function(e){
+            $("#text-tooltip").css({
+                "bottom": ($("body").height() - e.pageY) + "px",
+                "left":  (e.pageX+10)  + "px"
+            });
         });
     });
 </script>

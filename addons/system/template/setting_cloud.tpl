@@ -15,7 +15,7 @@
     <script type="text/javascript" src="{#$JS_PATH#}ueditor/ueditor.config.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}ueditor/ueditor.all.min.js"></script>
 </head>
-<body>
+<body style="overflow-y:scroll;">
 
 {#include file="header_admin.tpl"#}
 <script>$('#head-nav-menu>li:eq(2)').addClass('active');</script>

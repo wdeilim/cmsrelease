@@ -13,6 +13,7 @@
     <script type="text/javascript" src="{#$JS_PATH#}jquery.form.min.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}datepicker/WdatePicker.js"></script>
     <style>
+        body{overflow-y:scroll;}
         .utis{padding:15px;margin-bottom:20px;border:1px solid #ebccd1;border-radius:4px;color:#a94442;background-color:#f2dede}
         .button-upgrade{display:block;font-size:14px;margin:100px auto;padding:8px 16px}
         .upgradeinfo{width:800px;overflow:hidden;line-height:20px}

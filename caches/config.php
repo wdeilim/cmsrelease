@@ -40,7 +40,7 @@ define('SMS_OPEN', (defined('DIY_SMS_OPEN')&&DIY_SMS_OPEN)?DIY_SMS_OPEN:0);
 define('SMS_PROPORTION', (defined('DIY_SMS_PROPORTION')&&DIY_SMS_PROPORTION>0)?DIY_SMS_PROPORTION:10);
 
 //底部信息
-define('BOTTOM_INFO', (defined('DIY_BOTTOM_INFO')&&DIY_BOTTOM_INFO)?DIY_BOTTOM_INFO:'广西三顾网络科技有限公司 版权所有 备案号：<a href="http://www.miitbeian.gov.cn/" target="_blank">桂ICP备14000021号-5</a><br/>地址：广西南宁青秀区长湖路24号浩天广场1007号 技术支持：<a href="http://www.vwins.cn">伊索网络</a> 联系电话：0771-5671712 传真：0771-5671712');
+define('BOTTOM_INFO', (defined('DIY_BOTTOM_INFO')&&DIY_BOTTOM_INFO)?DIY_BOTTOM_INFO:'广西伊索网络科技有限公司 版权所有 备案号：<a href="http://www.miitbeian.gov.cn/" target="_blank">桂ICP备14000021号</a><br/>地址：广西南宁青秀区长湖路24号浩天广场1007号 技术支持：<a href="http://www.vwins.cn">伊索网络</a> 联系电话：0771-5671712 传真：0771-5671712');
 
 //定义框架路径
 define('BASE_PATH', dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR);

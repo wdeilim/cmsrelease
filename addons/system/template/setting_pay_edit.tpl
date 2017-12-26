@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{#$CSS_PATH#}admin/detail.css"/>
     <link rel="stylesheet" href="{#$CSS_PATH#}font-awesome.css"/>
     <style type="text/css">
+        body{overflow-y:scroll;}
         .utis{padding:15px;margin-bottom:20px;border:1px solid #ebccd1;border-radius:4px;color:#a94442;background-color:#f2dede}
         .table-setting th {border-bottom: 1px solid #e1e1e1;text-align:right;padding-right:15px;}
         .table-setting td {border-bottom: 1px solid #e1e1e1}

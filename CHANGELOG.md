@@ -207,3 +207,13 @@
 新增微信开放平台公众号第三方平台接入；
 ```
 
+## 3.0_20160818
+
+> Release Time: 2016-08-18
+>
+> Download Link: http://www.vwins.cn/index.php?act=download&id=77
+
+```
+新增添加接入页外网链接自定义设置[系统设置>>其他设置]
+```
+
