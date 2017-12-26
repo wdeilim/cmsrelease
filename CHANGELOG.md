@@ -105,3 +105,16 @@ Bug #5675 Reference bug in php 4.4 5.1 etc
 	New login example
 ```
 
+## 0.2.5
+
+> Release Time: 2005-11-01
+>
+> Download Link: http://download.pear.php.net/package/HTML_AJAX-0.2.5.tgz
+
+```
+Small optimizations and cleanup of HTML_AJAX and HTML_AJAX_Server
+	Case fixes for specifing case while exporting a class
+	Fix url creation in javascript allowing server urls to contain parameters
+	Added a flag to turn off sending a Content-Length header
+```
+
