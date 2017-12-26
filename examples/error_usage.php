@@ -8,7 +8,7 @@
  * @author     David Coallier <davidc@agoraproduction.com>
  * @copyright  2005 David Coallier
  * @license    LGPL http://www.gnu.org/copyleft/lesser.txt
- * @version    Release: @package_version@
+ * @version    Release: 0.5.2
  * @link       http://pear.php.net/package/HTML_AJAX
  */
 require_once 'HTML/AJAX.php';

@@ -298,3 +298,13 @@ Update HTML_AJAX_Action to use HTML_AJAX_Util.setInnerHTML
 * Initial setup of unit tests for javascript
 ```
 
+## 0.5.2
+
+> Release Time: 2007-05-07
+>
+> Download Link: http://download.pear.php.net/package/HTML_AJAX-0.5.2.tgz
+
+```
+* Fix Bug #10973: package.xml does not replace '@data-dir@' [jeichorn]
+```
+
