@@ -5,7 +5,7 @@
  * @category   HTML
  * @package    AJAX
  * @license    http://www.opensource.org/licenses/lgpl-license.php  LGPL
- * @version    Release: 0.5.5
+ * @version    Release: 0.5.6
  * @link       http://pear.php.net/package/HTML_AJAX
  */
 

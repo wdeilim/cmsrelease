@@ -345,3 +345,19 @@ Update HTML_AJAX_Action to use HTML_AJAX_Util.setInnerHTML
 * Fix for bug #13616, HTML_AJAX_lite.js wasn't rebuilt in the 0.5.4 release
 ```
 
+## 0.5.6
+
+> Release Time: 2008-06-16
+>
+> Download Link: http://download.pear.php.net/package/HTML_AJAX-0.5.6.tgz
+
+```
+* Fix Coding Standard Problems
+* Refactor svn code layout, build system
+* Remove usused jsunit code
+* Add support for content-type text/xml #14032
+* Fix combineActions with empty actions #13854
+* Fix Javascript in HTML_AJAX.replace target document doesn't get executed in Opera. #14144 put opera on the ie codepath not the gecko codepath
+* Fix Bug #12027 html_ajax.post and Opera (array), this fix might break older versions of Opera, but supporting the new version seems more important
+```
+

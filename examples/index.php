@@ -1,9 +1,9 @@
 <html>
 <head>
-<title>HTML_AJAX 0.5.3 Examples</title>
+<title>HTML_AJAX 0.5.6 Examples</title>
 </head>
 <body>
-<h1>HTML_AJAX 0.5.3 Examples</h1>
+<h1>HTML_AJAX 0.5.6 Examples</h1>
 <p>
 These are examples showing the basics of using HTML_AJAX
 </p>

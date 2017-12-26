@@ -2,12 +2,14 @@
 /**
  * HTML/JavaScript Generation Helper
  *
+ * SVN Rev: $Id$
+ *
  * @category   HTML
  * @package    AJAX
  * @author     Joshua Eichorn <josh@bluga.net>
  * @copyright  2005 Joshua Eichorn
  * @license    http://www.opensource.org/licenses/lgpl-license.php  LGPL
- * @version    Release: 0.5.5
+ * @version    Release: 0.5.6
  */
 
 /**
@@ -18,7 +20,7 @@
  * @author     Joshua Eichorn <josh@bluga.net>
  * @copyright  2005 Joshua Eichorn
  * @license    http://www.opensource.org/licenses/lgpl-license.php  LGPL
- * @version    Release: 0.5.5
+ * @version    Release: 0.5.6
  * @link       http://pear.php.net/package/HTML_AJAX
  */
 class HTML_AJAX_Helper 

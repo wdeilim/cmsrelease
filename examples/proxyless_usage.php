@@ -23,7 +23,7 @@
  * @author     Joshua Eichorn <josh@bluga.net>
  * @copyright  2005 Joshua Eichorn
  * @license    http://www.opensource.org/licenses/lgpl-license.php  LGPL
- * @version    Release: 0.5.5
+ * @version    Release: 0.5.6
  * @link       http://pear.php.net/package/HTML_AJAX
  */
 ?>
@@ -63,6 +63,16 @@ function grabSync() {
 
 function grabAsync() {
 	HTML_AJAX.grab(url,grabCallback);
+}
+
+function grabXML() {
+    HTML_AJAX.grab('support/test.xml',function(result) {
+        out = "Got XML: \n";
+        out += result.childNodes.length + " child nodes\n";
+        out += "name = " + result.getElementsByTagName('name')[0].textContent;
+
+       document.getElementById('target').innerHTML = out;
+    });
 }
 
 function grabCallback(result) {
@@ -132,6 +142,7 @@ function callCallback(result) {
 	<li><a href="javascript:clearTarget()">Clear Target</a></li>
 	<li><a href="javascript:grabSync()">Run Sync Grab Example</a></li>
 	<li><a href="javascript:grabAsync()">Run Async Grab  Example</a></li>
+	<li><a href="javascript:grabXML()">Use grab to get an xml file</a></li>
 	<li><a href="javascript:postSync()">Run Sync Post Example</a></li>
 	<li><a href="javascript:postAsync()">Run Async Post  Example</a></li>
 	<li><a href="javascript:replaceUrl()">Replace with content from a url</a></li>

@@ -149,7 +149,7 @@ if (window.ActiveXObject && window['DOMParser'] == 'undefined') {
  * HTML_AJAX static methods, this is the main proxyless api, it also handles global error and event handling
  */
 var HTML_AJAX = {
-	version: '0.5.5',
+	version: '0.5.6',
 	defaultServerUrl: false,
 	defaultEncoding: 'JSON',
 	queues: false,
@@ -314,7 +314,7 @@ var HTML_AJAX = {
 		'Error':		'application/error',
 		'PHP':			'application/php-serialized',
 		'HA' :			'application/html_ajax_action',
-		'Urlencoded':	'application/x-www-form-urlencoded'
+		'Urlencoded':		'application/x-www-form-urlencoded'
 	},
 	// used internally to make queues work, override Load or onError to perform custom events when a request is complete
 	// fires on success and error
@@ -1772,16 +1772,11 @@ HTML_AJAX_HttpClient.prototype = {
 			}
 			if (this.request.customHeaders && !this.request.customHeaders['Content-Type']) {
 				var content = this.request.getContentType();
-				//opera is stupid for anything but plain text or xml!!
-				if(window.opera && content != 'application/xml')
-				{
-					this.xmlhttp.setRequestHeader('Content-Type','text/plain; charset=utf-8');
-					this.xmlhttp.setRequestHeader('x-Content-Type', content + '; charset=utf-8');
+				var charsetIndex = content.indexOf('; charset=UTF-8');
+				if (charsetIndex == -1) {
+					content += '; charset=UTF-8';
 				}
-				else
-				{
-					this.xmlhttp.setRequestHeader('Content-Type', content +  '; charset=utf-8');
-				}
+				this.xmlhttp.setRequestHeader('Content-Type', content);
 			}
 
 			if (this.request.isAsync) {
@@ -1915,7 +1910,7 @@ HTML_AJAX_HttpClient.prototype = {
 			content = content.substring(0, content.indexOf(';'));
 		}
 		// hook for xml, it doesn't need to be unserialized
-		if(content == 'application/xml')
+		if(content == 'application/xml' || content == 'text/xml')
 		{
 			return this.xmlhttp.responseXML;
 		}
@@ -1997,7 +1992,7 @@ HTML_AJAX_Request.prototype = {
 	priority: 0,
 
 	// a hash of headers to add to add to this request
-	customHeaders: {'X-Requested-With': 'XMLHttpRequest', 'X-Ajax-Engine': 'HTML_AJAX/0.5.5'},
+	customHeaders: {'X-Requested-With': 'XMLHttpRequest', 'X-Ajax-Engine': 'HTML_AJAX/0.5.6'},
 
 	// true if this request will be sent using iframes
 	iframe: false,
@@ -2890,7 +2885,7 @@ var HTML_AJAX_Util = {
 			}
 			node.innerHTML = '';
 		}
-		var good_browser = (window.opera || navigator.product == 'Gecko');
+		var good_browser = (navigator.product == 'Gecko');
 		var regex = /^([\s\S]*?)<script([\s\S]*?)>([\s\S]*?)<\/script>([\s\S]*)$/i;
 		var regex_src = /src=["'](.*?)["']/i;
 		var matches, id, script, output = '', subject = innerHTML;
