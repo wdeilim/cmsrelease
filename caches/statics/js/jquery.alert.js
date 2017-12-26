@@ -12,7 +12,7 @@ jQuery.alert = function(e, t, p, but, bk) {
     if (e === 0) return;
 	var m = Math.round(Math.random() * 10000);
     if (but) e+= but;
-	var n = '<div class="jQuery-ui-alert" style="position:fixed;top:0;left:0;padding:15px 10px;min-width:100px;opacity:1;min-height:25px;text-align:center;color:#fff;display:block;z-index:2147483647;border-radius:3px;background-color: rgba(51,51,51,.9); opacity:1;font-size:14px; line-height:22px;" id="jQuery-ui-alert-' + m + '" >' + e + '</div>' +
+	var n = '<div class="jQuery-ui-alert" style="position:fixed;top:0;left:0;padding:15px 10px;min-width:100px;opacity:1;min-height:25px;text-align:center;color:#fff;display:block;z-index:2147483647;border-radius:3px;background-color: rgba(51,51,51,.9); opacity:1;font-size:14px;" id="jQuery-ui-alert-' + m + '" >' + e + '</div>' +
         '<div class="jQuery-ui-alert-back" style="display:none;z-index:2147483646" id="jQuery-ui-alert-back-' + m + '"></div>';
 	$("body").append(n);
 	var nobjbg = $('#jQuery-ui-alert-back-' + m);
@@ -35,9 +35,9 @@ jQuery.alert = function(e, t, p, but, bk) {
         isMobile = isIphone || isAndroid;
     if(isMobile) {
         if ($(window).width()>=640){
-            nobj.css({"padding":"25px 20px","font-size":"20px"});
+            nobj.css({"padding":"25px 20px","font-size":"20px", "line-height":"28px"});
         }else{
-            nobj.css({"padding":"15px 10px","font-size":"14px"});
+            nobj.css({"padding":"15px 10px","font-size":"14px", "line-height":"22px"});
         }
     }
     if (!p)	nobj.click(function(){ nobj.removeClass("jQuery-ui-alert-style").fadeOut(); nobjbg.hide(); });
@@ -69,18 +69,39 @@ jQuery.alertk = function(e, t, p, but) {
     $.alert(e, t, p, but, 1)
 };
 jQuery.alertb = function(e, but, diy) {
+    var ua = navigator.userAgent;
+    var ipad = ua.match(/(iPad).*OS\s([\d_]+)/),
+        isIphone = !ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/),
+        isAndroid = ua.match(/(Android)\s+([\d.]+)/),
+        isMobile = isIphone || isAndroid,
+        div_margin = '15px -10px -15px';
+    if(isMobile && $(window).width()>=640) {
+        div_margin = '20px -20px -25px';
+    }
     if (!but) but = "确定";
     var _click =  (!diy)?'onclick="$.alert(0)" ':'';
-    $.alert(e, 0, 1, '<div '+_click+' style="text-align:center;padding:5px;border-top:1px solid #ECECEC;margin:15px -10px -15px;">'+but+'</div>')
+    $.alert(e, 0, 1, '<div '+_click+' style="text-align:center;padding:5px;border-top:1px solid #ECECEC;margin:'+div_margin+';">'+but+'</div>')
 };
 jQuery.confirm = function(e, qfun, cfun, q, c) {
+    var ua = navigator.userAgent;
+    var ipad = ua.match(/(iPad).*OS\s([\d_]+)/),
+        isIphone = !ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/),
+        isAndroid = ua.match(/(Android)\s+([\d.]+)/),
+        isMobile = isIphone || isAndroid,
+        div_margin = '15px -10px -15px',
+        div_padding = '6px 10px';
+    if(isMobile && $(window).width()>=640) {
+        div_margin = '20px -20px -25px';
+        div_padding = '12px 20px';
+    }
+    //
     if (typeof e == "object") {
         if (e.title === undefined) {
             if (e.content !== undefined) {
                 e.title = e.content;
             }
         }
-        var _tempbut = '<div style="margin:15px -10px -15px;border-top:1px solid #ECECEC;display:-webkit-box;">';
+        var _tempbut = '<div style="margin:'+div_margin+';border-top:1px solid #ECECEC;display:-webkit-box;">';
         if (Object.prototype.toString.call(e.button) !== '[object Array]') {
             e.button = e.button ? [e.button] : [];
         }
@@ -89,7 +110,7 @@ jQuery.confirm = function(e, qfun, cfun, q, c) {
             var attcss = '';
             if (i > 0) { attcss = 'border-left:1px solid #6F6F6F;margin-left:-1px'; }
             _tempbut+= '<div id="jQuery-ui-confirmq-'+(_m+i)+'" ' +
-                'style="display:block;-webkit-box-flex:1;text-align:center;padding:5px 8px;cursor:pointer;'+attcss+'">'+val.title+'</div>';
+                'style="display:block;-webkit-box-flex:1;text-align:center;padding:'+div_padding+';cursor:pointer;'+attcss+'">'+val.title+'</div>';
         });
         _tempbut+= '<div style="clear: both;"></div>';
         _tempbut+= '</div>';
@@ -111,7 +132,7 @@ jQuery.confirm = function(e, qfun, cfun, q, c) {
     if (!c) c = "取消";
     if (!qfun && !cfun) qfun = function(){};
     var m = Math.round(Math.random() * 10000);
-    var tempbut = '<div style="margin:15px -10px -15px;border-top:1px solid #ECECEC;">';
+    var tempbut = '<div style="margin:'+div_margin+';border-top:1px solid #ECECEC;">';
     var tempwid = '100%';
     if (qfun && cfun) {
         tempwid = '50%';

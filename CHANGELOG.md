@@ -176,3 +176,13 @@
 修复微信分享接口的bug。
 ```
 
+## 3.0_20160527
+
+> Release Time: 2016-05-27
+>
+> Download Link: http://www.vwins.cn/index.php?act=download&id=74
+
+```
+修复一个高危漏洞（getshell）请尽快升级此版本！
+```
+

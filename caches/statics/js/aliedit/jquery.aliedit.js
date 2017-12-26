@@ -833,7 +833,7 @@ $.fn.aliedit = function(paramet) {
 
         //视频
         intemp+='<div class="aliedit-content-6">';
-        intemp+='<div class="aliedit-question" onclick="$.__aliedit_fun.clicktis(this)" data-tis="支持语音格式：mp4、限制大小：10MB；\r\n已认证的微信公众号(包含:订阅好/服务号)将直接通过素材发送；\r\n不符合格式要求的或未认证公众号和支付宝服务窗通过图文形式发送。"><img src="'+$.__aliedit_fun.path+'/skins/default/question.png"></div>';
+        intemp+='<div class="aliedit-question" onclick="$.__aliedit_fun.clicktis(this)" data-tis="支持视频格式：mp4、限制大小：10MB；\r\n已认证的微信公众号(包含:订阅好/服务号)将直接通过素材发送；\r\n不符合格式要求的或未认证公众号和支付宝服务窗通过图文形式发送。"><img src="'+$.__aliedit_fun.path+'/skins/default/question.png"></div>';
         intemp+='<div class="imagetext-content" style="margin-top:38px">';
         intemp+=' <div class="aliedit-inputbox" style="padding-right:100px;">';
         intemp+='   <input class="form-control-aliedit" type="text" name="'+eve.attr("name")+'[video]" value="'+ejosn.video+'" readonly="true" style="cursor:no-drop" onmouseover="$.__aliedit_fun.mouseovervideo(this)" onmouseout="$.__aliedit_fun.mouseovervideo(this,1)" placeholder="选择或上传视频">';

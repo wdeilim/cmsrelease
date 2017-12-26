@@ -3622,6 +3622,11 @@ class ES_System extends CI_Model {
 			$get_appoint = value($_A, 'al|setting|other|get_appoint', true);
 			if (empty($get_appoint) || in_array($_A['module'], $get_appoint)) {
 				$_temp_isget = true; //微信授权 - 借用
+				//
+				$_A['wxget']['appid'] = trim($get_appid);
+				$_A['wxget']['secret'] = trim($_A['al']['setting']['other']['get_secret']);
+				$_A['wxget']['scope'] = trim($_A['al']['setting']['other']['get_scope']);
+				$_A['wxget']['md5'] = substr(md5($_A['wxget']['appid'].$_A['wxget']['secret']), 8, 16);
 			}
 		}
 		//

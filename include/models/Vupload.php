@@ -56,6 +56,7 @@ class Vupload extends CI_Model {
     function upfile($config, $field_name = ""){
         if (empty($config)) return array('success' =>-1);
         $this->make_dir($config['upload_path']);
+        $config['allowed_types'] = $this->upfile_types($config['allowed_types']);
         $this->load->library('upload', $config);
         if (!$this->upload->do_upload($field_name)){
             $data = array('success' =>0, 'message' => $this->upload->display_errors("",""));
@@ -332,6 +333,22 @@ class Vupload extends CI_Model {
     function fileext($file)
     {
         return pathinfo($file, PATHINFO_EXTENSION);
+    }
+
+    function upfile_types($types)
+    {
+        $okt = explode('|', 'png|jpg|jpeg|gif|bmp|flv|swf|mkv|avi|rm|rmvb|mpeg|mpg|ogg|ogv|mov|wmv|mp4|webm|mp3|wma|wav|amr|mid|rar|zip|tar|gz|7z|bz2|cab|iso|doc|docx|xls|xlsx|ppt|pptx|pdf|txt|md|xml');
+        $types = str_replace('/', '|', $types);
+        $types = str_replace(',', '|', $types);
+        $types = str_replace('、', '|', $types);
+        $types = str_replace('，', '|', $types);
+        $typearr = explode('|', $types);
+        foreach ($typearr AS $key=>$item) {
+            if (!in_array($item, $okt)) {
+                unset($typearr[$key]);
+            }
+        }
+        return $typearr?implode('|', $typearr):'';
     }
 }
 ?>
