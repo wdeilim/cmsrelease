@@ -75,6 +75,9 @@ class Smarty_Internal_Runtime_WriteFile
             }
         }
         if (!$success) {
+            $success = $this->directWriteFile($_tmp_file, $_filepath, $_contents);
+        }
+        if (!$success) {
             error_reporting($_error_reporting);
             throw new SmartyException("unable to write file {$_filepath}");
         }
@@ -86,5 +89,19 @@ class Smarty_Internal_Runtime_WriteFile
         error_reporting($_error_reporting);
 
         return true;
+    }
+
+    public function directWriteFile($_tmp_file, $_filepath, $_contents)
+    {
+        if (file_put_contents($_filepath, $_contents)) {
+            if (is_file($_tmp_file)) {
+                if (!unlink($_tmp_file)) {
+                    @file_put_contents($_tmp_file, "");
+                }
+            }
+            return true;
+        }else{
+            return false;
+        }
     }
 }

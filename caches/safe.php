@@ -72,6 +72,17 @@ class _Sys_Safe_Stop {
 	}
 
 	static function remove_xss($string) {
+
+		if (function_exists('get_instance')) {
+			$CI =& get_instance();
+			if ($CI) {
+				get_instance()->load->helper('security');
+				if (function_exists('xss_clean')) {
+					return xss_clean($string);
+				}
+			}
+		}
+
 		$string = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]+/S', '', $string);
 
 		$parm1 = Array('javascript', 'union','vbscript', 'expression', 'applet', 'xml', 'blink', 'link', 'script', 'embed', 'object', 'iframe', 'frame', 'frameset', 'ilayer', 'layer', 'bgsound', 'base');

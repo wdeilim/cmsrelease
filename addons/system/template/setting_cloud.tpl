@@ -56,7 +56,7 @@
                                     <tbody>
                                     <tr>
                                         <td class="al-right"><span>网站地址</span></td>
-                                        <td><input class="form-control" type="text" disabled="disabled" value="{#$smarty.const.BASE_URL#}"></td>
+                                        <td><input class="form-control" type="text" disabled="disabled" value="{#$smarty.const.BASE_URI#}"></td>
                                     </tr>
                                     <tr>
                                         <td class="al-right"><span>云中心账号</span></td>

@@ -771,12 +771,20 @@ class Wx {
         //自定义接口
         if (isset($setting) && $setting['apitype']) {
             if (strexists($setting['api_url'], 'http://') || strexists($setting['api_url'], 'https://')) {
-                $result = $this->procRemote($setting, $M);
+                list($resxml, $result) = $this->procRemote($setting, $M);
                 $M['msgtype'] = 'text';
                 $M['text'] = '{自定义接口回复}';
+                if ($result['MsgType'] == "text") {
+                    $M['text'].= ' - 文本：'.$result['Content'];
+                }else{
+                    $M['text'].= ' - '.str_replace(
+                        array('image', 'voice', 'video', 'music', 'news'),
+                        array('图片', '语音', '视频', '音乐', '图文'),
+                        $result['MsgType']);
+                }
                 $this->savemessage($M, 1);
                 if ($result) {
-                    echo $this->resecho($result);
+                    echo $this->resecho($resxml);
                     return true;
                 }else{
                     return false;
@@ -813,8 +821,13 @@ class Wx {
                 return false;
             }
             if (empty($content['imagetext']['url']) && isset($reply['module'])) {
-                $content['imagetext']['url'] = appurl($reply['module'].'/welcome/',
-                    array('rid'=>$reply['id'], 'from_user' => base64_encode(authcode($M['openid'], 'ENCODE'))));
+                if ($reply['do']) {
+                    $content['imagetext']['url'] = appurl($reply['module'].'/'.$reply['do'].'/',
+                        array('from_user' => base64_encode(authcode($M['openid'], 'ENCODE'))));
+                }else{
+                    $content['imagetext']['url'] = appurl($reply['module'].'/welcome/',
+                        array('rid'=>$reply['id'], 'from_user' => base64_encode(authcode($M['openid'], 'ENCODE'))));
+                }
             }
             $M['text'] = array2string($content['imagetext']);
             $this->savemessage($M, 1);
@@ -1075,10 +1088,11 @@ class Wx {
                 }
             }
         }
+        $reswml = $wxapi->buildRespond($result);
         if (defined('_ISEMULATOR')) {
             $result = $wxapi->array2xml($result);
         }
-        return $result;
+        return array($reswml, $result);
     }
 
     /**
@@ -1236,7 +1250,13 @@ class Wx {
                 if (!isset($processorcs[$a])) {
                     if (file_exists($processor)) {
                         get_instance()->base->inc($processor);
-                        $classname = "ES_Processor_".ucfirst($a);
+                        $classname = "ESP_".ucfirst($a);
+                        if (!class_exists($classname)) {
+                            $classname = "ES_Processor_".ucfirst($a);
+                            if (!class_exists($classname)) {
+                                continue;
+                            }
+                        }
                         $es_site = new $classname();
                         if (method_exists($es_site, 'respond')) {
                             $es_site->respond('weixin');

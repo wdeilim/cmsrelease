@@ -142,6 +142,95 @@ class WXAPI_RESPONSE {
 		return "<xml>\r\n".$xml."\r\n</xml>";
 	}
 
+	public function buildRespond($response = array()) {
+		$msgtype = $response['MsgType'];
+		if ($msgtype == 'text') {
+			$body = "<xml>" . PHP_EOL .
+				"<ToUserName><![CDATA[".$response['ToUserName']."]]></ToUserName>" . PHP_EOL .
+				"<FromUserName><![CDATA[".$response['FromUserName']."]]></FromUserName>" . PHP_EOL .
+				"<CreateTime>".SYS_TIME."</CreateTime>" . PHP_EOL .
+				"<MsgType><![CDATA[text]]></MsgType>" . PHP_EOL .
+				"<Content><![CDATA[".$response['Content']."]]></Content>" . PHP_EOL .
+				"</xml>";
+		}elseif ($msgtype == 'image') {
+			$body = "<xml>" . PHP_EOL .
+				"<ToUserName><![CDATA[".$response['ToUserName']."]]></ToUserName>" . PHP_EOL .
+				"<FromUserName><![CDATA[".$response['FromUserName']."]]></FromUserName>" . PHP_EOL .
+				"<CreateTime>".SYS_TIME."</CreateTime>" . PHP_EOL .
+				"<MsgType><![CDATA[image]]></MsgType>" . PHP_EOL .
+				"<Image>" . PHP_EOL .
+				"<MediaId><![CDATA[".$response['Image']['MediaId']."]]></MediaId>" . PHP_EOL .
+				"</Image>" . PHP_EOL .
+				"</xml>";
+		}elseif ($msgtype == 'voice') {
+			$body = "<xml>" . PHP_EOL .
+				"<ToUserName><![CDATA[".$response['ToUserName']."]]></ToUserName>" . PHP_EOL .
+				"<FromUserName><![CDATA[".$response['FromUserName']."]]></FromUserName>" . PHP_EOL .
+				"<CreateTime>".SYS_TIME."</CreateTime>" . PHP_EOL .
+				"<MsgType><![CDATA[voice]]></MsgType>" . PHP_EOL .
+				"<Voice>" . PHP_EOL .
+				"<MediaId><![CDATA[".$response['Voice']['MediaId']."]]></MediaId>" . PHP_EOL .
+				"</Voice>" . PHP_EOL .
+				"</xml>";
+		}elseif ($msgtype == 'video') {
+			$body = "<xml>" . PHP_EOL .
+				"<ToUserName><![CDATA[".$response['ToUserName']."]]></ToUserName>" . PHP_EOL .
+				"<FromUserName><![CDATA[".$response['FromUserName']."]]></FromUserNa" . PHP_EOL .me>
+				"<CreateTime>".SYS_TIME."</CreateTime>" . PHP_EOL .
+				"<MsgType><![CDATA[video]]></MsgType>" . PHP_EOL .
+				"<Video>" . PHP_EOL .
+				"<MediaId><![CDATA[".$response['Video']['MediaId']."]]></MediaId>" . PHP_EOL .
+				"<Title><![CDATA[".$response['Video']['Title']."]]></Title>" . PHP_EOL .
+				"<Description><![CDATA[".$response['Video']['Description']."]]></Description>" . PHP_EOL .
+				"</Video>" . PHP_EOL .
+				"</xml>";
+		}elseif ($msgtype == 'music') {
+			$body = "<xml>" . PHP_EOL .
+				"<ToUserName><![CDATA[".$response['ToUserName']."]]></ToUserName>" . PHP_EOL .
+				"<FromUserName><![CDATA[".$response['FromUserName']."]]></FromUserName>" . PHP_EOL .
+				"<CreateTime>".SYS_TIME."</CreateTime>" . PHP_EOL .
+				"<MsgType><![CDATA[music]]></MsgType>" . PHP_EOL .
+				"<Music>" . PHP_EOL .
+				"<Title><![CDATA[".$response['Music']['Title']."]]></Title>" . PHP_EOL .
+				"<Description><![CDATA[".$response['Music']['Description']."]]></Description>" . PHP_EOL .
+				"<MusicUrl><![CDATA[".$response['Music']['MusicUrl']."]]></MusicUrl>" . PHP_EOL .
+				"<HQMusicUrl><![CDATA[".$response['Music']['HQMusicUrl']."]]></HQMusicUrl>" . PHP_EOL .
+				"<ThumbMediaId><![CDATA[".$response['Music']['ThumbMediaId']."]]></ThumbMediaId>" . PHP_EOL .
+				"</Music>" . PHP_EOL .
+				"</xml>";
+		}elseif ($msgtype == 'news') {
+			$newwml = "";
+			foreach ($response['Articles'] AS $item) {
+				$newwml.= "<item>" . PHP_EOL .
+					"<Title><![CDATA[".$item['Title']."]]></Title>" . PHP_EOL .
+					"<Description><![CDATA[".$item['Description']."]]></Description>" . PHP_EOL .
+					"<PicUrl><![CDATA[".$item['PicUrl']."]]></PicUrl>" . PHP_EOL .
+					"<Url><![CDATA[".$item['Url']."]]></Url>" . PHP_EOL .
+					"</item>" . PHP_EOL;
+			}
+			$body = "<xml>" . PHP_EOL .
+				"<ToUserName><![CDATA[".$response['ToUserName']."]]></ToUserName>" . PHP_EOL .
+				"<FromUserName><![CDATA[".$response['FromUserName']."]]></FromUserName>" . PHP_EOL .
+				"<CreateTime>".SYS_TIME."</CreateTime>" . PHP_EOL .
+				"<MsgType><![CDATA[news]]></MsgType>" . PHP_EOL .
+				"<ArticleCount>".$response['ArticleCount']."</ArticleCount>" . PHP_EOL .
+				"<Articles>" . PHP_EOL . $newwml .
+				"</Articles>" . PHP_EOL .
+				"</xml>";
+		}elseif (!empty($msgtype)){
+			$body = "<xml>" . PHP_EOL .
+				"<ToUserName><![CDATA[".$response['ToUserName']."]]></ToUserName>" . PHP_EOL .
+				"<FromUserName><![CDATA[".$response['FromUserName']."]]></FromUserName>" . PHP_EOL .
+				"<CreateTime>".SYS_TIME."</CreateTime>" . PHP_EOL .
+				"<MsgType><![CDATA[text]]></MsgType>" . PHP_EOL .
+				"<Content><![CDATA[未知的自定义接口回复类型：".$msgtype."！]]></Content>" . PHP_EOL .
+				"</xml>";
+		}else{
+			$body = "";
+		}
+		return $body;
+	}
+
     public function buildResponse($data = array()) {
         $result = array();
         $result['MsgType'] = $data['type'];

@@ -286,3 +286,13 @@ table.table-primary tbody tr td, table.table-primary thead tr th {
     text-overflow:ellipsis;
     padding: 6px 0 6px 6px;
 }
+.breadcrumb .items span.ilink a{color:#428bca;text-decoration:none;}
+.breadcrumb .items span.ilink a:hover{color:#ff0000;text-decoration:underline;}
+.breadcrumb .items span.iright{float:right;}
+.page-header:first-child{margin-top:0;}
+.welcome-container .shortcut a{display:block;float:left;text-align:center;margin-right:1.2em;padding:8px 5px;width:7em;height:7em;overflow:hidden;color:#333;}
+.welcome-container .shortcut a:hover{text-decoration:none;background:#eee;border-radius:3px;padding:7px 4px;border:1px solid #d5d5d5;}
+.welcome-container .shortcut a i{display:block;font-size:3em;margin:.28em .2em;}
+.welcome-container .shortcut a img{display:block;height:3em;margin:.85em auto;}
+.welcome-container .shortcut a span{display:block;font-size:1em;overflow:hidden;white-space:nowrap;}
+.welcome-container .account img{width:6em;height:6em;}

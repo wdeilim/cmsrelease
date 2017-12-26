@@ -30,13 +30,19 @@
     <div class="breadcrumb">
         <div class="items">
             <span class="description">当前位置：</span>
-            <span>{#$_A.f.title#}</span>
+            <span class="ilink"><a href="{#weburl(0, $_A.f.title_en)#}">{#$_A.f.title#}</a></span>
+            {#if $bindscount > 0#}
+                <i class="iconfont">&#xe621;</i>
+                <span>回复规则列表</span>
+
+                <span class="ilink iright"><a href="{#weburl(0, $_A.f.title_en)#}" >返回 {#$_A.f.title#}</a></span>
+            {#/if#}
         </div>
     </div>
 
     <div class="topmenu" id="topmenu">
         <a href="javascript:;" class="active">管理{#$_A.f.title#}</a>
-        <a href="{#weburl(0, $_A.f.title_en)#}&do=add">+添加{#$_A.f.title#}</a>
+        <a href="{#weburl(0, $_A.f.title_en)#}&entry=reply&do=add">+添加{#$_A.f.title#}</a>
     </div>
 
     <div class="main cf custom-menu">
@@ -50,18 +56,18 @@
                             <div class="panel-heading clearfix">
                                 <div class="pull-left list-title" title="{#$list.title#}">{#$list.title#}</div>
                                 <div class="pull-right list-lists">
-                                    <a class="btn btn-default btn-sm" href="{#weburl(0, $_A.f.title_en)#}&do=add&id={#$list.id#}"><i class="fa fa-edit"></i> 编辑</a>
-                                    <a class="btn btn-default btn-sm btn-del" href="{#weburl(0, $_A.f.title_en)#}&do=del&id={#$list.id#}"
+                                    <a class="btn btn-default btn-sm" href="{#weburl(0, $_A.f.title_en)#}&entry=reply&do=add&id={#$list.id#}"><i class="fa fa-edit"></i> 编辑</a>
+                                    <a class="btn btn-default btn-sm btn-del" href="{#weburl(0, $_A.f.title_en)#}&entry=reply&do=del&id={#$list.id#}"
                                        onclick="return confirm('删除规则将同时删除关键字与回复，确认吗？');return false;"><i class="fa fa-times"></i> 删除</a>
-                                    <a class="btn btn-default btn-sm" href="{#weburl(0, $_A.f.title_en)#}&do=keychart&id={#$list.id#}&key={#urlencode($list.key|trim:",")#}&referer={#urlencode(get_url())#}"><i class="fa fa-line-chart"></i> 关键词走势</a>
-                                    {#if $menu#}
+                                    <a class="btn btn-default btn-sm" href="{#weburl(0, $_A.f.title_en)#}&entry=reply&do=keychart&id={#$list.id#}&key={#urlencode($list.key|trim:",")#}&referer={#urlencode(get_url())#}"><i class="fa fa-line-chart"></i> 关键词走势</a>
+                                    {#if $replymenu#}
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
                                                 功能选项
                                                 <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu" style="min-width:0;" id="list-dropdown-menu">
-                                                {#foreach from=$menu item=ml#}
+                                                {#foreach from=$replymenu item=ml#}
                                                     <li><a href="{#weburl(0, $_A.f.title_en, $ml.do)#}&id={#$list.id#}"><span title="{#$ml.title#}">{#$ml.title#}</span></a></li>
                                                 {#/foreach#}
                                             </ul>

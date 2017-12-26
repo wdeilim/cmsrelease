@@ -59,8 +59,14 @@ function cloud_uninstall($name, $version = '') {
 }
 
 function cloud_prepare() {
-    $row = db_getone(table('setting'), array('title'=>'cloud'));
-    $regsetting = string2array($row['content']);
+    static $cloud_array = array();
+    if (isset($cloud_array['cloud']) && is_array($cloud_array['cloud'])) {
+        $regsetting = $cloud_array['cloud'];
+    }else{
+        $row = db_getone(table('setting'), array('title'=>'cloud'));
+        $regsetting = string2array($row['content']);
+        $cloud_array['cloud'] = $regsetting;
+    }
     if($regsetting['cloudok'] != "1") {
         return error('-1', "您的程序需要在 <a href='".weburl('system/settings/cloud')."' style='color:red;text-decoration:underline;'>云中心</a> 注册你的站点资料, 来接入云服务后才能使用相应功能.");
     }
@@ -90,7 +96,7 @@ function cloud_namepass($name = '', $pass = '') {
     $pars['method'] = 'module_namepass';
     $pars['name'] = $name;
     $pars['pass'] = $pass;
-    $pars['url'] = BASE_URL;
+    $pars['url'] = BASE_URI;
     $dat = ihttp_post(CLOUD_GATEWAY, $pars);
     if (is_error($dat)) {
         return $dat;
@@ -163,7 +169,7 @@ function cloud_ext_module_files($name, $isupgrade = 0, $oldversion = '') {
     return $dat['content'];
 }
 
-function cloud_ext_module_downs($files, $name) {
+function cloud_ext_module_downs($files, $name, $oldversion = '') {
     $lists = json_decode($files, true);
     if ($lists) {
         @set_time_limit(0);
@@ -178,6 +184,7 @@ function cloud_ext_module_downs($files, $name) {
                 $pars['baseuri'] = BASE_URI;
                 $pars['method'] = 'module_downs';
                 $pars['module'] = $name;
+                $pars['version'] = $oldversion;
                 $pars['path'] = $f['path'];
                 $dat = ihttp_post(CLOUD_GATEWAY, $pars);
                 if (is_error($dat)) {
@@ -189,12 +196,11 @@ function cloud_ext_module_downs($files, $name) {
                 file_put_contents($spath, $dat['content']);
             }
         }
-
     }
     return true;
 }
 
-function cloud_module_install_file($name, $inname = '') {
+function cloud_module_install_file($name, $inname = '', $oldversion = '') {
     if(!strexists($inname, '.php') && !strexists($inname, '.sql')) {
         return $inname;
     }else{
@@ -203,6 +209,7 @@ function cloud_module_install_file($name, $inname = '') {
         $pars['baseuri'] = BASE_URI;
         $pars['method'] = 'module_install_file';
         $pars['module'] = $name;
+        $pars['version'] = $oldversion;
         $dat = ihttp_post(CLOUD_GATEWAY, $pars);
         if (is_error($dat)) {
             return $dat;
@@ -221,7 +228,7 @@ function cloud_module_install_file($name, $inname = '') {
     }
 }
 
-function cloud_module_upgrade_file($name, $inname = '') {
+function cloud_module_upgrade_file($name, $inname = '', $oldversion = '') {
     if(!strexists($inname, '.php') && !strexists($inname, '.sql')) {
         return $inname;
     }else{
@@ -230,6 +237,7 @@ function cloud_module_upgrade_file($name, $inname = '') {
         $pars['baseuri'] = BASE_URI;
         $pars['method'] = 'module_upgrade_file';
         $pars['module'] = $name;
+        $pars['version'] = $oldversion;
         $dat = ihttp_post(CLOUD_GATEWAY, $pars);
         if (is_error($dat)) {
             return $dat;
@@ -248,7 +256,7 @@ function cloud_module_upgrade_file($name, $inname = '') {
     }
 }
 
-function cloud_module_uninstall_file($name, $inname = '') {
+function cloud_module_uninstall_file($name, $inname = '', $oldversion = '') {
     if(!strexists($inname, '.php') && !strexists($inname, '.sql')) {
         return $inname;
     }else{
@@ -257,6 +265,7 @@ function cloud_module_uninstall_file($name, $inname = '') {
         $pars['baseuri'] = BASE_URI;
         $pars['method'] = 'module_uninstall_file';
         $pars['module'] = $name;
+        $pars['version'] = $oldversion;
         $dat = ihttp_post(CLOUD_GATEWAY, $pars);
         if (is_error($dat)) {
             return $dat;
@@ -275,8 +284,8 @@ function cloud_module_uninstall_file($name, $inname = '') {
     }
 }
 
-function cloud_pro_upgrade($release, $version) {
-    $pars = cloud_get_cloud_array();
+function cloud_pro_upgrade($release, $version, $onlyfind = false) {
+    $pars = cloud_get_cloud_array($onlyfind);
     if (is_error($pars)) { return $pars; }
     $pars['baseuri'] = BASE_URI;
     $pars['method'] = 'pro_upgrade_release';
@@ -379,17 +388,25 @@ function cloud_pro_sql($release, $version) {
     return $dat['content'];
 }
 
-function cloud_get_cloud_array() {
-    $cloud = db_getone(table('setting'), array('title'=>'cloud'));
-    $contentset = string2array($cloud['content']);
-    if($contentset['cloudok'] != "1") {
+function cloud_get_cloud_array($onlyarray = false) {
+    global $_GPC;
+    static $cloud_array = array();
+    if (isset($cloud_array['cloud']) && is_array($cloud_array['cloud'])) {
+        $contentset = $cloud_array['cloud'];
+    }else{
+        $cloud = db_getone(table('setting'), array('title'=>'cloud'));
+        $contentset = string2array($cloud['content']);
+        $cloud_array['cloud'] = $contentset;
+    }
+    if($contentset['cloudok'] != "1" && $onlyarray !== true) {
         return error('-1', '您的程序未绑定云中心！');
     }
     return array(
         '_cloud_release'=>ES_RELEASE,
         '_cloud_baseurl'=>BASE_URL,
         '_cloud_name'=>$contentset['cloudname'],
-        '_cloud_pass'=>$contentset['cloudpass']
+        '_cloud_pass'=>$contentset['cloudpass'],
+        '_cloud_gpc'=>base64_encode(array2string($_GPC))
     );
 }
 

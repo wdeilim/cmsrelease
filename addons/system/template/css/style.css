@@ -11,6 +11,18 @@
 .search input{border:0;width:180px;height:30px;line-height:30px;font-size:14px;background-color:#fff;padding:0 8px}
 .search .search_btn{height:20px;font-size:14px;color:#aaa;cursor:pointer;background-color:#fff;padding:5px 8px 6px;border-left:1px solid #eaeaea}
 .search:hover .search_btn{color:#fff;border-left:1px solid #2378cd;background-color:#2378cd}
+.search .search_del{
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    top: 6px;
+    right: 38px;
+    width: 18px;
+    height: 18px;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABS0lEQVQ4T51TvVXDMBC+YwEYASbAI9DKDaEhUGEmgGxANkgmwKkIqVxF76UyE5ANCBvYfZLjOz0ryMLkBVTo6f6+u+9OxxSd2WKRyHp9B/UFMSfOLLLEXW6Zx7fGrMIQDoXpfD5i5ocYtCWLjPppOvC6HcDU2iWE873B3ihSAORKRQdwUOYIWUTGN2n6yI7zZvMe2GsY85iKBkCXwe/Y+26JzjjO7pFn1mZC9NyUeX9tTA6aBUq+DJINuYs7nFyAgqizvl+tzfHU6XwfkTeGAYl+Hg+ils5gNYhUBwGEdNoFyOdeCpoZlZSeju/JDkQp/NbEsGxPJ6aChg/4xdrTI6KPALXCu8Q37rXKJcpZpAf9SaOvMcbk3x8JIMO+MU/hV45n3DUcr5sg2I34r8tUI2akmT1SC0CVTU8yzNitMxpVwWmFCRTCXMTr/AUQ07w4nckZzwAAAABJRU5ErkJggg==');
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+}
 .subordinate{float:right;padding-right:10px!important}
 
 table.payment{display:none;width:720px;background:#ececec}

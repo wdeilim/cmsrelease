@@ -96,3 +96,13 @@
 修复已知漏洞。
 ```
 
+## 3.0_20160421
+
+> Release Time: 2016-04-21
+>
+> Download Link: http://www.vwins.cn/index.php?act=download&id=66
+
+```
+更新应用机制；
+```
+

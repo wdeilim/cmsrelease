@@ -1188,6 +1188,27 @@ function ver_compare($version1, $version2) {
 }
 
 /**
+ * 获取模块参数组
+ * @param $setname
+ * @param string $modulename
+ * @return array
+ */
+function module_setting($setname, $modulename = '') {
+    global $_A;
+    if (empty($modulename)) {
+        $modulename = $_A['module'];
+    }
+    $setting = array();
+    if ($setname && $modulename) {
+        $setrow = db_getone(table('bind_setting'), array('alid'=>$_A['al']['id'], 'module'=>$modulename, 'do'=>$setname));
+        if (!empty($setrow)) {
+            $setting = string2array($setrow['setting']);
+        }
+    }
+    return $setting;
+}
+
+/**
  * 查询分页列表
  * @param string $table     表名称
  * @param string $where     查询条件，默认空

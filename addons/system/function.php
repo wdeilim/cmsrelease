@@ -34,6 +34,7 @@ function _ext_module_manifest_entries($elm) {
     $ret = array();
     if(!empty($elm)) {
         $call = $elm->getAttribute('call');
+        $embed = $elm->getAttribute('embed');
         if(!empty($call)) {
             $ret[] = array('call' => $call);
         }
@@ -45,8 +46,13 @@ function _ext_module_manifest_entries($elm) {
                 'do' => $entry->getAttribute('do'),
                 'direct' => intval($entry->getAttribute('direct')),
                 'state' => $entry->getAttribute('state'),
-                'call' => $entry->getAttribute('call')
+                'call' => $entry->getAttribute('call'),
+                'embed' => $entry->getAttribute('embed')
             );
+            if (!is_bool($row['embed']) && !in_array($row['embed'], array('true','false','1','0'))) {
+                $row['embed'] = $embed;
+            }
+            $row['embed'] = intval(str_replace(array('true','false'), array('1','0'), $row['embed']));
             if(!empty($row['title']) && !empty($row['do'])) {
                 $ret[] = $row;
             }
@@ -58,6 +64,7 @@ function _ext_module_manifest_entries($elm) {
 function ext_module_manifest_parse($xml) {
     $dom = new DOMDocument();
     $dom->loadXML($xml);
+    $manifest = array();
     if($dom->schemaValidateSource(ext_module_manifest_validate())) {
         $root = $dom->getElementsByTagName('manifest')->item(0);
         $vcode = explode(',', $root->getAttribute('versionCode'));
@@ -87,6 +94,12 @@ function ext_module_manifest_parse($xml) {
             'oauth' => trim($application->getElementsByTagName('oauth')->item(0)->textContent),
             'reply' => trim($application->getElementsByTagName('reply')->item(0)->textContent),
         );
+        if (!in_array($manifest['application']['oauth'], array('0', '1'))) {
+            $manifest['application']['oauth'] = 0;
+        }
+        if (!in_array($manifest['application']['reply'], array('0', '1'))) {
+            $manifest['application']['reply'] = 0;
+        }
         $bindings = $root->getElementsByTagName('bindings')->item(0);
         if(!empty($bindings)) {
             $points = ext_module_bindings();
@@ -111,10 +124,25 @@ function ext_module_manifest_parse($xml) {
 
 function ext_module_bindings() {
     static $bindings = array(
+        'reply' => array(
+            'name' => 'reply',
+            'title' => '规则列表菜单',
+            'desc' => '规则列表是定义可重复使用或者可创建多次的活动的功能入口(管理后台Web操作), 每个活动对应一条规则. 一般呈现为图文消息, 点击后进入定义好的某次活动中.'
+        ),
+        'cover' => array(
+            'name' => 'cover',
+            'title' => '功能封面',
+            'desc' => '功能封面是定义微站里一个独立功能的入口(手机端操作), 将呈现为一个图文消息, 点击后进入微站系统中对应的功能.'
+        ),
         'menu' => array(
             'name' => 'menu',
             'title' => '管理中心导航菜单',
             'desc' => '管理中心导航菜单将会在管理中心生成一个导航入口(管理后台Web操作), 用于对模块定义的内容进行管理.'
+        ),
+        'setting' => array(
+            'name' => 'setting',
+            'title' => '参数设置',
+            'desc' => '规则的参数设置或在导航菜单中的参数设置.'
         ),
         'home' => array(
             'name' => 'home',
@@ -141,6 +169,7 @@ function ext_module_manifest_validate() {
 			<xs:attribute name="direct" type="xs:boolean" />
 			<xs:attribute name="state" type="xs:string" />
 			<xs:attribute name="call" type="xs:string" />
+			<xs:attribute name="embed" type="xs:string" />
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="manifest">
@@ -156,7 +185,7 @@ function ext_module_manifest_validate() {
 							<xs:element name="content" type="xs:string"  minOccurs="1" maxOccurs="1" />
 							<xs:element name="author" type="xs:string"  minOccurs="1" maxOccurs="1" />
 							<xs:element name="url" type="xs:string"  minOccurs="1" maxOccurs="1" />
-							<xs:element name="oauth" type="xs:string"  minOccurs="1" maxOccurs="1" />
+							<xs:element name="oauth" type="xs:string"  minOccurs="0" maxOccurs="1" />
 							<xs:element name="reply" type="xs:string"  minOccurs="0" maxOccurs="1" />
 						</xs:all>
 					</xs:complexType>
@@ -164,12 +193,40 @@ function ext_module_manifest_validate() {
 				<xs:element name="bindings" minOccurs="0" maxOccurs="1">
 					<xs:complexType>
 						<xs:all>
+							<xs:element name="reply" minOccurs="0" maxOccurs="1">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="entry" minOccurs="0" maxOccurs="unbounded" />
+									</xs:sequence>
+									<xs:attribute name="call" type="xs:string" />
+									<xs:attribute name="embed" type="xs:boolean" />
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="cover" minOccurs="0" maxOccurs="1">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="entry" minOccurs="0" maxOccurs="unbounded" />
+									</xs:sequence>
+									<xs:attribute name="call" type="xs:string" />
+									<xs:attribute name="embed" type="xs:boolean" />
+								</xs:complexType>
+							</xs:element>
 							<xs:element name="menu" minOccurs="0" maxOccurs="1">
 								<xs:complexType>
 									<xs:sequence>
 										<xs:element ref="entry" minOccurs="0" maxOccurs="unbounded" />
 									</xs:sequence>
 									<xs:attribute name="call" type="xs:string" />
+									<xs:attribute name="embed" type="xs:boolean" />
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="setting" minOccurs="0" maxOccurs="1">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="entry" minOccurs="0" maxOccurs="unbounded" />
+									</xs:sequence>
+									<xs:attribute name="call" type="xs:string" />
+									<xs:attribute name="embed" type="xs:boolean" />
 								</xs:complexType>
 							</xs:element>
 							<xs:element name="home" minOccurs="0" maxOccurs="1">
@@ -178,6 +235,7 @@ function ext_module_manifest_validate() {
 										<xs:element ref="entry" minOccurs="0" maxOccurs="unbounded" />
 									</xs:sequence>
 									<xs:attribute name="call" type="xs:string" />
+									<xs:attribute name="embed" type="xs:boolean" />
 								</xs:complexType>
 							</xs:element>
 							<xs:element name="vip" minOccurs="0" maxOccurs="1">
@@ -186,6 +244,7 @@ function ext_module_manifest_validate() {
 										<xs:element ref="entry" minOccurs="0" maxOccurs="unbounded" />
 									</xs:sequence>
 									<xs:attribute name="call" type="xs:string" />
+									<xs:attribute name="embed" type="xs:boolean" />
 								</xs:complexType>
 							</xs:element>
 						</xs:all>

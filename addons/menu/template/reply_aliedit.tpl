@@ -19,7 +19,12 @@
             <tbody class="reply_url">
             {#foreach from=$lists item=list#}
                 {#$m = $_this->moduleinfo($list.module)#}
-                <tr class="align-center" data-url="{#appurl(0, $list.module, 'welcome')#}&rid={#$list.id#}">
+                <tr class="align-center"
+                        {#if $list['do']#}
+                            data-url="{#appurl(0, $list['module'], $list['do'])#}"
+                        {#else#}
+                            data-url="{#appurl(0, $list['module'], 'welcome')#}&rid={#$list.id#}"
+                        {#/if#}>
                     <td style="text-align:left;">{#if $list.module=='vip'#}会员卡{#else#}{#$list.title#}{#/if#}</td>
                     <td style="text-align:left;">{#$m.title#} ({#$list.module#})</td>
                     <td align="center">

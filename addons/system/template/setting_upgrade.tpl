@@ -25,6 +25,7 @@
         .upgradeinfo .profile>div>p:last-child{border-bottom:0 dotted #aaa}
         .upgradeinfo .proinfo>div{padding:5px;margin-top:3px;background-color:#f0f7ec;max-height:200px;overflow:auto}
         .fromto{text-align:center;color:#969696}
+        a.step3a{display:block;width:100%;height:100%;color:#FFF;text-decoration:none;}
     </style>
 </head>
 <body>
@@ -75,6 +76,7 @@
             var path = "";
             var path_type = "";
             var j = 0;
+            var ibak = i;
             $.each(json, function(idx, obj) {
                 j++;
                 if (path == "") {
@@ -97,10 +99,46 @@
                             $.alert("成功更新文件("+i+"/"+j+"): " + path, 0, 1);
                             upgrade_step2(json, i, func);
                         }else{
-                            $.alert("！失败更新文件("+i+"/"+j+"): " + path, 0);
+                            $.confirm({
+                                title: "！失败更新文件("+i+"/"+j+"): " + path,
+                                button: [{
+                                    title: '重试',
+                                    click: function(){
+                                        upgrade_step2(json, ibak, func);
+                                    }
+                                },{
+                                    title: '跳过',
+                                    click: function(){
+                                        upgrade_step2(json, i, func);
+                                    }
+                                },{
+                                    title: '关闭窗口',
+                                    click: function(){
+                                        $.alert(0);
+                                    }
+                                }]
+                            });
                         }
                     },error : function () {
-                        $.alert("！！错误更新文件("+i+"/"+j+"): " + path, 0);
+                        $.confirm({
+                            title: "！！错误更新文件("+i+"/"+j+"): " + path,
+                            button: [{
+                                title: '重试',
+                                click: function(){
+                                    upgrade_step2(json, ibak, func);
+                                }
+                            },{
+                                title: '跳过',
+                                click: function(){
+                                    upgrade_step2(json, i, func);
+                                }
+                            },{
+                                title: '关闭窗口',
+                                click: function(){
+                                    $.alert(0);
+                                }
+                            }]
+                        });
                     },
                     cache: false
                 });
@@ -123,7 +161,25 @@
                     }, 800);
                 }
             },error : function () {
-                $.alert("！！升级相关数据错误，请联系管理员", 0);
+                $.confirm({
+                    title: "！！升级相关数据错误，请联系微窗中心。",
+                    button: [{
+                        title: '重试',
+                        click: function(){
+                            upgrade_step3();
+                        }
+                    },{
+                        title: '<a href="{#$smarty.const.CLOUD_BBS_URL#}" class="step3a" target="_blank">联系微窗</a>',
+                        click: function(){
+                            return true;
+                        }
+                    },{
+                        title: '关闭窗口',
+                        click: function(){
+                            $.alert(0);
+                        }
+                    }]
+                });
             },
             cache: false
         });

@@ -30,9 +30,9 @@
 
 
 <div class="form-services">
-    <table class="table table-primary messagelist">
+    <table class="table table-primary messagelist" style="margin-bottom:40px;">
         <tbody>
-        {#ddb_pc set="数据表:message,用户表:1,列表名:lists,显示数目:10,分页显示:1,分页名:pagelist,当前页:{#$page#},分页地址:{#$pageurl#}(?)/{#get_get()#},排序:indate desc>id desc" where="{#$wheresql#}"#}
+        {#ddb_pc set="数据表:message,用户表:1,列表名:lists,显示数目:20,分页显示:1,分页名:pagelist,当前页:{#$page#},分页地址:{#$pageurl#}(?)/{#get_get()#},排序:indate desc>id desc" where="{#$wheresql#}"#}
         {#foreach from=$lists item=list#}
             <tr>
                 {#$g = $tthis->getgroup($list.openid,'*')#}

@@ -545,8 +545,13 @@ class Fuwu {
                 return false;
             }
 			if (empty($content['imagetext']['url']) && isset($reply['module'])) {
-				$content['imagetext']['url'] = appurl($reply['module'].'/welcome/',
-                    array('rid'=>$reply['id'], 'from_user' => base64_encode(authcode($M['openid'], 'ENCODE'))));
+				if ($reply['do']) {
+					$content['imagetext']['url'] = appurl($reply['module'].'/'.$reply['do'].'/',
+						array('from_user' => base64_encode(authcode($M['openid'], 'ENCODE'))));
+				}else{
+					$content['imagetext']['url'] = appurl($reply['module'].'/welcome/',
+						array('rid'=>$reply['id'], 'from_user' => base64_encode(authcode($M['openid'], 'ENCODE'))));
+				}
 			}
             $M['text'] = array2string($content['imagetext']);
             $this->savemessage($M, 1);
@@ -775,7 +780,13 @@ class Fuwu {
                 if (!isset($processorcs[$a])) {
                     if (file_exists($processor)) {
                         get_instance()->base->inc($processor);
-                        $classname = "ES_Processor_".ucfirst($a);
+						$classname = "ESP_".ucfirst($a);
+						if (!class_exists($classname)) {
+							$classname = "ES_Processor_".ucfirst($a);
+							if (!class_exists($classname)) {
+								continue;
+							}
+						}
                         $es_site = new $classname();
 						if (method_exists($es_site, 'respond')) {
 							$es_site->respond('alipay');

@@ -288,6 +288,9 @@ class ES_System extends CI_Model {
 		//
 		$wheresql = ($user['admin'])?"1":"`userid`=".$user['userid'];
 		$key = db_escape_str(value($_GPC, 'key'));
+		if (!isset($_GPC['key'])) {
+			$key = db_escape_str(value($_GPC, '_index_key'));
+		}
 		if ($key){
 			$wheresql.= " AND (`al_name` LIKE '%".$key."%' OR `wx_name` LIKE '%".$key."%')";
 		}
@@ -412,7 +415,8 @@ class ES_System extends CI_Model {
 					$arr['message'] = $cloudfiles['message'];
 					echo json_encode($arr); exit();
 				}
-                $arr['isinurl'] = 1;
+				make_dir(BASE_PATH.'addons/'.$modulename);
+				$arr['isinurl'] = 1;
                 $arr['success'] = 1;
                 $arr['manifest'] = 1;
                 $arr['cloudfiles'] = $cloudfiles;
@@ -509,7 +513,7 @@ class ES_System extends CI_Model {
         $_release = value($_COOKIE, '_RELEASEVER:'.ES_RELEASE);
         if (!$_release) {
             $this->load->helper("cloud");
-            $pro = cloud_pro_upgrade(ES_RELEASE, ES_VERSION);
+            $pro = cloud_pro_upgrade(ES_RELEASE, ES_VERSION, true);
             if (is_error($pro) && $pro['message'] != "当前版本已经是最新版本") { exit(); }
             $pro = json_decode($pro, true);
 			$_release = $pro['to_release']?$pro['to_release']:'99';
@@ -1735,7 +1739,7 @@ class ES_System extends CI_Model {
 			$paths = array();
 			$paths[] = array('type'=>value($_GPC,'path_type'), 'path'=>str_replace("\\\\","/",value($_GPC,'path')));
 			$cloudfiles = json_encode($paths);
-			$clouddowns = cloud_ext_module_downs($cloudfiles, $modulename);
+			$clouddowns = cloud_ext_module_downs($cloudfiles, $modulename, $oldversion);
 			if(is_error($clouddowns)) {
 				$arr['message'] = $clouddowns['message'];
 			}else{
@@ -1754,7 +1758,7 @@ class ES_System extends CI_Model {
             if(is_error($manifest)) {
                 message(null, $manifest['message']);
             }
-            $_upgrade = cloud_module_upgrade_file($modulename, $manifest['upgrade']);
+            $_upgrade = cloud_module_upgrade_file($modulename, $manifest['upgrade'], $oldversion);
             if(is_error($_upgrade)) {
                 message(null, $_upgrade['message']);
             }
@@ -3556,6 +3560,7 @@ class ES_System extends CI_Model {
 
     private function del_bindings($modulename)
     {
+        db_delete(table('bind_setting'), array('module'=>$modulename));
         db_delete(table('bindings'), array('module'=>$modulename));
         db_delete(table('reply'), array('module'=>$modulename));
     }

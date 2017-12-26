@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{#$NOW_PATH#}css/style.css"/>
     <script type="text/javascript" src="{#$JS_PATH#}jquery-1.11.0.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}jquery.alert.js"></script>
+    <script type="text/javascript" src="{#$JS_PATH#}jquery.cookie.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}jquery.form.min.js"></script>
 </head>
 <body>
@@ -56,12 +57,13 @@
                             公众号/服务窗列表
                             <span class="text text-primary text-extra-small">(点击下方功能模块，进入管理)</span>
                             <span class="search">
-                                <input type="text" id="key" placeholder="搜索：公众号/服务窗" value="{#$key#}"><span class="search_btn">搜</span>
+                                <input type="text" id="key" placeholder="搜索：公众号/服务窗" value="{#$key#}" data-val="{#$key#}"><span class="search_btn">搜</span>
+                                <div class="search_del"></div>
                             </span>
                         </th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="users_al_list">
                     {#ddb_pc set="数据表:users_al,列表名:lists,显示数目:10,分页显示:1,分页名:pagelist,当前页:GET[page],分页地址:{#$pageurl#}?key={#$key#}&page=(?),排序:{#$ordersql#}" where=$wheresql#}
                     {#foreach from=$lists item=list#}
                         {#$list['setting'] = string2array($list['setting'])#}
@@ -205,14 +207,39 @@
             $(this).removeClass("ifunall");
             $(this).removeClass("ifunallb");
         });
-        $(".search_btn").click(function(){
-            var key = $("#key").val();
+        //
+        var search_del = $(".search_del");
+        var search_btn = $(".search_btn");
+        var search_key = $("#key");
+        search_btn.click(function(){
+            var key = $.trim(search_key.val());
             if (key) {
                 window.location.href = "{#$urlarr.2#}?key="+key;
             }else{
-                window.location.href = "{#$urlarr.2#}";
+                $.cookie('_index_key', '', { expires: -1, path: '{#$smarty.const.BASE_DIR#}' });
+                if (search_key.attr("data-val") != "") { window.location.href = "{#$urlarr.2#}"; }
+
             }
         });
+        $(".search>input,.search_del").mouseover(function(){
+            if ($.trim(search_key.val()) != "") { search_del.show(); }
+        }).mouseout(function(){
+            search_del.hide();
+        });
+        search_del.click(function(){
+            search_key.val("");
+            search_btn.click();
+        });
+        search_key.keydown(function(e){
+            if(e.keyCode == 13){ search_btn.click(); }
+        });
+        if ($.trim(search_key.val()) != "") {
+            if ($("#users_al_list").find("tr").length > 1) {
+                $.cookie('_index_key', $.trim(search_key.val()), { expires: 7, path: '{#$smarty.const.BASE_DIR#}' });
+            }else{
+                $.cookie('_index_key', '', { expires: -1, path: '{#$smarty.const.BASE_DIR#}' });
+            }
+        }
         $("label.button-input").find("input").keyup(function(){
             var thisv = $(this).val();
             var thisg = $(this).parents(".button-groups");
@@ -223,9 +250,6 @@
                 }
                 $(this).html(thisa);
             });
-        });
-        $("#key").keydown(function(e){
-            if(e.keyCode == 13){ $(".search_btn").click(); }
         });
         {#if $_A.u.admin == 1#}
         {#if $_release != "99"#}

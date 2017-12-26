@@ -6,10 +6,6 @@ class Del extends CI_Model {
 	public function __construct()
     {
         parent::__construct();
-        $user = $this->user->getuser();
-        if ($user['admin'] != 1) {
-            message("没有权限");
-        }
 	}
 
     /**
@@ -19,6 +15,10 @@ class Del extends CI_Model {
      */
     public function deluser($userid = 0) {
         $urow = is_array($userid)?$userid:$this->ddb->getone("SELECT userid FROM ".table('users'), array('userid'=>intval($userid)));
+        $user = $this->user->getuser();
+        if ($user['admin'] != 1 && $user['userid'] != $urow['userid']) {
+            message("没有权限");
+        }
         if ($urow) {
             if ($this->ddb->delete(table('users'), array('userid'=>$urow['userid']))) {
                 $this->ddb->delete(table('users_point'), array('userid'=>$urow['userid']));
@@ -40,6 +40,10 @@ class Del extends CI_Model {
      */
     public function delal($alid = 0) {
         $alrow = is_array($alid)?$alid:$this->ddb->getone("SELECT id FROM ".table('users_al'), array('id'=>intval($alid)));
+        $user = $this->user->getuser();
+        if ($user['admin'] != 1 && $user['userid'] != $alrow['userid']) {
+            message("没有权限");
+        }
         if ($alrow) {
             if ($this->ddb->delete(table('users_al'), array('id'=>$alrow['id']))) {
                 $this->ddb->delete(table('core_paylog'), array('alid'=>$alrow['id']));
@@ -62,6 +66,10 @@ class Del extends CI_Model {
      */
     public function deluse($ufid = 0) {
         $ufrow = is_array($ufid)?$ufid:$this->ddb->getone("SELECT id,fid,alid FROM ".table('users_functions'), array('id'=>intval($ufid)));
+        $user = $this->user->getuser();
+        if ($user['admin'] != 1 && $user['userid'] != $ufrow['userid']) {
+            message("没有权限");
+        }
         if ($ufrow) {
             if ($this->ddb->delete(table('users_functions'), array('id'=>$ufrow['id']))) {
                 $fun = $this->ddb->getone("SELECT title_en FROM ".table('functions'), array('id'=>intval($ufrow['fid'])));
@@ -76,6 +84,7 @@ class Del extends CI_Model {
                             $es_site->useDeleted($ufrow['alid']);
                         }
                     }
+                    $this->ddb->delete(table('bind_setting'), array('alid'=>$ufrow['alid'], 'module'=>$fun['title_en']));
                     $this->ddb->delete(table('reply'), array('alid'=>$ufrow['alid'], 'module'=>$fun['title_en']));
                 }
             }else{

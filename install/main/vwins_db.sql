@@ -1,6 +1,21 @@
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
+-- Table structure for es_bind_setting
+-- ----------------------------
+DROP TABLE IF EXISTS `es_bind_setting`;
+CREATE TABLE `es_bind_setting` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `module` varchar(100) DEFAULT NULL,
+  `alid` int(10) unsigned DEFAULT '0',
+  `do` varchar(100) DEFAULT NULL,
+  `setting` text,
+  PRIMARY KEY (`id`),
+  KEY `VIDX_MODULE_DO` (`module`,`do`),
+  KEY `VIDX_ALID` (`alid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='系统 - 绑定参数';
+
+-- ----------------------------
 -- Table structure for es_bindings
 -- ----------------------------
 DROP TABLE IF EXISTS `es_bindings`;
@@ -3569,6 +3584,7 @@ CREATE TABLE `es_reply` (
   `match` tinyint(3) unsigned DEFAULT '0' COMMENT '0完全匹配，1包含匹配',
   `key` varchar(255) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
+  `do` varchar(100) DEFAULT NULL,
   `vip_link` tinyint(1) unsigned DEFAULT '0',
   `vip_title` varchar(50) DEFAULT NULL,
   `content` text,

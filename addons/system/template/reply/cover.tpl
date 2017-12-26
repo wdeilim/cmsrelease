@@ -28,41 +28,20 @@
         <div class="items">
             <span class="description">当前位置：</span>
             <span class="ilink"><a href="{#weburl(0, $_A.f.title_en)#}">{#$_A.f.title#}</a></span>
-
-            {#if $bindscount > 0#}
-                <i class="iconfont">&#xe621;</i>
-                <span class="ilink"><a href="{#weburl(0, $_A.f.title_en)#}&entry=reply">回复规则列表</a></span>
-
-                <span class="ilink iright"><a href="{#weburl(0, $_A.f.title_en)#}" >返回 {#$_A.f.title#}</a></span>
-            {#/if#}
-
             <i class="iconfont">&#xe621;</i>
-            <span>{#$submit#}{#$_A.f.title#}</span>
+            <span>{#$dosetting['title']#}</span>
 
+            <span class="ilink iright"><a href="{#weburl(0, $_A.f.title_en)#}" >返回 {#$_A.f.title#}</a></span>
         </div>
     </div>
 
-    <div class="topmenu" id="topmenu">
-        <a href="{#weburl(0, $_A.f.title_en)#}&entry=reply">管理{#$_A.f.title#}</a>
-        {#if $submit=='修改'#}
-            <a href="{#weburl(0, $_A.f.title_en)#}&entry=reply&do=add&id={#$reply.id#}" class="active">修改{#$_A.f.title#}</a>
-        {#/if#}
-        <a href="{#weburl(0, $_A.f.title_en)#}&entry=reply&do=add"{#if $submit=='添加'#} class="active"{#/if#}>+添加{#$_A.f.title#}</a>
-    </div>
 
     <div class="main cf custom-menu">
         <div class="mod_tab_btn" data-toggle="tooltip" data-original-title="切换显示"></div>
         <div class="mod_tab_menu"><span data-toggle="tooltip" data-original-title="切换显示"></span></div>
 
         <div class="mod">
-            {#if $replymenu#}
-                <div class="mod_a_menu">
-                    <span class="btn btn-link">功能选项:</span>
-                    {#foreach from=$replymenu item=ml#}
-                        <a href="{#weburl(0, $_A.f.title_en, $ml.do)#}&id={#$reply.id#}" class="btn btn-link" title="{#$ml.title#}">{#$ml.title#}</a>
-                    {#/foreach#}
-                </div>
-            {#/if#}
+
             <div class="main-bd" id="tabmenu">
                 <div class="clearfix">
                     <form action="{#get_url()#}" method="post" id="saveform" class="form-horizontal form ng-pristine ng-valid">
@@ -71,15 +50,15 @@
                             <div class="col-sm-12">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
-                                        基本设置
-                                        <span class="text-muted">删除，修改规则、关键字以及回复后，请提交以保存操作。</span>
+                                        功能封面
+                                        <span class="text-muted">{#$dosetting['title']#}</span>
                                     </div>
                                     <div class="panel-body">
 
                                         <div class="form-group">
                                             <label class="col-xs-12 col-sm-3 col-md-2 control-label">规则名称</label>
                                             <div class="col-xs-12 col-sm-9">
-                                                <input type="text" name="reply[title]" value="{#$reply['title']#}" class="form-control" placeholder="您可以给这条规则起一个名字, 方便下次修改和查看. " data-need="规则名称不能为空">
+                                                <input type="text" readonly="readonly" value="{#$dosetting['title']#}" class="form-control">
                                             </div>
                                         </div>
 
@@ -117,20 +96,18 @@
 
                         <div class="form-group">
                             <div class="col-sm-12">
-                                <div class="panel panel-default{#if !$reply['vip_link']#} vip_link_hide{#/if#}">
+                                <div class="panel panel-default">
                                     <div class="panel-heading">
-                                        会员卡显示
-                                        <span class="text-muted">这里提供了能够显示在会员卡首页的信息, 你可以选择性的自定义或显示隐藏。</span>
-                                        <div class="vip_link_panel">
-                                            <input type="checkbox" class="vip_link" name="reply[vip_link]" value="1" data-size="small" data-off-color="warning"{#if $reply['vip_link']#} checked{#/if#}>
-                                        </div>
+                                        直接连接
+                                        <span class="text-muted">直接进入的URL</span>
                                     </div>
                                     <div class="panel-body">
 
                                         <div class="form-group">
-                                            <label class="col-xs-12 col-sm-3 col-md-2 control-label">显示标题</label>
+                                            <label class="col-xs-12 col-sm-3 col-md-2 control-label">直接URL</label>
                                             <div class="col-xs-12 col-sm-9">
-                                                <input type="text" name="reply[vip_title]" value="{#$reply['vip_title']#}" class="form-control" placeholder="请填写在会员卡首页显示的名称，留空则不显示">
+                                                <input type="text" class="form-control" readonly="readonly" value="{#appurl(0, $_A['module'], $_GPC['do'])#}">
+                                                <div class="help-block">直接指向到入口的URL。您可以在自定义菜单（有oAuth权限）或是其它位置直接使用。</div>
                                             </div>
                                         </div>
 
@@ -138,8 +115,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        {#$this->_reply_help('FormDisplay', $id, $reply)#}
 
                         <div class="form-group">
                             <div class="col-sm-12">
