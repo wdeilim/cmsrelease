@@ -22,7 +22,7 @@ require_once 'HTML/AJAX/Debug.php';
  * @author      Elizabeth Smith <auroraeosrose@gmail.com>
  * @copyright   2005 Joshua Eichorn, Arpad Ray, David Coallier, Elizabeth Smith
  * @license     http://www.opensource.org/licenses/lgpl-license.php   LGPL
- * @version     Release: 0.5.3
+ * @version     Release: 0.5.4
  * @link        http://pear.php.net/package/HTML_AJAX
  */
 class HTML_AJAX {
@@ -893,6 +893,7 @@ class HTML_AJAX {
                 echo $line."<br>";
             }//*/
         }
+        $out .= "\n";
         return $out;
     }
 

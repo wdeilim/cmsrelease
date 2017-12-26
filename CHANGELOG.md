@@ -322,3 +322,15 @@ Update HTML_AJAX_Action to use HTML_AJAX_Util.setInnerHTML
 * Fix for bug #13113 - Opera, JavaScript and XMLSerializer
 ```
 
+## 0.5.4
+
+> Release Time: 2008-04-04
+>
+> Download Link: http://download.pear.php.net/package/HTML_AJAX-0.5.4.tgz
+
+```
+* This fixes ie6 problems, and immediate upgrade from 0.5.3 is recommended
+* Fix for bug #13113 - Opera, JavaScript and XMLSerializer
+* Add a newline at the end of packed files
+```
+

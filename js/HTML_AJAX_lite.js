@@ -150,7 +150,7 @@ return root.xml || root.outerHTML;
 * HTML_AJAX static methods, this is the main proxyless api, it also handles global error and event handling
 */
 var HTML_AJAX = {
-version: '0.5.3',
+version: '0.5.4',
 defaultServerUrl: false,
 defaultEncoding: 'JSON',
 queues: false,
@@ -1761,7 +1761,7 @@ args: null,
 callback: null,
 queue: 'default',
 priority: 0,
-customHeaders: {'X-Requested-With': 'XMLHttpRequest', 'X-Ajax-Engine': 'HTML_AJAX/0.5.3'},
+customHeaders: {'X-Requested-With': 'XMLHttpRequest', 'X-Ajax-Engine': 'HTML_AJAX/0.5.4'},
 iframe: false,
 grab: false,
 multipart: false,
