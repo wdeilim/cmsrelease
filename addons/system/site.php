@@ -2478,7 +2478,7 @@ class ES_System extends CI_Model {
 		}
         $edit = $row;
         if ($this->input->post("dosubmit")){
-            $fost = $this->input->post();
+            $fost = new_trim($this->input->post());
             $arr = $_arr = array();
             $arr['success'] = 0;
             $arr['id'] = $_id;
@@ -2641,7 +2641,7 @@ class ES_System extends CI_Model {
 		}
 		$edit = $row;
 		if ($this->input->post("dosubmit")) {
-			$fost = $this->input->post();
+			$fost = new_trim($this->input->post());
 			$arr = $_arr = array();
 			$arr['success'] = 0;
 			$arr['message'] = '';

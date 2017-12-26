@@ -7,7 +7,7 @@
         </div>
         <div id="pagelist" style="margin-top:2px">{#$pagelist#}</div>
     </div>
-    <div class="appmsg-list cf" id="appmsg-list">
+    <div class="appmsg-list cf" id="appmsg-list" style="max-width:100%;">
         <table style="" class="table table-primary" id="menu-table">
             <thead>
             <tr>

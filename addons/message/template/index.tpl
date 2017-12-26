@@ -14,15 +14,17 @@
     <style type="text/css">
         #text-tooltip{position:absolute;background-color:#fff;padding:8px;border:1px solid #cc7116}
         #text-tooltip img{display:block;margin:0;max-width:300px;max-height:300px}
-        .selectmenu a {display:block;float:left;color:#777777;padding:8px 16px;margin-right:-1px;background-color:#ffffff;border:1px solid #E4E4E4;}
-        .selectmenu a.active {border-top:2px solid #FF9B00;padding-top:7px;}
-        .selectmenu a.break {margin-left:25px;border-radius:3px 0 0 3px;padding:7px 12px;margin-top:1px;color:#FFF;background:#2AA4CD;border:1px solid #2AA4CD;}
-        .selectmenu a:hover.break {background:#fa0;border:1px solid #fa0;}
-        .selectmenu a.break.del {margin-left:0;border-radius:0 3px 3px 0;border-left:1px solid #E4E4E4;}
-        .selectmenu a:hover.break.del {background:#f00;border:1px solid #f00;}
-        .zoomin {position:absolute;z-index:999999;cursor:-webkit-zoom-out;padding:10px;background-color:rgba(132, 132, 132, 0.8)}
-        .zoomin img {max-width:100%;}
-        .zoomin-bg {position:fixed;top:0;left:0;width:100%;height:100%;z-index:999998;cursor:-webkit-zoom-out;background-color: rgba(0, 0, 0, 0.3)}
+        .selectmenu a{display:block;float:left;color:#777;padding:8px 16px;margin-right:-1px;background-color:#fff;border:1px solid #E4E4E4}
+        .selectmenu a.active{border-top:2px solid #FF9B00;padding-top:7px}
+        .selectmenu a.break{margin-left:25px;border-radius:3px 0 0 3px;padding:7px 12px;margin-top:1px;color:#FFF;background:#2AA4CD;border:1px solid #2AA4CD}
+        .selectmenu a:hover.break{background:#fa0;border:1px solid #fa0}
+        .selectmenu a.break.del{margin-left:0;border-radius:0 3px 3px 0;border-left:1px solid #E4E4E4}
+        .selectmenu a:hover.break.del{background:red;border:1px solid red}
+        .zoomin{position:absolute;z-index:999999;cursor:-webkit-zoom-out;padding:10px;background-color:rgba(132,132,132,.8)}
+        .zoomin img{max-width:100%}
+        .zoomin-bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:999998;cursor:-webkit-zoom-out;background-color:rgba(0,0,0,.3)}
+        .sendtitle{cursor:pointer;background:#4CBAEA;color:#fff;padding:5px 8px;font-weight:400;text-shadow:none;border-radius:3px;margin-left:10px}
+        .sendtitle:hover{background:#fa0}
     </style>
     <script type="text/javascript" src="{#$JS_PATH#}jquery-1.11.0.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}jquery.alert.js"></script>
@@ -31,9 +33,6 @@
 </head>
 <body>
 {#template("header")#}
-
-
-
 
 
 <div class="wrapper">
@@ -233,9 +232,9 @@
     }
     function _notes(obj,id) {
         var eve = $(obj);
-        var _h = ($(window).height()-50)*0.96
+        var _h = ($(window).height()-50)*0.96;
         art.dialog({
-            title: '与 '+eve.text()+' 的聊天',
+            title: '与 '+eve.text().replace('回复： ','')+' 的聊天 <span class="sendtitle" onclick="_reply('+id+')">发送信息</span>',
             fixed: true,
             lock: true,
             width: 820,

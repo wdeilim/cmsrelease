@@ -110,6 +110,7 @@ $.__aliedit_fun = {
         //加载列表
         tthis.materialbrowser(null, 1, callback, paramet);
     },
+    materialparamet: {},
     materialbrowser: function(obj, page, callback, paramet){
         var tthis = this;
         var eve = $("div.jQuery-formfile").find(".formfile-item"),fileurl;
@@ -125,9 +126,11 @@ $.__aliedit_fun = {
                 return true;
             }
             if (paramet) {
+                tthis.materialparamet = paramet;
                 fileurl = paramet.home + "web/library/alieditlist/?l="+paramet.alid;
                 window.aliformfile_fileurl = fileurl;
             }else{
+                paramet = tthis.materialparamet;
                 fileurl =  window.aliformfile_fileurl;
             }
             if (obj === 0) {
@@ -141,7 +144,7 @@ $.__aliedit_fun = {
                 dataType: "html",
                 success: function (html) {
                     $intemp = $(html);
-                    if (paramet.material_val) {
+                    if (paramet && paramet.material_val) {
                         $intemp.find("#appmsg-col-" + paramet.material_val).find(">div.appmsg").css({
                             'border': '1px solid rgb(255, 0, 0)',
                             'box-shadow': 'rgb(255, 0, 0) 0px 1px 8px'
@@ -960,6 +963,7 @@ $.fn.aliedit = function(paramet) {
         $inhtml.find(".aliedit-inicon-emotion").click(function(){
             if ($inhtml.find(".emotion_wrp").css('display') != 'none') {
                 $inhtml.find(".emotion_wrp").hide('fast');
+                return false;
             }
             $inhtml.find(".emotion_wrp .emotions").html("");
             for(var i=0;i<105;i++) {
@@ -974,6 +978,17 @@ $.fn.aliedit = function(paramet) {
                 $inhtml.find(".emotion_wrp .emotions").append($emotion_icon);
             }
             $inhtml.find(".emotion_wrp").show();
+            console.log($inhtml.parents(".aui_dialog").length);
+            if ($inhtml.parents(".aui_dialog").length > 0) {
+                if ($inhtml.parents(".aui_dialog").outerHeight() < $inhtml.outerHeight() + $inhtml.find(".emotion_wrp").outerHeight()) {
+                    $inhtml.find(".emotion_wrp").css({
+                        'position':'fixed',
+                        'z-index':99999,
+                        'top':$(this).offset().top + 26 - $(window).scrollTop(),
+                        'left':$(this).offset().left
+                    });
+                }
+            }
         });
         $('body').click(function (e) {
             if ($inhtml.find(".emotion_wrp").css('display') != 'none') {

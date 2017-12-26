@@ -464,6 +464,17 @@ function new_addslashes($string){
 }
 
 /**
+ * 返回经trim处理过的字符串或数组
+ * @param $string
+ * @return array|string
+ */
+function new_trim($string) {
+    if(!is_array($string)) return trim($string);
+    foreach($string as $key => $val) $string[$key] = new_trim($val);
+    return $string;
+}
+
+/**
  * 合拼数组
  * @return array
  */

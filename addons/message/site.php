@@ -74,14 +74,30 @@ class ES_Message extends CI_Model {
         $this->user->getuser();
         $func = $this->user->functions();
 
-        $id = value($parent, 1, 'int');
         $arr = array();
         $arr['success'] = 0;
         //
-        $row = $this->ddb->getone(tableal("message"), array('id'=>intval($id)));
-        if (empty($row)) {
-            $arr['message'] = "要回复的信息不存在";
-            echo json_encode($arr); exit();
+        if ($this->input->get('vipid') > 0) {
+            $vip = db_getone(tableal("vip_users"), array('id'=>intval($this->input->get('vipid')),'alid'=>$func['al']['id']));
+            if (empty($vip)) {
+                $arr['message'] = "会员不存在";
+                echo json_encode($arr); exit();
+            }
+            $row = $this->ddb->getone(tableal("message"), array('openid'=>$vip['openid']), 'indate desc,id desc');
+            if (empty($row)) {
+                $arr['message'] = ($vip['type']=='alipay'?'支付宝服务窗':'微信').' 规定只能给有聊天记录的粉丝发信息！';
+                echo json_encode($arr); exit();
+            }
+        }else{
+            $id = value($parent, 1, 'int');
+            if (empty($id)) {
+                $id = intval($this->input->get('id'));
+            }
+            $row = $this->ddb->getone(tableal("message"), array('id'=>intval($id)));
+            if (empty($row)) {
+                $arr['message'] = "要回复的信息不存在";
+                echo json_encode($arr); exit();
+            }
         }
         //
         $msgtype = $row['type'];
@@ -116,7 +132,7 @@ class ES_Message extends CI_Model {
             }else{
                 $return_msg = object_array($this->fuwu->sendtext($M));
                 if (value($return_msg, 'alipay_mobile_public_message_custom_send_response|code') != '200'){
-                    $arr['message'] = "【失败】".value($return_msg, 'alipay_mobile_public_message_custom_send_response|code');
+                    $arr['message'] = "【失败】".$this->fuwu->error_code(value($return_msg, 'alipay_mobile_public_message_custom_send_response|code'));
                     echo json_encode($arr); exit();
                 }
             }
@@ -143,7 +159,7 @@ class ES_Message extends CI_Model {
             }else{
                 $return_msg = object_array($this->fuwu->sendimagetext($M));
                 if (value($return_msg, 'alipay_mobile_public_message_custom_send_response|code') != '200'){
-                    $arr['message'] = "【失败】".value($return_msg, 'alipay_mobile_public_message_custom_send_response|code');
+                    $arr['message'] = "【失败】".$this->fuwu->error_code(value($return_msg, 'alipay_mobile_public_message_custom_send_response|code'));
                     echo json_encode($arr); exit();
                 }
             }
@@ -166,7 +182,7 @@ class ES_Message extends CI_Model {
             }else{
                 $return_msg = object_array($this->fuwu->sendmaterial($M));
                 if (value($return_msg, 'alipay_mobile_public_message_custom_send_response|code') != '200'){
-                    $arr['message'] = "【失败】".value($return_msg, 'alipay_mobile_public_message_custom_send_response|code');
+                    $arr['message'] = "【失败】".$this->fuwu->error_code(value($return_msg, 'alipay_mobile_public_message_custom_send_response|code'));
                     echo json_encode($arr); exit();
                 }
             }
@@ -193,7 +209,7 @@ class ES_Message extends CI_Model {
             }else{
                 $return_msg = object_array($this->fuwu->sendmedia($M));
                 if (value($return_msg, 'alipay_mobile_public_message_custom_send_response|code') != '200'){
-                    $arr['message'] = "【失败】".value($return_msg, 'alipay_mobile_public_message_custom_send_response|code');
+                    $arr['message'] = "【失败】".$this->fuwu->error_code(value($return_msg, 'alipay_mobile_public_message_custom_send_response|code'));
                     echo json_encode($arr); exit();
                 }
             }
@@ -274,9 +290,16 @@ class ES_Message extends CI_Model {
         $page = value($parent, 1, 'int');
         $pageurl = urlencode($this->base->url[3]);
         //
-        $row = db_getone(tableal("message"), array('id'=>intval($this->input->get('id')),'alid'=>$func['al']['id']));
-        if (empty($row)) {
-            $this->cs->showmsg(null, '信息不存在');
+        if ($this->input->get('vipid')) {
+            $row = db_getone(tableal("vip_users"), array('id'=>intval($this->input->get('vipid')),'alid'=>$func['al']['id']));
+            if (empty($row)) {
+                $this->cs->showmsg(null, '会员不存在');
+            } 
+        }else{
+            $row = db_getone(tableal("message"), array('id'=>intval($this->input->get('id')),'alid'=>$func['al']['id']));
+            if (empty($row)) {
+                $this->cs->showmsg(null, '信息不存在');
+            } 
         }
         //
         $wheresql = " `openid`='".$row['openid']."'";

@@ -72,6 +72,13 @@ class Wx {
                 $_A['corp_agentid'] = value($post_obj, 'AgentID');
             }else{
                 $post_obj = json_decode(xml2json($post_str), true);
+                if (isset($post_obj['Encrypt']) && !isset($post_obj['FromUserName'])) {
+                    include_once "weixin/WXBizMsgCrypt.php";
+                    $this->wxcpt = new WXBizMsgCrypt($_A['al']['wx_token'], $_A['al']['wx_aeskey'], $_A['al']['wx_appid']);
+                    $errCode = $this->wxcpt->DecryptMsg($_GPC['msg_signature'], $_GPC["timestamp"], $_GPC["nonce"], $post_str, $post_str);
+                    if ($errCode != 0) { exit (); }
+                    $post_obj = json_decode(xml2json($post_str), true);
+                }
             }
         }
         //
@@ -329,6 +336,7 @@ class Wx {
                 }
             }
             $this->error_code($_content);
+            if (empty($M['user_name'])) { $M['user_name'] = substr($M['openid'],0,8).'***'.substr($M['openid'],-8); }
         }
         if ($M['user_name']) {
             $CI =& get_instance();
@@ -461,7 +469,7 @@ class Wx {
         }
         $content = $CI->communication->ihttp_date($url, $_data);
         $content = isset($content['content'])?json_decode($content['content'], true):'';
-        $this->error_code($content);
+        $this->error_code($content, true);
         $errcode = value($content, 'errcode');
         if ($errcode != 0) {
             $rcode = value($content, 'errmsg');
@@ -516,7 +524,7 @@ class Wx {
         }
         $content = $CI->communication->ihttp_date($url, $_data);
         $content = isset($content['content'])?json_decode($content['content'], true):'';
-        $this->error_code($content);
+        $this->error_code($content, true);
         $errcode = value($content, 'errcode');
         if ($errcode != 0) {
             $rcode = value($content, 'errmsg');
@@ -595,7 +603,7 @@ class Wx {
         }
         $content = $CI->communication->ihttp_date($url, $_data);
         $content = isset($content['content'])?json_decode($content['content'], true):'';
-        $this->error_code($content);
+        $this->error_code($content, true);
         $errcode = value($content, 'errcode');
         if ($errcode != 0) {
             $rcode = value($content, 'errmsg');
@@ -697,7 +705,7 @@ class Wx {
         }
         $content = $CI->communication->ihttp_date($url, $_data);
         $content = isset($content['content'])?json_decode($content['content'], true):'';
-        $this->error_code($content);
+        $this->error_code($content, true);
         $errcode = value($content, 'errcode');
         if ($errcode != 0) {
             $rcode = value($content, 'errmsg');
@@ -1406,7 +1414,7 @@ class Wx {
         $CI->load->library('communication');
         $content = $CI->communication->ihttp_date($url, $data);
         $_content = isset($content['content'])?json_decode($content['content'], true):'';
-        $this->error_code($_content);
+        $this->error_code($_content, true);
         return $_content;
     }
 
@@ -1426,7 +1434,7 @@ class Wx {
         }
         $content = $CI->communication->ihttp_request($url);
         $_content = isset($content['content'])?json_decode($content['content'], true):'';
-        $this->error_code($_content);
+        $this->error_code($_content, true);
         return $_content;
     }
 
@@ -1446,7 +1454,7 @@ class Wx {
         }
         $content = $CI->communication->ihttp_request($url);
         $_content = isset($content['content'])?json_decode($content['content'], true):'';
-        $this->error_code($_content);
+        $this->error_code($_content, true);
         return $_content;
     }
 
@@ -1558,111 +1566,19 @@ class Wx {
     /** **********************************************************************************************/
     /** **********************************************************************************************/
 
-    public function error_code($code) {
+    public function error_code(&$content, $replace = false) {
         global $_A;
+        $code = $content;
         if (is_array($code) && isset($code['errcode'])) {
             $code = $code['errcode'];
         }
-        $errors = array(
-            '-1' => '系统繁忙',
-            '0' => '请求成功',
-            '40001' => '获取access_token时AppSecret错误，或者access_token无效',
-            '40002' => '不合法的凭证类型',
-            '40003' => '不合法的OpenID',
-            '40004' => '不合法的媒体文件类型',
-            '40005' => '不合法的文件类型',
-            '40006' => '不合法的文件大小',
-            '40007' => '不合法的媒体文件id',
-            '40008' => '不合法的消息类型',
-            '40009' => '不合法的图片文件大小',
-            '40010' => '不合法的语音文件大小',
-            '40011' => '不合法的视频文件大小',
-            '40012' => '不合法的缩略图文件大小',
-            '40013' => '不合法的APPID',
-            '40014' => '不合法的access_token',
-            '40015' => '不合法的菜单类型',
-            '40016' => '不合法的按钮个数',
-            '40017' => '不合法的按钮个数',
-            '40018' => '不合法的按钮名字长度',
-            '40019' => '不合法的按钮KEY长度',
-            '40020' => '不合法的按钮URL长度',
-            '40021' => '不合法的菜单版本号',
-            '40022' => '不合法的子菜单级数',
-            '40023' => '不合法的子菜单按钮个数',
-            '40024' => '不合法的子菜单按钮类型',
-            '40025' => '不合法的子菜单按钮名字长度',
-            '40026' => '不合法的子菜单按钮KEY长度',
-            '40027' => '不合法的子菜单按钮URL长度',
-            '40028' => '不合法的自定义菜单使用用户',
-            '40029' => '不合法的oauth_code',
-            '40030' => '不合法的refresh_token',
-            '40031' => '不合法的openid列表',
-            '40032' => '不合法的openid列表长度',
-            '40033' => '不合法的请求字符，不能包含\uxxxx格式的字符',
-            '40035' => '不合法的参数',
-            '40038' => '不合法的请求格式',
-            '40039' => '不合法的URL长度',
-            '40050' => '不合法的分组id',
-            '40051' => '分组名字不合法',
-            '41001' => '缺少access_token参数',
-            '41002' => '缺少appid参数',
-            '41003' => '缺少refresh_token参数',
-            '41004' => '缺少secret参数',
-            '41005' => '缺少多媒体文件数据',
-            '41006' => '缺少media_id参数',
-            '41007' => '缺少子菜单数据',
-            '41008' => '缺少oauth code',
-            '41009' => '缺少openid',
-            '42001' => 'access_token超时',
-            '42002' => 'refresh_token超时',
-            '42003' => 'oauth_code超时',
-            '43001' => '需要GET请求',
-            '43002' => '需要POST请求',
-            '43003' => '需要HTTPS请求',
-            '43004' => '需要接收者关注',
-            '43005' => '需要好友关系',
-            '44001' => '多媒体文件为空',
-            '44002' => 'POST的数据包为空',
-            '44003' => '图文消息内容为空',
-            '44004' => '文本消息内容为空',
-            '45001' => '多媒体文件大小超过限制',
-            '45002' => '消息内容超过限制',
-            '45003' => '标题字段超过限制',
-            '45004' => '描述字段超过限制',
-            '45005' => '链接字段超过限制',
-            '45006' => '图片链接字段超过限制',
-            '45007' => '语音播放时间超过限制',
-            '45008' => '图文消息超过限制',
-            '45009' => '接口调用超过限制',
-            '45010' => '创建菜单个数超过限制',
-            '45015' => '回复时间超过限制',
-            '45016' => '系统分组，不允许修改',
-            '45017' => '分组名字过长',
-            '45018' => '分组数量超过上限',
-            '46001' => '不存在媒体数据',
-            '46002' => '不存在的菜单版本',
-            '46003' => '不存在的菜单数据',
-            '46004' => '不存在的用户',
-            '47001' => '解析JSON/XML内容错误',
-            '48001' => 'api功能未授权',
-            '50001' => '用户未授权该api',
-            '40070' => '基本信息baseinfo中填写的库存信息SKU不合法。',
-            '41011' => '必填字段不完整或不合法，参考相应接口。',
-            '40056' => '无效code，请确认code长度在20个字符以内，且处于非异常状态（转赠、删除）。',
-            '43009' => '无自定义SN权限，请参考开发者必读中的流程开通权限。',
-            '43010' => '无储值权限,请参考开发者必读中的流程开通权限。',
-            '43011' => '无积分权限,请参考开发者必读中的流程开通权限。',
-            '40078' => '无效卡券，未通过审核，已被置为失效。',
-            '40079' => '基本信息base_info中填写的date_info不合法或核销卡券未到生效时间。',
-            '45021' => '文本字段超过长度限制，请参考相应字段说明。',
-            '40080' => '卡券扩展信息cardext不合法。',
-            '40097' => '基本信息base_info中填写的url_name_type或promotion_url_name_type不合法。',
-            '49004' => '签名错误。',
-            '43012' => '无自定义cell跳转外链权限，请参考开发者必读中的申请流程开通权限。',
-            '40099' => '该code已被核销。'
-        );
+        if ($this->iscorp()) {
+            $errors = @include "weixin/errmsg_corp.php";
+        }else{
+            $errors = @include "weixin/errmsg.php";
+        }
         $code = strval($code);
-        if($code == '40001' || $code == '42001') {
+        if($code == '40001' || $code == '40014' || $code == '42001') {
             $setting = string2array($_A['al']['setting']);
             $record = array();
             $record['token'] = '';
@@ -1670,13 +1586,19 @@ class Wx {
             $setting['wx_token'] = json_encode($record);
             $_A['al']['setting'] = $setting;
             db_update(table('users_al'), array("setting"=>array2string($_A['al']['setting'])), array('id' => $_A['al']['id']));
-            return '微信公众平台授权异常, 系统已修复这个错误, 请刷新页面重试.';
+            $returntxt = $errors[$code]?$errors[$code]:'微信公众平台授权异常, 系统已修复这个错误';
+            $returntxt.= '【请刷新页面后重试】';
+        }else{
+            if($errors[$code]) {
+                $returntxt = $errors[$code];
+            } else {
+                $returntxt = '未知错误'.$code;
+            }
         }
-        if($errors[$code]) {
-            return $errors[$code];
-        } else {
-            return '未知错误';
+        if ($replace && is_array($content) && isset($content['errmsg'])) {
+            $content['errmsg'] = $returntxt;
         }
+        return $returntxt;
     }
 
     public function fansAll() {
@@ -1768,7 +1690,7 @@ class Wx {
             return $CI->communication->error(-1, $error);
         }
         $ticket = @json_decode($content['content'], true);
-        $this->error_code($ticket);
+        $this->error_code($ticket, true);
         if(empty($ticket) || intval(($ticket['errcode'])) != 0 || $ticket['errmsg'] != 'ok') {
             return $CI->communication->error(-1, '获取微信公众号 jsapi_ticket 结果错误, 错误信息: ' . $ticket['errmsg']);
         }

@@ -1,1 +1,1 @@
-<?php define('ES_VERSION', '3.0'); define('ES_RELEASE', '20160507'); ?>
+<?php define('ES_VERSION', '3.0'); define('ES_RELEASE', '20160515'); ?>

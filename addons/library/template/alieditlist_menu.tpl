@@ -10,7 +10,7 @@
         </div>
         <div id="pagelist" style="margin-top:2px">{#$pagelist#}</div>
     </div>
-    <div class="appmsg-list cf" id="appmsg-list">
+    <div class="appmsg-list cf" id="appmsg-list" style="max-width:100%;">
         {#foreach from=$lists item=list#}
             {#if $list.type=='manyimg'#}
                 <div id="appmsg-col-{#$list.id#}" class="appmsg-col" onclick="__librarypage(this);" data-id="{#$list.id#}">

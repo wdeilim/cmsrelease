@@ -156,3 +156,13 @@
 修复已知bug；
 ```
 
+## 3.0_20160515
+
+> Release Time: 2016-05-15
+>
+> Download Link: http://www.vwins.cn/index.php?act=download&id=72
+
+```
+修复公众号接口安全模式不能正常回复的问题。
+```
+

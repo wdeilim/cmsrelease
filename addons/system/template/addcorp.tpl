@@ -194,11 +194,13 @@
                 $(this).addClass("active");
                 $("table.tabmenu").hide().eq(index).show();
                 //
-                var clipwx_0 = new ZeroClipboard.Client();
-                clipwx_0.setHandCursor(true);
-                clipwx_0.setText($("#_wxurl-0").val());
-                clipwx_0.addEventListener('complete', function(){ $.alertk("复制成功！"); });
-                clipwx_0.glue('_wxurlbut-0');
+                if ($("#_wxurl-0").length > 0) {
+                    var clipwx_0 = new ZeroClipboard.Client();
+                    clipwx_0.setHandCursor(true);
+                    clipwx_0.setText($("#_wxurl-0").val());
+                    clipwx_0.addEventListener('complete', function(){ $.alertk("复制成功！"); });
+                    clipwx_0.glue('_wxurlbut-0');
+                }
                 {#foreach $edit['wx_corp'] AS $item#}
                 {#if $item['agentid'] > 0 && $item['type'] == 1#}
                 var clipwx_{#$item['agentid']#} = new ZeroClipboard.Client();

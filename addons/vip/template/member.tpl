@@ -12,14 +12,18 @@
     <link rel="stylesheet" href="{#$CSS_PATH#}font-awesome.css"/>
     <link rel="stylesheet" href="{#$NOW_PATH#}css/style.css"/>
     <style type="text/css">
-        .avatar img {vertical-align: middle;width: 30px;padding-right:3px;}
+        .avatar img{vertical-align:middle;width:30px;padding-right:3px}
         #text-tooltip{position:absolute;background-color:#fff;padding:8px;border:1px solid #cc7116}
         #text-tooltip img{display:block;margin:10px 0 0;max-width:300px;max-height:300px}
-        .uinfonext{display:none;}
-        .uinfonext .listinfo {line-height:24px;}
-        .uinfonext .listinfo span {display:block;float:left;padding-right:30px;color:#777777;}
-        .uinfonext .listinfo span:nth-child(even) {color:#C8A99B;}
+        .uinfonext{display:none}
+        .uinfonext .listinfo{line-height:24px}
+        .uinfonext .listinfo span{display:block;float:left;padding-right:30px;color:#777}
+        .uinfonext .listinfo span:nth-child(even){color:#C8A99B}
         .uinfonext .listinfo span em{font-style:normal;margin-left:3px;text-decoration:underline}
+        .uinfonext div.send{background:url({#$NOW_PATH#}images/send.png) no-repeat;background-size:contain;display:block;width:22px;height:22px;margin:0 auto;cursor:pointer;}
+        .uinfonext div.send:hover{background-image:url({#$NOW_PATH#}images/send_hover.png);}
+        .sendtitle{cursor:pointer;background:#4CBAEA;color:#fff;padding:5px 8px;font-weight:400;text-shadow:none;border-radius:3px;margin-left:10px}
+        .sendtitle:hover{background:#fa0}
     </style>
     <script type="text/javascript" src="{#$JS_PATH#}jquery-1.11.0.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}jquery.alert.js"></script>
@@ -124,7 +128,11 @@
                             </td>
                         </tr>
                         <tr class="uinfonext">
-                            <td></td>
+                            <td>
+                                {#if $list.follow == 1#}
+                                    <div class="send" onclick="_notes('{#$list.id#}')" title="与 {#$list.fullname|get_html:9#} 的聊天记录"></div>
+                                {#/if#}
+                            </td>
                             <td colspan="8" class="lt listinfo">
                                 <span>性别:<em id="u_sex">{#$list.sex#}</em></span>
                                 <span>电话:<em id="u_phone">{#format_user($list.phone, 1)#}</em></span>
@@ -240,6 +248,7 @@
     </div>
 </div>
 
+{#tpl_form_aledit()#}
 <script type="text/javascript">
     window.y_id = false;
     function all_y(){
@@ -266,6 +275,67 @@
             alert("请选择搜索类型"); $('#keytype').focus(); return;
         }
         window.location.href = "{#weburl(3)#}&keyval="+encodeURIComponent(keyval)+"&keytype="+keytype+"&usertype="+usertype;
+    }
+    function _notes(id) {
+        var obj = $("#user_info_" + id);
+        var _h = ($(window).height()-50)*0.96;
+        art.dialog({
+            title: '与 '+obj.find("#u_fullname").attr("data-title")+' 的聊天 <span class="sendtitle" onclick="_reply(0,'+id+')">发送信息</span>',
+            fixed: true,
+            lock: true,
+            width: 820,
+            height: _h,
+            opacity: '.3',
+            content: '<iframe src="{#weburl('message/notes')#}&vipid='+id+'" style="width:750px;height:'+(_h-50)+'px;" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="auto" allowtransparency="yes"> '
+        });
+    }
+
+    function _reply(id, vipid) {
+        var _url = "{#weburl('message/reply')#}&id="+id;
+        if (id == 0) {
+            _url = "{#weburl('message/reply')#}&vipid="+vipid;
+        }
+        var _rep = art.dialog({
+            title: '回复信息',
+            fixed: true,
+            lock: true,
+            opacity: '.3',
+            content: '<textarea id="replutext" name="replutext" data-link="1" style="width:460px;height:200px;padding:0;"></textarea> ',
+            button: [{
+                name: '提交',
+                focus: true,
+                callback: function () {
+                    $.alert('正在提交',0);
+                    var dataurl = '';
+                    $(".aliedit").find("textarea,input").each(function(){
+                        dataurl+= $(this).attr("name")+"="+$(this).val()+"&"
+                    });
+                    $.ajax({
+                        type: "POST",
+                        url: _url,
+                        data: dataurl,
+                        dataType: 'json',
+                        success: function (data) {
+                            $.alert(data.message);
+                            if (data != null && data.success != null && data.success) {
+                                $("#isreply_"+id).html("<span title='刷新当前页面可查看回复信息详情'>已回复</span>");
+                                _rep.close();
+                            }
+                        },error : function () {
+                            $.alert("提交失败！");
+                        },
+                        cache: false
+                    });
+                    return false;
+                }
+            },{
+                name: '取消',
+                callback: function () {
+                    return true;
+                }
+            }]
+        });
+        $("#replutext").tpl_form_aledit();
     }
 
     $(document).ready(function() {
