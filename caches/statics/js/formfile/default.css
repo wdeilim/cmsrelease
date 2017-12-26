@@ -1,5 +1,5 @@
 .jQuery-formfile{color:#2E2E2E}
-.jQuery-form-back{width:100%;position:absolute;top:0;left:0;background-color:#000;opacity:.5;z-index:99998}
+.jQuery-form-back{width:100%;position:fixed;*position:absolute;top:0;left:0;background-color:#000;opacity:.5;z-index:99998}
 .jQuery-form-content{display:block;position:fixed;top:30px;left:50%;z-index:99999;width:600px;margin-left:-300px;background-color:#fff;background-clip:padding-box;border-radius:6px;border:1px solid #999;-webkit-box-shadow:0 5px 15px rgba(0,0,0,.5);box-shadow:0 5px 15px rgba(0,0,0,.5);outline:0}
 .jQuery-form-content *{-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box}
 .formfile-title{font-size:24px;margin-bottom:10px;font-weight:500;line-height:1.1;position:relative;padding:20px 20px 15px;border-bottom:1px solid #e5e5e5}

@@ -1781,13 +1781,14 @@ class Wx {
         return $ticket['ticket'];
     }
 
-    public function jssdkConfig($url = ''){
+    public function jssdkConfig($url = '', $module = ''){
         global $_A;
         if (empty($_A['al']['wx_appid'])) return "";
+        if (empty($module)) $module = $_A['module'];
         $getjs_appid = value($_A, 'al|setting|other|getjs_appid');
         if ($getjs_appid) {
             $getjs_appoint = value($_A, 'al|setting|other|getjs_appoint', true);
-            if (empty($getjs_appoint) || in_array($_A['module'], $getjs_appoint)) {
+            if (empty($getjs_appoint) || in_array($module, $getjs_appoint)) {
                 return $this->jssdkConfig_get($url);
             }
         }

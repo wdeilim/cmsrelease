@@ -161,6 +161,8 @@ class User extends CI_Model {
                     //
 					$this->fuwu->exist_group($M);
 					$this->fuwu->processor();
+					//
+					gourl(get_link('alipay_oauth2|auth_code'));
 				} else {
 					$_url = 'https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id='.$_A['al']['al_appid'];
 					$_url.= '&auth_skip=true&scope=auth_userinfo&redirect_uri='.urlencode(get_link('alipay_oauth2')."&alipay_oauth2=1");
@@ -229,6 +231,8 @@ class User extends CI_Model {
 							//
 							$this->wx->exist_group($M);
 							$this->wx->processor();
+							//
+							gourl(get_link('weixin_oauth2|code'));
 						} else {
 							$_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$_A['wxget']['appid'];
 							$_url.= '&redirect_uri='.urlencode(get_link('weixin_oauth2')."&weixin_oauth2=1");
@@ -304,6 +308,8 @@ class User extends CI_Model {
 						//
 						$this->wx->exist_group($M);
 						$this->wx->processor();
+						//
+						gourl(get_link('weixin_oauth2|code'));
 					} else {
 						$_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$_A['al']['wx_appid'];
 						$_url.= '&redirect_uri='.urlencode(get_link('weixin_oauth2')."&weixin_oauth2=1");

@@ -52,6 +52,8 @@ class Del extends CI_Model {
                 foreach($uflist AS $item) {
                     self::deluse($item);
                 }
+                $this->__removeDir(BASE_PATH.'uploadfiles/csv/'.$alrow['id'].'/');
+                $this->__removeDir(BASE_PATH.'uploadfiles/users/'.$alrow['id'].'/');
             }else{
                 return false;
             }
@@ -92,6 +94,24 @@ class Del extends CI_Model {
             }
         }
         return true;
+    }
+
+    private function __removeDir($dirName){
+        if(!is_dir($dirName)){
+            @unlink($dirName);
+            return false;
+        }
+        $handle = @opendir($dirName);
+        while(($file = @readdir($handle)) !== false)
+        {
+            if($file!='.'&&$file!='..')
+            {
+                $dir = $dirName . '/' . $file;
+                is_dir($dir)?$this->__removeDir($dir):@unlink($dir);
+            }
+        }
+        closedir($handle);
+        return rmdir($dirName) ;
     }
 }
 ?>

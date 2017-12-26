@@ -23,8 +23,32 @@ window.vwins_path = {
 			me+= "/index.php";
 		}
 		return me + "/";
+	}(document.getElementsByTagName('script')),
+	module: function (script, i, me, src) {
+		for (i in script) {
+			src = script[i].src + ""; src = src.replace(/\\/g, '/');
+			if (src && src.indexOf('/caches/statics/js/') !== -1) me = script[i];
+		}
+		var _thisScript = me || script[script.length - 1];
+		me = _thisScript.src.replace(/\\/g, '/');
+		me = me.indexOf('/caches/statics/js/') < 0 ? '.' : me.substring(0, me.indexOf('/caches/statics/js/'));
+		var _href = window.location.href;
+		if (_href.indexOf(me + '/index.php?') !== -1) {
+			me+= "/index.php?";
+		}else if (_href.indexOf(me + '/index.php') !== -1) {
+			me+= "/index.php";
+		}
+		me = me + "/";
+		if (_href.indexOf(me + 'app/') !== -1) {
+			me = _href.substring((me + 'app/').length);
+		}else if (_href.indexOf(me + 'web/') !== -1) {
+			me = _href.substring((me + 'web/').length);
+		}
+		me = me.substring(0, me.indexOf('/'));
+		return me;
 	}(document.getElementsByTagName('script'))
 };
+
 require.config({
 	baseUrl: window.vwins_path.js,
 	paths: {
@@ -53,8 +77,8 @@ require.config({
 		'baidueditor': 'ueditor/ueditor',
 		'ueditorlang': 'ueditor/lang/zh-cn/zh-cn',
 		'ueditorzeroclip': 'ueditor/third-party/zeroclipboard/ZeroClipboard.min',
-		'share' : window.vwins_path.uri + 'web/system/require_share/' + ((document.location.search.indexOf("?")!==-1)?document.location.search:'?') + '&url=' + encodeURIComponent(document.location.href),
-		'photo' : window.vwins_path.uri + 'web/system/require_photo/' + ((document.location.search.indexOf("?")!==-1)?document.location.search:'?') + '&url=' + encodeURIComponent(document.location.href),
+		'share' : window.vwins_path.uri + 'web/system/require_share/' + ((document.location.search.indexOf("?")!==-1)?document.location.search:'?') + '&module=' + window.vwins_path.module + '&url=' + encodeURIComponent(document.location.href),
+		'photo' : window.vwins_path.uri + 'web/system/require_photo/' + ((document.location.search.indexOf("?")!==-1)?document.location.search:'?') + '&module=' + window.vwins_path.module + '&url=' + encodeURIComponent(document.location.href),
 		'jweixin' : 'http://res.wx.qq.com/open/js/jweixin-1.0.0',
 		'jalipay' : 'https://static.alipay.com/aliBridge/1.0.0/aliBridge.min',
 		'map': 'http://api.map.baidu.com/getscript?v=2.0&ak=eDsGxG65jw27rKR2hGfhRIBp&services=&t=' + new Date().getTime()

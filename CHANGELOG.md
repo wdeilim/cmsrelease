@@ -146,3 +146,13 @@
 修复部分主机访问移动端时出现的空白页。
 ```
 
+## 3.0_20160507
+
+> Release Time: 2016-05-07
+>
+> Download Link: http://www.vwins.cn/index.php?act=download&id=71
+
+```
+修复已知bug；
+```
+

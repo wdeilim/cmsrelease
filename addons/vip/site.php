@@ -1621,7 +1621,14 @@ class ES_Vip extends CI_Model {
 				db_query("DELETE FROM ".table("vip_users")." WHERE ".$this->merge(0)." AND `id`=".intval($item['id']));
 				db_query("DELETE FROM ".table("vip_record")." WHERE ".$this->merge(0)." AND `userid`=".intval($item['id']));
 				db_query("DELETE FROM ".table("fans")." WHERE ".$this->merge(0)." AND `openid`='".$item['openid']."'");
-			}
+                //
+                $ufile = db_getall(table("vip_uploadfiles"), $this->merge(array('openid'=>$item['openid'])));
+                foreach ($ufile AS $file) {
+                    if (substr($file,0,18) == 'uploadfiles/users/' && file_exists(BASE_PATH.$file)) {
+                        @unlink(BASE_PATH.$file);
+                    }
+                } db_query("DELETE FROM ".table("vip_uploadfiles")." WHERE ".$this->merge(0)." AND `openid`='".$item['openid']."'");
+            }
 			echo json_encode(array('success'=>1)); exit();
         }
         //
@@ -3239,6 +3246,7 @@ class ES_Vip extends CI_Model {
         db_delete(table("vip_shop"), array('alid' => $alid));
         db_delete(table("vip_shop_users"), array('alid' => $alid));
         db_delete(table("vip_users"), array('alid' => $alid));
+        db_delete(table("vip_uploadfiles"), array('alid' => $alid));
         return true;
     }
 }

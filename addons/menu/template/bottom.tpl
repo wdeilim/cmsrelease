@@ -87,8 +87,9 @@
             $("div.jQuery-formfile").remove();
         });
         //调整宽度
-        var w = $(document).width() * 0.8;
+        var w = $(window).width();
         if (w > 1220) w = 1220;
+        w = (w < 960)?w*0.9:w*0.8;
         var wl = (w / 2) * -1;
         intemp.find(".jQuery-form-content").css({width:w,marginLeft:wl});
         //点击确定
@@ -160,8 +161,9 @@
             $("div.jQuery-formfile").remove();
         });
         //调整宽度
-        var w = $(document).width() * 0.8;
+        var w = $(window).width();
         if (w > 1220) w = 1220;
+        w = (w < 960)?w*0.9:w*0.8;
         var wl = (w / 2) * -1;
         intemp.find(".jQuery-form-content").css({width:w,marginLeft:wl});
         //点击确定
@@ -233,8 +235,9 @@
             $("div.jQuery-formfile").remove();
         });
         //调整宽度
-        var w = $(document).width() * 0.8;
+        var w = $(window).width();
         if (w > 1220) w = 1220;
+        w = (w < 960)?w*0.9:w*0.8;
         var wl = (w / 2) * -1;
         intemp.find(".jQuery-form-content").css({width:w,marginLeft:wl});
         //点击确定
@@ -300,8 +303,9 @@
             $("div.jQuery-formfile").remove();
         });
         //调整宽度
-        var w = $(document).width() * 0.8;
+        var w = $(window).width();
         if (w > 1220) w = 1220;
+        w = (w < 960)?w*0.9:w*0.8;
         var wl = (w / 2) * -1;
         intemp.find(".jQuery-form-content").css({width:w,marginLeft:wl});
         //点击确定
@@ -368,8 +372,9 @@
             $("div.jQuery-formfile").remove();
         });
         //调整宽度
-        var w = $(document).width() * 0.8;
+        var w = $(window).width();
         if (w > 1220) w = 1220;
+        w = (w < 960)?w*0.9:w*0.8;
         var wl = (w / 2) * -1;
         intemp.find(".jQuery-form-content").css({width:w,marginLeft:wl});
         //点击确定

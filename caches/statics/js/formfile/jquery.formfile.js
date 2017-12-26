@@ -258,8 +258,9 @@ $.__formfile_fun = {
             tthis.out();
         });
         //调整宽度
-        var w = $(document).width() * 0.8,
-            wl = (w / 2) * -1;
+        var w = $(window).width();
+        w = (w < 960)?w*0.9:w*0.8;
+        var wl = (w / 2) * -1;
         intemp.find(".jQuery-form-content").css({width:w,marginLeft:wl});
         //点击确定
         intemp.find("#f-confirm").click(function(){
@@ -499,8 +500,9 @@ $.__formfile_fun = {
             tthis.out();
         });
         //调整宽度
-        var w = $(document).width() * 0.8,
-            wl = (w / 2) * -1;
+        var w = $(window).width();
+        w = (w < 960)?w*0.9:w*0.8;
+        var wl = (w / 2) * -1;
         intemp.find(".jQuery-form-content").css({width:w,marginLeft:wl});
         //点击确定
         intemp.find("#f-confirm").click(function(){

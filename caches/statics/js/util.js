@@ -26,7 +26,7 @@
 
 	//生成资源链接（后面带 / ）
 	util.tomedia = function(src){
-		if (src && (src.indexOf('http://') == 0 || src.indexOf('https://') == 0  || src.indexOf('ftp://') == 0 || src.indexOf('/') == 0)) {
+		if (src && (src.indexOf('http://') == 0 || src.indexOf('https://') == 0  || src.indexOf('ftp://') == 0 || src.indexOf('/') == 0 || src.replace(/(^\s+)|(\s+$)/g, "").indexOf('data:image/') == 0)) {
 			return src;
 		} else {
 			if (typeof src == 'undefined') { src = ""; }
@@ -115,6 +115,9 @@
 				if (callback.maxHeight) {
 					photo.images.maxHeight = callback.maxHeight;
 				}
+				if (callback.cropper) {
+					photo.images.cropper = callback.cropper;
+				}
 				callback = callback.callback;
 			}
 			photo.upimg(callback);
@@ -133,11 +136,26 @@
 			modalobj = $('#' + loadingid);
 			var html =
 				'<div style="position: absolute;z-index:1;top:0;left:0;width:100%;height:100%;background:rgba(0, 0, 0, 0.3);"></div>' +
-				'<div style="text-align:center;background-color:rgba(0, 0, 0, 0.2);position:absolute;z-index:2;top:100px;left:0;margin:0;width:auto;padding:5px 12px;border-radius:5px;">'+
+				'<div style="text-align:center;background-color:rgba(0, 0, 0, 0.3);position:absolute;z-index:2;top:100px;left:0;margin:0;width:auto;padding:5px 12px;border-radius:5px;">'+
 				'		<img style="width:40px;height:40px;vertical-align:middle;" src="'+util.tomedia('caches/statics/images/loading.gif')+'" title="正在努力加载...">' +
 				'		<span style="margin-left:5px;color:#ffffff;display:none;"></span>' +
 				'</div>';
 			modalobj.html(html);
+		}
+		if ($(window).width() >= 640) {
+			modalobj.find("div:eq(1)").css({
+				'padding': '12px 25px'
+			});
+			modalobj.find("span").css({
+				'font-size': '20px'
+			});
+		}else{
+			modalobj.find("div:eq(1)").css({
+				'padding': '5px 12px'
+			});
+			modalobj.find("span").css({
+				'font-size': '14px'
+			});
 		}
 		if (text) {
 			modalobj.find("span").html(text).show();

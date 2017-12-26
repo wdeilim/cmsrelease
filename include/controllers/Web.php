@@ -130,7 +130,7 @@ class Web extends CI_Controller {
                 ),
                 1 => array(
                     'title'=>'返回 '.$_A['f']['title'],
-                    'href'=>get_link("do")
+                    'href'=>get_link("do|entry")
                 )
             );
             message(null, '提交成功！', $larr, $larr[1]['href']);

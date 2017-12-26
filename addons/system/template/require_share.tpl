@@ -3,12 +3,14 @@
     {#/if#}
 
     jQuery.share = function(title, desc, img, url, callback, result) {
+        var sharedebug = false;
         if (typeof title == "object") {
             desc = title.desc;
             img = title.img;
             url = title.url;
             callback = title.call?title.call:title.callback;
             result = title.result;
+            if (title.debug === true) { sharedebug = true; }
             title = title.title;
         }
         if (!url) { url = document.URL; }
@@ -25,7 +27,7 @@
         var jssdkconfig = {#json_encode($_A.wx_jssdkConfig)#} || {};
         require(['jweixin'], function(wx){
             // 是否启用调试
-            jssdkconfig.debug = false;
+            jssdkconfig.debug = sharedebug;
             //
             jssdkconfig.jsApiList = ['checkJsApi','onMenuShareTimeline','onMenuShareAppMessage','onMenuShareQQ','onMenuShareWeibo'];
             wx.config(jssdkconfig);

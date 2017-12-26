@@ -930,7 +930,7 @@ function get_subto($str, $ta = '', $tb = ''){
  */
 function fillurl($str = ''){
     if (empty($str)) return $str;
-    if (substr($str,0,7) == "http://" || substr($str,0,8) == "https://" || substr($str,0,6) == "ftp://" || substr($str,0,1) == "/"){
+    if (substr($str,0,7) == "http://" || substr($str,0,8) == "https://" || substr($str,0,6) == "ftp://" || substr($str,0,1) == "/" || substr(str_replace(' ','',$str),0,11) == "data:image/"){
         return $str;
     }else{
         return BASE_URI.$str;

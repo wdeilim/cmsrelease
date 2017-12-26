@@ -58,7 +58,7 @@ table.table-border>tbody>tr>td{border-right:1px solid #ccc;border-bottom:1px sol
 .normal-link2{color:#1c1c1c}
 .normal-link2:hover{text-decoration:underline}
 .header{min-width:1200px;border-bottom:1px solid #e2e2e2;background-color:#fff}
-.header-fix{height:60px;border-bottom:1px solid #e2e2e2;background-color:#fff;position:fixed;top:0;left:0;right:0;z-index:1000;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box;}
+.header-fix{height:60px;border-bottom:1px solid #e2e2e2;background-color:#fff;position:fixed;top:0;left:0;right:0;z-index:1001;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box;}
 .header-height{height:60px;background-color:#fff}
 .breadcrumb,.bulletin-overview,.main,.navbar{width:1200px;margin:0 auto;border:0}
 .header .navbar{height:59px;position:relative;}

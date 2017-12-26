@@ -3431,7 +3431,7 @@ class ES_System extends CI_Model {
 			}elseif (strpos($user_agent, 'MicroMessenger') !== false) {
 				$this->load->library('wx');
 				$this->wx->setting(intval($_GPC['al']));
-				$_A['wx_jssdkConfig'] = $this->wx->jssdkConfig(value($_GPC, 'url'));
+				$_A['wx_jssdkConfig'] = $this->wx->jssdkConfig(value($_GPC, 'url'), $_GPC['module']);
 				$_A['browser'] = 'weixin';
 			}else{
 				exit();
@@ -3445,6 +3445,9 @@ class ES_System extends CI_Model {
 	{
 		global $_A,$_GPC;
 		if ($_GPC['al'] > 0) {
+			$_A['openid'] = $this->webgetappopenid($_GPC['al']);
+			$_A['openid'] = $this->webgetappopenid($_GPC['al']);
+			//
 			$user_agent = $_SERVER['HTTP_USER_AGENT'];
 			if ($_GPC['act'] == 'elupload') {
 				$arr = array();
@@ -3455,7 +3458,7 @@ class ES_System extends CI_Model {
 				$uarr['upload_path'] = BASE_PATH.'uploadfiles/users/'.value($_A,'userid','int').'/images/_weixin/'.date('Ym/', SYS_TIME);
 				$uarr['allowed_types'] = 'gif|jpg|jpeg|png';
 				$uarr['file_name'] = 'el_'.SYS_TIME.rand(10,99);
-				$uarr['thumb'] = false;
+				$uarr['thumb'] = true;
 				$this->load->model('vupload');
 				$data = $this->vupload->upfile($uarr, '__photo-upimg-input_file');
 				if ($data['success']) {
@@ -3463,9 +3466,41 @@ class ES_System extends CI_Model {
 						$this->vupload->img2thumb($data['upload_data']['full_path'], $data['upload_data']['full_path'], intval($_GPC['width']), intval($_GPC['height']));
 					}
 					$arr['message'][] = $data['upload_data']['full_path_site'];
+					db_insert(table('vip_uploadfiles'), array(
+						'alid'=>intval($_GPC['al']),
+						'openid'=>$_A['openid'],
+						'path'=>$data['upload_data']['full_path_site'],
+						'indate'=>SYS_TIME
+					));
 				}else{
 					$arr['success'] = 0;
 					$arr['message'] = $data['message'];
+				}
+				echo json_encode($arr); exit();
+			}
+			if ($_GPC['act'] == 'viupload') {
+				$arr = array();
+				$arr['success'] = 0;
+				$arr['nextpage'] = 0;
+				$arr['message'] = array();
+				//
+				$page = max(1, $_GPC['page']);
+				$lists = db_getlist(table('vip_uploadfiles'),
+					array('alid'=>intval($_GPC['al']), 'openid'=>$_A['openid']), '`indate` DESC', 20, $page);
+				if ($lists['totalpage'] > $lists['nowpage']) {
+					$arr['nextpage'] = 1;
+				}
+				$list = $lists['list'];
+				if ($list) {
+					$arr['success'] = 1;
+					foreach ($list AS $item) {
+						$arr['message'][] = array(
+							'ymd' => date("Y-m-d", $item['indate']),
+							'path' => array($item['path']),
+							'fill' => fillurl($item['path']),
+							'thumb' => fillurl($item['path']."_thumb.jpg")
+						);
+					}
 				}
 				echo json_encode($arr); exit();
 			}
@@ -3870,6 +3905,37 @@ class ES_System extends CI_Model {
             db_query("DELETE FROM `".table('bindings')."` WHERE `module`='".$modulename."' AND `id` NOT IN (".implode(',', $bindid).")");
         }
     }
+
+	private function webgetappopenid($alid) {
+		global $_A,$_GPC;
+		$openid = $_A['_webgetappopenid_'.$alid];
+		if ($alid > 0 && $openid !== false && strlen($openid) < 10) {
+			$openid = $this->session->userdata('__SYS:USERID:' . intval($alid));
+			if (empty($_A['openid'])) {
+				$openid = $_GPC['__SYS:USERID:' . intval($alid)];
+			}
+			if (empty($_A['openid'])) {
+				$alrow = db_getone(table('users_al'), array('id' => intval($alid)));
+				if ($alrow) {
+					$alrow['setting'] = string2array($alrow['setting']);
+					$get_appid = value($alrow, 'setting|other|get_appid');
+					if ($get_appid) {
+						$get_appoint = value($alrow, 'setting|other|get_appoint', true);
+						if (empty($get_appoint) || in_array($_GPC['module'], $get_appoint)) {
+							$_secret = trim($alrow['setting']['other']['get_secret']);
+							$_md5 = substr(md5(trim($get_appid) . $_secret), 8, 16);
+							$openid = $this->session->userdata('g_openid_' . $_md5);
+							if (empty($_A['openid'])) {
+								$openid = $_GPC['g_openid_' . $_md5];
+							}
+						}
+					}
+				}
+			}
+			$_A['_webgetappopenid_'.$alid] = $openid?$openid:false;
+		}
+		return $openid;
+	}
 
     private function del_bindings($modulename)
     {

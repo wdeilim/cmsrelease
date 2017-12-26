@@ -50,7 +50,7 @@ table.table-primary tbody tr td,table.table-primary thead tr th{padding:10px 16p
 .breadcrumb .items span.ilink a i{color:#428bca;text-decoration:none}
 .breadcrumb .items span.ilink a:hover i{color:red}
 .breadcrumb .items span.iright{float:right}
-.breadcrumb .items span.iright .iright_menu{position:absolute;z-index:998;top:0;right:0;width:auto;height:38px;padding:2px 35px;background-color:#fff;border-left:1px solid #fff;overflow:hidden}
+.breadcrumb .items span.iright .iright_menu{position:absolute;z-index:1000;top:0;right:0;width:auto;height:38px;padding:2px 35px;background-color:#fff;border-left:1px solid #fff;overflow:hidden}
 .breadcrumb .items span.iright .iright_menu li{display:none;padding:0 5px;line-height:40px;border-bottom:1px solid #fff}
 .breadcrumb .items span.iright .iright_menu li:first-child{display:block}
 .breadcrumb .items span.iright .iright_menu li.title{text-align:center;color:#aaa}

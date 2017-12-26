@@ -106,7 +106,7 @@
                                         <div class="form-group">
                                             <label class="col-xs-12 col-sm-3 col-md-2 control-label">直接URL</label>
                                             <div class="col-xs-12 col-sm-9">
-                                                <input type="text" class="form-control" readonly="readonly" value="{#appurl(0, $_A['module'], $_GPC['do'])#}">
+                                                <input type="text" class="form-control" readonly="readonly" value="{#appurl(0, $_A['module'], $_GPC['do'])#}" style="cursor:text;">
                                                 <div class="help-block">直接指向到入口的URL。您可以在自定义菜单（有oAuth权限）或是其它位置直接使用。</div>
                                             </div>
                                         </div>

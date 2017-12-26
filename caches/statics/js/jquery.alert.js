@@ -27,11 +27,24 @@ jQuery.alert = function(e, t, p, but, bk) {
     });
     if (!bk) nobjbg.show();
     var nobj = $('#jQuery-ui-alert-' + m);
+
+    var ua = navigator.userAgent;
+    var ipad = ua.match(/(iPad).*OS\s([\d_]+)/),
+        isIphone = !ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/),
+        isAndroid = ua.match(/(Android)\s+([\d.]+)/),
+        isMobile = isIphone || isAndroid;
+    if(isMobile) {
+        if ($(window).width()>=640){
+            nobj.css({"padding":"25px 20px","font-size":"20px"});
+        }else{
+            nobj.css({"padding":"15px 10px","font-size":"14px"});
+        }
+    }
     if (!p)	nobj.click(function(){ nobj.removeClass("jQuery-ui-alert-style").fadeOut(); nobjbg.hide(); });
     if (!p)	nobjbg.click(function(){ nobj.removeClass("jQuery-ui-alert-style").fadeOut(); nobjbg.hide(); });
 	var i = $(window).width(),
 	s = $(window).height(),
-	o = nobj.width()+20,
+	o = nobj.outerWidth() + 10,
 	u = nobj.height(),
 	l = (i - o) / 2,
     top = (s - u) / 2 - 20,
