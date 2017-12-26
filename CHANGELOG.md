@@ -188,3 +188,21 @@ Rearranged the examples dir, moving support files and tests into there own direc
     Fixed Numerous Firefox bugs
 ```
 
+## 0.3.4
+
+> Release Time: 2006-01-31
+>
+> Download Link: http://download.pear.php.net/package/HTML_AJAX-0.3.4.tgz
+
+```
+Fix for Bug #6478 problems with assignAttr in HTML_AJAX_Action
+	Add a flag (HTML_AJAX->php4CompatCase) that allows for exporting all introspected method/class names in php5 in lower case for php4 compat
+	Update to the newest Services_JSON code, still waiting for a Services_JSON release so we can stop embedding it (fixes bug: #6501)
+	Fix bug #6424, getting extra Request timeouts errors
+	Fix bug #6564, Don't send Content-Length header when output buffering is enabled
+	Fix bug #6295, Use std input when HTTP_RAW_POST isn't set
+	Fix for Main.js compatibility function tests
+	Patch from Julien Wajsberg, Keep extra query params passed to HTML_AJAX_Server in the default serverUrl, this helps when integrating with frameworks
+	Fix bug #6478, Not possible to set className in firefox using HTML_AJAX_Action, now were setting the attribute directly instead of calling setAttribute
+```
+
