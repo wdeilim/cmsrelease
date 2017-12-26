@@ -275,3 +275,26 @@ Update HTML_AJAX_Action to use HTML_AJAX_Util.setInnerHTML
 	Rename Ajax::json_loose_type property to jsonLooseType to match the rest of the API
 ```
 
+## 0.5.1
+
+> Release Time: 2007-05-05
+>
+> Download Link: http://download.pear.php.net/package/HTML_AJAX-0.5.1.tgz
+
+```
+* Fix Bug #6737: When I return an array it has an extra element. [auroraeosrose]
+* Fix Bug #8761: Getting form&apos;s &quot;action&quot; attribute fails in HTML_AJAX.js formSubmit [auroraeosrose]
+* Fix Bug #9020: logical bug in ordered queue code [auroraeosrose]
+* Fix Bug #9086: HTML_AXAX_Action::createNode\innerHTML and IE [auroraeosrose]
+* Fix Bug #9847: Case-insensitive javascriptLibraries in HTML/AJAX/Server.php [jeichorn]
+* Fix Bug #10149: Problems when E_STRICT is turned on in php.ini [davidc]
+* Fix Bug #10273: Non Prefixed Constant in HTML_AJAX_Debug [jeichorn]
+* Implement Feature #8396: class_exists callbacks produce problems with __autoload [auroraeosrose]
+* Implement Feature #8444: Handle PEAR_Errors returned from proxied object methods as errors [auroraeosrose]
+* Implement Feature #9537: formSubmit target also accepting a function [jeichorn]
+* Implement Feature #9912: Patch to add setters for clientJsLocation and javascriptLibraryPaths [jeichorn]
+* Implement Feature #9962: Add method to check if the page request is from Ajax [jeichorn]
+* Added tests for (so far Works for Me) Bug #9416
+* Initial setup of unit tests for javascript
+```
+
