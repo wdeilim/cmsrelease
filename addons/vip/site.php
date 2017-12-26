@@ -10,6 +10,18 @@ class ES_Vip extends CI_Model {
         $this->base->apprun('vip');
 	}
 
+    private function yidcheck($y_id, $y_in = ',') {
+        if ($y_id) {
+            $arr = array();
+            foreach ((is_array($y_id)?$y_id:explode($y_in, $y_id)) AS $item) {
+                if ("i".$item == "i".intval($item)) { $arr[] = $item; }
+            }
+            if (empty($arr)) $arr[] = 0;
+            $y_id = is_array($y_id)?$arr:implode($y_in, $arr);
+        }
+        return $y_id;
+    }
+
     /**
      * 合并条件数组
      * @param array $arr
@@ -93,6 +105,7 @@ class ES_Vip extends CI_Model {
         $wheresql = "";
         //首次开卡会员
         if (isset($setting['vip_first'])){
+            db_addcheck(" OR `id` NOT IN (SELECT DISTINCT userid from ".table("vip_record")." WHERE ");
             $wheresql.= " OR `id` NOT IN (SELECT DISTINCT userid from ".table("vip_record")." WHERE `type`='msg' {$_wheresql})";
         }
         //开卡从未消费的会员
@@ -576,7 +589,7 @@ class ES_Vip extends CI_Model {
             if ($this->input->post("type") == 'export'){
                 //导出
                 if ($this->input->post('y_id')){
-                    $y_id = db_escape_str($this->input->post("y_id"));
+                    $y_id = db_escape_str($this->yidcheck($this->input->post("y_id")));
                     $wheresql.= " AND `id` IN (".implode(',',$y_id).")";
                     $row = $this->ddb->getall("SELECT * FROM ".table("vip_content_notes")." WHERE {$wheresql} ORDER BY `indate` DESC");
                 }elseif ($this->input->post('n1')){
@@ -799,7 +812,7 @@ class ES_Vip extends CI_Model {
             if ($this->input->post("type") == 'export'){
                 //导出
                 if ($this->input->post('y_id')){
-                    $y_id = $this->input->post("y_id");
+                    $y_id = db_escape_str($this->yidcheck($this->input->post("y_id")));
                     $wheresql.= " AND `id` IN (".implode(',',$y_id).")";
                     $row = $this->ddb->getall("SELECT * FROM ".table("vip_content_notes")." WHERE {$wheresql} ORDER BY `indate` DESC");
                 }elseif ($this->input->post('n1')){
@@ -1029,7 +1042,7 @@ class ES_Vip extends CI_Model {
             if ($this->input->post("type") == 'export'){
                 //导出
                 if ($this->input->post('y_id')){
-                    $y_id = $this->input->post("y_id");
+                    $y_id = db_escape_str($this->yidcheck($this->input->post("y_id")));
                     $wheresql.= " AND `id` IN (".implode(',',$y_id).")";
                     $row = $this->ddb->getall("SELECT * FROM ".table("vip_content_notes")." WHERE {$wheresql} ORDER BY `indate` DESC");
                 }elseif ($this->input->post('n1')){
@@ -1466,7 +1479,7 @@ class ES_Vip extends CI_Model {
         }elseif ($this->input->post("dosubmit") == "excel"){
             //导出会员
             if ($this->input->post('y_id')){
-                $y_id = db_escape_str($this->input->post("y_id"));
+                $y_id = db_escape_str($this->yidcheck($this->input->post("y_id")));
                 $wheresql.= " AND `id` IN (".implode(',',$y_id).")";
                 $row = $this->ddb->getall("SELECT * FROM ".table("vip_users")." WHERE {$wheresql} ORDER BY `indate` DESC");
             }elseif ($this->input->post('n1')){
@@ -1570,7 +1583,7 @@ class ES_Vip extends CI_Model {
 		}elseif ($this->input->post("dosubmit") == "updatewx"){
 			//同步粉丝信息(微信)
 			if ($this->input->post('y_id')){
-				$y_id = db_escape_str($this->input->post("y_id"));
+				$y_id = db_escape_str($this->yidcheck($this->input->post("y_id")));
 				$wheresql.= " AND `id` IN (".implode(',',$y_id).")";
 				$row = $this->ddb->getall("SELECT * FROM ".table("vip_users")." WHERE {$wheresql} ORDER BY `indate` DESC");
 			}else{
@@ -1594,7 +1607,7 @@ class ES_Vip extends CI_Model {
 		}elseif ($this->input->post("dosubmit") == "delete"){
 			//删除粉丝会员信息
 			if ($this->input->post('y_id')){
-				$y_id = db_escape_str($this->input->post("y_id"));
+				$y_id = db_escape_str($this->yidcheck($this->input->post("y_id")));
 				$wheresql.= " AND `id` IN (".implode(',',$y_id).")";
 				$row = $this->ddb->getall("SELECT * FROM ".table("vip_users")." WHERE {$wheresql} ORDER BY `indate` DESC");
 			}else{

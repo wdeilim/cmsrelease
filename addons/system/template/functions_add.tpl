@@ -131,6 +131,7 @@
                 _dialog.content('确认操作：点击确定立即安装功能模块！');
                 _dialog.button({
                     name: '确定',
+                    focus: true,
                     callback: function () {
                         _dialog.close();
                         $.alert("正在安装...", 0, 1);

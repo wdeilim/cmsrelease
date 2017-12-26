@@ -219,7 +219,11 @@
                 var target = e.target || e.srcElement,
                     li = target.parentNode,
                     nodes = $G('imageListUl').childNodes;
-
+                if (li.getAttribute("data-type") == 'dir') {
+                    _this.initContainer();
+                    _this.initData(li.getAttribute("data-get"));
+                    return true;
+                }
                 if (li.tagName.toLowerCase() == 'li') {
                     updateFormState('nocolor', null, '');
                     for (var i = 0, node; node = nodes[i++];) {
@@ -235,13 +239,14 @@
             });
         },
         /* 初始化第一次的数据 */
-        initData: function () {
+        initData: function (t) {
 
             /* 拉取数据需要使用的值 */
             this.state = 0;
             this.listSize = editor.getOpt('imageManagerListSize');
             this.listIndex = 0;
             this.listEnd = false;
+            this.listGet = t?t:'';
 
             /* 第一次拉取数据 */
             this.getImageData();
@@ -249,7 +254,7 @@
         /* 重置界面 */
         reset: function() {
             this.initContainer();
-            this.initData();
+            this.initData(-1);
         },
         /* 向后台拉取图片列表数据 */
         getImageData: function () {
@@ -264,7 +269,8 @@
                     'dataType': isJsonp ? 'jsonp':'',
                     'data': utils.extend({
                             start: this.listIndex,
-                            size: this.listSize
+                            size: this.listSize,
+                            get: this.listGet
                         }, editor.queryCommandValue('serverparam')),
                     'method': 'get',
                     'onsuccess': function (r) {
@@ -303,6 +309,7 @@
                     item = document.createElement('li');
                     img = document.createElement('img');
                     icon = document.createElement('span');
+                    title = document.createElement('div');
 
                     domUtils.on(img, 'load', (function(image){
                         return function(){
@@ -313,9 +320,15 @@
                     img.setAttribute('src', urlPrefix + list[i].url + (list[i].url.indexOf('?') == -1 ? '?noCache=':'&noCache=') + (+new Date()).toString(36) );
                     img.setAttribute('_src', urlPrefix + list[i].url);
                     domUtils.addClass(icon, 'icon');
+                    domUtils.addClass(title, 'imgtitle');
 
                     item.appendChild(img);
                     item.appendChild(icon);
+                    item.appendChild(title);
+                    item.setAttribute('data-type', list[i].type);
+                    item.setAttribute('data-get', list[i].get);
+                    item.setAttribute('title', list[i].title);
+                    title.innerHTML = list[i].title;
                     this.list.insertBefore(item, this.clearFloat);
                 }
             }

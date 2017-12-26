@@ -386,6 +386,7 @@ class ES_Apprun_Vip extends CI_Model {
 		$_vipname = strip_tags(get_user_rank($row['pluspoint']));
 		if (empty($_vipname)) return false;
 		//查询条件
+		db_addcheck(" AND `id` NOT IN (SELECT contentid FROM ".table("vip_record")." WHERE ");
 		$_wheres = "`alid`=".$_A['al']['id'];
 		$_wheres.= " AND `id` NOT IN (SELECT contentid FROM ".table("vip_record")." WHERE `userid`=".$row['id']." AND".$_wheres.")";
 		$_wheres.= " AND `onevips` LIKE '%,".$_vipname.",%' ";

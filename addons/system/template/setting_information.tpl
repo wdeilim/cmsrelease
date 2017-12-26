@@ -8,13 +8,16 @@
     <link rel="stylesheet" href="{#$CSS_PATH#}admin/global.css"/>
     <link rel="stylesheet" href="{#$CSS_PATH#}admin/detail.css"/>
     <link rel="stylesheet" href="{#$CSS_PATH#}font-awesome.css"/>
+    <style type="text/css">
+        .form-information { border: 1px solid #ffffff; }
+        .table-information tbody tr td { border-left: 1px solid #ffffff; border-top: 1px solid #ffffff; padding: 5px 10px; }
+    </style>
     <script type="text/javascript" src="{#$JS_PATH#}jquery-1.11.0.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}jquery.alert.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}jquery.form.min.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}datepicker/WdatePicker.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}ueditor/ueditor.config.js"></script>
     <script type="text/javascript" src="{#$JS_PATH#}ueditor/ueditor.all.min.js"></script>
-
 </head>
 <body>
 
@@ -166,6 +169,19 @@
                             });
                             return false;
                         });
+                        _dialog.button({
+                            name: '保存',
+                            focus: true,
+                            callback: function () {
+                                $('#information-edit-form').submit();
+                                return false;
+                            }
+                        },{
+                            name: '取消',
+                            callback: function () {
+                                return true;
+                            }
+                        });
                     },
                     cache: false
                 });
@@ -201,6 +217,19 @@
                             });
                             return false;
                         });
+                        _dialog.button({
+                            name: '保存',
+                            focus: true,
+                            callback: function () {
+                                $('#information-edit-form').submit();
+                                return false;
+                            }
+                        },{
+                            name: '取消',
+                            callback: function () {
+                                return true;
+                            }
+                        });
                     },
                     cache: false
                 });
@@ -209,6 +238,7 @@
                 _dialog.content('确定要删除此公告并且不可恢复吗？');
                 _dialog.button({
                     name: '确定',
+                    focus: true,
                     callback: function () {
                         $.ajax({
                             url: "{#$urlarr.3#}informationdel/" + _funid + "/",

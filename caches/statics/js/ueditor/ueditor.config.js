@@ -37,10 +37,11 @@
             'fullscreen', 'source', '|', 'undo', 'redo', '|',
             'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'removeformat', 'formatmatch', 'pasteplain', '|', 'forecolor', 'backcolor', '|',
             'fontfamily', 'fontsize', '|',
-            'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 
+            'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|',
             'link', 'unlink', 'anchor', '|',
-            'simpleupload', 'insertimage', 'emotion', 'scrawl', 'insertvideo', 'music', 'attachment', 'map', 'gmap', 'background', '|',
+            'simpleupload', 'insertimage', 'emotion', 'scrawl', 'insertvideo', 'music', 'attachment', 'map', 'insertframe', 'insertcode', 'template', 'background', '|',
             'date', 'time', 'spechars', 'snapscreen', 'wordimage', '|',
+            'insertorderedlist', 'insertunorderedlist', 'lineheight', '|',
             'print', 'preview', 'searchreplace', 'drafts'
         ]]
 		/*

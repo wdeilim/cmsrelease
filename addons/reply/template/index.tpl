@@ -116,6 +116,7 @@ function del(id){
         content: '确定要删除并且不可恢复吗？',
         button: [{
             name: '确定',
+            focus: true,
             callback: function () {
                 $.alert('正在删除',0);
                 $.ajax({

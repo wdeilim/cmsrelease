@@ -128,6 +128,7 @@ function getfiles($path, $allowFiles, &$files = array())
         }
         $get = trim($_GET['get'],"|")."|";
         $pget = str_replace("|","/", $get);
+        $pget = str_replace("..", "", $pget);
         if ($pget && $pget != "/") {
             $path.= $pget;
             if (empty($_GET['start'])) {

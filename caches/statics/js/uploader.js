@@ -19,7 +19,7 @@ define(function(){
 
 			if (imgobj) {
 				imgobj.error(function(){
-					imgobj.attr("src", util.base_uri+'caches/statics/images/nopic.jpg');
+					imgobj.attr("src", util.tomedia('caches/statics/images/nopic.jpg'));
 				});
 				var tempdel = $('<div class="__uploader_formfile_del" style="display:none;position:absolute;background-color:rgba(0, 0, 0, 0.3);background-image:url(\'' + uploader.delbase64 + '\');background-repeat:no-repeat;background-size:100% 100%;"></div>');
 				$("body").append(tempdel);
@@ -32,7 +32,7 @@ define(function(){
 					if (imgobj.attr("src").indexOf("nopic.jpg") != -1) { return false; }
 					tempdel.unbind('click').click(function(){
 						$("div.__uploader_formfile_del").hide();
-						imgobj.attr("src", util.base_uri+'caches/statics/images/nopic.jpg');
+						imgobj.attr("src", util.tomedia('caches/statics/images/nopic.jpg'));
 						valobj.val("");
 						if (typeof result == 'function') {
 							result(false);

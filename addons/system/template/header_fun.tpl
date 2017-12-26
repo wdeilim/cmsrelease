@@ -1,4 +1,4 @@
-<div class="header-fix">
+<div class="header header-fix">
     <div class="navbar cf">
         <img class="logo" src="{#$IMG_PATH#}logo.png" alt=""/>
         <h2 class="title" title="{#$_A.f.title#}(ID:{#$_A.uf.id#})">{#$_A.f.title#}<span id="_h2_al_name"></span></h2>

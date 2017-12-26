@@ -13,6 +13,9 @@ table.table-primary tbody tr td,table.table-primary thead tr th{padding:13px 20p
 table.table-form tbody tr td{padding:13px 5px}
 table.table-border{border-top:1px solid #ccc;border-left:1px solid #ccc}
 table.table-border>tbody>tr>td{border-right:1px solid #ccc;border-bottom:1px solid #ccc;padding:10px}
+.content-box{-webkit-box-sizing:content-box !important;-moz-box-sizing:content-box !important;box-sizing:content-box !important;}
+.content-box *{-webkit-box-sizing:content-box !important;-moz-box-sizing:content-box !important;box-sizing:content-box !important;}
+.content-box *:before,.content-box *:after{-webkit-box-sizing:content-box !important;-moz-box-sizing:content-box !important;box-sizing:content-box !important;}
 .table-auto{table-layout:fixed;min-width:900px}
 .table-auto>tbody>tr>td,.table-auto>tbody>tr>th,.table-auto>tfoot>tr>td,.table-auto>tfoot>tr>th,.table-auto>thead>tr>td,.table-auto>thead>tr>th{vertical-align:middle}
 .table-auto>tbody>tr>td,.table-auto>tfoot>tr>td,.table-auto>thead>tr>td{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -58,15 +61,16 @@ table.table-border>tbody>tr>td{border-right:1px solid #ccc;border-bottom:1px sol
 .header-fix{height:60px;border-bottom:1px solid #e2e2e2;background-color:#fff;position:fixed;top:0;left:0;right:0;z-index:1000;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box;}
 .header-height{height:60px;background-color:#fff}
 .breadcrumb,.bulletin-overview,.main,.navbar{width:1200px;margin:0 auto;border:0}
-.navbar{height:59px;position:relative;}
-.navbar .logo,.navbar .title{float:left}
-.navbar .logo{display:block;margin-top:9px}
-.navbar .title{margin:0;margin-left:10px;font-weight:700;font-size:18px;font-family:"Microsoft YaHei",SimSun,Tahoma,Verdana,Arial,sans-serif;line-height:59px;letter-spacing:3px}
-.navbar .title .small{font-size:12px;letter-spacing:normal;font-weight:400}
-.nav{float:right;font-family:"Microsoft YaHei",SimSun,Tahoma,Verdana,Arial,sans-serif}
-.nav li{float:left}
-.nav-item-img {display:none}
-.nav-item-link{display:block;padding:0 10px!important;margin-left:10px;margin-right:10px;border-top:3px solid #fff;font-size:14px;line-height:56px;height:57px;overflow:hidden;max-width:85px;white-space:nowrap;text-overflow:ellipsis;color:#1c1c1c;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box}
+.header .navbar{height:59px;position:relative;}
+.header .navbar{border:0 !important;margin:0 auto !important;}
+.header .navbar .logo,.navbar .title{float:left}
+.header .navbar .logo{display:block;margin-top:9px}
+.header .navbar .title{margin:0;margin-left:10px;font-weight:700;font-size:18px;font-family:"Microsoft YaHei",SimSun,Tahoma,Verdana,Arial,sans-serif;line-height:59px;letter-spacing:3px}
+.header .navbar .title .small{font-size:12px;letter-spacing:normal;font-weight:400}
+.header .nav{float:right;font-family:"Microsoft YaHei",SimSun,Tahoma,Verdana,Arial,sans-serif}
+.header .nav li{float:left}
+.header .nav-item-img {display:none}
+.header .nav-item-link{display:block;padding:0 10px!important;margin-left:10px;margin-right:10px;border-top:3px solid #fff;font-size:14px;line-height:56px;height:57px;overflow:hidden;max-width:85px;white-space:nowrap;text-overflow:ellipsis;color:#1c1c1c;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box}
 .active .nav-item-link,.nav-item-link:hover{border-top:3px solid #257ad0;color:#257ad0;background-color:#f6f6f6!important}
 ul#head-nav-menu:hover .active .nav-item-link{border-top:3px solid #ffffff;color:#1c1c1c;background-color:transparent!important}
 ul#head-nav-menu:hover .active .nav-item-link:hover{border-top:3px solid #257ad0;color:#257ad0;background-color:#f6f6f6!important}
@@ -122,21 +126,21 @@ ul#head-nav-menu:hover .active_s .nav-item-link{border-top:3px solid #257ad0;col
 .main.bulletin-list .bd h3{float:left}
 .main.bulletin-list .bd span{float:right}
 .main.bulletin-detail .bd .section p{line-height:2;margin:20px 0}
-.modal{width:480px;min-height:220px;position:absolute;z-index:999999999;border:1px solid #ccc;background-color:#fff}
-.modal-header{position:relative;background-color:#f2f2f2}
-.modal-close,.modal-title{padding-top:12px;padding-bottom:12px;font-size:20px;line-height:1}
-.modal-title{padding-left:20px;letter-spacing:1px;color:#464444;font-family:"Microsoft YaHei",SimSun,Tahoma,Verdana,Arial,sans-serif}
-.modal-close{display:block;padding-left:13px;padding-right:13px;position:absolute;right:0;top:0;cursor:pointer;color:#898989;font-family:"Microsoft YaHei",SimSun,Tahoma,Verdana,Arial,sans-serif}
-.modal-close:hover{color:#257ad0}
-.modal-body{padding:0 20px;margin-top:20px;margin-bottom:20px}
-.modal-body .icon{float:left}
-.modal-body .icon .iconfont{font-size:64px;line-height:1}
-.modal-body .message{margin-left:84px}
-.modal-body h1{margin-bottom:10px;font-size:30px;font-weight:400;color:#464444}
-.modal-body p{margin:0;font-size:16px;line-height:2;color:#505050}
-.modal-body h1,.modal-body p,.modal-body span.text{font-family:"Microsoft YaHei",SimSun,Tahoma,Verdana,Arial,sans-serif}
-.modal-footer{margin-bottom:20px}
-.modal-footer .button-groups{margin-left:104px}
+.global .modal{width:480px;min-height:220px;position:absolute;z-index:999999999;border:1px solid #ccc;background-color:#fff}
+.global .modal-header{position:relative;background-color:#f2f2f2}
+.global .modal-close,.global .modal-title{padding-top:12px;padding-bottom:12px;font-size:20px;line-height:1}
+.global .modal-title{padding-left:20px;letter-spacing:1px;color:#464444;font-family:"Microsoft YaHei",SimSun,Tahoma,Verdana,Arial,sans-serif}
+.global .modal-close{display:block;padding-left:13px;padding-right:13px;position:absolute;right:0;top:0;cursor:pointer;color:#898989;font-family:"Microsoft YaHei",SimSun,Tahoma,Verdana,Arial,sans-serif}
+.global .modal-close:hover{color:#257ad0}
+.global .modal-body{padding:0 20px;margin-top:20px;margin-bottom:20px}
+.global .modal-body .icon{float:left}
+.global .modal-body .icon .iconfont{font-size:64px;line-height:1}
+.global .modal-body .message{margin-left:84px}
+.global .modal-body h1{margin-bottom:10px;font-size:30px;font-weight:400;color:#464444}
+.global .modal-body p{margin:0;font-size:16px;line-height:2;color:#505050}
+.global .modal-body h1,.global .modal-body p,.global .modal-body span.text{font-family:"Microsoft YaHei",SimSun,Tahoma,Verdana,Arial,sans-serif}
+.global .modal-footer{margin-bottom:20px}
+.global .modal-footer .button-groups{margin-left:104px}
 .footer{color:#626262}
 .footer ul{margin:20px;text-align:center}
 .footer ul li{display:inline;margin-right:10px}

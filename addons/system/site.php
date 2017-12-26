@@ -303,6 +303,17 @@ class ES_System extends CI_Model {
                 $wheresql.= " AND (`userid`=".intval($filter).")";
             }
         }
+		//
+		$ordersql = '`indate` DESC';
+		$clastalid = intval($_COOKIE['user_lastalid']);
+		$slastalid = intval($this->session->userdata('user:alid'));
+		if (empty($slastalid)) { $slastalid = $clastalid; }
+		if ($slastalid > 0) {
+			$ordersql = 'CASE WHEN `id`='.$slastalid.' THEN 0 ELSE 1 END>`indate` DESC';
+			if (empty($clastalid)) {
+				setcookie('user_lastalid', $slastalid, SYS_TIME + 94608000, BASE_DIR);
+			}
+		}
         $_release = value($_COOKIE, '_RELEASEVER:'.ES_RELEASE);
         $_apprele = value($_COOKIE, '_RELEASEAPP:'.ES_RELEASE);
         tpl(get_defined_vars());
@@ -652,6 +663,11 @@ class ES_System extends CI_Model {
 				$arr['success'] = 1;
 				echo json_encode($arr); exit();
 			}elseif ($fost['_type'] == '_sqlset') {
+				if (empty($fost['OFF_SQL_TEMP'])) {
+					$arr['success'] = 0;
+					$arr['message'] = "您没有选择任何操作！";
+					echo json_encode($arr); exit();
+				}
 				if (empty($fost['OFF_SQL_PASS'])) {
 					$arr['success'] = 0;
 					$arr['message'] = "请输入管理员密码！";
@@ -662,8 +678,27 @@ class ES_System extends CI_Model {
 					$arr['message'] = "管理员密码错误！";
 					echo json_encode($arr); exit();
 				}
+				$texttis = "暂停保护".intval($fost['OFF_SQL_TEMP'])."分钟";
+				switch (intval($fost['OFF_SQL_TEMP'])) {
+					case 60:
+						$texttis = "暂停保护1小时";
+						break;
+					case 180:
+						$texttis = "暂停保护3小时";
+						break;
+					case 360:
+						$texttis = "暂停保护6小时";
+						break;
+					case 720:
+						$texttis = "暂停保护12小时";
+						break;
+					case 1440:
+						$texttis = "暂停保护24小时";
+						break;
+				}
 				$text = "";
-				$text.= "define('OFF_SQL_TEMP', '".intval($fost['OFF_SQL_TEMP'])."');\r\n";
+				$text.= "define('OFF_SQL_TEMP', ".(intval($fost['OFF_SQL_TEMP'])*60+SYS_TIME).");\r\n";
+				$text.= "define('OFF_SQL_TEMP_TIS', '".$texttis."');\r\n";
 				$this->writesetting($text, 'sqlset');
 				$arr['success'] = 1;
 				echo json_encode($arr); exit();
@@ -698,6 +733,9 @@ class ES_System extends CI_Model {
 			$nomoren = 1;
 			$noweijingtai = 1;
 		}
+		//
+		$sqltemp = OFF_SQL_TEMP - SYS_TIME;
+		$sqlcountdown = $this->dgmstrftime($sqltemp);
         //
 		tpl('settings', get_defined_vars());
 	}
@@ -3080,10 +3118,271 @@ class ES_System extends CI_Model {
 		exit();
 	}
 
+	public function doWebRequire_share()
+	{
+		global $_A,$_GPC;
+		if ($_GPC['al'] > 0) {
+			$user_agent = $_SERVER['HTTP_USER_AGENT'];
+			if (strpos($user_agent, 'AlipayClient') !== false) {
+				//
+				$_A['browser'] = 'alipay';
+			}elseif (strpos($user_agent, 'MicroMessenger') !== false) {
+				$this->load->library('wx');
+				$this->wx->setting(intval($_GPC['al']));
+				$_A['wx_jssdkConfig'] = $this->wx->jssdkConfig(value($_GPC, 'url'));
+				$_A['browser'] = 'weixin';
+			}else{
+				exit();
+			}
+			tpl(get_defined_vars());
+		}
+		exit();
+	}
+
+	public function doWebRequire_photo()
+	{
+		global $_A,$_GPC;
+		if ($_GPC['al'] > 0) {
+			$user_agent = $_SERVER['HTTP_USER_AGENT'];
+			if ($_GPC['act'] == 'elupload') {
+				$arr = array();
+				$arr['success'] = 1;
+				$arr['message'] = array();
+				//
+				$uarr = array();
+				$uarr['upload_path'] = BASE_PATH.'uploadfiles/users/'.value($_A,'userid','int').'/images/_weixin/'.date('Ym/', SYS_TIME);
+				$uarr['allowed_types'] = 'gif|jpg|jpeg|png';
+				$uarr['file_name'] = 'el_'.SYS_TIME.rand(10,99);
+				$uarr['thumb'] = false;
+				$this->load->model('vupload');
+				$data = $this->vupload->upfile($uarr, '__photo-upimg-input_file');
+				if ($data['success']) {
+					if ($_GPC['width'] || $_GPC['height']) {
+						$this->vupload->img2thumb($data['upload_data']['full_path'], $data['upload_data']['full_path'], intval($_GPC['width']), intval($_GPC['height']));
+					}
+					$arr['message'][] = $data['upload_data']['full_path_site'];
+				}else{
+					$arr['success'] = 0;
+					$arr['message'] = $data['message'];
+				}
+				echo json_encode($arr); exit();
+			}
+			if (strpos($user_agent, 'AlipayClient') !== false) {
+				//
+				$_A['browser'] = 'alipay';
+				if ($_GPC['act'] == 'alupload') {
+					$arr = array();
+					$arr['success'] = 1;
+					$arr['message'] = array();
+					//
+					$photo = $_GPC['photo'];
+					$_file = 'uploadfiles/users/'.value($_A,'userid','int').'/images/_alipay/'.date('Ym/', SYS_TIME);
+					$nan = md5($photo).'.png';
+					$_dir = BASE_PATH.$_file;
+					make_dir($_dir);
+					$fp2 = @fopen($_dir.$nan,'a');
+					fwrite($fp2, base64_decode($photo));
+					fclose($fp2);
+					if ($_GPC['width'] || $_GPC['height']) {
+						$this->load->model('vupload');
+						$this->vupload->img2thumb($_dir.$nan, $_dir.$nan, intval($_GPC['width']), intval($_GPC['height']));
+					}
+					$arr['message'][] = $_file.$nan;
+					echo json_encode($arr); exit();
+				}
+			}elseif (strpos($user_agent, 'MicroMessenger') !== false) {
+				$this->load->library('wx');
+				$this->wx->setting(intval($_GPC['al']));
+				$_A['wx_jssdkConfig'] = $this->wx->jssdkConfig(value($_GPC, 'url'));
+				$_A['browser'] = 'weixin';
+				if ($_GPC['act'] == 'wxupload') {
+					$arr = array();
+					$arr['success'] = 1;
+					$arr['message'] = array();
+					//
+					$photo = @json_decode($_GPC['photo'], true);
+					if ($photo) {
+						$this->load->helper('communication');
+						foreach ($photo AS $media_id) {
+							if ($this->wx->iscorp()) {
+								$url = "https://qyapi.weixin.qq.com/cgi-bin/media/get?access_token=".$this->wx->token()."&media_id=".$media_id;
+							}else{
+								$url = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=".$this->wx->token()."&media_id=".$media_id;
+							}
+							$_html = ihttp_request($url);
+							if(!is_error($_html)) {
+								$rethtml = @json_decode($_html['content'], true);
+								if (isset($rethtml['errmsg']) && in_array($rethtml['errmsg'], array('40001','42001'))) {
+									$this->wx->error_code($rethtml['errcode']);
+									$_html = ihttp_request($url);
+									if(!is_error($_html)) {
+										$rethtml = @json_decode($_html['content'], true);
+									}
+								}
+								if (!isset($rethtml['errmsg'])) {
+									$_file = 'uploadfiles/users/'.value($_A,'userid','int').'/images/_weixin/'.date('Ym/', SYS_TIME);
+									$nan = $media_id.'.jpg';
+									$_dir = BASE_PATH.$_file;
+									make_dir($_dir);
+									$fp2 = @fopen($_dir.$nan,'a');
+									fwrite($fp2, $_html['content']);
+									fclose($fp2);
+									if ($_GPC['width'] || $_GPC['height']) {
+										$this->load->model('vupload');
+										$this->vupload->img2thumb($_dir.$nan, $_dir.$nan, intval($_GPC['width']), intval($_GPC['height']));
+									}
+									$arr['message'][] = $_file.$nan;
+								}
+							}
+						}
+					}
+					echo json_encode($arr); exit();
+				}
+			}
+			tpl(get_defined_vars());
+		}
+		exit();
+	}
+
+	public function doWebUtility()
+	{
+		global $_GPC;
+		$callback = $_GPC['param'][2];
+		tpl('utility/'.$_GPC['param'][1], get_defined_vars());
+	}
 
 	/** ************************************************************************************************ */
 	/** ************************************************************************************************ */
 	/** ************************************************************************************************ */
+
+	public function doMobileWeixinauth()
+	{
+		global $_A,$_GPC;
+		$ts = substr($_GPC['param'][1], 1);
+		$tv = substr($_GPC['param'][2], 1);
+		//
+		$notes = db_getone(table('tmp'), array('title'=>'system_wxac_'.$ts));
+		if (empty($ts) || $notes['value'] != $tv) {
+			message(null, "二维码超时，请重新访问！");
+		}
+		$tt = SYS_TIME - $notes['indate'];
+		if ($tt > 180 || $tt < -180) {
+			message(null, "二维码超时，请重新访问！");
+		}
+		$alid = intval($_GPC['al']);
+		if (empty($alid)) {
+			message(null, "参数错误，请重新访问！");
+		}
+		if ($_A['browser'] != 'weixin') {
+			message(null, "请使用微信扫描登录！");
+		}
+		$this->load->library('wx');
+		$this->wx->setting($alid);
+		//
+		$_temp_isget = false;
+		$get_appid = value($_A, 'al|setting|other|get_appid');
+		if ($get_appid) {
+			$get_appoint = value($_A, 'al|setting|other|get_appoint', true);
+			if (empty($get_appoint) || in_array($_A['module'], $get_appoint)) {
+				$_temp_isget = true; //微信授权 - 借用
+			}
+		}
+		//
+		if (($_A['al']['wx_appid'] && $_A['al']['wx_level'] == 4) || $_temp_isget) {
+			if (isset($_GPC['weixin_system_oauth2'])) {
+				if (!isset($_GPC['code'])) {
+					message(null, "OAuth 2.0授权登录失败！");
+				}
+				if ($_temp_isget) {
+					$url  = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid='.$_A['wxget']['appid'];
+					$url.= '&secret='.$_A['wxget']['secret'].'&code='.$_GPC['code'].'&grant_type=authorization_code';
+				}else{
+					$url  = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid='.$_A['al']['wx_appid'];
+					$url.= '&secret='.$_A['al']['wx_secret'].'&code='.$_GPC['code'].'&grant_type=authorization_code';
+				}
+				$content = $this->communication->ihttp_request($url);
+				$_content = isset($content['content'])?json_decode($content['content'], true):'';
+				$_A['openid'] = value($_content,'openid');
+				if (empty($_A['openid'])) {
+					message(null, "OAuth 2.0授权登录失败 - wx - openid！");
+				}
+				if (!$_temp_isget || $_A['wxget']['scope'] != 'snsapi_base') {
+					$access_token = value($_content,'access_token');
+					$url  = 'https://api.weixin.qq.com/sns/userinfo?access_token='.$access_token.'&openid='.$_A['openid'].'&lang=zh_CN';
+					$content = $this->communication->ihttp_request($url);
+					$_content = isset($content['content'])?json_decode($content['content'], true):'';
+					$_A['openid'] = value($_content,'openid');
+					if (empty($_A['openid'])) {
+						message(null, "OAuth 2.0授权登录失败 - wx - userinfo！");
+					}
+				}
+				$M = array(
+					'openid'=>$_A['openid'],
+					'alid'=>$_A['al']['id'],
+					'appid'=>$_A['al']['wx_appid']
+				);
+				if ($_temp_isget) {
+					$M['follow'] = 3;
+				}
+				$M['user_name'] = value($_content, 'nickname');
+				$M['sex'] = str_replace(array("1","2"), array("男","女"),value($_content, 'sex'));
+				$M['city'] = value($_content, 'city');
+				$M['province'] = value($_content, 'province');
+				$M['avatar'] = value($_content, 'headimgurl');
+				$_A['_oauthweixin'] = 1; //微信oaut授权
+				//
+				$this->wx->exist_group($M);
+				$this->wx->processor();
+				//
+				$openidname = '__SYS:USERID:'.intval($_A['al']['id']);
+				$this->session->set_userdata($openidname, $_A['openid']);
+				set_cookie($openidname, $_A['openid'], 86400);
+				//
+				$this->weixinauthtmp($ts, 2, $_A['openid']);
+				message(null, "授权登录成功！", $notes['content']?$notes['content']:'');
+			}else{
+				$this->weixinauthtmp($ts, 1);
+				if ($_temp_isget) {
+					$_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$_A['wxget']['appid'];
+					$_url.= '&redirect_uri='.urlencode(get_link('weixin_system_oauth2|weixin_oauth2|code')."&weixin_system_oauth2=1");
+					if ($_A['wxget']['scope'] != 'snsapi_base') {
+						$_url.= '&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
+					}else{
+						$_url.= '&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect';
+					}
+					gourl($_url);
+				}else{
+					$_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$_A['al']['wx_appid'];
+					$_url.= '&redirect_uri='.urlencode(get_link('weixin_system_oauth2|weixin_oauth2|code')."&weixin_system_oauth2=1");
+					$_url.= '&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
+					gourl($_url);
+				}
+			}
+		}else{
+			message(null, "系统未开放此登录接口！");
+		}
+
+	}
+
+	public function doMobileWeixinauthq()
+	{
+		global $_GPC;
+		$wxcodename = '__SYS:WXCODE:'.intval($_GPC['al']);
+		$val = $this->session->userdata($wxcodename);
+		if (empty($val)) { $val = get_cookie($wxcodename); }
+		$notes = db_getone(table('tmp'), array('title'=>'system_wxac_q'.$val));
+		if ($notes) {
+			if ($notes['value'] == '2') {
+				$openidname = '__SYS:USERID:'.intval($_GPC['al']);
+				$this->session->set_userdata($openidname, $notes['content']);
+				set_cookie($openidname, $notes['content'], 86400);
+			}
+			echo $notes['value'];
+		}else{
+			echo '0';
+		}
+		exit();
+	}
 
 	public function doMobileShowmedia()
 	{
@@ -3110,6 +3409,15 @@ class ES_System extends CI_Model {
 	/** ************************************************************************************************ */
 	/** ************************************************************************************************ */
 	/** ************************************************************************************************ */
+
+	private function weixinauthtmp($ts, $v, $openid = '') {
+		$notes = db_getone(table('tmp'), array('title'=>'system_wxac_q'.$ts));
+		if (empty($notes)) {
+			db_insert(table('tmp'), array('title'=>'system_wxac_q'.$ts, 'value'=>$v, 'content'=>$openid));
+		}else{
+			db_update(table('tmp'), array('value'=>$v, 'content'=>$openid), array('title'=>'system_wxac_q'.$ts));
+		}
+	}
 
 	private function account_weixin_interface($username, $account, $num = 0) {
 		global $_GPC;
@@ -3251,6 +3559,17 @@ class ES_System extends CI_Model {
         db_delete(table('bindings'), array('module'=>$modulename));
         db_delete(table('reply'), array('module'=>$modulename));
     }
+
+	private function dgmstrftime($seconds) {
+		if ($seconds > 3600) {
+			$rstr = intval($seconds/3600).'时'.gmstrftime('%M分:%S', $seconds - (intval($seconds/3600)*3600));
+		}else if ($seconds > 60) {
+			$rstr = gmstrftime('%M分:%S', $seconds);
+		}else{
+			$rstr = gmstrftime('%S', $seconds);
+		}
+		return str_replace(array('时:','分:'), array('时','分'), $rstr).'秒';
+	}
 
 	/**
 	 * 写入文本

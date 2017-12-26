@@ -125,6 +125,7 @@
                 '<input id="setting_maplong" type="hidden" value="'+$("#y").val()+'">',
             button: [{
                 name: '确定',
+                focus: true,
                 callback: function () {
                     $("#address").val($("#setting_map").val());
                     $("#x").val($("#setting_maplat").val());

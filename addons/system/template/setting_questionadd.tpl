@@ -18,7 +18,7 @@
             <td class="al-right" valign="top"><span>问答答案</span></td>
             <td class="form-uetext"><textarea id="content" name="content" style="width: 700px; height: 320px;">{#value($info,'content')#}</textarea></td>
         </tr>
-        <tr>
+        <tr style="display:none;">
             <td></td>
             <td>
                 <div>

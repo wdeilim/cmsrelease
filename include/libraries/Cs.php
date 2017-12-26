@@ -31,7 +31,7 @@ class Cs extends Smarty {
 	}
 
 	/**
-	 * @param $file
+	 * @param string $file
 	 * @param null $_param
 	 * @param null $_smd5
 	 */
@@ -57,7 +57,8 @@ class Cs extends Smarty {
 			//
 			$this->_Ci_param($_param);
             header("Content-type: text/html; charset=".BASE_CHARSET);
-			$this->display($file, $this->_Ci_smarty_display($_smd5));
+			$_output = $this->fetch($file, $this->_Ci_smarty_display($_smd5));
+			echo $this->_Ci_smarty_jscss_suffix($_output);
 		}else{
 			$this->showmsg(null, "文件不存在：".$file);
 		}
@@ -118,6 +119,7 @@ class Cs extends Smarty {
 	 */
 	public function showsel($filearr, $_param = null, $_smd5 = null)
 	{
+		$file = '';
 		if (is_array($filearr)){
 			foreach($filearr as $val){
 				$file = $val;
@@ -128,7 +130,9 @@ class Cs extends Smarty {
 		}else{
 			$file = $filearr;
 		}
-		$this->view($file, $_param, $_smd5);
+		if ($file) {
+			$this->view($file, $_param, $_smd5);
+		}
 	}
 
 
@@ -208,9 +212,36 @@ class Cs extends Smarty {
 		$this->assign('gototime',$gototime); //自动跳转时间
 		$this->assign('datalink', $_datalink);
 		//
-		$this->display('showmsg.tpl', $this->_Ci_smarty_display());
+		$_output = $this->fetch('showmsg.tpl', $this->_Ci_smarty_display());
+		echo $this->_Ci_smarty_jscss_suffix($_output);
 		exit();
 
+	}
+
+	/**
+	 * @param $_output
+	 * @return mixed
+	 */
+	public function _Ci_smarty_jscss_suffix($_output) {
+		if (defined('ES_RELEASE')) {
+			//css
+			preg_match_all('/<\s*link\s+[^>]*?href\s*=\s*(\'|\")?(.+\.css)\\1[^>]*?\/?\s*>/i', $_output, $matchcss);
+			if ($matchcss[0]) {
+				foreach($matchcss[0] AS $key=>$val) {
+					$val_path = $matchcss[2][$key];
+					$_output = str_replace($val, str_replace($val_path, $val_path."?_vwins_ver=".ES_RELEASE, $val), $_output);
+				}
+			}
+			//js
+			preg_match_all('/<\s*script\s+[^>]*?src\s*=\s*(\'|\")?(.+\.js)\\1[^>]*?\/?\s*>/i', $_output, $matchjs);
+			if ($matchjs[0]) {
+				foreach($matchjs[0] AS $key=>$val) {
+					$val_path = $matchjs[2][$key];
+					$_output = str_replace($val, str_replace($val_path, $val_path."?_vwins_ver=".ES_RELEASE, $val), $_output);
+				}
+			}
+		}
+		return $_output;
 	}
 
 	private function _Ci_smarty_display($_smd5 = null)

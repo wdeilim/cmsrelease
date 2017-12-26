@@ -186,6 +186,7 @@
                     opacity: '.3',
                     button: [{
                         name: '确定修改',
+                        focus: true,
                         callback: function () {
                             $.alert("正在修改...", 0, 1);
                             $.ajax({
@@ -206,6 +207,11 @@
                             });
                             return false;
                         }
+                    },{
+                        name: '取消',
+                        callback: function () {
+                            return true;
+                        }
                     }]
                 });
             },error : function () {
@@ -223,6 +229,7 @@
             opacity: '.3',
             button: [{
                 name: '确定删除',
+                focus: true,
                 callback: function () {
                     $.ajax({
                         url: '{#$urlarr.3#}delfun/' + _id + "/",
@@ -276,6 +283,7 @@
                 _dialog.content(_htext);
                 _dialog.button({
                     name: '搜索',
+                    focus: true,
                     callback: function () {
                         _dialog.hide();
                         $.alert("正在搜索...");
@@ -323,6 +331,19 @@
                             });
                             return false;
                         });
+                        _dialog.button({
+                            name: '注册',
+                            focus: true,
+                            callback: function () {
+                                $('#com-edit-form').submit();
+                                return false;
+                            }
+                        },{
+                            name: '取消',
+                            callback: function () {
+                                return true;
+                            }
+                        });
                     },
                     cache: false
                 });
@@ -355,6 +376,19 @@
                             });
                             return false;
                         });
+                        _dialog.button({
+                            name: '修改',
+                            focus: true,
+                            callback: function () {
+                                $('#com-edit-form').submit();
+                                return false;
+                            }
+                        },{
+                            name: '取消',
+                            callback: function () {
+                                return true;
+                            }
+                        });
                     },
                     cache: false
                 });
@@ -385,6 +419,12 @@
                                 }
                             });
                             return false;
+                        });
+                        _dialog.button({
+                            name: '关闭',
+                            callback: function () {
+                                return true;
+                            }
                         });
                     },
                     cache: false
@@ -422,6 +462,19 @@
                             });
                             return false;
                         });
+                        _dialog.button({
+                            name: '保存',
+                            focus: true,
+                            callback: function () {
+                                $('#openfun-edit-form').submit();
+                                return false;
+                            }
+                        },{
+                            name: '取消',
+                            callback: function () {
+                                return true;
+                            }
+                        });
                     },
                     cache: false
                 });
@@ -430,6 +483,7 @@
                 _dialog.title('删除公司');
                 _dialog.content('确定要删除该公司及该公司的所有信息并且不可恢复吗？');
                 _dialog.button({
+                    focus: true,
                     name: '确定删除',
                     callback: function () {
                         $.ajax({

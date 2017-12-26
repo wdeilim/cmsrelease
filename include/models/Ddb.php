@@ -1,25 +1,27 @@
 <?php
 class Ddb extends CI_Model {
-	function __construct()
-	{
+    public $skipcheck = array();
+    
+    public function __construct() {
 		parent::__construct();
 		$this->load->database();
+        $this->load->library('safecheck');
 	}
 
-    function query($sql, $wherearr = array()){
+    public function query($sql, $wherearr = array()) {
         $sql.= $this->where_preg($wherearr);
         $sql = $this->checksql($sql);
         return $this->db->query($sql);
     }
 
-    function query_simple($sql, $wherearr = array()){
+    public function query_simple($sql, $wherearr = array()) {
         $sql.= $this->where_preg($wherearr);
         $sql = $this->checksql($sql);
         return $this->db->simple_query($sql);
     }
 
-	function getone($sql, $wherearr = array(), $ordersql = ''){
-        if (!$this->leftexists($sql,'select', true)) {
+    public function getone($sql, $wherearr = array(), $ordersql = '') {
+        if (!leftexists($sql,'select', true)) {
             $sql = "SELECT * FROM  ".$sql;
         }
         $sql.= $this->where_preg($wherearr);
@@ -30,8 +32,8 @@ class Ddb extends CI_Model {
 		return $query->row_array(0);
 	}
 
-	function getall($sql, $wherearr = array(), $ordersql = ''){
-        if (!$this->leftexists($sql,'select', true)) {
+    public function getall($sql, $wherearr = array(), $ordersql = '') {
+        if (!leftexists($sql,'select', true)) {
             $sql = "SELECT * FROM  ".$sql;
         }
         $sql.= $this->where_preg($wherearr);
@@ -42,7 +44,7 @@ class Ddb extends CI_Model {
 		return $query->result_array();
 	}
 
-    function get_total($sql, $wherearr = array()){
+    public function get_total($sql, $wherearr = array()) {
         $row = $this->getall($sql, $wherearr);
         $v = 0;
         if (!empty($row) && is_array($row)){
@@ -53,14 +55,14 @@ class Ddb extends CI_Model {
         return $v;
     }
 
-    function get_count($sql, $wherearr = array()){
-        if (!$this->leftexists($sql,'select', true)) {
+    public function get_count($sql, $wherearr = array()) {
+        if (!leftexists($sql,'select', true)) {
             $sql = "SELECT count(*) AS num FROM  ".$sql;
         }
         return $this->get_total($sql, $wherearr);
     }
 
-	function insert($table, $data = array(), $retid = false){
+    public function insert($table, $data = array(), $retid = false) {
 		$_ret = $this->db->insert($table, $data);
 		if ($_ret && $retid){
 			$_ret = $this->db->insert_id();
@@ -68,7 +70,7 @@ class Ddb extends CI_Model {
 		return $_ret;
 	}
 
-	function replace($table, $data = array(), $retid = false){
+    public function replace($table, $data = array(), $retid = false) {
 		$_ret = $this->db->replace($table, $data);
 		if ($_ret && $retid){
 			$_ret = $this->db->insert_id();
@@ -76,7 +78,7 @@ class Ddb extends CI_Model {
 		return $_ret;
 	}
 
-	function update($table, $data = array(), $where = array()){
+    public function update($table, $data = array(), $where = array()) {
 		$newdate = $this->data_preg($data);
 		if ($newdate) {
 			return $this->query("UPDATE `". $table."` SET ".implode(',', $newdate), $where);
@@ -85,7 +87,7 @@ class Ddb extends CI_Model {
 		}
 	}
 
-	function delete($table, $where = array(), $glue = 'AND'){
+    public function delete($table, $where = array(), $glue = 'AND') {
 		if (strtolower($glue) == "or") {
 			return $this->db->delete($table, $this->db->or_where($where));
 		}else{
@@ -93,7 +95,7 @@ class Ddb extends CI_Model {
 		}
 	}
 
-    function run($sql, $stuff = 'es_', $simple = false) {
+    public function run($sql, $stuff = 'es_', $simple = false) {
         if(!isset($sql) || empty($sql)) return;
 
         $sql = str_replace("\r", "\n", str_replace(' ' . $stuff, ' ' . BASE_DB_FORE, $sql));
@@ -121,17 +123,17 @@ class Ddb extends CI_Model {
         }
     }
 
-    function run_simple($sql, $stuff = 'es_') {
+    public function run_simple($sql, $stuff = 'es_') {
         $this->run($sql, $stuff, true);
     }
 
-	function fieldexists($tablename, $fieldname) {
+    public function fieldexists($tablename, $fieldname) {
 		$isexists = $this->query("DESCRIBE " . $tablename . " `{$fieldname}`");
 		$isexists = $isexists->row_array(0);
 		return !empty($isexists) ? true : false;
 	}
 
-	function indexexists($tablename, $indexname) {
+    public function indexexists($tablename, $indexname) {
 		if (!empty($indexname)) {
 			$indexs = $this->query("SHOW INDEX FROM " . $tablename);
 			$indexs = $indexs->result_array();
@@ -146,7 +148,7 @@ class Ddb extends CI_Model {
 		return false;
 	}
 
-	function tableexists($table) {
+    public function tableexists($table) {
 		if(!empty($table)) {
 			$data = $this->query("SHOW TABLES LIKE '".$table."'");
 			$data = $data->row_array(0);
@@ -176,7 +178,7 @@ class Ddb extends CI_Model {
      * @param string $field 读取字段名称
      * @return array (total=>总数量,perpage=>每页显示,nowpage=>当前页,totalpage=>总页数,list=>数据列表)
      */
-    function getlist($table, $where='', $order='', $row=10, $page=1, $field='*'){
+    public function getlist($table, $where='', $order='', $row=10, $page=1, $field='*') {
 		if (empty($table)) return array();
         if (!empty($order)) $order = " ORDER BY ".$order;
         if (!empty($where)) {
@@ -218,36 +220,47 @@ class Ddb extends CI_Model {
 		return $pagearr;
 	}
 
-    function trans_start() {
+    public function trans_start() {
         $this->db->trans_start();
     }
 
-    function trans_complete() {
+    public function trans_complete() {
         $this->db->trans_complete();
     }
 
-    function escape($str) {
+    public function escape($str) {
         return $this->db->escape($str);
     }
 
-    function escape_str($str) {
+    public function escape_str($str) {
         return $this->db->escape_str($str);
     }
 
-    function escape_like_str($str) {
+    public function escape_like_str($str) {
         return $this->db->escape_like_str($str);
     }
 
-    function escape_identifiers($str) {
+    public function escape_identifiers($str) {
         return $this->db->escape_identifiers($str);
     }
 
-    private function leftexists($string, $find, $lower = false) {
-        if ($lower) {
-            $string = strtolower($string);
-            $find = strtolower($find);
+    public function addcheck($string) {
+        if (is_array($string)) {
+            foreach ($string AS $item) {
+                $this->addcheck($item);
+            }
+        }elseif ($string){
+            $this->skipcheck[md5($string)] = $string;
         }
-        return preg_match("/^".$find."/i", $string);
+        return $this->skipcheck;
+    }
+
+    public function checksql($db_string) {
+        $db_string_bak = $db_string;
+        if (defined('OFF_SQL_TEMP') && OFF_SQL_TEMP < time()) {
+            $this->safecheck->checkquery($db_string, $this->skipcheck);
+        }
+        return $db_string_bak;
     }
 
     protected function data_preg($data) {
@@ -297,8 +310,7 @@ class Ddb extends CI_Model {
         return '`' . str_replace('.', '"."', preg_replace('/(^#|\(JSON\))/', '', $string)) . '`';
     }
 
-    protected function _has_operator($str)
-    {
+    protected function _has_operator($str) {
         return (bool) preg_match('/(<|>|!|=|\sIS NULL|\sIS NOT NULL|\sEXISTS|\sBETWEEN|\sLIKE|\sIN\s*\(|\s)/i', trim($str));
     }
 
@@ -331,79 +343,6 @@ class Ddb extends CI_Model {
             }
         }
         return $wheresql;
-    }
-
-    static function checksql($db_string, $querytype = 'select')
-    {
-        $db_string_bak = $db_string;
-        if (defined('OFF_SQL_TEMP') && !OFF_SQL_TEMP) {
-            $clean = '';
-            $error = '';
-            $old_pos = 0;
-            $pos = -1;
-            $log_file = BASE_PATH.'caches/log/sql_'.date('Ymd').'.php';
-            $userIP = ONLINE_IP;
-            $getUrl = get_url();
-            $time = date('Y-m-d H:i:s');
-            if ($querytype =='select'){
-                $notallow1 = "[^0-9a-z@\._-]{1,}(sleep|benchmark|load_file|outfile)[^0-9a-z@\.-]{1,}";
-                if(preg_match("/".$notallow1."/i", $db_string)){
-                    fputs(fopen($log_file,'a+'),"<?PHP exit();?>$userIP||$time<br>$getUrl<br>$db_string<br>SelectBreak<br>===========<br>\r\n");
-                    echo _Sys_Safe_Stop::scanpape(); exit();
-                }
-            }
-
-            while (TRUE){
-                $pos = strpos($db_string, '\'', $pos + 1);
-                if ($pos === FALSE){
-                    break;
-                }
-                $clean .= substr($db_string, $old_pos, $pos - $old_pos);
-                while (TRUE){
-                    $pos1 = strpos($db_string, '\'', $pos + 1);
-                    $pos2 = strpos($db_string, '\\', $pos + 1);
-                    if ($pos1 === FALSE){
-                        break;
-                    }elseif ($pos2 == FALSE || $pos2 > $pos1){
-                        $pos = $pos1;
-                        break;
-                    }
-                    $pos = $pos2 + 1;
-                }
-                $clean .= '$s$';
-                $old_pos = $pos + 1;
-            }
-            $clean .= substr($db_string, $old_pos);
-            $clean = trim(strtolower(preg_replace(array('~\s+~s' ), array(' '), $clean)));
-            if (strpos($clean, '@') !== FALSE  OR strpos($clean,'char(')!== FALSE OR strpos($clean,'"')!== FALSE
-                OR strpos($clean,'$s$$s$')!== FALSE){
-                $fail = TRUE;
-                if(preg_match("#^create table#i",$clean)) $fail = FALSE;
-                $error = "unusual character";
-            }elseif (strpos($clean, '/*') > 2 || strpos($clean, '--') !== FALSE || strpos($clean, '#') !== FALSE){
-                $fail = TRUE;
-                $error = "comment detect";
-            }elseif (strpos($clean, 'sleep') !== FALSE && preg_match('~(^|[^a-z])sleep($|[^[a-z])~is', $clean) != 0){
-                $fail = TRUE;
-                $error = "slown down detect";
-            }elseif (strpos($clean, 'benchmark') !== FALSE && preg_match('~(^|[^a-z])benchmark($|[^[a-z])~is', $clean) != 0){
-                $fail = TRUE;
-                $error = "slown down detect";
-            }elseif (strpos($clean, 'load_file') !== FALSE && preg_match('~(^|[^a-z])load_file($|[^[a-z])~is', $clean) != 0){
-                $fail = TRUE;
-                $error = "file fun detect";
-            }elseif (strpos($clean, 'into outfile') !== FALSE && preg_match('~(^|[^a-z])into\s+outfile($|[^[a-z])~is', $clean) != 0){
-                $fail = TRUE;
-                $error = "file fun detect";
-            }
-            if (!empty($fail)){
-                fputs(fopen($log_file,'a+'),"<?PHP exit();?>$userIP||$time<br>$getUrl<br>$db_string<br>$error<br>===========<br>\r\n");
-                echo _Sys_Safe_Stop::scanpape(); exit();
-            }else{
-                return $db_string_bak;
-            }
-        }
-        return $db_string_bak;
     }
 }
 ?>

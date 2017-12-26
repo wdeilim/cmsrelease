@@ -13,11 +13,17 @@
 
 <body>
 
-<div id="login" class="hide" style="display:block;">
+<div id="login" class="main-auth hide">
     <div class="tit">确认身份</div>
     <div class="con">
         <div class="tab" id="tablogin">
-            <a href="javascript:void(0);" class="hov">账号登陆</a>
+            {#if (($_A['al']['wx_appid'] && $_A['al']['wx_level'] == 4) || $_temp_isget) && $_A['browser'] == 'none'#}
+                <a href="javascript:void(0);" onclick="login('weixin')">微信登录</a>
+            {#/if#}
+            {#if $_A['al']['al_appid']#}
+                <a href="javascript:void(0);" onclick="login('alipay')">支付宝登录</a>
+            {#/if#}
+            <a href="javascript:void(0);" class="hov">账号登录</a>
             <a href="javascript:void(0);" onclick="show('login2')">验证码登录</a>
         </div>
         <div class="inp">
@@ -38,11 +44,17 @@
     </div>
 </div>
 
-<div id="login2" class="hide">
+<div id="login2" class="main-auth hide">
     <div class="tit">确认身份</div>
     <div class="con">
         <div class="tab" id="tablogin">
-            <a href="javascript:void(0);" onclick="show('login')">账号登陆</a>
+            {#if (($_A['al']['wx_appid'] && $_A['al']['wx_level'] == 4) || $_temp_isget) && $_A['browser'] == 'none'#}
+                <a href="javascript:void(0);" onclick="login('weixin')">微信登录</a>
+            {#/if#}
+            {#if $_A['al']['al_appid']#}
+                <a href="javascript:void(0);" onclick="login('alipay')">支付宝登录</a>
+            {#/if#}
+            <a href="javascript:void(0);" onclick="show('login')">账号登录</a>
             <a href="javascript:void(0);" class="hov">验证码登录</a>
         </div>
         <div class="inp">
@@ -66,7 +78,28 @@
     </div>
 </div>
 
-<div id="reg" class="hide">
+<div id="weixin" class="main-auth hide">
+    <div class="tit">确认身份</div>
+    <div class="con">
+        <div class="tab" id="tablogin">
+            {#if (($_A['al']['wx_appid'] && $_A['al']['wx_level'] == 4) || $_temp_isget) && $_A['browser'] == 'none'#}
+                <a href="javascript:void(0);" class="hov">微信登录</a>
+            {#/if#}
+            {#if $_A['al']['al_appid']#}
+                <a href="javascript:void(0);" onclick="login('alipay')">支付宝登录</a>
+            {#/if#}
+            <a href="javascript:void(0);" onclick="show('login')">账号登录</a>
+            <a href="javascript:void(0);" onclick="show('login2')">验证码登录</a>
+        </div>
+        <div class="inp weixincode">
+            <div class="codeimg"></div>
+            <div class="codetis">请使用微信扫描二维码登录</div>
+            <div class="codetis codeims"><span>扫描成功</span><em>请在微信中点击确认即可登录</em></div>
+        </div>
+    </div>
+</div>
+
+<div id="reg" class="main-auth hide">
     <div class="tit">注册用户</div>
     <div class="con">
         <div class="tab">
@@ -94,7 +127,7 @@
     </div>
 </div>
 
-<div id="pass" class="hide">
+<div id="pass" class="main-auth hide">
     <div class="tit">找回密码</div>
     <div class="con">
         <div class="tab">
@@ -116,7 +149,7 @@
     </div>
 </div>
 
-<div id="pass2" class="hide">
+<div id="pass2" class="main-auth hide">
     <div class="tit">找回密码</div>
     <div class="con">
         <div class="tab">
@@ -148,6 +181,55 @@
 
 
 <script type="text/javascript">
+    window.tcodetimename = 0;
+    window.tcodetimenameq = 0;
+    function tcode(t) {
+        if (!$("#weixin").is(":visible")) { return; }
+        if (t === 0) { $.alert(0); return; }
+        $.alert("二维码加载中...", 0);
+        var src = '{#get_link('authsend|authtype|tv')#}&authsend=1&authtype=weixincode&tv='+new Date().getTime();
+        var codeimg = $(".weixincode").find(".codeimg");
+        if (codeimg.find("img").length > 0) {
+            codeimg.find("img").attr("src", src);
+        }else{
+            codeimg.html('<img src="'+src+'" onload="tcode(0)">');
+        }
+        $(".codeims").hide();
+        $(".codetis").eq(0).show();
+    }
+    function tcodeq() {
+        if (!$("#weixin").is(":visible")) { return; }
+        $.ajax({
+            type: "POST",
+            url: '{#appurl('system/weixinauthq')#}',
+            dataType: 'text',
+            success: function (data) {
+                if (data == '1') {
+                    $(".codetis").hide();
+                    $(".codeims").show();
+                    $(".codeims").find("span").text("扫描成功");
+                    $(".codeims").find("em").text("请在微信中点击确认即可登录");
+                }else if (data == '2') {
+                    if (window.tcodetimenameq !== 0) { clearInterval(window.tcodetimenameq); }
+                    $(".codeims").find("span").text("登录成功");
+                    $(".codeims").find("em").text("正在跳转，请稍后...");
+                    window.location.reload();
+                }
+            },
+            cache: false
+        });
+    }
+    function login(type) {
+        if (type == 'alipay') {
+            window.location.href = 'https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id={#$_A['al']['al_appid']#}&scope=auth_userinfo&redirect_uri=' + encodeURIComponent('{#get_link('authsend|authtype')#}&authsend=1&authtype=alipay');
+        }else if (type == 'weixin') {
+            show('weixin');
+            if (window.tcodetimename !== 0) { clearInterval(window.tcodetimename); }
+            tcode();
+            window.tcodetimename = setInterval("tcode()", 180 * 1000);
+            if (window.tcodetimenameq === 0) { window.tcodetimenameq = setInterval("tcodeq()", 2 * 1000); }
+        }
+    }
     function show(name) {
         $(".hide").hide();
         $("#"+name).show();
@@ -169,6 +251,8 @@
         }
     }
     $(function(){
+        $("#login").find("#tablogin").find("a:eq(0)").click();
+        //
         $("#codebtn").click(function(){
             var tthis = $(this);
             if (tthis.attr("data-click") == '1') return false;

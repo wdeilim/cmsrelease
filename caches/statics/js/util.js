@@ -1,31 +1,37 @@
 (function(window) {
 	var util = {};
 
-	//JS目录地址（后面不带 / ）
-	util.baseUrl = function (script, i, me, src) {
+	//JS目录地址（后面带 / ）
+	util.jsUrl = function (script, i, me, src) {
 		for (i in script) {
 			src = script[i].src + ""; src = src.replace(/\\/g, '/');
-			if (src && src.indexOf('/caches/statics/js/require.config.js') !== -1) me = script[i];
+			if (src && src.indexOf('/caches/statics/js/') !== -1) me = script[i];
 		}
 		var _thisScript = me || script[script.length - 1];
 		me = _thisScript.src.replace(/\\/g, '/');
-		return me.lastIndexOf('/') < 0 ? '.' : me.substring(0, me.lastIndexOf('/'));
+		return (me.indexOf('/caches/statics/js/') < 0 ? '.' : me.substring(0, me.indexOf('/caches/statics/js/'))) + "/caches/statics/js/";
 	}(document.getElementsByTagName('script'));
 
 	//网站根目录（后面带 / ）
 	util.base_uri = function (baseUrl) {
-		baseUrl = baseUrl.substring(0, baseUrl.lastIndexOf('/'));
-		baseUrl = baseUrl.substring(0, baseUrl.lastIndexOf('/'));
-		baseUrl = baseUrl.substring(0, baseUrl.lastIndexOf('/'));
+		baseUrl = baseUrl.indexOf('/caches/statics/js/') < 0 ? '.' : baseUrl.substring(0, baseUrl.indexOf('/caches/statics/js/'));
+		var _href = window.location.href;
+		if (_href.indexOf(baseUrl + '/index.php?') !== -1) {
+			baseUrl+= "/index.php?";
+		}else if (_href.indexOf(baseUrl + '/index.php') !== -1) {
+			baseUrl+= "/index.php";
+		}
 		return baseUrl + "/";
-	}(util.baseUrl);
+	}(util.jsUrl);
 
-	//生成资源链接
+	//生成资源链接（后面带 / ）
 	util.tomedia = function(src){
-		if(src.indexOf('http://') == 0 || src.indexOf('https://') == 0  || src.indexOf('ftp://') == 0 || src.indexOf('/') == 0) {
+		if (src && (src.indexOf('http://') == 0 || src.indexOf('https://') == 0  || src.indexOf('ftp://') == 0 || src.indexOf('/') == 0)) {
 			return src;
 		} else {
-			return util.base_uri + src;
+			if (typeof src == 'undefined') { src = ""; }
+			var _url = util.jsUrl;
+			return (_url.indexOf('/caches/statics/js/') < 0 ? '.' : _url.substring(0, _url.indexOf('/caches/statics/js/'))) + "/" + src;
 		}
 	};
 
@@ -73,6 +79,12 @@
 		util.loading();
 		require(['photo'], function(photo){
 			util.loaded();
+			if (typeof photo == "undefined") {
+				if (typeof result == 'function') {
+					result(false);
+				}
+				return;
+			}
 			photo.choose(callback, result);
 		});
 	};
@@ -82,6 +94,12 @@
 		util.loading();
 		require(['photo'], function(photo){
 			util.loaded();
+			if (typeof photo == "undefined") {
+				if (typeof result == 'function') {
+					result(false);
+				}
+				return;
+			}
 			photo.images.maxWidth = photo.images.maxHeight = 0;
 			if (typeof callback == "object") {
 				result = callback.result;
@@ -116,7 +134,7 @@
 			var html =
 				'<div style="position: absolute;z-index:1;top:0;left:0;width:100%;height:100%;background:rgba(0, 0, 0, 0.3);"></div>' +
 				'<div style="text-align:center;background-color:rgba(0, 0, 0, 0.2);position:absolute;z-index:2;top:100px;left:0;margin:0;width:auto;padding:5px 12px;border-radius:5px;">'+
-				'		<img style="width:40px;height:40px;vertical-align:middle;" src="'+util.baseUrl+'/../images/loading.gif" title="正在努力加载...">' +
+				'		<img style="width:40px;height:40px;vertical-align:middle;" src="'+util.tomedia('caches/statics/images/loading.gif')+'" title="正在努力加载...">' +
 				'		<span style="margin-left:5px;color:#ffffff;display:none;"></span>' +
 				'</div>';
 			modalobj.html(html);
@@ -183,8 +201,8 @@
 			window.ZeroClipboard = zcl;
 			var uedit = UE.getEditor(obj, {
 				autoHeightEnabled:false,
-				UEDITOR_HOME_URL: util.baseUrl + '/ueditor/',
-				serverUrl: util.baseUrl + '/ueditor/php/controller.php'
+				UEDITOR_HOME_URL: util.jsUrl + '/ueditor/',
+				serverUrl: util.jsUrl + '/ueditor/php/controller.php'
 			});
 			uedit.ready(function() {
 				if (typeof result == 'function') {
@@ -198,7 +216,7 @@
 		if(obj.clip) { return; }
 		require(['jquery.zclip'], function(){
 			util.obj(obj).zclip({
-				path: util.baseUrl + '/zclip/ZeroClipboard.swf',
+				path: util.jsUrl + '/zclip/ZeroClipboard.swf',
 				copy: str,
 				afterCopy: function(){
 					util.alert("复制成功");

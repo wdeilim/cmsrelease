@@ -1,13 +1,32 @@
-require.config({
-	baseUrl: function (script, i, me, src) {
+window.vwins_path = {
+	js: function (script, i, me, src) {
 		for (i in script) {
 			src = script[i].src + ""; src = src.replace(/\\/g, '/');
-			if (src && src.indexOf('/caches/statics/js/require.config.js') !== -1) me = script[i];
+			if (src && src.indexOf('/caches/statics/js/') !== -1) me = script[i];
 		}
 		var _thisScript = me || script[script.length - 1];
 		me = _thisScript.src.replace(/\\/g, '/');
-		return me.lastIndexOf('/') < 0 ? '.' : me.substring(0, me.lastIndexOf('/'));
+		return (me.indexOf('/caches/statics/js/') < 0 ? '.' : me.substring(0, me.indexOf('/caches/statics/js/'))) + "/caches/statics/js/";
 	}(document.getElementsByTagName('script')),
+	uri: function (script, i, me, src) {
+		for (i in script) {
+			src = script[i].src + ""; src = src.replace(/\\/g, '/');
+			if (src && src.indexOf('/caches/statics/js/') !== -1) me = script[i];
+		}
+		var _thisScript = me || script[script.length - 1];
+		me = _thisScript.src.replace(/\\/g, '/');
+		me = me.indexOf('/caches/statics/js/') < 0 ? '.' : me.substring(0, me.indexOf('/caches/statics/js/'));
+		var _href = window.location.href;
+		if (_href.indexOf(me + '/index.php?') !== -1) {
+			me+= "/index.php?";
+		}else if (_href.indexOf(me + '/index.php') !== -1) {
+			me+= "/index.php";
+		}
+		return me + "/";
+	}(document.getElementsByTagName('script'))
+};
+require.config({
+	baseUrl: window.vwins_path.js,
 	paths: {
 		'jquery': 'jquery-1.11.0',
 		'jquery.ui': 'jquery-ui-1.11.3.min.js',
@@ -34,8 +53,8 @@ require.config({
 		'baidueditor': 'ueditor/ueditor',
 		'ueditorlang': 'ueditor/lang/zh-cn/zh-cn',
 		'ueditorzeroclip': 'ueditor/third-party/zeroclipboard/ZeroClipboard.min',
-		'share' : '../../../../web/system/require_share/' + ((document.location.search.indexOf("?")!==-1)?document.location.search:'?') + '&url=' + encodeURIComponent(document.location.href),
-		'photo' : '../../../../web/system/require_photo/' + ((document.location.search.indexOf("?")!==-1)?document.location.search:'?') + '&url=' + encodeURIComponent(document.location.href),
+		'share' : window.vwins_path.uri + 'web/system/require_share/' + ((document.location.search.indexOf("?")!==-1)?document.location.search:'?') + '&url=' + encodeURIComponent(document.location.href),
+		'photo' : window.vwins_path.uri + 'web/system/require_photo/' + ((document.location.search.indexOf("?")!==-1)?document.location.search:'?') + '&url=' + encodeURIComponent(document.location.href),
 		'jweixin' : 'http://res.wx.qq.com/open/js/jweixin-1.0.0',
 		'jalipay' : 'https://static.alipay.com/aliBridge/1.0.0/aliBridge.min',
 		'map': 'http://api.map.baidu.com/getscript?v=2.0&ak=eDsGxG65jw27rKR2hGfhRIBp&services=&t=' + new Date().getTime()

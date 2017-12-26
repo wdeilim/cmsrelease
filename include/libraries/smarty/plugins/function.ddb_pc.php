@@ -75,10 +75,11 @@ function smarty_function_ddb_pc($params, &$smarty)
     $orderbysql = $aset['order']?' ORDER BY '.str_replace(">", ",", $aset['order']):'';
     $wheresql = "";
     if ($params['where']) {
-        preg_match_all('/LIKE\s*[\'|\"]%+([^>]*?)%[\'|\"]/is', $params['where'], $matchew);
-        foreach($matchew[1] AS $key=>$item) {
+        $params['where'] = str_replace(array('\"', '\\\''), array('@!u0022@', '@!u0027@'), $params['where']);
+        preg_match_all('/LIKE\s*([\'|\"])\s*%+([^>]*?)%\s*\\1/is', $params['where'], $matchew);
+        foreach($matchew[2] AS $key=>$item) {
             $params['where'] = str_replace($matchew[0][$key], "LIKE '%".db_escape_str($item)."%'", $params['where']);
-        }
+        } $params['where'] = str_replace(array('@!u0022@', '@!u0027@'), array('\"', '\\\''), $params['where']);
         $wheresql.= " AND ".$params['where'];
     }
     if (!empty($wheresql)) {

@@ -25,7 +25,7 @@ class _Sys_Safe_Stop {
 		if ($safeinitrun !== true) {
 			$safeinitrun = true;
 			include('cache.sqlset.php');
-			if (defined('OFF_SQL_TEMP') && !OFF_SQL_TEMP) {
+			if (defined('OFF_SQL_TEMP') && OFF_SQL_TEMP < time()) {
 				$this->init();
 			}
 		}
@@ -159,6 +159,7 @@ class _Sys_Safe_Stop {
 			    </body>
 			</html>
 		';
+		header ( "Content-type: text/html; charset=".((defined('BASE_CHARSET')&&BASE_CHARSET)?BASE_CHARSET:'UTF-8') );
 		return $webscanpape;
 	}
 
@@ -181,8 +182,7 @@ class _Sys_Safe_Stop {
 
 	public function safe($StrValue)
 	{
-		if (defined('OFF_SQL_TEMP') && !OFF_SQL_TEMP)
-		{
+		if (defined('OFF_SQL_TEMP') && OFF_SQL_TEMP < time()) {
 			if (is_array($StrValue)) {
 				foreach($StrValue AS $key=>$val) {
 					$this->safe($key);

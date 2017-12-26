@@ -129,6 +129,7 @@ switch($step)
 
 	case 'dbtest'://数据库测试
 		extract($_GET);
+		$pre = strtolower($pre);
 		//引索文件部分
 		if ($ipage == 'hide' || $ipage == 'pathinfo') {
 			$_ipage = $ipage;
@@ -170,6 +171,7 @@ switch($step)
 		break;
 	case 'installmodule': //执行SQL
 		extract($_POST);
+		$pre = strtolower($pre);
 		$GLOBALS['dbcharset'] = $dbcharset;
 		$PHP_SELF = isset($_SERVER['PHP_SELF']) ? $_SERVER['PHP_SELF'] : (isset($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME'] : $_SERVER['ORIG_PATH_INFO']);
 		$rootpath = str_replace('\\','/',dirname($PHP_SELF));
@@ -260,6 +262,7 @@ switch($step)
 		break;
 	case 'dbtest'://数据库测试
 		extract($_GET);
+		$pre = strtolower($pre);
 		if(!@mysql_connect($dbhost, $dbuser, $dbpass)) {
 			exit('2');
 		}

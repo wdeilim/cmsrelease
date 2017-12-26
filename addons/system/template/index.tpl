@@ -15,11 +15,13 @@
     <script type="text/javascript" src="{#$JS_PATH#}jquery.form.min.js"></script>
 </head>
 <body>
-{#include file="header_user.tpl"#}
-<script>$('#head-nav-menu>li:eq(0)').addClass('active');</script>
 
+<div class="content-box">
+    {#include file="header_user.tpl"#}
+    <script>$('#head-nav-menu>li:eq(0)').addClass('active');</script>
+</div>
 
-<div class="wrapper">
+<div class="wrapper content-box">
     {#include file="information.tpl"#}
     <div class="main">
         <div class="hd">
@@ -60,11 +62,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {#ddb_pc set="数据表:users_al,列表名:lists,显示数目:10,分页显示:1,分页名:pagelist,当前页:GET[page],分页地址:{#$pageurl#}?key={#$key#}&page=(?),排序:indate desc" where=$wheresql#}
+                    {#ddb_pc set="数据表:users_al,列表名:lists,显示数目:10,分页显示:1,分页名:pagelist,当前页:GET[page],分页地址:{#$pageurl#}?key={#$key#}&page=(?),排序:{#$ordersql#}" where=$wheresql#}
                     {#foreach from=$lists item=list#}
                         {#$list['setting'] = string2array($list['setting'])#}
                         <tr{#if $list.wx_level==7#} class="wx_corp"{#/if#}>
                             <td colspan="2" class="al-name" title="ID：{#$list.id#}">
+                                {#if $list.id == $slastalid#}<span class="lastal">最后使用</span>{#/if#}
                                 {#if $list.wx_name#}
                                     <span id="wx_name">
                                         {#if $list.wx_level==7#}企业号：{#else#}公众号：{#/if#}{#$list.wx_name#}
@@ -139,6 +142,7 @@
             content: '您确定要删除并且删除后不可恢复吗？',
             button: [{
                 name: '确定删除',
+                focus: true,
                 callback: function () {
                     $.ajax({
                         url:'{#$urlarr.2#}del/'+id+'/',

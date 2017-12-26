@@ -32,6 +32,9 @@
         #_regitem label input{padding-right:5px}
         .templettab{display:none}
         .partition{background-color:#E6F1FB;line-height:32px;text-align:left;padding-left:10px;color:#09C}
+        .sqllabel{width:550px;line-height:38px;}
+        .sqllabel label{display:block;float:left;width:165px;}
+        .sqllabel label input{margin-right:3px;margin-bottom:1px;vertical-align:middle}
     </style>
 </head>
 <body>
@@ -289,9 +292,21 @@
                                         <tbody>
                                         <tr>
                                             <td class="al-right"><span>关闭SQL防注入</span></td>
-                                            <td>
-                                                <label style="line-height:40px;"><input name="OFF_SQL_TEMP"{#if $smarty.const.OFF_SQL_TEMP#} checked{#/if#} type="checkbox" value="1"> 暂时关闭SQL防注入</label>
-                                                <span class="tis"></span>
+                                            <td class="sqllabel">
+                                                {#if $sqltemp > 0#}
+                                                    {#$smarty.const.OFF_SQL_TEMP_TIS#} (剩余<span id="sqltemp">{#$sqlcountdown#}</span>)<br/>
+                                                    <label><input name="OFF_SQL_TEMP" type="checkbox" value="-1">重新开启SQL防注入</label>
+                                                {#else#}
+                                                    <label><input name="OFF_SQL_TEMP" type="radio" value="1">暂停保护1分钟</label>
+                                                    <label><input name="OFF_SQL_TEMP" type="radio" value="5">暂停保护5分钟</label>
+                                                    <label><input name="OFF_SQL_TEMP" type="radio" value="10">暂停保护10分钟</label>
+                                                    <label><input name="OFF_SQL_TEMP" type="radio" value="30">暂停保护30分钟</label>
+                                                    <label><input name="OFF_SQL_TEMP" type="radio" value="60">暂停保护1小时</label>
+                                                    <label><input name="OFF_SQL_TEMP" type="radio" value="180">暂停保护3小时</label>
+                                                    <label><input name="OFF_SQL_TEMP" type="radio" value="360">暂停保护6小时</label>
+                                                    <label><input name="OFF_SQL_TEMP" type="radio" value="720">暂停保护12小时</label>
+                                                    <label><input name="OFF_SQL_TEMP" type="radio" value="1440">暂停保护24小时</label>
+                                                {#/if#}
                                             </td>
                                         </tr>
                                         <tr>
@@ -301,7 +316,7 @@
                                         <tr>
                                             <td class="al-right"><span>验证管理员密码</span></td>
                                             <td>
-                                                <input class="form-control" type="text" name="OFF_SQL_PASS" placeholder="请输入管理员密码确认">
+                                                <input class="form-control" type="password" name="OFF_SQL_PASS" placeholder="请输入管理员密码确认">
                                             </td>
                                         </tr>
                                         <tr>
@@ -489,7 +504,9 @@
                                         </tr>
                                         <tr>
                                             <td class="al-right"><span>用户注册协议</span></td>
-                                            <td><script id="otherregagreement" name="other[regagreement]" type="text/plain" style="width: 770px;height: 300px;">{#value($setting['content']['other'],'regagreement')#}</script></td>
+                                            <td class="form-uetext">
+                                                <script id="otherregagreement" name="other[regagreement]" type="text/plain" style="width: 770px;height: 300px;">{#value($setting['content']['other'],'regagreement')#}</script>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -513,6 +530,27 @@
 
 
 <script type="text/javascript">
+    function formatSeconds(value) {
+        var theTime = parseInt(value);  // 秒
+        var theTime1 = 0;               // 分
+        var theTime2 = 0;               // 小时
+        if(theTime > 60) {
+            theTime1 = parseInt(theTime/60);
+            theTime = parseInt(theTime%60);
+            if(theTime1 > 60) {
+                theTime2 = parseInt(theTime1/60);
+                theTime1 = parseInt(theTime1%60);
+            }
+        }
+        var result = (("0"+parseInt(theTime)).substr(-2))+"秒";
+        if(theTime1 > 0) {
+            result = (("0"+parseInt(theTime1)).substr(-2))+"分"+result;
+        }
+        if(theTime2 > 0) {
+            result = (("0"+parseInt(theTime2)).substr(-2))+"时"+result;
+        }
+        return result;
+    }
     function addtopmenu(obj) {
         var tthis = $(obj);
         $intemp = $('<tr>'+tthis.parents("tr").html()+'</tr>');
@@ -528,6 +566,28 @@
         }
     }
     $(document).ready(function() {
+        var sqltemp = {#$sqltemp|intval#};
+        var sqltimer = setInterval(function(){
+            if (sqltemp > 0) {
+                sqltemp--;
+                $("#sqltemp").text(formatSeconds(sqltemp));
+            }else{
+                if ($("#sqltemp").length > 0) {
+                    $.ajax({
+                        url: window.location.href,
+                        type: "GET",
+                        dataType: "html",
+                        success: function (data) {
+                            $(".sqllabel").html($(data).find(".sqllabel").html());
+                        },error : function () {
+                            window.location.reload();
+                        }
+                    });
+                }
+                clearTimeout(sqltimer);
+            }
+        }, 1000);
+        //
         UE.getEditor('otherregagreement',{autoHeightEnabled:false});
         //
         $("#tem_templet").change(function(){

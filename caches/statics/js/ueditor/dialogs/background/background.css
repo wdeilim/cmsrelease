@@ -46,8 +46,8 @@ div.alignment,#custom{margin-left: 23px;margin-left: 28px\9;}
     display: block;
     list-style: none;
     padding: 0;
-    width: 113px;
-    height: 113px;
+    width: 82px;
+    height: 82px;
     margin: 9px 0 0 19px;
     background-color: #eee;
     overflow: hidden;
@@ -68,8 +68,8 @@ div.alignment,#custom{margin-left: 23px;margin-left: 28px\9;}
 }
 #imgManager li .icon {
     cursor: pointer;
-    width: 113px;
-    height: 113px;
+    width: 82px;
+    height: 82px;
     position: absolute;
     top: 0;
     left: 0;
@@ -77,9 +77,23 @@ div.alignment,#custom{margin-left: 23px;margin-left: 28px\9;}
     border: 0;
     background-repeat: no-repeat;
 }
+#imgManager li .imgtitle {
+    position: absolute;
+    top: auto;
+    left: 0;
+    bottom: 0;
+    color: #FFFFFF;
+    background-color: rgba(0, 0, 0, 0.68);
+    width: 100%;
+    height: 18px;
+    line-height: 18px;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
 #imgManager li .icon:hover {
-    width: 107px;
-    height: 107px;
+    width: 76px;
+    height: 76px;
     border: 3px solid #1094fa;
 }
 #imgManager li.selected .icon {

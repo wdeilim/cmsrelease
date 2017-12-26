@@ -177,6 +177,7 @@
                     content: '确定删除并且不可恢复吗？',
                     button: [{
                         name: '确定',
+                        focus: true,
                         callback: function () {
                             $.ajax({
                                 type: "POST",
@@ -221,6 +222,7 @@
                     content: '确定删除并且不可恢复吗？',
                     button: [{
                         name: '确定',
+                        focus: true,
                         callback: function () {
                             $.ajax({
                                 type: "POST",

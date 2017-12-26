@@ -296,6 +296,7 @@
                         '</div>',
                 button: [{
                     name: '增加',
+                    focus: true,
                     callback: function () {
                         var num = $("#_u_point").val();
                         var text = $("#_u_textarea").val();
@@ -365,6 +366,7 @@
                         '</div>',
                 button: [{
                     name: '增加',
+                    focus: true,
                     callback: function () {
                         var num = $("#_u_money").val();
                         var text = $("#_u_mtextarea").val();
@@ -431,6 +433,7 @@
                     content: $("#temp-body").html().replace(/idid/g, "id"),
                     button: [{
                         name: '确定',
+                        focus: true,
                         callback: function () {
                             var id = $("#e_id").val(),
                                     fullname = $("#e_fullname").val(),
@@ -501,6 +504,7 @@
                     content: '确定删除并且不可恢复吗？',
                     button: [{
                         name: '确定',
+                        focus: true,
                         callback: function () {
                             $.ajax({
                                 type: "POST",
@@ -575,6 +579,7 @@
                     content: '此功能仅支持微信粉丝暂不支持服务窗粉丝！<br/><br/>点击“确定”开始同步！',
                     button: [{
                         name: '确定',
+                        focus: true,
                         callback: function () {
                             $.alert('正在同步...', 0);
                             tthis.ajaxSubmit({

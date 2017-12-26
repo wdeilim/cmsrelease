@@ -154,6 +154,7 @@
                 _dialog.content("功能："+title+"<br/>价格："+pointtxt+"");
                 _dialog.button({
                     name: '添加',
+                    focus: true,
                     callback: function () {
                         $.alert("正在添加...", 0, 1);
                         $.ajax({

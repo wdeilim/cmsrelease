@@ -9,16 +9,19 @@
             <li><a class="nav-item-link" href="{#$smarty.const.BRAND_URL#}" target="_blank">{#$smarty.const.BRAND_NAME#}</a></li>
             {#if $_A.u.admin == 1#}
                 <li class="dropdown" style="position:relative;">
-                    <a class="nav-item-link" href="{#$urlarr.2#}settings/">系统设置</a>
+                    <a class="nav-item-link" href="{#$urlarr.2#}settings/">系统管理</a>
                     <ul style="width:800px;margin-right:10px;" class="dropdown-menu-nav cf nav-item-user">
                         <li class="dropdown-menu-item triangle">
+                            <a class="dropdown-menu-item-link" href="{#$urlarr.2#}settings/">系统设置</a>
+                        </li>
+                        <li class="dropdown-menu-item">
+                            <a class="dropdown-menu-item-link" href="{#$urlarr.2#}settings/upgrade/">系统更新</a>
+                        </li>
+                        <li class="dropdown-menu-item">
                             <a class="dropdown-menu-item-link" href="{#$urlarr.2#}settings/users/">客户管理</a>
                         </li>
                         <li class="dropdown-menu-item">
                             <a class="dropdown-menu-item-link" href="{#$urlarr.2#}settings/cloud/">微窗中心</a>
-                        </li>
-                        <li class="dropdown-menu-item">
-                            <a class="dropdown-menu-item-link" href="{#$urlarr.2#}settings/upgrade/">系统更新</a>
                         </li>
                         <li class="dropdown-menu-item">
                             <a class="dropdown-menu-item-link" href="{#$urlarr.2#}settings/database/">数据备份</a>

@@ -202,8 +202,8 @@ class Vupload extends CI_Model {
 
     /**
      * 生成缩略图
-     * @param $src_img 源图绝对完整地址{带文件名及后缀名}
-     * @param $dst_img 目标图绝对完整地址{带文件名及后缀名}
+     * @param string $src_img 源图绝对完整地址{带文件名及后缀名}
+     * @param string $dst_img 目标图绝对完整地址{带文件名及后缀名}
      * @param int $width 缩略图宽{0:此时目标高度不能为0，目标宽度为源图宽*(目标高度/源图高)}
      * @param int $height 缩略图高{0:此时目标宽度不能为0，目标高度为源图高*(目标宽度/源图宽)}
      * @param int $cut 是否裁切{宽,高必须非0}

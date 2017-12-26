@@ -31,8 +31,9 @@ class ES_Message extends CI_Model {
         }
         if ($keyval){
 			if ($this->input->get('keytype')) {
-				$wheresql.= " AND `openid` IN (SELECT openid FROM ".table("fans")." WHERE `user_name` LIKE '%".$keyval."%') ";
-			}else{
+                db_addcheck(" AND `openid` IN (SELECT openid FROM ".table("fans")." WHERE ");
+                $wheresql.= " AND `openid` IN (SELECT openid FROM ".table("fans")." WHERE `user_name` LIKE '%".$keyval."%') ";
+            }else{
 				$wheresql.= " AND `text` LIKE '%".$keyval."%' ";
 			}
         }

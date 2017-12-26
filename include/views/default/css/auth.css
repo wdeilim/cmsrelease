@@ -127,3 +127,45 @@ a:hover {
 .link .l-r{
     float: right;
 }
+.main-auth {
+    max-width: 720px;
+    margin: auto;
+}
+.weixincode .codeimg {
+    width: 70%;
+    max-width: 300px;
+    margin: 50px auto 0;
+    text-align: center;
+}
+.weixincode .codeimg img {
+    max-width: 100%;
+}
+.weixincode .codetis {
+    max-width: 300px;
+    padding: 20px 0;
+    margin: 30px auto 42px;
+    text-align: center;
+    font-size: 16px;
+    background-color: #d2e6e9;
+    border-radius: 50px;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    box-shadow: inset 0 5px 10px -5px #bcced1,0 1px 0 0 #d2e6e9;
+    -moz-box-shadow: inset 0 5px 10px -5px #bcced1,0 1px 0 0 #d2e6e9;
+    -webkit-box-shadow: inset 0 5px 10px -5px #bcced1,0 1px 0 0 #d2e6e9;
+}
+.weixincode .codetis.codeims {
+    display: none;
+    font-size: 18px;
+    text-align: left;
+    padding-left: 90px;
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAAmCAMAAACf4xmcAAAAA3NCSVQICAjb4U/gAAAAtFBMVEX///9wuDhwuDhwuDhwuDhwuDhwuDhwuDhwuDhwuDhwuDj////8/fr3+/P1+vLz+e/u9+js9uXr9ePp9ODm8tzg8NTa7cvX68jV6sTS6cHM5rjK5bXJ5LPH47LD4avA4Ke83qG53J202paz2Zav15Cr1Yqp1Iio1Iaj0X+g0Hqez3iVymyUymuSyWiPx2ONxmGEwlSAwE5/v0x7vkh8vkh6vUV7vUd4vER2u0Bzuj1zuTxwuDiGIHD+AAAAPHRSTlMAESIzRFV3qszd7v////////////////////////////////////////////////////////////////8oiC2cAAAACXBIWXMAAAsSAAALEgHS3X78AAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAAVZJREFUOI2NlHl7gjAMxotoKYXNuTnn3KE73OUO2CWu3/97jYQWUqA+zT8m9kfeJm3DGLWQR0IqJUXEQ+awgMeKWMyDPopL1TLJO9BAtCEwMbCpYSeVTjik1KgfAht5UYQbOBS1rtlf7+5JHboT+ymlsC/BXkmUDXySVeli12JxNbks0IvL03ZRu7MkSW4qP3RrLkoquTCqkYO6Bip5rYLI1bRbpB50JFjdjt8fQq2RujOhZM3n6X1NvSC1bD4zWA7/P+pgk0K0INmN6CcspBv0Pw4gmO8aStYlYGWHWellY3BPC5JM1A35m8Hi8ZfKJ+BMt7TuqGnv9gSWZ99T+DnKrfZwcliVGO5rnFlUeVjk6N+wQEDfbSq2L9JTRemCqaZ9LVeIPbcovJbWHTkvqXWLUrzzZIrVvJ3LPBnfB+j5nH2HQ8m5Ro1F+Q4u3zHIfIcqmHNE/wMnzN9weqtFoQAAAABJRU5ErkJggg==");
+    background-repeat: no-repeat;
+    background-position: 26px center;
+    background-size: 48px;
+}
+.weixincode .codetis.codeims em {
+    display: block;
+    font-style: normal;
+    font-size: 14px;
+}

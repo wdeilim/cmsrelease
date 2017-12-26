@@ -27,7 +27,7 @@ class Web extends CI_Controller {
         $this->a = $a?$a:'index';
         $this->b = isset($arr[0])?$arr[0]:'index';
         if ($this->b == 'index') {
-            if ($_A['f']['reply']) {
+            if (isset($_A['f']['reply']) && $_A['f']['reply']) {
                 $this->_reply($arr);
             }elseif (isset($_GPC['do']) && $_GPC['do'] == 'keychart') {
                 $this->_keychart($arr);

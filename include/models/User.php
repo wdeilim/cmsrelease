@@ -37,6 +37,61 @@ class User extends CI_Model {
 		}
 	}
 
+	/**
+	 * 通过公众号获取粉丝openid等信息 （客户端）
+	 * @param string $appid 	公众号的 appid
+	 * @param string $secret	公众号的 secret
+	 * @param string $scope		是否获取详细信息：snsapi_userinfo是、其他不是
+	 * @param bool $iscache		是否允许缓存 默认允许【$scope=snsapi_userinfo 时始终不允许缓存】
+	 * @return array|mixed|string
+	 */
+	public function oauth2($appid, $secret, $scope = 'snsapi_base', $iscache = true)
+	{
+		global $_A,$_GPC;
+		$_scope = (in_array($scope, array('snsapi_userinfo', 'userinfo')) || $scope === true)?'snsapi_userinfo':'snsapi_base';
+		$sessionname = 'oauth2_'.md5($appid.$secret.$_scope.$_A['fans']['openid']);
+		$wechat_openid = $this->session->userdata($sessionname);
+		if (empty($wechat_openid) || strlen($wechat_openid) < 15 || $iscache == false || $_scope == 'snsapi_userinfo') {
+			if (isset($_GPC['models_user_oauth2'])) {
+				if (!isset($_GPC['code'])) {
+					return error(-1, 'User OAuth 2.0授权失败！');
+				}
+				$this->load->library('communication');
+				$url  = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid='.$appid;
+				$url.= '&secret='.$secret.'&code='.$_GPC['code'].'&grant_type=authorization_code';
+				$content = $this->communication->ihttp_request($url);
+				$_content = isset($content['content'])?json_decode($content['content'], true):'';
+				$wechat_openid = value($_content,'openid');
+				if (empty($wechat_openid)) {
+					return error(-1, 'User OAuth 2.0授权失败 - get - openid！');
+				}
+				//
+				if ($_scope == 'snsapi_userinfo') {
+					$access_token = value($_content, 'access_token');
+					$url  = 'https://api.weixin.qq.com/sns/userinfo?access_token='.$access_token.'&openid='.$wechat_openid.'&lang=zh_CN';
+					$content = $this->communication->ihttp_request($url);
+					$_conten2 = isset($content['content'])?json_decode($content['content'], true):'';
+					if (value($_conten2,'openid')) {
+						$_content = $_conten2;
+					}
+				}
+				$this->session->set_userdata($sessionname, $wechat_openid);
+				return error(0, $_content);
+			}else{
+				if (isset($_GET['code']) || isset($_GET['weixin_oauth2'])) {
+					$_url = get_link('weixin_oauth2|code|state');
+				}else{
+					$_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$appid;
+					$_url.= '&redirect_uri='.urlencode(get_link('models_user_oauth2')."&models_user_oauth2=1");
+					$_url.= '&response_type=code&scope='.$_scope.'&state=STATE#wechat_redirect';
+				}
+				gourl($_url); exit();
+			}
+		}else{
+			return error(0, array('openid'=>$wechat_openid));
+		}
+	}
+
     /**
      * 获取用户信息 （客户端）
      * @param string $segments
@@ -308,7 +363,82 @@ class User extends CI_Model {
 		$arr['success'] = 0;
 		$arr['message'] = '';
 		$openidname = '__SYS:USERID:'.intval($_A['al']['id']);
+		//
+		$_temp_isget = false;
+		$get_appid = value($_A, 'al|setting|other|get_appid');
+		if ($get_appid) {
+			$get_appoint = value($_A, 'al|setting|other|get_appoint', true);
+			if (empty($get_appoint) || in_array($_A['module'], $get_appoint)) {
+				$_temp_isget = true; //微信授权 - 借用
+			}
+		}
+		$this->cs->assign('_temp_isget', $_temp_isget);
+		//
 		if (isset($_GPC['authsend'])) {
+			if ($_GPC['authtype'] == "alipay") {
+				//支付宝登录
+				$this->load->library('fuwu');
+				$this->fuwu->setting(intval($_A['al']['id']));
+				if (!isset($_GPC['auth_code'])) {
+					message(null, "OAuth 2.0授权登录失败！");
+				}
+				$user_info = $this->fuwu->getUserInfo($_GPC['auth_code']);
+				$_A['openid'] = $user_info['oauth']['alipay_user_id'];
+				if (isset($user_info['error']) && empty($_A['openid'])) {
+					message(null, "温馨提示", "错误: ".$user_info['error']['msg'].$user_info['error']['sub_msg']);
+				}
+				$this->set_udata($openidname, $_A['openid']);
+				$M = array(
+					'openid'=>$_A['openid'],
+					'alid'=>$_A['al']['id'],
+					'appid'=>$_A['al']['al_appid']
+				);
+				if (isset($user_info['info'])) {
+					$M['logon_id'] = $user_info['info']['user_id'];
+					$M['user_name'] = $user_info['info']['real_name'];
+					$M['avatar'] = $user_info['info']['avatar'];
+					$M['cert_type_value'] = $user_info['info']['cert_type_value'];
+					$M['cert_no'] = $user_info['info']['cert_no'];
+					$M['sex'] = $user_info['info']['gender']=='F'?'女':'男';
+					$M['phone'] = $user_info['info']['phone'];
+					$M['mobile'] = $user_info['info']['mobile'];
+					$M['province'] = $user_info['info']['province'];
+					$M['city'] = $user_info['info']['city'];
+					$M['area'] = $user_info['info']['area'];
+					$M['address'] = $user_info['info']['address'];
+					$M['zip'] = $user_info['info']['zip'];
+					$M['setting'] = array2string($user_info);
+				}
+				$_A['_oauthalipay'] = 1; //服务窗oaut授权
+				//
+				$this->fuwu->exist_group($M);
+				$this->fuwu->processor();
+				gourl(get_link('authsend|authtype|app_id|source|scope|auth_code'));
+			}elseif ($_GPC['authtype'] == "weixincode") {
+				//微信登录(二维码)
+				$wxcodename = '__SYS:WXCODE:'.intval($_A['al']['id']);
+				$wxcodedata = $this->get_udata($wxcodename);
+				if (empty($wxcodedata)) {
+					$wxcodedata = generate_password(8);
+					$this->set_udata($wxcodename, $wxcodedata);
+				}
+				$wxvalue = generate_password(6);
+				db_delete(table('tmp'), array("`indate`<"=>(SYS_TIME-600),"`title` LIKE 'system_wxac_%'"=>''));
+				$notewhere = array('title'=>'system_wxac_'.$wxcodedata);
+				$notes = db_getone(table('tmp'), $notewhere);
+				if (empty($notes)) {
+					$notewhere['indate'] = SYS_TIME;
+					$notewhere['value'] = $wxvalue;
+					$notewhere['content'] = get_link('authsend|authtype|tv');
+					db_insert(table('tmp'), $notewhere);
+				}else{
+					db_update(table('tmp'), array('indate'=>SYS_TIME, 'value'=>$wxvalue, 'content'=>get_link('authsend|authtype|tv')), $notewhere);
+				}
+				//
+				include_once dirname(dirname(__FILE__)).'/libraries/other/phpqrcode.php';
+				QRcode::png(appurl('system/weixinauth/s'.$wxcodedata.'/v'.$wxvalue.'/'), false, 'L', 10, 0);
+				exit();
+			}
 			if (empty($_GPC['username'])) {
 				$arr['message'] = '请输入手机号/邮箱！';
 				echo json_encode($arr); exit();

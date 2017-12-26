@@ -169,6 +169,7 @@
                 content: $("#regagreementhtml").html(),
                 button: [{
                     name: '确定',
+                    focus: true,
                     callback: function () {
                         return true;
                     }

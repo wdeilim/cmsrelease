@@ -235,6 +235,7 @@
                         opacity: '.3',
                         button: [{
                             name: '确定',
+                            focus: true,
                             callback: function () {
                                 p.parent().fadeOut(200);
 								setTimeout(function(){p.parent().remove();keyhide();},200);

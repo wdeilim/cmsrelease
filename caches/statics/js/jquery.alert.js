@@ -61,6 +61,39 @@ jQuery.alertb = function(e, but, diy) {
     $.alert(e, 0, 1, '<div '+_click+' style="text-align:center;padding:5px;border-top:1px solid #ECECEC;margin:15px -10px -15px;">'+but+'</div>')
 };
 jQuery.confirm = function(e, qfun, cfun, q, c) {
+    if (typeof e == "object") {
+        if (e.title === undefined) {
+            if (e.content !== undefined) {
+                e.title = e.content;
+            }
+        }
+        var _tempbut = '<div style="margin:15px -10px -15px;border-top:1px solid #ECECEC;display:-webkit-box;">';
+        if (Object.prototype.toString.call(e.button) !== '[object Array]') {
+            e.button = e.button ? [e.button] : [];
+        }
+        var _m = Math.round(Math.random() * 10000);
+        $.each(e.button, function (i, val) {
+            var attcss = '';
+            if (i > 0) { attcss = 'border-left:1px solid #6F6F6F;margin-left:-1px'; }
+            _tempbut+= '<div id="jQuery-ui-confirmq-'+(_m+i)+'" ' +
+                'style="display:block;-webkit-box-flex:1;text-align:center;padding:5px 8px;cursor:pointer;'+attcss+'">'+val.title+'</div>';
+        });
+        _tempbut+= '<div style="clear: both;"></div>';
+        _tempbut+= '</div>';
+        $.alert(e.title, 0, 1, _tempbut);
+        $.each(e.button, function (i, val) {
+            $('#jQuery-ui-confirmq-'+(_m+i)).unbind('click').click(function(){
+                if (val.callback && typeof val.callback == 'function') {
+                    if (val.callback() === true) { return true;}
+                }
+                if (val.click && typeof val.click == 'function') {
+                    if (val.click() === true) { return true; }
+                }
+                $.alert(0);
+            });
+        });
+        return true;
+    }
     if (!q) q = "确定";
     if (!c) c = "取消";
     if (!qfun && !cfun) qfun = function(){};

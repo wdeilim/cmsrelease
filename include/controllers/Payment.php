@@ -17,11 +17,15 @@ class Payment extends CI_Controller {
 
     public function _remap($_a = null, $_arr = array())
     {
-        global $_GPC,$_A;
+        global $_GPC,$_GET,$_A;
         if ($_a == 'alipay') {
             //支付宝支付返回
             $_mod = $_arr[0];
             if (in_array($_mod, array('return','notify','merchant'))) {
+                if (strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false && $_GET['__inweixin_alipay'] != 'top' && empty($_POST)) {
+                    $this->inweixinalipay(get_link('__inweixin_alipay').'&__inweixin_alipay=top', 'top');
+                }
+                unset($_GET['__inweixin_alipay']);
                 $_mod = 'alipay_'.$_mod;
                 $this->$_mod(); return true;
             }
@@ -118,8 +122,12 @@ class Payment extends CI_Controller {
             $alrow = db_getone(table('users_al'), array('id'=>$_A['al']['id']));
             $alrow['payment'] = string2array($alrow['payment']);
             $ret = $this->alipay_build($ps, $alrow['payment']['alipay']);
-            if($ret['url']) {
-                gourl($ret['url']);
+            if ($ret['url']) {
+                if (strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false) {
+                    $this->inweixinalipay($ret['url']);
+                }else{
+                    gourl($ret['url']);
+                }
             }
         }
 
@@ -222,36 +230,17 @@ class Payment extends CI_Controller {
 	 * @return array
 	 */
 	function wechat_build($params, $wechat) {
-		global $_A,$_GPC;
+		global $_A;
 		$wechat_openid = $_A['fans']['openid'];
 		$get_appid = $_A['al']['setting']['other']['get_appid'];
 		$wx_appid = $get_appid?$get_appid:$_A['al']['wx_appid'];
 		if ($wechat['appid'] != $wx_appid) {
 			//支付微信号与授权不同时将重新授权openid
-			$sessionname = 'openid_'.md5($wechat['appid'].$wx_appid.$_A['fans']['openid']);
-			$wechat_openid = $this->session->userdata($sessionname);
-			if (empty($wechat_openid) || strlen($wechat_openid) < 15) {
-				if (isset($_GPC['wxpay_oauth2'])) {
-					if (!isset($_GPC['code'])) {
-						message(null, "WXpay OAuth 2.0授权失败！");
-					}
-					$this->load->library('communication');
-					$url  = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid='.$wechat['appid'];
-					$url.= '&secret='.$wechat['secret'].'&code='.$_GPC['code'].'&grant_type=authorization_code';
-					$content = $this->communication->ihttp_request($url);
-					$_content = isset($content['content'])?json_decode($content['content'], true):'';
-					$wechat_openid = value($_content,'openid');
-					if (empty($wechat_openid)) {
-						message(null, "WXpay OAuth 2.0授权失败 - wx - get - openid！");
-					}
-					$this->session->set_userdata($sessionname, $wechat_openid);
-				}else{
-					$_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$wechat['appid'];
-					$_url.= '&redirect_uri='.urlencode(get_link('wxpay_oauth2')."&wxpay_oauth2=1");
-					$_url.= '&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect';
-					gourl($_url);
-				}
+			$content = $this->user->oauth2($wechat['appid'], $wechat['secret']);
+			if (is_error($content)) {
+				message(null, $content['message']);
 			}
+			$wechat_openid = $content['message']['openid'];
 		}
 		if (empty($wechat['version']) && !empty($wechat['signkey'])) {
 			$wechat['version'] = 1;
@@ -719,4 +708,66 @@ class Payment extends CI_Controller {
 		$s = preg_replace("/([\x01-\x08\x0b-\x0c\x0e-\x1f])+/", ' ', $s);
 		return $level == 1 ? $s."</xml>" : $s;
 	}
+
+    private function inweixinalipay($url, $istop = '') {
+        if ($istop == 'top') {
+            $html = '
+                <!doctype html>
+                <html>
+                <head>
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1, initial-scale=no, user-scalable=no">
+                <title>支付宝快捷收银台</title>
+                </head>
+                
+                <body onload="DoAlipayCall();">
+                <script type="text/javascript">	
+                    function DoAlipayCall() {
+                        if (self != top){
+                            top.location.href = \''.$url.'\';
+                        }else{
+                            window.location.href = \''.$url.'\';
+                        }
+                    }
+                </script>
+                </body>
+                </html>
+                ';
+        }else{
+            $html = '
+                <!doctype html>
+                <html>
+                <head>
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1, initial-scale=no, user-scalable=no">
+                <title>支付宝快捷收银台</title>
+                <style type="text/css">
+                body {
+                    margin: 0px;
+                }
+                iframe {
+                    margin: 0px;
+                    padding: 0px;
+                    border: 0;
+                }
+                </style>
+                </head>
+                
+                <body onload="DoAlipayCall();">
+                <iframe id="oTencent" src="" width="100%;" frameborder="no" scrolling="no" border="0" height="450px;" name="main"></iframe>
+                <script type="text/javascript">	
+                    function DoAlipayCall() {
+                        document.getElementById(\'oTencent\').style.height = document.body.scrollHeight + \'px\';
+                        document.getElementById(\'oTencent\').src = \''.$url.'\';
+                    }
+                    window.onresize=function(){
+                        document.getElementById(\'oTencent\').style.height = document.body.scrollHeight + \'px\';
+                    }  
+                </script>
+                </body>
+                </html>
+                ';
+        }
+        echo $html; exit();
+    }
 }

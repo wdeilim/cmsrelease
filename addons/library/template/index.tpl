@@ -65,7 +65,7 @@
                                             <em class="appmsg-date">{#$list.indate|date_format_cn:"%Y年%m月%d"#}</em>
                                         </div>
                                         {#foreach from=string2array($list.setting) item=list2 name=foo#}
-                                            {#if !empty($smarty.foreach.foo.first)#}
+                                            {#if $smarty.foreach.foo.first#}
                                                 <div class="cover-appmsg-item">
                                                     <h4 class="appmsg-title"><a
                                                                 href="{#appurl(0,'library',$list.id,$smarty.foreach.foo.index)#}"
@@ -175,6 +175,7 @@
             content: '确定要删除并且不可恢复吗？',
             button: [{
                 name: '确定',
+                focus: true,
                 callback: function () {
                     $.alert('正在删除',0);
                     $.ajax({

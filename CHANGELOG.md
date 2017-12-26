@@ -72,3 +72,16 @@
 优化升级系统为下一个版本升级做准备；
 ```
 
+## 2.0_20160329
+
+> Release Time: 2016-03-29
+>
+> Download Link: http://www.vwins.cn/index.php?act=download&id=62
+
+```
+重要！修复
+绕过最新全局防护引发多处注入；
+同步smarty模板引擎到最新版本；
+同步codeigniter框架到最新版本
+```
+

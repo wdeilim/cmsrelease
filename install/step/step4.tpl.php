@@ -94,7 +94,7 @@ input.info {width:230px; padding:6px 8px;}
 			<dl>
 				<dt>默认账号: </dt>
 				<dd>
-					<input class="info" type="text" size="24" name="username" id="username" value="vwins" maxlength="16" />
+					<input class="info" type="text" size="24" name="username" id="username" maxlength="16" />
 				</dd>
 				<dt>默认密码: </dt>
 				<dd>

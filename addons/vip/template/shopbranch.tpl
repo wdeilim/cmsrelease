@@ -129,6 +129,7 @@
                     '<input id="setting_maplong" type="hidden" value="'+y+'">',
             button: [{
                 name: '确定',
+                focus: true,
                 callback: function () {
                     var _x = $("#setting_maplat").val();
                     var _y = $("#setting_maplong").val();
@@ -189,6 +190,7 @@
                 content: '你确定要删除该分店吗？',
                 button: [{
                     name: '确定',
+                    focus: true,
                     callback: function () {
                         var s = "id="+$(obj).parent().parent().attr("data-id");
                         $.ajax({

@@ -906,7 +906,7 @@ function get_subto($str, $ta = '', $tb = ''){
  */
 function fillurl($str = ''){
     if (empty($str)) return $str;
-    if (substr($str,0,4) == "http" || substr($str,0,1) == "/"){
+    if (substr($str,0,7) == "http://" || substr($str,0,8) == "https://" || substr($str,0,6) == "ftp://" || substr($str,0,1) == "/"){
         return $str;
     }else{
         return BASE_URI.$str;
@@ -1373,6 +1373,9 @@ function db_escape_like_str($str) {
 }
 function db_escape_identifiers($str) {
     return get_instance()->ddb->escape_identifiers($str);
+}
+function db_addcheck($str) {
+    return get_instance()->ddb->addcheck($str);
 }
 function db_checksql($str) {
     return get_instance()->ddb->checksql($str);

@@ -136,6 +136,7 @@
             content: '<textarea id="replutext" name="replutext" style="width:460px;height:200px;padding:0;"></textarea> ',
             button: [{
                 name: '提交',
+                focus: true,
                 callback: function () {
                     $.alert('正在提交',0);
                     var dataurl = '';

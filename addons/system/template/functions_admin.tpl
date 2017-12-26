@@ -303,6 +303,7 @@
                 _dialog.content('确定要修改状态吗？');
                 _dialog.button({
                     name: '确定',
+                    focus: true,
                     callback: function () {
                         $.ajax({
                             url: "{#$urlarr.3#}status/" + _funid + "/",
@@ -329,6 +330,7 @@
                         _dialog.content(html);
                         _dialog.button({
                             name: '保存',
+                            focus: true,
                             callback: function () {
                                 $.alert("正在保存...", 0, 1);
                                 _dialog.hide();
@@ -377,6 +379,7 @@
                 _dialog.content('确定要删除此功能并且不可恢复吗？');
                 _dialog.button({
                     name: '确定',
+                    focus: true,
                     callback: function () {
                         _dialog.close();
                         $.alert("正在卸载...", 0, 1);
@@ -395,6 +398,7 @@
                 _dialog.content('确定要删除此功能并且不可恢复吗？');
                 _dialog.button({
                     name: '确定',
+                    focus: true,
                     callback: function () {
                         $.ajax({
                             url: "{#$urlarr.3#}delfunc/" + _funid + "/",

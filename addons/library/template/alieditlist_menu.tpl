@@ -20,7 +20,7 @@
                                 <em class="appmsg-date">{#$list.indate|date_format_cn:"%Y年%m月%d"#}</em>
                             </div>
                             {#foreach from=string2array($list.setting) item=list2 name=foo#}
-                                {#if !empty($smarty.foreach.foo.first)#}
+                                {#if $smarty.foreach.foo.first#}
                                     <div class="cover-appmsg-item">
                                         <h4 class="appmsg-title"><a
                                                     href="{#appurl(0,'library',$list.id,$smarty.foreach.foo.index)#}"

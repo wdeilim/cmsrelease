@@ -64,7 +64,7 @@
                                 <td>
                                     <input class="form-control" id="_wxurl" type="text"
                                            value="{#$urlarr.index#}weixin/{#value($edit,'id')#}/{#if strexists($urlarr.index,'?')#}?index{#/if#}" disabled="disabled"/>
-                                    <a id="_wxurlbut" class="normal-link">复制</a>
+                                    <a id="_wxurlbut" href="javascript:;" class="normal-link" title="点击复制">复制</a>
                                 </td>
                             </tr>
                         {#else#}
@@ -94,21 +94,27 @@
                         <tr>
                             <td class="al-right"><span>认证级别</span></td>
                             <td class="form-reg">
-                                <select id="wx_level" name="wx_level">
+                                <select id="wx_level" name="wx_level" style="width:110px;" onchange="wx_level(this);">
                                     <option value="1">普通订阅号</option>
                                     <option value="2">普通服务号</option>
                                     <option value="3">认证订阅号</option>
-                                    <option value="4">认证服务号</option>
+                                    <option value="4">认证服务号/认证媒体/政府订阅号</option>
                                 </select>
                                 <input id="wx_username" name="wx_username" type="hidden" value="">
                             </td>
                         </tr>
-                        {#if value($edit,'wx_level')#}
-                            <script>$("#wx_level").val('{#value($edit,'wx_level')#}');</script>
-                        {#/if#}
+                        <tr style="display:none;color:#AAA;" id="wx_level_tis">
+                            <td class="al-right"><span>OAuth 2.0</span></td>
+                            <td class="form-reg">
+                                开发者需要先到公众平台网站的【开发者中心】<strong>网页账号</strong>中配置授权回调域名。<a href="http://bbs.vwins.cn/thread-591-1-1.html" target="_blank" class="normal-link">详情</a>
+                            </td>
+                        </tr>
                         <tr>
                             <td class="al-right"><span>引导关注素材</span></td>
-                            <td><input class="form-control" id="wx_suburl" type="text" name="wx_suburl" value="{#value($edit,'wx_suburl')#}"/></td>
+                            <td>
+                                <input class="form-control" id="wx_suburl" type="text" name="wx_suburl" value="{#value($edit,'wx_suburl')#}" placeholder="选填"/>
+                                <a id="_wxsuburl" href="javascript:;" class="normal-link" title="点击查看示例">示例</a>
+                            </td>
                         </tr>
                         <tr>
                             <td class="al-right"><span>微信支付参数</span></td>
@@ -125,17 +131,10 @@
                                         <td colspan="2" class="pmsg">
                                             微信支付接口，注意你的系统访问地址一定不要写错了，这里我们用访问地址代替下面说明中出现的链接，申请微信支付的接口说明如下：<br/>
                                             <br/>
-                                            JS API网页支付参数<br/>
-                                            <br/>
-                                            支付授权目录: {#$smarty.const.BASE_URI#}payment/weixin/<br/>
-                                            支付请求实例: {#$smarty.const.BASE_URI#}payment/weixin/<br/>
-                                            共享收货地址: 选择"是"<br/>
-                                            <br/>
-                                            Native原生支付<br/>
-                                            <br/>
-                                            支付回调URL: {#$smarty.const.BASE_URI#}payment/weixin/native/<br/>
-                                            维权通知URL: {#$smarty.const.BASE_URI#}payment/weixin/rights/<br/>
-                                            警告通知URL: {#$smarty.const.BASE_URI#}payment/weixin/warning/
+                                            登录:
+                                            <a href="https://mp.weixin.qq.com/" target="_blank">微信公众平台 &gt;&gt; 微信支付 &gt;&gt; 开发配置</a>
+                                            &gt;&gt; 公众号支付<br/>
+                                            支付授权目录: {#$smarty.const.BASE_URI#}payment/weixin/
                                         </td>
                                     </tr>
                                     <tr>
@@ -206,8 +205,8 @@
                                     <tr class="m">
                                         <td class="al-right" valign="top"><span>商户支付密钥<br/>(API密钥)</span></td>
                                         <td>
-                                            <input class="form-control" type="text" name="payment[weixin][apikey]" id="weixinapikey" value="{#value($edit,'payment|weixin|apikey')#}"/><br/>
-                                            <span class="help-block">此值需要手动在腾讯商户后台API密钥保持一致，<a href="#" target="_blank">查看设置教程</a></span>
+                                            <input class="form-control" type="text" name="payment[weixin][apikey]" id="weixinapikey" value="{#value($edit,'payment|weixin|apikey')#}" placeholder="请输入32个字符，只允许输入数字和英文大小写字母的组合。"/><br/>
+                                            <span class="help-block">此值需要手动在腾讯商户后台API密钥保持一致，<a href="http://bbs.vwins.cn/thread-585-1-1.html" target="_blank">查看设置教程</a></span>
                                         </td>
                                     </tr>
 
@@ -228,7 +227,7 @@
                                     <tbody>
                                     <tr>
                                         <td colspan="2" class="pmsg">
-                                            开发者需要先到公众平台网站的【开发者中心】网页服务中配置授权回调页面域名为: {#$smarty.server.HTTP_HOST#}；<br/>
+                                            开发者需要先到 <a href="https://mp.weixin.qq.com/" target="_blank">微信公众平台</a> 的【开发者中心】网页服务中配置授权回调页面域名为: {#$smarty.server.HTTP_HOST#}；<br/>
                                             此功能仅支持被借用的公众号必须是认证服务号。
                                         </td>
                                     </tr>
@@ -294,7 +293,7 @@
                                     <tbody>
                                     <tr>
                                         <td colspan="2" class="pmsg">
-                                            开发者需要先到公众平台网站的【公众号设置 &gt;&gt; 功能设置】中配置 【JS 接口安全域名】；<br/>
+                                            开发者需要先到 <a href="https://mp.weixin.qq.com/" target="_blank">微信公众平台</a> 的【公众号设置 &gt;&gt; 功能设置】中配置 【JS 接口安全域名】；<br/>
                                             应设置为本站域名: {#$smarty.server.HTTP_HOST#}。
                                         </td>
                                     </tr>
@@ -480,8 +479,53 @@
         </tbody>
     </table>
 </div>
+
+<script type="text/plain" id="suburlhtml">
+    <div>
+        <div style="font-size:20px;margin-bottom:15px;">引导关注素材示例页面</div>
+        <div class="help-block">2016-03-22&nbsp;&nbsp;
+            <a href="javascript:;" style="color:#428bca;"><span>公众号名称</span></a>
+        </div>
+        <img src="{#$IMG_PATH#}guide_follow.gif" style="width:480px;margin:15px 0;">
+        <div class="help-block">欢迎关注<span>公众号名称</span>！</div>
+    </div>
+</script>
+
 <script type="text/javascript">
     $(document).ready(function() {
+        $("#wx_level").change(function(){
+            if ($(this).val() == '4') {
+                $("#wx_level_tis").show();
+            }else{
+                $("#wx_level_tis").hide();
+            }
+        });
+        {#if value($edit,'wx_level')#}
+        $("#wx_level").val('{#value($edit,'wx_level')#}');
+        {#if value($edit,'wx_level') == '4'#}$("#wx_level_tis").show();{#/if#}
+        {#/if#}
+        //
+        $("#_wxsuburl").click(function(){
+            var intemp = $($("#suburlhtml").html());
+            if ($("#wx_name").val()) {
+                intemp.find("span").text($("#wx_name").val());
+            }
+            art.dialog({
+                title: '引导关注示例',
+                fixed: true,
+                lock: true,
+                content: intemp.html(),
+                button: [{
+                    name: '关闭',
+                    callback: function () {
+                        return true;
+                    }
+                }]
+            });
+        });
+        {#if $submit == '添加'#}
+            $("#weixinapikey").val('{#generate_password(32)#}');
+        {#/if#}
         ZeroClipboard.setMoviePath("{#$JS_PATH#}zero/ZeroClipboard.swf");
         $("input.backing").click(function(){
             window.location.href = "{#$urlarr.2#}";
@@ -521,13 +565,19 @@
                 retu = $('#al_gateway').inTips("", -1, retu);
                 retu = $('#al_rsa').inTips("", -1, retu);
                 /*retu = $('#linkaddr').inTips("请选择地区", -1, retu, 0, $('#__linkage'));*/
-                if (!retu) $('a[d-index="1"]').click();
+                if (!retu) {
+                    $('a[d-index="1"]').click();
+                    return false;
+                }
             }
             if ($('#wx_name').val()) {
                 retu = $('#wx_name').inTips("", 2, retu);
                 retu = $('#wx_appid').inTips("", -1, retu);
                 retu = $('#wx_secret').inTips("", -1, retu);
-                if (!retu) $('a[d-index="0"]').click();
+                if (!retu) {
+                    $('a[d-index="0"]').click();
+                    return false;
+                }
             }
             if (!$('#al_name').val() && !$('#wx_name').val()) {
                 $.showModal("服务窗或公众号至少要填写一个！");

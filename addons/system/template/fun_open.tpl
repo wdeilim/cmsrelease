@@ -43,7 +43,7 @@
                         </div>
                     </td>
                 </tr>
-				<tr>
+				<tr style="display:none;">
 					<td class="al-right"></td>
 					<td>
 						<input class="button button-primary button-rounded" type="submit" value="开通功能">

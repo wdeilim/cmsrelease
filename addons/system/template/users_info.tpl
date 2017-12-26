@@ -58,7 +58,7 @@
 				<input class="form-control" type="text" id="address" name="address" value="{#$users.address#}"/>
 			</td>
 		</tr>
-		<tr>
+		<tr style="display:none;">
 			<td></td>
 			<td>
 				<div>
