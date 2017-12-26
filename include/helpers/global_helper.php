@@ -363,7 +363,7 @@ function string2array($data) {
         if (strpos($data, '{\\') === 0) {
             $data = stripslashes($data);
         }
-        $array = json_decode($data,true);
+        $array = json_decode($data, true);
     }
     return (isset($array)&&is_array($array))?$array:array();
 }
@@ -382,6 +382,18 @@ function array2string($data, $isformdata = 1) {
     }else{
         return addslashes(json_encode($data, JSON_FORCE_OBJECT));
     }
+}
+
+/**
+ * 将数组转换为字符串 (已废弃)
+ * @param	array	$data		数组
+ * @param	int 	$isformdata	如果为0，则不使用new_stripslashes处理，可选参数，默认为1
+ * @return	string	返回字符串，如果，data为空，则返回空
+ */
+function array2string_discard($data, $isformdata = 1) {
+    if ($data == '' || empty($data)) return '';
+    if ($isformdata) $data = new_stripslashes($data);
+    return var_export($data, TRUE);
 }
 
 /**
@@ -1219,6 +1231,7 @@ function module_setting($setname, $modulename = '') {
     }
     return $setting;
 }
+
 
 /**
  * 查询分页列表

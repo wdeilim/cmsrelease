@@ -148,9 +148,8 @@ class ES_System extends CI_Model {
 		}
 		//
 		$tem = array();
-		if (file_exists(FCPATH."caches".DIRECTORY_SEPARATOR."cache.templet.php")) {
-			$tem = @include FCPATH."caches".DIRECTORY_SEPARATOR."cache.templet.php";
-			if (!is_array($tem)) $tem = array();
+		if (file_exists(FCPATH."caches".DIRECTORY_SEPARATOR."cache.templet.txt")) {
+			$tem = string2array(file_get_contents(FCPATH."caches".DIRECTORY_SEPARATOR."cache.templet.txt"));
 		}
 		if (empty($tem['t1']['loginbg'])) {
 			$tem['t1']['loginbg'] = array('addons/system/template/css/login_1/1.jpg');
@@ -608,9 +607,8 @@ class ES_System extends CI_Model {
 		}
 		//
 		$tem = array();
-		if (file_exists(FCPATH."caches".DIRECTORY_SEPARATOR."cache.templet.php")) {
-			$tem = @include FCPATH."caches".DIRECTORY_SEPARATOR."cache.templet.php";
-			if (!is_array($tem)) $tem = array();
+		if (file_exists(FCPATH."caches".DIRECTORY_SEPARATOR."cache.templet.txt")) {
+			$tem = string2array(file_get_contents(FCPATH."caches".DIRECTORY_SEPARATOR."cache.templet.txt"));
 		}
 		if (empty($tem['t1']['loginbg'])) {
 			$tem['t1']['loginbg'] = array('addons/system/template/css/login_1/1.jpg');
@@ -707,9 +705,7 @@ class ES_System extends CI_Model {
 				$arr['success'] = 1;
 				echo json_encode($arr); exit();
 			}elseif ($fost['_type'] == '_templet') {
-				$text = "if (!defined(\"BASEPATH\")) exit(\"No direct script access allowed\");\r\n";
-				$text.= " return ".array2string(_Sys_Safe_Stop::addslashes_deep($fost['tem']), 0).";";
-				$this->writesetting($text, 'templet');
+				$this->writesetting(array2string(_Sys_Safe_Stop::addslashes_deep($fost['tem'])), 'templet', true);
 				$arr['success'] = 1;
 				echo json_encode($arr); exit();
             }else{
@@ -1507,9 +1503,8 @@ class ES_System extends CI_Model {
 			echo json_encode($arr); exit();
 		}
 		$tem = array();
-		if (file_exists(FCPATH."caches".DIRECTORY_SEPARATOR."cache.templet.php")) {
-			$tem = @include FCPATH."caches".DIRECTORY_SEPARATOR."cache.templet.php";
-			if (!is_array($tem)) $tem = array();
+		if (file_exists(FCPATH."caches".DIRECTORY_SEPARATOR."cache.templet.txt")) {
+			$tem = string2array(file_get_contents(FCPATH."caches".DIRECTORY_SEPARATOR."cache.templet.txt"));
 		}
 		tpl('setting_upgrade', get_defined_vars());
 	}
@@ -3895,13 +3890,16 @@ class ES_System extends CI_Model {
 	/**
 	 * 写入文本
 	 * @param $text
+	 * @param string $filen
+	 * @param bool $istxt
 	 */
-	private function writesetting($text, $filen = 'config')
+	private function writesetting($text, $filen = 'config', $istxt = false)
 	{
-		$cache_file_path = FCPATH."caches".DIRECTORY_SEPARATOR."cache.".$filen.".php";
-		$content = "<?php\r\n";
+		$cache_file_path = FCPATH."caches".DIRECTORY_SEPARATOR."cache.".$filen;
+		$cache_file_path .= $istxt?".txt":".php";
+		$content = $istxt?"":"<?php\r\n";
 		$content .= $text;
-		$content .= "?>";
+		$content .= $istxt?"":"?>";
 		make_dir(dirname($cache_file_path));
 		if (!file_put_contents($cache_file_path, $content, LOCK_EX))
 		{

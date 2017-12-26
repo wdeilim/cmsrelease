@@ -126,3 +126,13 @@
 修复部分主机【微信支付参数】中的【支付授权目录】提示错误。
 ```
 
+## 3.0_20160429
+
+> Release Time: 2016-04-29
+>
+> Download Link: http://www.vwins.cn/index.php?act=download&id=69
+
+```
+修复上一个版本修改【系统设置】中的【SEO、首页模板】时出现的BUG！
+```
+

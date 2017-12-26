@@ -47,7 +47,8 @@ function _ext_module_manifest_entries($elm) {
                 'direct' => intval($entry->getAttribute('direct')),
                 'state' => $entry->getAttribute('state'),
                 'call' => $entry->getAttribute('call'),
-                'embed' => $entry->getAttribute('embed')
+                'embed' => $entry->getAttribute('embed'),
+                'attr' => $entry->getAttribute('attr')
             );
             if (!is_bool($row['embed']) && !in_array($row['embed'], array('true','false','1','0'))) {
                 $row['embed'] = $embed;
@@ -170,6 +171,7 @@ function ext_module_manifest_validate() {
 			<xs:attribute name="state" type="xs:string" />
 			<xs:attribute name="call" type="xs:string" />
 			<xs:attribute name="embed" type="xs:string" />
+			<xs:attribute name="attr" type="xs:string" />
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="manifest">
