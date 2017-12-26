@@ -10,7 +10,7 @@
  * @author     Joshua Eichorn <josh@bluga.net>
  * @copyright  2007 Joshua Eichorn
  * @license    http://www.opensource.org/licenses/lgpl-license.php  LGPL
- * @version    Release: 0.5.7
+ * @version    Release: 0.5.8
  * @link       http://pear.php.net/package/HTML_AJAX
  */
 

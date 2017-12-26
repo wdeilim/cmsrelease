@@ -12,7 +12,7 @@
  * @author    Elizabeth Smith <auroraeosrose@gmail.com>
  * @copyright 2005-2008 Joshua Eichorn, Arpad Ray, David Coallier, Elizabeth Smith
  * @license   http://www.opensource.org/licenses/lgpl-license.php   LGPL
- * @version   Release: 0.5.7
+ * @version   Release: 0.5.8
  * @link      http://pear.php.net/package/HTML_AJAX
  */
 
@@ -37,7 +37,7 @@ require_once 'HTML/AJAX/Debug.php';
  * @author    Elizabeth Smith <auroraeosrose@gmail.com>
  * @copyright 2005-2008 Joshua Eichorn, Arpad Ray, David Coallier, Elizabeth Smith
  * @license   http://www.opensource.org/licenses/lgpl-license.php   LGPL
- * @version   Release: 0.5.7
+ * @version   Release: 0.5.8
  * @link      http://pear.php.net/package/HTML_AJAX
  */
 class HTML_AJAX

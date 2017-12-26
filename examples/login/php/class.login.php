@@ -19,7 +19,7 @@
 	 * @author     Gilles van den Hoven <gilles@webunity.nl>
 	 * @copyright  2005 Gilles van den Hoven
 	 * @license    http://www.opensource.org/licenses/lgpl-license.php  LGPL
-	 * @version    Release: 0.5.7
+	 * @version    Release: 0.5.8
 	 * @link       http://pear.php.net/package/HTML_AJAX
 	 */
 	class login {

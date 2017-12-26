@@ -9,7 +9,7 @@
  * @author     Joshua Eichorn <josh@bluga.net>
  * @copyright  2005 Joshua Eichorn
  * @license    http://www.opensource.org/licenses/lgpl-license.php  LGPL
- * @version    Release: @package_version@
+ * @version    Release: 0.5.8
  */
 
 /**
@@ -34,7 +34,7 @@ require_once 'HTML/AJAX.php';
  * @author     Joshua Eichorn <josh@bluga.net>
  * @copyright  2005 Joshua Eichorn
  * @license    http://www.opensource.org/licenses/lgpl-license.php  LGPL
- * @version    Release: @package_version@
+ * @version    Release: 0.5.8
  * @link       http://pear.php.net/package/PackageName
  */
 class HTML_AJAX_Server 

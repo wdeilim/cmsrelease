@@ -372,3 +372,14 @@ Update HTML_AJAX_Action to use HTML_AJAX_Util.setInnerHTML
   Thanks to Craig Arendt of Stratum Security for reporting the bug.
 ```
 
+## 0.5.8
+
+> Release Time: 2017-02-02
+>
+> Download Link: http://download.pear.php.net/package/HTML_AJAX-0.5.8.tgz
+
+```
+* Fix security bug #21165, CVE-2017-5677: Possible Remote Code Execution through unserializer
+  Thanks to Egidio Romano for reporting the bug.
+```
+

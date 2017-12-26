@@ -19,7 +19,7 @@ define ("HTML_AJAX_NEWLINE", "\n");
  * @author     David Coallier <davidc@php.net>
  * @copyright  2005 David Coallier 
  * @license    http://www.opensource.org/licenses/lgpl-license.php  LGPL
- * @version    Release: 0.5.7
+ * @version    Release: 0.5.8
  */
 class HTML_AJAX_Debug {
     // {{{ properties
