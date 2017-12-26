@@ -94,3 +94,14 @@ Initial Helper API see examples/usage_helper.php for details
 Bug #5675 Reference bug in php 4.4 5.1 etc
 ```
 
+## 0.2.4
+
+> Release Time: 2005-10-26
+>
+> Download Link: http://download.pear.php.net/package/HTML_AJAX-0.2.4.tgz
+
+```
+#5788  	New bug in Ajax Server , cant create JS stub
+	New login example
+```
+
