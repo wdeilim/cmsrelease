@@ -159,3 +159,14 @@ Rearranged the examples dir, moving support files and tests into there own direc
 	haSerializer and HTML_AJAX_Action bugs fixed
 ```
 
+## 0.3.3
+
+> Release Time: 2005-12-07
+>
+> Download Link: http://download.pear.php.net/package/HTML_AJAX-0.3.3.tgz
+
+```
+- Firefox bugs
+- added arpad as maintainer.
+```
+
