@@ -30,7 +30,7 @@
  * HTML_AJAX static methods, this is the main proxyless api, it also handles global error and event handling
  */
 var HTML_AJAX = {
-	version: '0.5.6',
+	version: '0.5.7',
 	defaultServerUrl: false,
 	defaultEncoding: 'JSON',
 	queues: false,

@@ -361,3 +361,14 @@ Update HTML_AJAX_Action to use HTML_AJAX_Util.setInnerHTML
 * Fix Bug #12027 html_ajax.post and Opera (array), this fix might break older versions of Opera, but supporting the new version seems more important
 ```
 
+## 0.5.7
+
+> Release Time: 2014-10-28
+>
+> Download Link: http://download.pear.php.net/package/HTML_AJAX-0.5.7.tgz
+
+```
+* Fix security bug: Remote Code Execution.
+  Thanks to Craig Arendt of Stratum Security for reporting the bug.
+```
+

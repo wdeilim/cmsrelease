@@ -7,7 +7,7 @@
  * @package    AJAX
  * @author     Elizabeth Smith <auroraeosrose@gmail.com>
  * @license    http://www.opensource.org/licenses/lgpl-license.php  LGPL
- * @version    Release: 0.5.6
+ * @version    Release: 0.5.7
  * @link       http://pear.php.net/package/HTML_AJAX
  */
 
